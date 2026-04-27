@@ -5,7 +5,8 @@ import "../src/styles/tokens.css";
 
 export const metadata: Metadata = {
   title: "Vaibhav Arora Portfolio",
-  description: "Static portfolio foundation for Vaibhav Arora.",
+  description:
+    "An Oriol-inspired static portfolio for Vaibhav Arora, built for hiring-manager scanning.",
 };
 
 export default function RootLayout({
