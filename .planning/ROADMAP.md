@@ -42,6 +42,8 @@
 - Placeholder content is clearly marked and easy to replace.
 - Main CTAs and nav actions exist with placeholder URLs.
 
+**Completed:** 2026-04-27
+
 ## Phase 3: Scan-First Case Study Pages
 
 **Goal:** Add public case-study detail pages that are optimized for fast hiring-manager review.

@@ -7,29 +7,29 @@
 
 ### Foundation
 
-- [ ] **BASE-01**: App uses a static frontend architecture suitable for GitHub Pages deployment.
-- [ ] **BASE-02**: App has maintainable routing for homepage and case-study detail pages.
-- [ ] **BASE-03**: App uses placeholder URLs for Calendly, LinkedIn, Twitter, and Google Drive resume.
+- [x] **BASE-01**: App uses a static frontend architecture suitable for GitHub Pages deployment.
+- [x] **BASE-02**: App has maintainable routing for homepage and case-study detail pages.
+- [x] **BASE-03**: App uses placeholder URLs for Calendly, LinkedIn, Twitter, and Google Drive resume.
 - [ ] **BASE-04**: App can later add a lightweight client-side password gate per case study without restructuring routes.
 
 ### Visual System
 
-- [ ] **VIS-01**: Homepage closely matches Oriol-inspired white/black editorial layout, asymmetry, and large negative space.
-- [ ] **VIS-02**: Typography uses free substitutes that approximate Oriol's Aeonik/Mabry-style grotesk and bold display fonts.
-- [ ] **VIS-03**: Color system includes white, black, link blue, muted grays, and sharp accent colors based on the extracted reference.
-- [ ] **VIS-04**: Navigation uses compact floating icon buttons with top-right resume/social affordances.
-- [ ] **VIS-05**: Cards, pills, work rows, testimonial blocks, and CTA buttons match the reference site's flat, high-contrast style.
-- [ ] **VIS-06**: Motion uses subtle 300ms transitions and scroll/reveal behavior while skipping the initial loader animation.
+- [x] **VIS-01**: Homepage closely matches Oriol-inspired white/black editorial layout, asymmetry, and large negative space.
+- [x] **VIS-02**: Typography uses free substitutes that approximate Oriol's Aeonik/Mabry-style grotesk and bold display fonts.
+- [x] **VIS-03**: Color system includes white, black, link blue, muted grays, and sharp accent colors based on the extracted reference.
+- [x] **VIS-04**: Navigation uses compact floating icon buttons with top-right resume/social affordances.
+- [x] **VIS-05**: Cards, pills, work rows, testimonial blocks, and CTA buttons match the reference site's flat, high-contrast style.
+- [x] **VIS-06**: Motion uses subtle 300ms transitions and scroll/reveal behavior while skipping the initial loader animation.
 
 ### Homepage Content
 
-- [ ] **HOME-01**: Header uses `Vaibhav Arora` as temporary wordmark.
-- [ ] **HOME-02**: Hero uses the placeholder headline `KIND DESIGN LEAD FOR MID STAGE START-UPS`.
-- [ ] **HOME-03**: Hero includes `Book Intro` and `Let's connect` CTAs.
-- [ ] **HOME-04**: Work section includes 3 placeholder project cards.
-- [ ] **HOME-05**: About section introduces Vaibhav as a Senior Product Designer using placeholder copy.
-- [ ] **HOME-06**: Contact section includes Book Intro, Let's connect, LinkedIn, Twitter, and resume links.
-- [ ] **HOME-07**: Resume appears as a top-right/nav action and footer link, not a standalone section.
+- [x] **HOME-01**: Header uses `Vaibhav Arora` as temporary wordmark.
+- [x] **HOME-02**: Hero uses the placeholder headline `KIND DESIGN LEAD FOR MID STAGE START-UPS`.
+- [x] **HOME-03**: Hero includes `Book Intro` and `Let's connect` CTAs.
+- [x] **HOME-04**: Work section includes 3 placeholder project cards.
+- [x] **HOME-05**: About section introduces Vaibhav as a Senior Product Designer using placeholder copy.
+- [x] **HOME-06**: Contact section includes Book Intro, Let's connect, LinkedIn, Twitter, and resume links.
+- [x] **HOME-07**: Resume appears as a top-right/nav action and footer link, not a standalone section.
 
 ### Case Studies
 
@@ -73,23 +73,23 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BASE-01 | Phase 1 | Pending |
-| BASE-02 | Phase 1 | Pending |
-| BASE-03 | Phase 1 | Pending |
+| BASE-01 | Phase 1 | Complete |
+| BASE-02 | Phase 1 | Complete |
+| BASE-03 | Phase 1 | Complete |
 | BASE-04 | Phase 3 | Pending |
-| VIS-01 | Phase 2 | Pending |
-| VIS-02 | Phase 2 | Pending |
-| VIS-03 | Phase 2 | Pending |
-| VIS-04 | Phase 2 | Pending |
-| VIS-05 | Phase 2 | Pending |
-| VIS-06 | Phase 2 | Pending |
-| HOME-01 | Phase 2 | Pending |
-| HOME-02 | Phase 2 | Pending |
-| HOME-03 | Phase 2 | Pending |
-| HOME-04 | Phase 2 | Pending |
-| HOME-05 | Phase 2 | Pending |
-| HOME-06 | Phase 2 | Pending |
-| HOME-07 | Phase 2 | Pending |
+| VIS-01 | Phase 2 | Complete |
+| VIS-02 | Phase 2 | Complete |
+| VIS-03 | Phase 2 | Complete |
+| VIS-04 | Phase 2 | Complete |
+| VIS-05 | Phase 2 | Complete |
+| VIS-06 | Phase 2 | Complete |
+| HOME-01 | Phase 2 | Complete |
+| HOME-02 | Phase 2 | Complete |
+| HOME-03 | Phase 2 | Complete |
+| HOME-04 | Phase 2 | Complete |
+| HOME-05 | Phase 2 | Complete |
+| HOME-06 | Phase 2 | Complete |
+| HOME-07 | Phase 2 | Complete |
 | CASE-01 | Phase 3 | Pending |
 | CASE-02 | Phase 3 | Pending |
 | CASE-03 | Phase 3 | Pending |
