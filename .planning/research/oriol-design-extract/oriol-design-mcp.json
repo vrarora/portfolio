@@ -1,0 +1,820 @@
+{
+  "colors": {
+    "all": [
+      {
+        "hex": "#000000",
+        "rgb": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 0
+        },
+        "count": 2928,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#0000ee",
+        "rgb": {
+          "r": 0,
+          "g": 0,
+          "b": 238,
+          "a": 1
+        },
+        "hsl": {
+          "h": 240,
+          "s": 100,
+          "l": 47
+        },
+        "count": 218,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#808080",
+        "rgb": {
+          "r": 128,
+          "g": 128,
+          "b": 128,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 50
+        },
+        "count": 97,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#5b5b5b",
+        "rgb": {
+          "r": 91,
+          "g": 91,
+          "b": 91,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 36
+        },
+        "count": 62,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 100
+        },
+        "count": 59,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#791501",
+        "rgb": {
+          "r": 121,
+          "g": 21,
+          "b": 1,
+          "a": 1
+        },
+        "hsl": {
+          "h": 10,
+          "s": 98,
+          "l": 24
+        },
+        "count": 22,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#dedbd9",
+        "rgb": {
+          "r": 222,
+          "g": 219,
+          "b": 217,
+          "a": 1
+        },
+        "hsl": {
+          "h": 24,
+          "s": 7,
+          "l": 86
+        },
+        "count": 18,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#02ab4e",
+        "rgb": {
+          "r": 2,
+          "g": 171,
+          "b": 78,
+          "a": 1
+        },
+        "hsl": {
+          "h": 147,
+          "s": 98,
+          "l": 34
+        },
+        "count": 18,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#fd431d",
+        "rgb": {
+          "r": 253,
+          "g": 67,
+          "b": 29,
+          "a": 1
+        },
+        "hsl": {
+          "h": 10,
+          "s": 98,
+          "l": 55
+        },
+        "count": 14,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#ffb800",
+        "rgb": {
+          "r": 255,
+          "g": 184,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 43,
+          "s": 100,
+          "l": 50
+        },
+        "count": 9,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#f4f4f4",
+        "rgb": {
+          "r": 244,
+          "g": 244,
+          "b": 244,
+          "a": 0.9
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 96
+        },
+        "count": 7,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#013d1c",
+        "rgb": {
+          "r": 1,
+          "g": 61,
+          "b": 28,
+          "a": 0.3
+        },
+        "hsl": {
+          "h": 147,
+          "s": 97,
+          "l": 12
+        },
+        "count": 6,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#037b48",
+        "rgb": {
+          "r": 3,
+          "g": 123,
+          "b": 72,
+          "a": 1
+        },
+        "hsl": {
+          "h": 155,
+          "s": 95,
+          "l": 25
+        },
+        "count": 4,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#664900",
+        "rgb": {
+          "r": 102,
+          "g": 73,
+          "b": 0,
+          "a": 0.3
+        },
+        "hsl": {
+          "h": 43,
+          "s": 100,
+          "l": 20
+        },
+        "count": 3,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#0a0a0a",
+        "rgb": {
+          "r": 10,
+          "g": 10,
+          "b": 10,
+          "a": 0.96
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 4
+        },
+        "count": 2,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#ff6900",
+        "rgb": {
+          "r": 255,
+          "g": 105,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 25,
+          "s": 100,
+          "l": 50
+        },
+        "count": 2,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      }
+    ]
+  },
+  "regions": [
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-LnTBJ framer-kDsAi framer-olY80 framer-vYsPy framer-1eh79zq framer-v-4iby1f"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-37lp2g"
+    },
+    {
+      "role": "nav",
+      "tag": "header",
+      "bounds": {
+        "x": 530,
+        "y": 0,
+        "w": 220,
+        "h": 88
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-xwq7go"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 530,
+        "y": 12,
+        "w": 220,
+        "h": 64
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-T7v3i framer-9ktkne framer-v-191m4eq"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 542,
+        "y": 24,
+        "w": 196,
+        "h": 40
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-1q0v410"
+    },
+    {
+      "role": "footer",
+      "tag": "footer",
+      "bounds": {
+        "x": 0,
+        "y": 96,
+        "w": 1280,
+        "h": 704
+      },
+      "heading": "NEED KIND LEADERSHIP?",
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "framer-1yezhcr"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 0,
+        "y": 96,
+        "w": 1280,
+        "h": 295.671875
+      },
+      "heading": "NEED KIND LEADERSHIP?",
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "framer-n19pwp"
+    },
+    {
+      "role": "nav",
+      "tag": "header",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 88
+      },
+      "heading": null,
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "framer-1giirkf"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 640,
+        "y": 24,
+        "w": 620,
+        "h": 40
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-1a3dkc7 hidden-1gx16zu"
+    },
+    {
+      "role": "testimonials",
+      "tag": "main",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 8471
+      },
+      "heading": "KIND DESIGN LEAD",
+      "buttonCount": 16,
+      "cardCount": 45,
+      "className": "framer-2w9me3"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": "KIND DESIGN LEAD",
+      "buttonCount": 1,
+      "cardCount": 3,
+      "className": "framer-1syhqcq"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 848,
+        "y": 732,
+        "w": 243,
+        "h": 40
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 3,
+      "className": null
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 20,
+        "y": 219.5,
+        "w": 1240,
+        "h": 341
+      },
+      "heading": "KIND DESIGN LEAD",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-14yzixw"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 800,
+        "w": 1280,
+        "h": 1397.96875
+      },
+      "heading": "\n",
+      "buttonCount": 0,
+      "cardCount": 18,
+      "className": "framer-8r01ss"
+    },
+    {
+      "role": "testimonials",
+      "tag": "main",
+      "bounds": {
+        "x": 360,
+        "y": 920,
+        "w": 880,
+        "h": 1197.96875
+      },
+      "heading": "\n",
+      "buttonCount": 0,
+      "cardCount": 18,
+      "className": "framer-c019dc"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 2197.96875,
+        "w": 1280,
+        "h": 2782.59375
+      },
+      "heading": null,
+      "buttonCount": 10,
+      "cardCount": 24,
+      "className": "framer-cclcg6"
+    },
+    {
+      "role": "testimonials",
+      "tag": "main",
+      "bounds": {
+        "x": 20,
+        "y": 2217.96875,
+        "w": 818.390625,
+        "h": 2762.59375
+      },
+      "heading": null,
+      "buttonCount": 10,
+      "cardCount": 24,
+      "className": "framer-1aurg7d"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 183.67811584472656,
+        "y": 3083.66552734375,
+        "w": 491.034423828125,
+        "h": 218.2314453125
+      },
+      "heading": null,
+      "buttonCount": 5,
+      "cardCount": 12,
+      "className": null
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 183.67811584472656,
+        "y": 4488.96240234375,
+        "w": 491.034423828125,
+        "h": 218.2314453125
+      },
+      "heading": null,
+      "buttonCount": 5,
+      "cardCount": 12,
+      "className": null
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 4980.5625,
+        "w": 1280,
+        "h": 665.25
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-ckwmj7"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 20,
+        "y": 5138.15625,
+        "w": 1240,
+        "h": 427.65625
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-1fx9pa5"
+    },
+    {
+      "role": "pricing",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 5645.8125,
+        "w": 1280,
+        "h": 2143.59375
+      },
+      "heading": "\n",
+      "buttonCount": 5,
+      "cardCount": 0,
+      "className": "framer-1q14xol"
+    },
+    {
+      "role": "pricing",
+      "tag": "main",
+      "bounds": {
+        "x": 360,
+        "y": 5685.8125,
+        "w": 880,
+        "h": 2103.59375
+      },
+      "heading": "\n",
+      "buttonCount": 5,
+      "cardCount": 0,
+      "className": "framer-my1g80"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 360,
+        "y": 6712.515625,
+        "w": 880,
+        "h": 315.296875
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-1k9jva6"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 360,
+        "y": 6810.109375,
+        "w": 880,
+        "h": 217.703125
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-t5eafl"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 360,
+        "y": 7149.40625,
+        "w": 880,
+        "h": 640
+      },
+      "heading": null,
+      "buttonCount": 4,
+      "cardCount": 0,
+      "className": "framer-1n70b92"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 7789.40625,
+        "w": 1280,
+        "h": 681.59375
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-g8udhn"
+    },
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 0,
+        "y": 7947,
+        "w": 1280,
+        "h": 404
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "framer-1w8tmap"
+    }
+  ],
+  "componentClusters": [
+    {
+      "kind": "button",
+      "structuralHash": "button>div",
+      "instanceCount": 14,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "0px outset rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 14
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "structuralHash": "button>img",
+      "instanceCount": 4,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0.2)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "16px",
+            "border": "0px none rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 2
+        },
+        {
+          "css": {
+            "background": "rgba(128, 128, 128, 0.2)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "16px",
+            "border": "0px none rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 2
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "remediation": []
+  },
+  "cssHealth": {
+    "sheets": [
+      {
+        "url": "https://www.oriol.design/",
+        "totalBytes": 9473,
+        "usedBytes": 0,
+        "unusedBytes": 9473,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://www.oriol.design/",
+        "totalBytes": 310,
+        "usedBytes": 0,
+        "unusedBytes": 310,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://www.oriol.design/",
+        "totalBytes": 421147,
+        "usedBytes": 131939,
+        "unusedBytes": 289208,
+        "unusedPercent": 69
+      }
+    ],
+    "totalBytes": 430930,
+    "usedBytes": 131939,
+    "unusedBytes": 298991,
+    "unusedPercent": 69,
+    "importantCount": 13,
+    "duplicates": 6650,
+    "vendorPrefixes": {
+      "webkit": 159,
+      "moz": 2,
+      "ms": 0,
+      "o": 0
+    },
+    "keyframes": [],
+    "specificity": {
+      "max": [
+        1,
+        6,
+        4
+      ],
+      "average": [
+        0,
+        2.74,
+        0.11
+      ],
+      "count": 4184
+    },
+    "issues": [
+      "13 !important rules",
+      "6650 duplicate declarations",
+      "69% unused CSS"
+    ]
+  }
+}

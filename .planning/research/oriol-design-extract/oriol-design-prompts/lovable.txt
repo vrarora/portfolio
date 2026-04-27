@@ -1,0 +1,21 @@
+Clone the design language of this landing page and build a fresh equivalent.
+Visual feel: flat. Tone: neutral · Headings: Title Case · CTA verbs: [object Object], [object Object], [object Object]
+Primary palette: #000000, #0000ee, #808080, #5b5b5b, #ffffff.
+Typography: [object Object], [object Object], [object Object], [object Object].
+Corner radius vocabulary: 8, 12, 16, 20, 40, 50.
+Shadow vocabulary: (none).
+Use: Use Vuetify 3 components with a custom theme object.
+Page structure:
+- footer — heading: "NEED KIND LEADERSHIP?"
+- pricing-table — heading: "KIND DESIGN LEAD"
+- pricing-table — heading: "
+"
+- pricing-table — heading: "
+"
+- feature-grid
+- feature-grid
+- pricing — heading: "
+"
+- pricing — heading: "
+"
+- testimonial

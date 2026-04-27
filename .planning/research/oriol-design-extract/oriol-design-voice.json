@@ -1,0 +1,50 @@
+{
+  "tone": "neutral",
+  "pronoun": "you-only",
+  "headingStyle": "Title Case",
+  "headingLengthClass": "tight",
+  "ctaVerbs": [
+    {
+      "value": "watch",
+      "count": 2
+    },
+    {
+      "value": "read",
+      "count": 2
+    },
+    {
+      "value": "view",
+      "count": 1
+    }
+  ],
+  "buttonPatterns": [
+    {
+      "value": "watch talk",
+      "count": 2
+    },
+    {
+      "value": "read article",
+      "count": 2
+    },
+    {
+      "value": "view resume",
+      "count": 1
+    }
+  ],
+  "sampleHeadings": [
+    "NEED KIND LEADERSHIP?",
+    "NEED KIND LEADERSHIP?",
+    "KIND DESIGN LEAD",
+    "FOR MID STAGE",
+    "START-UPS",
+    "\n",
+    "Design Leader",
+    "KIND DESIGN LEAD",
+    "FOR MID STAGE",
+    "START-UPS"
+  ],
+  "stats": {
+    "buttons": 5,
+    "headings": 25
+  }
+}

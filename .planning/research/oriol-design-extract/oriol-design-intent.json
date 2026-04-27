@@ -1,0 +1,654 @@
+{
+  "pageIntent": {
+    "type": "landing",
+    "confidence": 0.45,
+    "path": "/",
+    "title": "Oriol.Design | Kind Design Lead – Design Leader, Design Manager, Design Mentor",
+    "description": "Product design leader with 15+ years of experience leading start-ups and teams growth. Reach out for work & collab proposals in Barcelona and remotely as: Design Leader, Design Manager, Design Mentor.",
+    "signals": [
+      {
+        "kind": "url",
+        "type": "landing",
+        "weight": 0.45,
+        "detail": "root-path"
+      }
+    ],
+    "alternates": [],
+    "needsSmart": true
+  },
+  "sectionRoles": {
+    "sections": [
+      {
+        "index": 0,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 1,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 2,
+        "tag": "header",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": null,
+        "bounds": {
+          "x": 530,
+          "y": 0,
+          "w": 220,
+          "h": 88
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 3,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 530,
+          "y": 12,
+          "w": 220,
+          "h": 64
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": false
+      },
+      {
+        "index": 4,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 542,
+          "y": 24,
+          "w": 196,
+          "h": 40
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 5,
+        "tag": "footer",
+        "role": "footer",
+        "subrole": null,
+        "confidence": 0.95,
+        "heading": "NEED KIND LEADERSHIP?",
+        "bounds": {
+          "x": 0,
+          "y": 96,
+          "w": 1280,
+          "h": 704
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "heading": "NEED KIND LEADERSHIP?",
+          "ctaCount": 1,
+          "lede": "Contact\nReach out for work, collab, or mentoring: hola@oriol.design"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 6,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "NEED KIND LEADERSHIP?",
+        "bounds": {
+          "x": 0,
+          "y": 96,
+          "w": 1280,
+          "h": 295.671875
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "heading": "NEED KIND LEADERSHIP?",
+          "ctaCount": 1,
+          "lede": "Contact\nReach out for work, collab, or mentoring: hola@oriol.design"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 7,
+        "tag": "header",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 88
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 1
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 8,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 640,
+          "y": 24,
+          "w": 620,
+          "h": 40
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 9,
+        "tag": "main",
+        "role": "pricing-table",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": "KIND DESIGN LEAD",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 8471
+        },
+        "buttonCount": 16,
+        "cardCount": 45,
+        "slots": {
+          "heading": "KIND DESIGN LEAD",
+          "subheadings": [
+            "FOR MID STAGE",
+            "START-UPS",
+            "\n",
+            "Design Leader"
+          ],
+          "ctaCount": 16,
+          "lede": "SUPPORTED WORLD-CLASS TEAMS\nOriol is\nOFF THE MARKET\nDesign Leader – Crafting lovable products for 15+ years\nKIND DESIGN LEAD\nFOR MID STAGE\nSTART-UPS"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 10,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "KIND DESIGN LEAD",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 1,
+        "cardCount": 3,
+        "slots": {
+          "heading": "KIND DESIGN LEAD",
+          "subheadings": [
+            "FOR MID STAGE",
+            "START-UPS"
+          ],
+          "ctaCount": 1,
+          "lede": "SUPPORTED WORLD-CLASS TEAMS\nOriol is\nOFF THE MARKET\nDesign Leader – Crafting lovable products for 15+ years\nKIND DESIGN LEAD\nFOR MID STAGE\nSTART-UPS"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 11,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 848,
+          "y": 732,
+          "w": 243,
+          "h": 40
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 12,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "KIND DESIGN LEAD",
+        "bounds": {
+          "x": 20,
+          "y": 219.5,
+          "w": 1240,
+          "h": 341
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "KIND DESIGN LEAD",
+          "subheadings": [
+            "FOR MID STAGE",
+            "START-UPS"
+          ],
+          "lede": "Oriol is\nOFF THE MARKET\nDesign Leader – Crafting lovable products for 15+ years\nKIND DESIGN LEAD\nFOR MID STAGE\nSTART-UPS"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 13,
+        "tag": "section",
+        "role": "pricing-table",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": "\n",
+        "bounds": {
+          "x": 0,
+          "y": 800,
+          "w": 1280,
+          "h": 1397.96875
+        },
+        "buttonCount": 0,
+        "cardCount": 18,
+        "slots": {
+          "heading": "\n",
+          "subheadings": [
+            "Design Leader",
+            "Design Manager",
+            "Design Mentor"
+          ],
+          "lede": "Services\nNo longer exploring new professional opportunities"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 14,
+        "tag": "main",
+        "role": "pricing-table",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": "\n",
+        "bounds": {
+          "x": 360,
+          "y": 920,
+          "w": 880,
+          "h": 1197.96875
+        },
+        "buttonCount": 0,
+        "cardCount": 18,
+        "slots": {
+          "heading": "\n",
+          "subheadings": [
+            "Design Leader",
+            "Design Manager",
+            "Design Mentor"
+          ]
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 15,
+        "tag": "section",
+        "role": "feature-grid",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 2197.96875,
+          "w": 1280,
+          "h": 2782.59375
+        },
+        "buttonCount": 10,
+        "cardCount": 24,
+        "slots": {
+          "ctaCount": 10,
+          "lede": "A no-code form builder for 50M. MAU\nI lead multiple teams to shape their Enterprise product and launch security & collaboration features, helping acquire customers and grow ARR."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 16,
+        "tag": "main",
+        "role": "feature-grid",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 20,
+          "y": 2217.96875,
+          "w": 818.390625,
+          "h": 2762.59375
+        },
+        "buttonCount": 10,
+        "cardCount": 24,
+        "slots": {
+          "ctaCount": 10,
+          "lede": "A no-code form builder for 50M. MAU\nI lead multiple teams to shape their Enterprise product and launch security & collaboration features, helping acquire customers and grow ARR."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 17,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 183.67811584472656,
+          "y": 3083.66552734375,
+          "w": 491.034423828125,
+          "h": 218.2314453125
+        },
+        "buttonCount": 5,
+        "cardCount": 12,
+        "slots": {
+          "ctaCount": 5
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 18,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 183.67811584472656,
+          "y": 4488.96240234375,
+          "w": 491.034423828125,
+          "h": 218.2314453125
+        },
+        "buttonCount": 5,
+        "cardCount": 12,
+        "slots": {
+          "ctaCount": 5
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 19,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 4980.5625,
+          "w": 1280,
+          "h": 665.25
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Principles\nLEAD KINDLY"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 20,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 20,
+          "y": 5138.15625,
+          "w": 1240,
+          "h": 427.65625
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "LEAD KINDLY"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 21,
+        "tag": "section",
+        "role": "pricing",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "\n",
+        "bounds": {
+          "x": 0,
+          "y": 5645.8125,
+          "w": 1280,
+          "h": 2143.59375
+        },
+        "buttonCount": 5,
+        "cardCount": 0,
+        "slots": {
+          "heading": "\n",
+          "subheadings": [
+            "15Y+"
+          ],
+          "ctaCount": 5,
+          "lede": "About"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 22,
+        "tag": "main",
+        "role": "pricing",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "\n",
+        "bounds": {
+          "x": 360,
+          "y": 5685.8125,
+          "w": 880,
+          "h": 2103.59375
+        },
+        "buttonCount": 5,
+        "cardCount": 0,
+        "slots": {
+          "heading": "\n",
+          "subheadings": [
+            "15Y+"
+          ],
+          "ctaCount": 5
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 23,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 360,
+          "y": 6712.515625,
+          "w": 880,
+          "h": 315.296875
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Certifications"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 24,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 360,
+          "y": 6810.109375,
+          "w": 880,
+          "h": 217.703125
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "ADPList.org | '23"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 25,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 360,
+          "y": 7149.40625,
+          "w": 880,
+          "h": 640
+        },
+        "buttonCount": 4,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 4,
+          "lede": "Garage de Ideas | February 2024\nHow Not to Be a Great Mentor"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 26,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 7789.40625,
+          "w": 1280,
+          "h": 681.59375
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Testimonials"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 27,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 7947,
+          "w": 1280,
+          "h": 404
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Oriol is undeniably one of the most talented product designers I’ve had the pleasure of sharing a team with. He’s also a confident leader, as I witnessed him working on complex end-to-end journeys that involved alignment between cross-teams and multiple stakeholders."
+        },
+        "needsSmart": true
+      }
+    ],
+    "counts": {
+      "content": 16,
+      "nav": 3,
+      "footer": 1,
+      "pricing-table": 3,
+      "feature-grid": 2,
+      "pricing": 2,
+      "testimonial": 1
+    },
+    "readingOrder": [
+      "content",
+      "content",
+      "nav",
+      "nav",
+      "pricing-table",
+      "content",
+      "nav",
+      "content",
+      "content",
+      "footer",
+      "content",
+      "content",
+      "content",
+      "pricing-table",
+      "pricing-table",
+      "feature-grid",
+      "feature-grid",
+      "content",
+      "content",
+      "content",
+      "content",
+      "pricing",
+      "pricing",
+      "content",
+      "content",
+      "content",
+      "testimonial",
+      "content"
+    ]
+  }
+}

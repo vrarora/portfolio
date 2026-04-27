@@ -1,0 +1,79 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #0000ee;
+  --color-secondary: #ffb800;
+  --color-accent: #664900;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #000000;
+  --color-neutral-100: #808080;
+  --color-neutral-200: #5b5b5b;
+  --color-neutral-300: #ffffff;
+  --color-neutral-400: #dedbd9;
+  --color-neutral-500: #f4f4f4;
+  --color-neutral-600: #0a0a0a;
+
+  /* Colors — Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-1: #f4f4f4;
+  --color-bg-2: #fd431d;
+  --color-bg-3: #0a0a0a;
+  --color-bg-4: #f7f7f7;
+
+  /* Colors — Text */
+  --color-text: #000000;
+  --color-text-1: #0000ee;
+  --color-text-2: #808080;
+  --color-text-3: #ffffff;
+  --color-text-4: #f5af00;
+
+  /* Typography — Families */
+  --font-sans: 'sans-serif', sans-serif;
+  --font-heading: 'Aeonik Regular', sans-serif;
+  --font-body: 'Times', sans-serif;
+  --font-font-3: 'Aeonik Bold', sans-serif;
+  --font-heading: 'Mabry Pro Black', sans-serif;
+  --font-font-5: 'Aeonik Medium', sans-serif;
+  --font-heading: 'Aeonik Black', sans-serif;
+  --font-heading: 'Mabry Pro Regular', sans-serif;
+
+  /* Typography — Scale */
+  --font-size-72: 72px;
+  --font-size-40: 40px;
+  --font-size-34: 34px;
+  --font-size-30: 30px;
+  --font-size-24: 24px;
+  --font-size-20: 20px;
+  --font-size-16: 16px;
+  --font-size-14: 14px;
+  --font-size-12: 12px;
+
+  /* Spacing */
+  --spacing-1: 1px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-51: 51px;
+  --spacing-55: 55px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
+  --spacing-86: 86px;
+  --spacing-120: 120px;
+
+  /* Border Radius */
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 40px;
+  --radius-full: 50px;
+  --radius-full: 100px;
+
+  /* Original Site Variables */
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

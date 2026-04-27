@@ -1,0 +1,212 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "primary",
+          "color": "#0000ee",
+          "name": "Primary"
+        },
+        {
+          "slug": "secondary",
+          "color": "#ffb800",
+          "name": "Secondary"
+        },
+        {
+          "slug": "accent",
+          "color": "#664900",
+          "name": "Accent"
+        },
+        {
+          "slug": "neutral-1",
+          "color": "#000000",
+          "name": "Neutral 1"
+        },
+        {
+          "slug": "neutral-2",
+          "color": "#808080",
+          "name": "Neutral 2"
+        },
+        {
+          "slug": "neutral-3",
+          "color": "#5b5b5b",
+          "name": "Neutral 3"
+        },
+        {
+          "slug": "neutral-4",
+          "color": "#ffffff",
+          "name": "Neutral 4"
+        },
+        {
+          "slug": "neutral-5",
+          "color": "#dedbd9",
+          "name": "Neutral 5"
+        },
+        {
+          "slug": "bg-ffffff",
+          "color": "#ffffff",
+          "name": "Background #ffffff"
+        },
+        {
+          "slug": "bg-f4f4f4",
+          "color": "#f4f4f4",
+          "name": "Background #f4f4f4"
+        },
+        {
+          "slug": "bg-fd431d",
+          "color": "#fd431d",
+          "name": "Background #fd431d"
+        }
+      ],
+      "gradients": []
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "sans-serif",
+          "slug": "sans-serif",
+          "name": "sans-serif"
+        },
+        {
+          "fontFamily": "Aeonik Regular",
+          "slug": "aeonik-regular",
+          "name": "Aeonik Regular"
+        },
+        {
+          "fontFamily": "Times",
+          "slug": "times",
+          "name": "Times"
+        },
+        {
+          "fontFamily": "Aeonik Bold",
+          "slug": "aeonik-bold",
+          "name": "Aeonik Bold"
+        },
+        {
+          "fontFamily": "Mabry Pro Black",
+          "slug": "mabry-pro-black",
+          "name": "Mabry Pro Black"
+        },
+        {
+          "fontFamily": "Aeonik Medium",
+          "slug": "aeonik-medium",
+          "name": "Aeonik Medium"
+        },
+        {
+          "fontFamily": "Aeonik Black",
+          "slug": "aeonik-black",
+          "name": "Aeonik Black"
+        },
+        {
+          "fontFamily": "Mabry Pro Regular",
+          "slug": "mabry-pro-regular",
+          "name": "Mabry Pro Regular"
+        }
+      ],
+      "fontSizes": [
+        {
+          "size": "72px",
+          "slug": "size-72",
+          "name": "72px"
+        },
+        {
+          "size": "40px",
+          "slug": "size-40",
+          "name": "40px"
+        },
+        {
+          "size": "34px",
+          "slug": "size-34",
+          "name": "34px"
+        },
+        {
+          "size": "30px",
+          "slug": "size-30",
+          "name": "30px"
+        },
+        {
+          "size": "24px",
+          "slug": "size-24",
+          "name": "24px"
+        },
+        {
+          "size": "20px",
+          "slug": "size-20",
+          "name": "20px"
+        },
+        {
+          "size": "16px",
+          "slug": "size-16",
+          "name": "16px"
+        },
+        {
+          "size": "14px",
+          "slug": "size-14",
+          "name": "14px"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "size": "1px",
+          "slug": "spacing-1",
+          "name": "1px"
+        },
+        {
+          "size": "32px",
+          "slug": "spacing-32",
+          "name": "32px"
+        },
+        {
+          "size": "40px",
+          "slug": "spacing-40",
+          "name": "40px"
+        },
+        {
+          "size": "48px",
+          "slug": "spacing-48",
+          "name": "48px"
+        },
+        {
+          "size": "51px",
+          "slug": "spacing-51",
+          "name": "51px"
+        },
+        {
+          "size": "55px",
+          "slug": "spacing-55",
+          "name": "55px"
+        },
+        {
+          "size": "60px",
+          "slug": "spacing-60",
+          "name": "60px"
+        },
+        {
+          "size": "80px",
+          "slug": "spacing-80",
+          "name": "80px"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "700px",
+      "wideSize": "1400px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "#000000"
+    },
+    "typography": {
+      "fontSize": "20px",
+      "lineHeight": "21.6px",
+      "fontFamily": "sans-serif"
+    },
+    "spacing": {}
+  }
+}
