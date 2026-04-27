@@ -1,0 +1,43 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-link: #0000ee;
+  --color-gray-1: #f4f4f4;
+  --color-gray-2: #dedbd9;
+  --color-gray-3: #808080;
+  --color-gray-4: #5b5b5b;
+  --color-accent: #fd431d;
+  --color-gold: #ffb800;
+  --color-green: #02ab4e;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-serif: "Times New Roman", Times, serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2.125rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 4.5rem;
+
+  --space-1: 0.0625rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 3.75rem;
+  --space-12: 5rem;
+  --space-16: 7.5rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --transition-fast: 300ms cubic-bezier(0.44, 0, 0.56, 1);
+}
