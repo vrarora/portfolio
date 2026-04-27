@@ -23,7 +23,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Northstar growth system",
     eyebrow: "Case study 01",
     summary:
-      "A placeholder project that frames the hiring-manager scan path: context, role, constraints, decisions, and an outcome placeholder.",
+      "A placeholder growth story arranged for quick review: role, constraints, decisions, and a clear route to future results.",
     status: "Placeholder case study",
     visibility: "public",
     metadata: [
@@ -91,7 +91,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Atlas operations dashboard",
     eyebrow: "Case study 03",
     summary:
-      "The third placeholder page ensures routing, static generation, and public case-study structure are all wired before Phase 2.",
+      "The third placeholder page ensures routing, static generation, and public case-study structure are all wired before the later content phase.",
     status: "Placeholder case study",
     visibility: "public",
     metadata: [

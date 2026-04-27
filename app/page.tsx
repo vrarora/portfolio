@@ -1,85 +1,327 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { caseStudies } from "@/content/case-studies";
 import { siteLinks } from "@/content/site-links";
 
+const navItems = [
+  { label: "Home", href: "#top", icon: HomeIcon },
+  { label: "Work", href: "#work", icon: GridIcon },
+  { label: "About", href: "#about", icon: PersonIcon },
+  { label: "Contact", href: "#contact", icon: MailIcon },
+] as const;
+
+const proofCards = [
+  {
+    title: "Static export safe",
+    body: "Built for GitHub Pages with maintainable routing and placeholder content that can evolve later.",
+    accent: "accent",
+  },
+  {
+    title: "Oriol-inspired composition",
+    body: "Large whitespace, compact navigation, blue links, and sharp editorial cards set the tone.",
+    accent: "gold",
+  },
+  {
+    title: "Public first, gate later",
+    body: "Case-study routes stay public now and can accept a lightweight client-side gate without route changes.",
+    accent: "green",
+  },
+] as const;
+
+const principles = [
+  {
+    title: "Context first",
+    body: "The page should explain the work fast: role, constraints, decisions, and why it mattered.",
+  },
+  {
+    title: "Systems over screens",
+    body: "Visual polish matters, but repeatable structure matters more for a portfolio that will keep changing.",
+  },
+  {
+    title: "Judgment stays visible",
+    body: "The layout keeps decisions legible so hiring managers can scan without losing the designer's point of view.",
+  },
+] as const;
+
+function SectionReveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`reveal ${className}`.trim()}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function HomeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 11.5 12 4l8 7.5" />
+      <path d="M6.5 10.5V20h11V10.5" />
+      <path d="M10 20v-5h4v5" />
+    </svg>
+  );
+}
+
+function GridIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="4" width="6" height="6" rx="1" />
+      <rect x="14" y="4" width="6" height="6" rx="1" />
+      <rect x="4" y="14" width="6" height="6" rx="1" />
+      <rect x="14" y="14" width="6" height="6" rx="1" />
+    </svg>
+  );
+}
+
+function PersonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.25" />
+      <path d="M6 20c1.6-3.9 4.1-5.8 6-5.8s4.4 1.9 6 5.8" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="6" width="16" height="12" rx="1.5" />
+      <path d="m5.5 7.5 6.5 5 6.5-5" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 17 17 7" />
+      <path d="M10 7h7v7" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 15a4.5 4.5 0 0 1 0-6.4l1.7-1.7a4.5 4.5 0 0 1 6.4 6.4L15.9 15" />
+      <path d="M15 9a4.5 4.5 0 0 1 0 6.4l-1.7 1.7a4.5 4.5 0 0 1-6.4-6.4L9.1 9" />
+    </svg>
+  );
+}
+
 export default function HomePage() {
   return (
-    <main className="page-shell">
-      <section className="hero">
-        <div className="eyebrow-row">
-          <span className="eyebrow">Vaibhav Arora</span>
-          <span className="status-pill">Static foundation</span>
-        </div>
-        <h1>KIND DESIGN LEAD FOR MID STAGE START-UPS</h1>
-        <p className="lede">
-          Phase 1 establishes the static portfolio system: export-safe routing,
-          shared content, and design tokens that mirror the extracted Oriol
-          reference.
-        </p>
-        <div className="cta-row">
-          <a className="button button-primary" href={siteLinks.bookIntro}>
-            Book Intro
+    <main className="portfolio-page" id="top">
+      <header className="floating-header">
+        <a className="wordmark" href="#top">
+          Vaibhav Arora
+        </a>
+
+        <nav className="nav-rail" aria-label="Primary">
+          {navItems.map(({ label, href, icon: Icon }) => (
+            <a
+              key={label}
+              className="nav-button"
+              href={href}
+              aria-label={label}
+              title={label}
+            >
+              <Icon />
+            </a>
+          ))}
+        </nav>
+
+        <div className="top-actions" aria-label="Social and resume links">
+          <a className="top-action" href={siteLinks.resume} target="_blank" rel="noreferrer">
+            <LinkIcon />
+            <span>Resume</span>
           </a>
-          <a className="button" href={siteLinks.connect}>
-            Let&apos;s connect
+          <a className="top-action" href={siteLinks.linkedin} target="_blank" rel="noreferrer">
+            <LinkIcon />
+            <span>LinkedIn</span>
+          </a>
+          <a className="top-action" href={siteLinks.twitter} target="_blank" rel="noreferrer">
+            <ArrowIcon />
+            <span>Twitter</span>
           </a>
         </div>
+      </header>
+
+      <section className="hero section-grid">
+        <SectionReveal className="hero-copy">
+          <p className="eyebrow-row">
+            <span className="eyebrow">Senior Product Designer</span>
+            <span className="status-pill">Static portfolio v1</span>
+          </p>
+          <h1>KIND DESIGN LEAD FOR MID STAGE START-UPS</h1>
+          <p className="lede">
+            A static, scan-first portfolio shaped for hiring managers. The
+            layout keeps the work public, the hierarchy crisp, and the eventual
+            content rewrite path intact.
+          </p>
+          <div className="cta-row">
+            <a className="button button-primary" href={siteLinks.bookIntro} target="_blank" rel="noreferrer">
+              Book Intro
+            </a>
+            <a className="button" href={siteLinks.connect} target="_blank" rel="noreferrer">
+              Let&apos;s connect
+            </a>
+          </div>
+        </SectionReveal>
+
+        <SectionReveal className="hero-rail" delay={120}>
+          <article className="card hero-panel">
+            <p className="card-kicker">Current focus</p>
+            <h2>Phase 2 is all about the homepage composition.</h2>
+            <p>
+              The implementation mirrors the Oriol-inspired reference with
+              compact navigation, sharp edges, and editorial whitespace.
+            </p>
+            <ul className="bullet-list">
+              <li>Temporary wordmark in place</li>
+              <li>Three public case studies wired</li>
+              <li>Resume stays in nav and footer</li>
+            </ul>
+          </article>
+        </SectionReveal>
       </section>
 
-      <section className="section">
-        <div className="section-head">
-          <h2>Selected work</h2>
-          <p>Three placeholder case studies, wired for public scanning.</p>
-        </div>
-        <div className="grid work-grid">
-          {caseStudies.map((study) => (
-            <article key={study.slug} className="card work-card">
-              <p className="card-kicker">{study.status}</p>
-              <h3>{study.title}</h3>
-              <p>{study.summary}</p>
-              <Link className="text-link" href={`/case-studies/${study.slug}`}>
-                View case study
-              </Link>
+      <section className="section proof-grid" aria-label="Reference notes">
+        {proofCards.map((card, index) => (
+          <SectionReveal key={card.title} delay={index * 80}>
+            <article className={`card proof-card proof-${card.accent}`}>
+              <p className="card-kicker">Reference cue</p>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
             </article>
+          </SectionReveal>
+        ))}
+      </section>
+
+      <section className="section" id="work">
+        <SectionReveal className="section-head">
+          <div>
+            <p className="section-label">Selected work</p>
+            <h2>Three public case studies structured for fast scanning.</h2>
+          </div>
+          <p className="section-note">
+            Each route keeps the future client-side gate path open without
+            changing the slug structure.
+          </p>
+        </SectionReveal>
+
+        <div className="work-stack">
+          {caseStudies.map((study, index) => (
+            <SectionReveal key={study.slug} delay={index * 90}>
+              <Link
+                className={`card work-row work-row-${index + 1}`}
+                href={`/case-studies/${study.slug}`}
+              >
+                <div className="work-index">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+
+                <div className="work-main">
+                  <p className="card-kicker">{study.eyebrow}</p>
+                  <h3>{study.title}</h3>
+                  <p>{study.summary}</p>
+                </div>
+
+                <div className="work-meta">
+                  {study.metadata.slice(0, 3).map((entry) => (
+                    <div key={entry.label}>
+                      <span className="meta-label">{entry.label}</span>
+                      <span className="meta-value">{entry.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <span className="work-cta">
+                  Open case study
+                  <ArrowIcon />
+                </span>
+              </Link>
+            </SectionReveal>
           ))}
         </div>
       </section>
 
-      <section className="section split">
-        <article className="card">
-          <p className="card-kicker">About</p>
-          <h2>Senior Product Designer</h2>
+      <section className="section about-section" id="about">
+        <SectionReveal className="about-copy">
+          <p className="section-label">About</p>
+          <h2>Senior Product Designer focused on clarity, systems, and launch readiness.</h2>
           <p>
-            Placeholder positioning for the v1 portfolio. The phase-one goal is
-            to create the infrastructure that lets later phases tell the story
-            cleanly.
+            Placeholder biography for the v1 portfolio. The point of the page is
+            to feel finished before the content is final, so hiring managers can
+            read the structure without waiting for the rewrite.
           </p>
-        </article>
-        <article className="card">
-          <p className="card-kicker">Contact</p>
-          <ul className="link-list">
-            <li>
-              <a href={siteLinks.bookIntro}>Book Intro</a>
-            </li>
-            <li>
-              <a href={siteLinks.connect}>Let&apos;s connect</a>
-            </li>
-            <li>
-              <a href={siteLinks.linkedin}>LinkedIn</a>
-            </li>
-            <li>
-              <a href={siteLinks.twitter}>Twitter</a>
-            </li>
-            <li>
-              <a href={siteLinks.resume}>Resume</a>
-            </li>
-          </ul>
-        </article>
+        </SectionReveal>
+
+        <div className="about-grid">
+          {principles.map((item, index) => (
+            <SectionReveal key={item.title} delay={index * 90}>
+              <article className="card principle-card">
+                <p className="card-kicker">Working principle</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            </SectionReveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section contact-section" id="contact">
+        <SectionReveal className="contact-copy">
+          <p className="section-label">Contact</p>
+          <h2>Open for product design roles, portfolio reviews, and good project bets.</h2>
+          <p>
+            The contact area keeps the CTA paths simple: book time, connect, or
+            review work through the public case studies.
+          </p>
+        </SectionReveal>
+
+        <SectionReveal delay={120}>
+          <article className="card contact-panel">
+            <a className="contact-link" href={siteLinks.bookIntro} target="_blank" rel="noreferrer">
+              <span>Book Intro</span>
+              <ArrowIcon />
+            </a>
+            <a className="contact-link" href={siteLinks.connect} target="_blank" rel="noreferrer">
+              <span>Let&apos;s connect</span>
+              <ArrowIcon />
+            </a>
+            <a className="contact-link" href={siteLinks.linkedin} target="_blank" rel="noreferrer">
+              <span>LinkedIn</span>
+              <ArrowIcon />
+            </a>
+            <a className="contact-link" href={siteLinks.twitter} target="_blank" rel="noreferrer">
+              <span>Twitter</span>
+              <ArrowIcon />
+            </a>
+            <a className="contact-link" href={siteLinks.resume} target="_blank" rel="noreferrer">
+              <span>Resume</span>
+              <ArrowIcon />
+            </a>
+          </article>
+        </SectionReveal>
       </section>
 
       <footer className="footer">
         <span>Vaibhav Arora</span>
-        <a href={siteLinks.resume}>Resume</a>
+        <span className="footer-note">Phase 2 homepage replica</span>
+        <a href={siteLinks.resume} target="_blank" rel="noreferrer">
+          Resume
+        </a>
       </footer>
     </main>
   );
