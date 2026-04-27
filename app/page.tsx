@@ -10,24 +10,6 @@ const navItems = [
   { label: "Contact", href: "#contact", icon: MailIcon },
 ] as const;
 
-const proofCards = [
-  {
-    title: "Static export safe",
-    body: "Built for GitHub Pages with maintainable routing and placeholder content that can evolve later.",
-    accent: "accent",
-  },
-  {
-    title: "Oriol-inspired composition",
-    body: "Large whitespace, compact navigation, blue links, and sharp editorial cards set the tone.",
-    accent: "gold",
-  },
-  {
-    title: "Public first, gate later",
-    body: "Case-study routes stay public now and can accept a lightweight client-side gate without route changes.",
-    accent: "green",
-  },
-] as const;
-
 const principles = [
   {
     title: "Context first",
@@ -42,6 +24,8 @@ const principles = [
     body: "The layout keeps decisions legible so hiring managers can scan without losing the designer's point of view.",
   },
 ] as const;
+
+const supportedTeams = ["Zalando", "Google", "Urban Sports Club"] as const;
 
 function SectionReveal({
   children,
@@ -110,11 +94,42 @@ function ArrowIcon() {
   );
 }
 
-function LinkIcon() {
+function DownArrowIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M9 15a4.5 4.5 0 0 1 0-6.4l1.7-1.7a4.5 4.5 0 0 1 6.4 6.4L15.9 15" />
-      <path d="M15 9a4.5 4.5 0 0 1 0 6.4l-1.7 1.7a4.5 4.5 0 0 1-6.4-6.4L9.1 9" />
+      <path d="M12 5v13" />
+      <path d="M7 13.5 12 18l5-4.5" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7.5 10v7" />
+      <circle cx="7.5" cy="7" r="1.25" />
+      <path d="M11 17v-4.2c0-1.7 1.1-2.8 2.7-2.8S16.4 11.1 16.4 13V17" />
+      <path d="M11 13.6V17" />
+      <path d="M17.5 10v7" />
+    </svg>
+  );
+}
+
+function ResumeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 4h10l2 2v14H7z" />
+      <path d="M9 10h6" />
+      <path d="M9 14h5" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 6 18 18" />
+      <path d="M18 6 6 18" />
     </svg>
   );
 }
@@ -127,7 +142,7 @@ export default function HomePage() {
           Vaibhav Arora
         </a>
 
-        <nav className="nav-rail" aria-label="Primary">
+        <nav className="nav-rail nav-rail-shell" aria-label="Primary">
           {navItems.map(({ label, href, icon: Icon }) => (
             <a
               key={label}
@@ -142,27 +157,30 @@ export default function HomePage() {
         </nav>
 
         <div className="top-actions" aria-label="Social and resume links">
-          <a className="top-action" href={siteLinks.resume} target="_blank" rel="noreferrer">
-            <LinkIcon />
-            <span>Resume</span>
+          <a className="top-action" href={siteLinks.resume} target="_blank" rel="noreferrer" aria-label="Resume">
+            <ResumeIcon />
           </a>
-          <a className="top-action" href={siteLinks.linkedin} target="_blank" rel="noreferrer">
-            <LinkIcon />
-            <span>LinkedIn</span>
+          <a className="top-action" href={siteLinks.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <LinkedInIcon />
           </a>
-          <a className="top-action" href={siteLinks.twitter} target="_blank" rel="noreferrer">
-            <ArrowIcon />
-            <span>Twitter</span>
+          <a className="top-action" href={siteLinks.twitter} target="_blank" rel="noreferrer" aria-label="Twitter">
+            <XIcon />
           </a>
         </div>
       </header>
 
-      <section className="hero section-grid">
+      <section className="hero" aria-label="Hero">
         <SectionReveal className="hero-copy">
-          <p className="eyebrow-row">
-            <span className="eyebrow">Senior Product Designer</span>
-            <span className="status-pill">Static portfolio v1</span>
-          </p>
+          <div className="status-line">
+            <span className="status-line-label">Vaibhav is</span>
+            <span className="status-avatar" aria-hidden="true">
+              VA
+            </span>
+            <span className="status-line-copy">
+              <strong>Senior Product Designer</strong> - shaping product systems
+              for mid-stage startups.
+            </span>
+          </div>
           <h1>KIND DESIGN LEAD FOR MID STAGE START-UPS</h1>
           <p className="lede">
             A static, scan-first portfolio shaped for hiring managers. The
@@ -179,33 +197,36 @@ export default function HomePage() {
           </div>
         </SectionReveal>
 
-        <SectionReveal className="hero-rail" delay={120}>
-          <article className="card hero-panel">
-            <p className="card-kicker">Current focus</p>
-            <h2>Phase 2 is all about the homepage composition.</h2>
-            <p>
-              The implementation mirrors the Oriol-inspired reference with
-              compact navigation, sharp edges, and editorial whitespace.
-            </p>
-            <ul className="bullet-list">
-              <li>Temporary wordmark in place</li>
-              <li>Three public case studies wired</li>
-              <li>Resume stays in nav and footer</li>
-            </ul>
-          </article>
-        </SectionReveal>
+        <aside className="trust-cluster">
+          <p className="trust-label">Supported world-class teams</p>
+          <div className="trust-logos">
+            {supportedTeams.map((team) => (
+              <span key={team}>{team}</span>
+            ))}
+          </div>
+          <a className="scroll-chip" href="#work" aria-label="Scroll to selected work">
+            <DownArrowIcon />
+          </a>
+        </aside>
       </section>
 
-      <section className="section proof-grid" aria-label="Reference notes">
-        {proofCards.map((card, index) => (
-          <SectionReveal key={card.title} delay={index * 80}>
-            <article className={`card proof-card proof-${card.accent}`}>
-              <p className="card-kicker">Reference cue</p>
-              <h3>{card.title}</h3>
-              <p>{card.body}</p>
-            </article>
-          </SectionReveal>
-        ))}
+      <section className="hero-secondary" aria-label="Supporting context">
+        <article className="hero-note">
+          <p className="card-kicker">Current focus</p>
+          <h2>Phase 2 is all about the homepage composition.</h2>
+          <p>
+            The implementation mirrors the Oriol-inspired reference with
+            compact navigation, sharp edges, and editorial whitespace.
+          </p>
+        </article>
+
+        <article className="hero-note">
+          <p className="card-kicker">Active status</p>
+          <p>
+            Temporary wordmark in place, three public case studies wired, and
+            resume access kept in the nav and footer.
+          </p>
+        </article>
       </section>
 
       <section className="section" id="work">
