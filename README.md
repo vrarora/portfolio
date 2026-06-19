@@ -7,7 +7,7 @@ Static portfolio scaffold for Phase 1.
 - Next.js App Router with static export enabled
 - Home route plus three public case-study routes
 - Shared placeholder URLs and case-study data
-- Oriol-inspired token layer in CSS variables
+- Design token layer in CSS variables
 - GitHub Pages-friendly base path support
 
 ## Development

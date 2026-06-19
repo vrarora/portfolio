@@ -2,3 +2,17 @@
 out/
 node_modules/
 *.tsbuildinfo
+
+# Local dev tooling — not for production
+app/agentation-devtools.tsx
+
+# Private/planning files
+.DS_Store
+.planning/
+Context/
+Case Study Context/
+AGENTS.md
+handoff.md
+docs/
+.impeccable.md
+.claude/

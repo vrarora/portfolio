@@ -1,0 +1,41 @@
+:root {
+  --dc-color-bg-canvas: #f7f7f7;
+  --dc-color-bg-surface: #ffffff;
+  --dc-color-bg-hover: #ebebeb;
+  --dc-color-text-primary: #161616;
+  --dc-color-text-secondary: #767676;
+  --dc-color-text-link: #2272b4;
+  --dc-color-border-subtle: #ebebeb;
+  --dc-color-border-default: #cbcbcb;
+  --dc-color-border-strong: #767676;
+  --dc-color-brand-accent: #ff3621;
+  --dc-color-focus-ring: #8acaff;
+
+  --dc-font-sans: "SF Pro", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --dc-font-size-xs: 12px;
+  --dc-font-size-sm: 13px;
+  --dc-font-size-md: 14px;
+  --dc-font-size-lg: 22px;
+  --dc-line-height-xs: 16px;
+  --dc-line-height-sm: 20px;
+  --dc-line-height-md: 20px;
+  --dc-line-height-lg: 28px;
+  --dc-font-weight-regular: 400;
+  --dc-font-weight-medium: 590;
+
+  --dc-space-0: 0;
+  --dc-space-1: 4px;
+  --dc-space-2: 8px;
+  --dc-space-3: 12px;
+  --dc-space-4: 16px;
+  --dc-space-5: 20px;
+  --dc-space-6: 24px;
+  --dc-space-8: 32px;
+
+  --dc-radius-sm: 6px;
+  --dc-radius-md: 8px;
+  --dc-radius-lg: 10px;
+  --dc-radius-pill: 9999px;
+
+  --dc-shadow-focus: 0 0 0 2px var(--dc-color-focus-ring);
+}

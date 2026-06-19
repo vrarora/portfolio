@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import "../src/styles/tokens.css";
+import "../src/styles/data-compass-tokens.css";
+import "slot-text/style.css";
+
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Vaibhav Arora Portfolio",
+  title: "Vaibhav Arora | Product Design Portfolio",
   description:
-    "An Oriol-inspired static portfolio for Vaibhav Arora, built for hiring-manager scanning.",
+    "Vaibhav Arora is a product designer who ships in code. Flat, editorial, high-signal.",
 };
 
 export default function RootLayout({
@@ -16,7 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </head>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

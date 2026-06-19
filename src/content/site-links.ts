@@ -1,7 +1,8 @@
 export const siteLinks = {
   bookIntro: "https://example.com/vaibhav-arora/calendly",
-  connect: "https://example.com/vaibhav-arora/contact",
-  linkedin: "https://example.com/vaibhav-arora/linkedin",
-  twitter: "https://example.com/vaibhav-arora/x",
+  connect: "https://www.linkedin.com/in/vaibhavrarora/",
+  linkedin: "https://www.linkedin.com/in/vaibhavrarora/",
+  twitter: "https://x.com/vraroraa",
+  github: "https://github.com/vrarora",
   resume: "https://example.com/vaibhav-arora/resume",
 } as const;

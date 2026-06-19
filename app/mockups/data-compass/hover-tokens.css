@@ -1,0 +1,29 @@
+/* Data Compass - Hover State Design Tokens */
+/* Extracted from Databricks UI components via Figma */
+
+:root {
+  /* ─── Tree Navigation Hover States ────────────────────────────── */
+  --dc-tree-item-bg-hover: #f2f5fa; /* Light blue/gray for subtle row hover */
+  --dc-tree-item-bg-active: #eef6fc; /* Stronger blue for active selected row */
+  --dc-tree-item-text-hover: #1b232d;
+  --dc-tree-item-icon-hover: #0e538b; /* Primary blue icon on hover */
+  --dc-tree-item-chevron-hover: #525252; /* Darker gray for chevron */
+  
+  /* ─── Data Table Row Hover States ─────────────────────────────── */
+  --dc-table-row-bg-hover: #f9f9fa; /* Very subtle gray for data table */
+  --dc-table-row-border-hover: #e0e6eb; /* Stronger border on hover */
+  --dc-table-link-text-hover: #0e538b; /* Blue text for name link on hover */
+  
+  /* ─── Top Navigation & Action Buttons ─────────────────────────── */
+  --dc-nav-btn-bg-hover: #eef6fc; /* Light blue background for icon buttons */
+  --dc-nav-btn-icon-hover: #0e538b; /* Primary blue for SVG stroke */
+  --dc-nav-btn-border-hover: transparent;
+  
+  /* ─── Tab Pill Hover States ───────────────────────────────────── */
+  --dc-tab-pill-bg-hover: #f2f5fa;
+  --dc-tab-pill-text-hover: #1b232d;
+  
+  /* ─── General Interaction Transitions ─────────────────────────── */
+  --dc-hover-transition-speed: 0.15s;
+  --dc-hover-transition-timing: ease-in-out;
+}

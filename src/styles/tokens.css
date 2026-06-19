@@ -1,46 +1,154 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap");
-
 :root {
   --color-white: #ffffff;
   --color-black: #000000;
   --color-link: #0000ee;
-  --color-gray-1: #f4f4f4;
-  --color-gray-2: #dedbd9;
-  --color-gray-3: #808080;
-  --color-gray-4: #5b5b5b;
+  /* Neutral gray scale (Tailwind reference, hex) */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* Legacy aliases */
+  --color-gray-1: var(--color-gray-100);
+  --color-gray-2: var(--color-gray-300);
+  --color-gray-3: var(--color-gray-500);
+  --color-gray-4: var(--color-gray-600);
   --color-accent: #fd431d;
   --color-gold: #ffb800;
   --color-green: #02ab4e;
 
-  --font-sans: "Space Grotesk", Arial, Helvetica, sans-serif;
-  --font-serif: "IBM Plex Serif", "Times New Roman", Times, serif;
+  --font-family-base: Inter, sans-serif;
+  --font-family-base-variable: InterVariable, sans-serif;
+  --font-feature-default: "liga" 1, "calt" 1;
+  --font-sans: var(--font-family-base);
+  --font-heading: var(--font-family-base);
+  --font-body: var(--font-family-base);
+  --font-display: var(--font-family-base);
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.5rem;
-  --text-2xl: 2.125rem;
-  --text-3xl: 2.5rem;
-  --text-4xl: 4.5rem;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+  --text-4xl: 36px;
+  --text-5xl: 52px;
+  --text-6xl: 96px;
+  --text-32: 32px;
+  --text-40: 40px;
+  --text-44: 44px;
 
-  --space-1: 0.0625rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-8: 3rem;
-  --space-10: 3.75rem;
-  --space-12: 5rem;
-  --space-16: 7.5rem;
+  /* Line-height rule: round(size * 1.45) to nearest 4px */
+  --leading-text-xs: 16px; /* 12 -> 17.4 -> 16 */
+  --leading-text-sm: 20px; /* 14 -> 20.3 -> 20 */
+  --leading-text-md: 24px; /* 16 -> 23.2 -> 24 */
+  --leading-text-lg: 28px; /* 18 -> 26.1 -> 28 */
+  --leading-text-xl: 28px; /* 20 -> 29.0 -> 28 */
+  --leading-text-2xl: 36px; /* 24 -> 34.8 -> 36 */
+  --leading-text-3xl: 40px; /* 28 -> 40.6 -> 40 */
+  --leading-text-4xl: 52px; /* 36 -> 52.2 -> 52 */
+  --leading-text-5xl: 76px; /* 52 -> 75.4 -> 76 */
+  --leading-text-6xl: 140px; /* 96 -> 139.2 -> 140 */
+  --leading-text-32: 48px; /* 32 -> 46.4 -> 48 */
+  --leading-text-40: 60px; /* 40 -> 58.0 -> 60 */
+  --leading-text-44: 64px; /* 44 -> 63.8 -> 64 */
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  /* Spacing rule: round(line-height - font-size) to nearest 4px */
+  --type-spacing-text-xs: 4px;
+  --type-spacing-text-sm: 8px;
+  --type-spacing-text-md: 8px;
+  --type-spacing-text-lg: 12px;
+  --type-spacing-text-xl: 8px;
+  --type-spacing-text-2xl: 12px;
+  --type-spacing-text-3xl: 12px;
+  --type-spacing-text-4xl: 16px;
+  --type-spacing-text-5xl: 24px;
+  --type-spacing-text-6xl: 44px;
+  --type-spacing-text-32: 16px;
+  --type-spacing-text-40: 20px;
+  --type-spacing-text-44: 20px;
+
+  /* 4px base spacing system */
+  --space-0: 0px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-36: 36px;
+  --space-40: 40px;
+  --space-44: 44px;
+  --space-48: 48px;
+  --space-52: 52px;
+  --space-56: 56px;
+  --space-60: 60px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-88: 88px;
+  --space-96: 96px;
+  --space-104: 104px;
+  --space-112: 112px;
+  --space-120: 120px;
+
+  /* Legacy aliases mapped to 4px grid */
+  --space-1: var(--space-4);
+  --space-51: var(--space-52);
+  --space-55: var(--space-56);
+  --space-86: var(--space-88);
+
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --border-active: rgba(0, 0, 0, 0.5);
+  --surface: rgba(244, 244, 244, 0.82);
+  --surface-strong: rgba(10, 10, 10, 0.96);
+
+  --shadow-none: none;
   --transition-fast: 300ms cubic-bezier(0.44, 0, 0.56, 1);
   --transition-slow: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container-width: min(1500px, calc(100% - 32px));
+  --content-width: 700px;
+  --layout-case-study-padding-bottom: clamp(4rem, 8vw, 7rem);
+  --layout-case-study-shell-gap: clamp(2.5rem, 5vw, 6.5rem);
+  --layout-case-hero-gap: clamp(1.6rem, 2vw, 2rem);
+  --layout-case-hero-visual-margin-top: clamp(1rem, 2vw, 1.75rem);
+  --layout-case-sections-gap: clamp(4rem, 9vw, 7.5rem);
+  --layout-case-sections-margin-top: clamp(4rem, 8vw, 6rem);
+  --layout-case-rail-top: 132px;
+  --layout-case-main-max-width: 860px;
+  --layout-case-section-gap: var(--space-20);
+  --layout-case-section-heading-gap: var(--space-8);
+  --layout-case-section-scroll-margin-top: var(--space-120);
+  --layout-case-visual-frame-min-height: clamp(22rem, 50vw, 34rem);
+  --layout-case-visual-frame-padding: clamp(1.4rem, 3vw, 2.4rem);
+  --layout-case-placeholder-min-height: clamp(19rem, 44vw, 31rem);
+  --layout-case-placeholder-padding: clamp(1.2rem, 2.6vw, 2rem);
+  --layout-case-visual-label-padding: var(--space-8) var(--space-12);
+  --layout-case-visual-caption-margin-top: var(--space-12);
+  --text-case-section-heading: 2.4rem;
+  --text-case-pill: var(--text-xs);
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --font-family-base: var(--font-family-base-variable);
+  }
 }
