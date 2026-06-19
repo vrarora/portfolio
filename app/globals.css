@@ -2465,7 +2465,7 @@ h3 {
 /* Top two-column row */
 .contact-top {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 54px;
   padding: 64px 64px 0;
