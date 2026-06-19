@@ -1174,7 +1174,7 @@ export default function HomePage() {
                   ))}
                 </ul>
 
-                {card.ctaLabel && card.ctaHref && (
+                {"ctaLabel" in card && card.ctaLabel && "ctaHref" in card && card.ctaHref && (
                   <a
                     className="hero-service-link"
                     href={card.ctaHref}
