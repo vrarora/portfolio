@@ -6,7 +6,6 @@ import "../src/styles/data-compass-tokens.css";
 import "slot-text/style.css";
 
 import { Providers } from "./providers";
-import { AgentationDevtools } from "./agentation-devtools";
 
 export const metadata: Metadata = {
   title: "Vaibhav Arora | Product Design Portfolio",
@@ -28,7 +27,6 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
-          <AgentationDevtools />
         </Providers>
       </body>
     </html>
