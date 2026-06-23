@@ -10,10 +10,11 @@ import {
   type ReactNode,
 } from "react";
 import {
-  GlobeHemisphereWest,
+  House,
+  Briefcase,
+  User,
+  ChatDots,
   Lightning,
-  Tray,
-  Hand,
   LinkedinLogo,
   GithubLogo,
   FileText,
@@ -39,23 +40,23 @@ import { caseStudies } from "@/content/case-studies";
 import { siteLinks } from "@/content/site-links";
 
 const heroNavItems = [
-  { label: "Overview", href: "#top", icon: GlobeHemisphereWest, active: true },
-  { label: "Signals", href: "#work", icon: Lightning },
-  { label: "Projects", href: "#about", icon: Tray },
-  { label: "Process", href: "#contact", icon: Hand },
+  { label: "Overview", href: "#top", icon: House, active: true },
+  { label: "Signals", href: "#work", icon: Briefcase },
+  { label: "Projects", href: "#about", icon: User },
+  { label: "Process", href: "#contact", icon: ChatDots },
 ] as const;
 
 const heroActionItems = [
   { label: "LinkedIn", href: siteLinks.linkedin, icon: LinkedinLogo },
   { label: "GitHub", href: siteLinks.github, icon: GithubLogo },
-  { label: "Resume", href: siteLinks.resume, icon: BookmarkSimple },
+  { label: "Resume", href: siteLinks.resume, icon: FileText },
   { label: "Twitter", href: siteLinks.twitter, icon: XLogo },
 ] as const;
 
 const heroRoleItems = [
   { title: "Product Designer", body: "turning technically dense enterprise products into flows people can actually use." },
   { title: "Enterprise specialist", body: "making compliance, data governance, and B2B complexity actually usable." },
-  { title: "AI-native builder", body: "shipping production interfaces from the IDE without a handoff gap." },
+  { title: "AI-native builder", body: "shipping production interfaces directly in code without a handoff gap." },
 ] as const;
 
 const aboutTestimonials = [
@@ -156,13 +157,13 @@ const aboutMediaItems = {
 const workPrincipleCards = [
   {
     kicker: "MENTAL MODEL FIRST",
-    body: "I build around how users actually think, not how the system is structured.",
+    body: "Build around how users think, not how the system is structured.",
     badge: "MENTAL MODEL FIRST",
     tone: "orange",
   },
   {
     kicker: "TEST THE DISAGREEMENT",
-    body: "I prototype the conflict before arguing it. User evidence settles debates faster than conviction.",
+    body: "Prototype the conflict. User evidence settles debates faster than conviction.",
     badge: "TEST THE DISAGREEMENT",
     tone: "lavender",
   },
@@ -213,7 +214,7 @@ const heroServiceCards = [
     title: "AI-Native Execution",
     metrics: ["How I work:"],
     points: [
-      "IDE-to-production prototyping",
+      "Code-to-production prototyping",
       "Rapid iteration cycles",
       "Engineering-ready handoffs",
       "Vibe-coded interfaces",
@@ -1144,7 +1145,7 @@ export default function HomePage() {
             </p>
             <p className="hero-services-copy">
               My process is AI-native. I prototype and iterate{" "}
-              <span>directly in the IDE,</span> which means tighter handoffs and{" "}
+              <span>directly in code,</span> which means tighter handoffs and{" "}
               faster cycles without a separate handoff step.
             </p>
           </SectionReveal>
@@ -1180,6 +1181,15 @@ export default function HomePage() {
                     href={card.ctaHref}
                     target={card.ctaHref.startsWith("http") ? "_blank" : undefined}
                     rel={card.ctaHref.startsWith("http") ? "noreferrer" : undefined}
+                    onClick={
+                      !card.ctaHref.startsWith("http")
+                        ? (e) => {
+                            e.preventDefault();
+                            const id = card.ctaHref.replace("#", "");
+                            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                          }
+                        : undefined
+                    }
                   >
                     {card.ctaLabel}
                   </a>

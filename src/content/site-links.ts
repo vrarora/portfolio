@@ -4,5 +4,5 @@ export const siteLinks = {
   linkedin: "https://www.linkedin.com/in/vaibhavrarora/",
   twitter: "https://x.com/vraroraa",
   github: "https://github.com/vrarora",
-  resume: "https://example.com/vaibhav-arora/resume",
+  resume: "https://drive.google.com/file/d/1DRDMMjeLwigBobgrW9RAej80gM04AVry/view?usp=sharing",
 } as const;

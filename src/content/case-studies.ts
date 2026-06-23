@@ -37,11 +37,11 @@ export const caseStudies: CaseStudy[] = [
     title: "₹10Cr ARR from a Three-Week Design Window",
     eyebrow: "Case study 01",
     summary:
-      "Built to help a major Indian bank stay ahead of up to Rs. 250 crore in DPDP penalties.",
+      "Built to help a major Indian bank stay ahead of up to Rs. 250 crore in data privacy penalties.",
     homeBrand: "Data Compass",
     homeHeadline: "Data Compass turned a 3-week bank POC into ₹10Cr+ ARR.",
     homeDescription:
-      "I drove the product direction for Data Compass, translating DPDP compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
+      "I drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
     homeTags: ["Enterprise", "B2B", "Compliance", "Data Discovery", "Product UX"],
     workAccent: "green",
     workPreview: "screenshot",
@@ -60,7 +60,7 @@ export const caseStudies: CaseStudy[] = [
       {
         kicker: "Context",
         title: "Three Weeks. A Bank POC. Everything On The Line.",
-        body: "India's DPDP regulation introduced penalties of up to Rs. 250 crore per violation for companies that could not account for where customer data lived. The bank needed a tool that could answer that question. We had three weeks.",
+        body: "India's Digital Personal Data Protection (DPDP) Act introduced penalties of up to Rs. 250 crore per violation for companies that could not account for where customer data lived. The bank needed a tool that could answer that question. We had three weeks.",
         visualType: "fragmented-landscape",
       },
       {

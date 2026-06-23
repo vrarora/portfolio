@@ -18,58 +18,50 @@ export function CaseStudyNav({ items }: CaseStudyNavProps) {
   useEffect(() => {
     document.documentElement.classList.add("case-motion-ready");
 
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-case-section-id]"),
-    );
     const revealNodes = Array.from(
       document.querySelectorAll<HTMLElement>("[data-case-reveal]"),
-    );
-
-    if (!sections.length) {
-      return;
-    }
-
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visibleEntries[0]?.target instanceof HTMLElement) {
-          setActiveId(visibleEntries[0].target.dataset.caseSectionId ?? items[0]?.id ?? "");
-        }
-      },
-      {
-        rootMargin: "-20% 0px -55% 0px",
-        threshold: [0.2, 0.45, 0.7],
-      },
     );
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!(entry.target instanceof HTMLElement)) {
-            return;
-          }
-
+          if (!(entry.target instanceof HTMLElement)) return;
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             revealObserver.unobserve(entry.target);
           }
         });
       },
-      {
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.18,
-      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.18 },
     );
 
-    sections.forEach((section) => sectionObserver.observe(section));
     revealNodes.forEach((node) => revealObserver.observe(node));
 
+    const handleScroll = () => {
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-case-section-id]"),
+      );
+      if (!sections.length) return;
+
+      const threshold = window.innerHeight * 0.35;
+      let current = sections[0];
+
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= threshold) {
+          current = section;
+        }
+      }
+
+      const id = current.dataset.caseSectionId ?? items[0]?.id ?? "";
+      setActiveId(id);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
     return () => {
-      sectionObserver.disconnect();
       revealObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [items]);
 

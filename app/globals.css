@@ -121,6 +121,8 @@ h3 {
 .about-copy p,
 .contact-copy p {
   font-family: var(--font-body);
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .portfolio-page {
@@ -470,7 +472,7 @@ h3 {
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: #f5af00;
+  color: #16a34a;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -486,7 +488,7 @@ h3 {
   height: 32px;
   border-radius: 50%;
   background: var(--color-white);
-  box-shadow: 0 0 0 1px rgba(255, 180, 0, 0.08);
+  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.08);
 }
 
 .status-pill-accent::after {
@@ -497,7 +499,7 @@ h3 {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #f5af00;
+  background: #16a34a;
   animation: status-dot-pulse 1.8s ease-in-out infinite;
 }
 
@@ -505,17 +507,19 @@ h3 {
   margin: 0;
   font-size: 20px;
   line-height: 0.98;
-  letter-spacing: -0.06em;
+  letter-spacing: 0;
   text-wrap: balance;
   animation: status-role-change 520ms var(--transition-slow) both;
 }
 
 .status-role-line strong {
-  font-weight: 650;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .status-role-line span {
   font-weight: 400;
+  letter-spacing: 0;
 }
 
 .lede {
@@ -627,8 +631,8 @@ h3 {
 
 .hero-marquee-outer {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 80%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 .hero-marquee-track {
@@ -646,12 +650,12 @@ h3 {
 }
 
 .hero-marquee-logo {
-  height: 22px;
+  height: 26px;
   width: auto;
-  max-width: 90px;
+  max-width: 110px;
   object-fit: contain;
   filter: grayscale(1);
-  opacity: 0.45;
+  opacity: 0.62;
 }
 
 .scroll-chip {
@@ -761,7 +765,7 @@ h3 {
 .hero-services-canvas {
   position: sticky;
   top: 124px;
-  width: 985px;
+  width: min(985px, 100%);
   height: 648px;
   margin-top: 0;
   overflow: visible;
@@ -790,7 +794,7 @@ h3 {
 }
 
 .hero-service-card-accent {
-  background-color: #fd431d;
+  background-color: #f06030;
   color: var(--color-black);
 }
 
@@ -2552,13 +2556,15 @@ h3 {
 }
 
 .contact-heading {
-  font-size: 52px;
+  font-size: clamp(2rem, 5.5vw, 52px);
   font-weight: 700;
   letter-spacing: normal;
   line-height: 1.0;
   color: var(--color-black);
   margin: 0;
   text-transform: uppercase;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .contact-center {
@@ -2761,6 +2767,15 @@ h3 {
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   padding: 14px clamp(var(--space-24), 6vw, var(--space-120));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .text-link {
@@ -3815,7 +3830,7 @@ h3 {
 .oiv-metric .oiv-metric-num,
 .case-study-data-compass .case-section-body .oiv-metric .oiv-metric-num {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-gray-950);
   margin: 0 0 10px;
   line-height: 1;

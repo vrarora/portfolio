@@ -25,6 +25,7 @@
     "@types/node": "^22.15.0",
     "@types/react": "^19.0.14",
     "@types/react-dom": "^19.0.11",
+    "agentation": "^3.0.2",
     "typescript": "^5.8.3"
   }
 }

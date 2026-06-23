@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaretLeft } from "@phosphor-icons/react/dist/ssr";
 import { caseStudies } from "@/content/case-studies";
+import { BackRowActions } from "./BackRowActions";
 import { CaseStudyNav } from "./toc";
 import DataStreamVisual from "./DataStreamVisual";
 import HierarchyExplorer from "./HierarchyExplorer";
@@ -138,6 +139,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <CaretLeft size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
           Back home
         </Link>
+        <BackRowActions />
       </nav>
 
       <div className="case-study-shell">
