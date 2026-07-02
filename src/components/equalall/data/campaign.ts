@@ -41,15 +41,15 @@ export const campaign = {
   heroImages: [
     {
       src: "/images/equalall/hero-meals.webp",
-      alt: "Children sharing a warm meal at a relief kitchen",
+      alt: "A young girl smiling as she holds a warm meal at a community kitchen",
     },
     {
-      src: "/images/equalall/hero-clinic.webp",
-      alt: "A health worker examining a child at a mobile clinic",
+      src: "/images/equalall/hero-care.webp",
+      alt: "A relief worker feeding a young child",
     },
     {
       src: "/images/equalall/hero-classroom.webp",
-      alt: "Children learning together in a community classroom",
+      alt: "A teacher instructing children in a classroom",
     },
   ] satisfies HeroImage[],
   story: [
@@ -65,7 +65,7 @@ export const campaign = {
       tangible: {
         title: "Checkups for two children",
         detail: "A full screening and treatment plan at a mobile clinic.",
-        image: "/images/equalall/hero-clinic.webp",
+        image: "/images/equalall/hero-care.webp",
       },
     },
     {
@@ -75,7 +75,7 @@ export const campaign = {
       tangible: {
         title: "A month of family medicine",
         detail: "Essential medicines delivered to one family's door.",
-        image: "/images/equalall/hero-clinic.webp",
+        image: "/images/equalall/hero-care.webp",
       },
     },
     {
