@@ -1,0 +1,251 @@
+/* ============================================================
+   EqualAll — Warm Paper & Glass
+   All rules scoped under .ea-root. Nothing leaks into the
+   portfolio's global styles; nothing global leaks in past the
+   token layer defined here.
+   ============================================================ */
+
+.ea-root {
+  /* Canvas & surfaces */
+  --ea-canvas: #f0ece4;          /* desktop stage behind the phone */
+  --ea-surface: #faf8f4;         /* app background inside the phone */
+  --ea-card: #ffffff;
+  --ea-scrim: rgba(28, 23, 18, 0.42);
+
+  /* Ink */
+  --ea-ink: #221d17;
+  --ea-ink-2: #5d564c;
+  --ea-ink-3: #a09786;
+  --ea-line: rgba(34, 29, 23, 0.09);
+  --ea-line-strong: rgba(34, 29, 23, 0.16);
+
+  /* The feeling — one warm accent, used semantically */
+  --ea-accent: #e2532c;
+  --ea-accent-deep: #c03f1d;
+  --ea-accent-tint: #fcefe8;
+  --ea-accent-glow: rgba(226, 83, 44, 0.32);
+
+  /* Trust green — verified badges, secure chips, success */
+  --ea-trust: #2e7a4e;
+  --ea-trust-tint: #e9f4ec;
+
+  /* Keepsake foil */
+  --ea-gold: #a97f31;
+
+  /* Radii system */
+  --ea-r-sm: 10px;
+  --ea-r-md: 14px;
+  --ea-r-lg: 20px;
+  --ea-r-xl: 28px;
+  --ea-r-pill: 999px;
+
+  /* Shadows */
+  --ea-shadow-card: 0 1px 2px rgba(34, 29, 23, 0.05),
+    0 6px 20px rgba(34, 29, 23, 0.07);
+  --ea-shadow-sheet: 0 -8px 40px rgba(34, 29, 23, 0.16);
+  --ea-shadow-float: 0 2px 6px rgba(34, 29, 23, 0.1),
+    0 14px 36px rgba(34, 29, 23, 0.16);
+
+  /* Type */
+  --ea-font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
+    ui-sans-serif, system-ui, sans-serif;
+  /* --ea-font-serif is provided by next/font (Fraunces) on the host element */
+
+  font-family: var(--ea-font-ui);
+  color: var(--ea-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.ea-root *,
+.ea-root *::before,
+.ea-root *::after {
+  box-sizing: border-box;
+}
+
+.ea-root button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ea-root img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Utilities */
+.ea-num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.ea-caps {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ea-ink-3);
+}
+
+/* ============================================================
+   Mockup route stage
+   ============================================================ */
+
+.ea-mockup-page {
+  min-height: 100dvh;
+  display: grid;
+  background:
+    radial-gradient(
+      120% 90% at 50% -10%,
+      #f7f4ee 0%,
+      var(--ea-canvas) 58%,
+      #e9e4d9 100%
+    );
+  padding: 28px;
+}
+
+.ea-fullbleed {
+  height: 100dvh;
+  width: 100%;
+}
+
+/* ============================================================
+   Phone frame
+   ============================================================ */
+
+.ea-phone-stage {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100dvh - 56px);
+  display: grid;
+  place-items: center;
+}
+
+.ea-phone {
+  position: relative;
+  padding: 11px;
+  background: linear-gradient(160deg, #26221e 0%, #16130f 60%, #211d18 100%);
+  border-radius: 61px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 2px 6px rgba(20, 16, 12, 0.22),
+    0 32px 80px rgba(20, 16, 12, 0.34);
+  transform-origin: center center;
+}
+
+.ea-phone-island {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 118px;
+  height: 34px;
+  background: #060505;
+  border-radius: 20px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.ea-phone-screen {
+  width: 390px;
+  height: 844px;
+  border-radius: 50px;
+  overflow: hidden;
+  background: var(--ea-surface);
+  position: relative;
+}
+
+/* ============================================================
+   Viewport & scroll container
+   ============================================================ */
+
+.ea-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ea-surface);
+}
+
+.ea-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.ea-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   Status bar & top bar
+   ============================================================ */
+
+.ea-status-bar {
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 30px 8px;
+  color: var(--ea-ink);
+}
+
+.ea-status-time {
+  font-size: 15px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.ea-status-glyphs {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ea-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px 14px;
+}
+
+.ea-wordmark {
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 21px;
+  font-weight: 620;
+  letter-spacing: -0.015em;
+  color: var(--ea-ink);
+}
+
+/* ============================================================
+   Scaffold placeholder (replaced by StoryScreen)
+   ============================================================ */
+
+.ea-story-placeholder {
+  padding: 0 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.ea-story-placeholder-hero {
+  height: 300px;
+  border-radius: var(--ea-r-lg);
+  background: linear-gradient(150deg, #ece7dd, #e2dccf);
+}
+
+.ea-story-placeholder-line {
+  height: 16px;
+  border-radius: 6px;
+  background: #eae5da;
+}
+
+.ea-story-placeholder-line.ea-short {
+  width: 60%;
+}
