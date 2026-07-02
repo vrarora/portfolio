@@ -613,34 +613,34 @@ h3 {
 }
 
 .hero-marquee {
-  width: 280px;
+  width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   align-self: flex-end;
   padding-bottom: 4px;
 }
 
 .hero-marquee-label {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-gray-400);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-gray-500);
   text-transform: uppercase;
 }
 
 .hero-marquee-outer {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
 .hero-marquee-track {
   display: flex;
   align-items: center;
-  gap: 52px;
+  gap: 56px;
   width: max-content;
-  animation: marquee-scroll 22s linear infinite;
+  animation: marquee-scroll 28s linear infinite;
 }
 
 .hero-marquee-item {
@@ -650,12 +650,12 @@ h3 {
 }
 
 .hero-marquee-logo {
-  height: 26px;
+  height: 32px;
   width: auto;
-  max-width: 110px;
+  max-width: 130px;
   object-fit: contain;
   filter: grayscale(1);
-  opacity: 0.62;
+  opacity: 0.82;
 }
 
 .scroll-chip {
@@ -1128,22 +1128,22 @@ h3 {
 
 .work-card-text {
   display: grid;
-  gap: 0.45rem;
+  gap: 12px;
 }
 
 .work-headline {
   font-family: var(--font-sans);
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.02;
   letter-spacing: 0;
   color: var(--color-black);
-  text-wrap: balance;
 }
 
 .work-description {
   font-family: var(--font-body);
   font-size: 17px;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: 0;
   color: var(--color-gray-4);
@@ -2893,7 +2893,7 @@ h3 {
   max-width: 10ch;
 }
 
-.case-study-data-compass .case-hero h1 {
+.case-study-page .case-hero h1 {
   width: 100%;
   max-width: 70ch;
   color: var(--color-gray-800);
@@ -2911,7 +2911,7 @@ h3 {
   white-space: normal;
 }
 
-.case-study-data-compass .case-hero-copy .lede {
+.case-study-page .case-hero-copy .lede {
   width: 100%;
   max-width: 70ch;
   color: var(--color-gray-500);
@@ -2920,12 +2920,12 @@ h3 {
   font-weight: 400;
 }
 
-.case-study-data-compass .case-study-main {
+.case-study-page .case-study-main {
   width: 100%;
   max-width: none;
 }
 
-.case-study-data-compass .case-section-heading h2 {
+.case-study-page .case-section-heading h2 {
   width: 100%;
   max-width: 70ch;
   font-family: var(--font-heading);
@@ -2934,7 +2934,7 @@ h3 {
   font-weight: 600;
 }
 
-.case-study-data-compass .case-section-body p {
+.case-study-page .case-section-body p {
   width: 100%;
   color: var(--color-gray-3);
   font-weight: 400;
@@ -2945,7 +2945,7 @@ h3 {
   margin: 0;
   padding-left: 1.25em;
   display: grid;
-  gap: 0.5rem;
+  gap: 60px;
   color: var(--color-gray-3);
   font-size: 18px;
   font-weight: 400;
@@ -2953,16 +2953,20 @@ h3 {
   line-height: var(--leading-text-md);
 }
 
-.case-study-data-compass .case-section-heading .card-kicker {
+.case-item-bullets li .case-visual-placeholder {
+  margin-top: 1rem;
+}
+
+.case-study-page .case-section-heading .card-kicker {
   font-family: var(--font-sans);
 }
 
-.case-study-data-compass .case-metadata-item dt {
+.case-study-page .case-metadata-item dt {
   font-size: var(--text-md);
   line-height: var(--leading-text-md);
 }
 
-.case-study-data-compass .case-metadata-item dd {
+.case-study-page .case-metadata-item dd {
   font-size: var(--text-md);
   line-height: var(--leading-text-md);
 }
@@ -3828,7 +3832,7 @@ h3 {
 }
 
 .oiv-metric .oiv-metric-num,
-.case-study-data-compass .case-section-body .oiv-metric .oiv-metric-num {
+.case-study-page .case-section-body .oiv-metric .oiv-metric-num {
   font-size: 36px;
   font-weight: 600;
   color: var(--color-gray-950);

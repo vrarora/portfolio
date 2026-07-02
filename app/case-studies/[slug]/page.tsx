@@ -107,6 +107,12 @@ function FlatListMockup() {
   );
 }
 
+function renderParagraphs(text: string) {
+  return text
+    .split("\n\n")
+    .map((paragraph, i) => <p key={i}>{paragraph}</p>);
+}
+
 function toSectionId(value: string) {
   return value
     .toLowerCase()
@@ -211,11 +217,26 @@ export default async function CaseStudyPage({ params }: PageProps) {
                           The design work was about deciding which complexity each type of user should encounter, and at what point in their workflow.
                         </blockquote>
                       )}
-                      <p>{section.body}</p>
+                      {renderParagraphs(section.body)}
+                      {section.bullets && section.bullets.length > 0 && (
+                        <ul className="case-item-bullets">
+                          {section.bullets.map((bullet, bi) => (
+                            <li key={bi}>
+                              {bullet}
+                              <div
+                                className={`case-visual-placeholder case-visual-${(bi % 3) + 1}`}
+                                data-case-reveal
+                              >
+                                <span>Visual placeholder</span>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       {section.visualType === "fragmented-landscape" ? (
                         <DataStreamVisual />
                       ) : section.visualType === "outcome-impact" ? (
-                        <OutcomeImpactVisual />
+                        <OutcomeImpactVisual metrics={section.metrics} />
                       ) : section.visual ? (
                         <div
                           className={`case-visual-placeholder case-visual-${(index % 3) + 1}`}
@@ -227,7 +248,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     </div>
                     {section.items?.map((item, itemIndex) => (
                       <div key={itemIndex} className="case-section-item">
-                        <p>{item.body}</p>
+                        {renderParagraphs(item.body)}
                         {item.bullets && item.bullets.length > 0 && (
                           <ul className="case-item-bullets">
                             {item.bullets.map((bullet, bi) => (

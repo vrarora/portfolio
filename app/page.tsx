@@ -623,10 +623,10 @@ export default function HomePage() {
     const now = new Date();
     setDateStr(now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }));
 
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(async (pos) => {
+    (async () => {
       try {
-        const { latitude, longitude } = pos.coords;
+        const geo = await fetch("https://ipapi.co/json/").then((r) => r.json());
+        const { latitude, longitude } = geo;
         const res = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code`
         );
@@ -638,7 +638,7 @@ export default function HomePage() {
       } catch {
         // silently fail — widget just shows date
       }
-    });
+    })();
   }, []);
 
   useEffect(() => {
@@ -1380,7 +1380,7 @@ export default function HomePage() {
               </article>
 
               <article className="about-floating-card about-floating-card-bottom">
-                <p className="about-floating-value">4</p>
+                <p className="about-floating-value">3.5+</p>
                 <p className="about-floating-label">Years experience</p>
               </article>
             </div>

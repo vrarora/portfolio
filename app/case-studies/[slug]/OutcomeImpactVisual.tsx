@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { SlotText } from "slot-text/react";
 
-const METRICS = [
+export type OutcomeMetric = { start: string; end: string; desc: string };
+
+const DEFAULT_METRICS: OutcomeMetric[] = [
   { start: "0 weeks", end: "3 weeks", desc: "From kickoff to POC evaluation" },
   { start: "₹000Cr",  end: "₹250Cr",  desc: "In penalty exposure the bank faced" },
   { start: "₹00Cr+",  end: "₹10Cr+",  desc: "ARR won for IDfy when the bank signed" },
@@ -18,7 +20,7 @@ type Seg = {
   coord:  number; // lineY for horizontal, lineX for vertical — set in init
 };
 
-export default function OutcomeImpactVisual() {
+export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { metrics?: OutcomeMetric[] }) {
   const wrapRef   = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef    = useRef<number>(0);
@@ -137,7 +139,7 @@ export default function OutcomeImpactVisual() {
     <div className="outcome-impact-visual" ref={wrapRef}>
       <canvas ref={canvasRef} className="oiv-canvas" aria-hidden="true" />
       <div className="oiv-metrics">
-        {METRICS.map((m, i) => (
+        {metrics.map((m, i) => (
           <div key={i} className="oiv-metric">
             <p className="oiv-metric-num">
               <SlotText

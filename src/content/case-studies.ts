@@ -20,8 +20,10 @@ export type CaseStudy = {
     kicker: string;
     title: string;
     body: string;
+    bullets?: string[];
     visual?: string;
     visualType?: string;
+    metrics?: Array<{ start: string; end: string; desc: string }>;
     items?: Array<{
       body: string;
       bullets?: string[];
@@ -41,7 +43,7 @@ export const caseStudies: CaseStudy[] = [
     homeBrand: "Data Compass",
     homeHeadline: "Data Compass turned a 3-week bank POC into ₹10Cr+ ARR.",
     homeDescription:
-      "I drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
+      "Drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
     homeTags: ["Enterprise", "B2B", "Compliance", "Data Discovery", "Product UX"],
     workAccent: "green",
     workPreview: "screenshot",
@@ -125,15 +127,74 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
+    slug: "atlas",
+    title: "40% More Revenue From Every Donor",
+    eyebrow: "Case study 02",
+    summary:
+      "Owning revenue per donor on Ketto's 0→1 bet to win Western donors, where a gift is a race against a feeling that fades.",
+    homeBrand: "EqualAll",
+    homeHeadline: "EqualAll's 40% Lift in Revenue Per Donor",
+    homeDescription:
+      "Designed and owned EqualAll, Ketto's 0→1 donation platform for Western donors, taking revenue per donor from launch through a 40% lift by designing for the fading emotion behind every gift.",
+    homeTags: ["Social Impact", "0→1", "Growth", "Consumer", "Product UX"],
+    workAccent: "orange",
+    workPreview: "commerce",
+    status: "Placeholder case study",
+    visibility: "public",
+    metadata: [
+      { label: "Company", value: "Ketto" },
+      { label: "Product", value: "EqualAll" },
+      { label: "Role", value: "Product Designer" },
+      { label: "Timeline", value: "Nov 2024 – Mar 2025" },
+      { label: "Team", value: "CMO, VP of Product, Senior PM" },
+      { label: "Outcome", value: "+40% revenue per donor" },
+    ],
+    sections: [
+      {
+        kicker: "Context",
+        title: "Ketto Bet on the West, and the Numbers Came Back Low",
+        body: "Ketto is India's largest crowdfunding platform, built on millions of small gifts from donors across the country. EqualAll was its next bet: a platform aimed at the West, where people give more and give more readily, opening a new and larger revenue stream.\n\nThe way in is an ad. Someone scrolling sees children caught in the war in Gaza, feels something, and taps. A second later they are on EqualAll, a platform they have never heard of, being asked to give money to strangers online.\n\nWe launched with everything a donation page is supposed to have, and the first numbers came back below Ketto's own benchmark. People were arriving, scrolling deep, clearly moved, and still not giving the way the model predicted.",
+      },
+      {
+        kicker: "The Insight",
+        title: "A Gift Is a Race Against a Fading Feeling",
+        body: "The easy explanations were about traffic, and some of that was true. But the thing I kept returning to was the donor's state of mind.\n\nThey had not come to research a cause or weigh their options against alternatives. They had arrived on a wave of feeling an ad created moments earlier, and a feeling like that does not last. By the time the page asked them to choose an amount, confirm the details, and enter payment, the wave was already receding.\n\nSo the goal I had been handed, raise revenue per donor, was really a single problem in disguise: catch the feeling at its peak and turn it into a gift before it cooled, and wherever possible, turn that one moment into a commitment that would outlast it.",
+      },
+      {
+        kicker: "The Work",
+        title: "Designing Against the Clock",
+        body: "Every change I made after that either protected the feeling or converted it before it cooled. None of these was the win on its own. Their culmination was.",
+        bullets: [
+          "The amount was where doubt first crept in. \"How much is right?\" is paralyzing when you are giving to strangers with nothing to compare against, so a \"Most chosen\" amount answered it instantly and kept a moved donor from cooling off while deciding.",
+          "The amounts were bare numbers, so I gave each one meaning. \"$100\" became \"$100 helps feed five children for a week,\" and gifts started moving up the ladder because the ladder finally meant something.",
+          "The cart's final step showed an abstract total, the least emotional moment in the flow. I changed it to show what the money became, a medical kit that helps save a life, so the last click felt like the feeling rather than a checkout.",
+          "Donors kept clicking the campaign photo as if it would open, reaching for the feeling. Instead of a dead end, I turned it into a carousel with a Donate button docked inside, so looking closer led straight into giving.",
+          "Recurring giving came from the same read. The donors most moved to give were often the ones least willing to come back and feel it again, so I let them turn a single gift into a monthly one and offered recurring giving right after donating, a way to keep doing good without re-living what hurt.",
+        ],
+      },
+      {
+        kicker: "Outcome",
+        title: "Owning the Number, Not Just the Screens",
+        body: "I owned the number, not just the screens: instrumenting the funnel in Metabase, watching real sessions in Clarity, and measuring every change against the version before it. Design for the decay, not the transaction, and the giving follows.",
+        visualType: "outcome-impact",
+        metrics: [
+          { start: "0%",   end: "40%",  desc: "Lift in revenue per donor" },
+          { start: "0",    end: "5",    desc: "Experiments shipped as one system" },
+          { start: "0 mo", end: "5 mo", desc: "Nov 2024 to Mar 2025 build window" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "signal",
     title: "Endpoint Protection operating model",
-    eyebrow: "Case study 02",
+    eyebrow: "Case study 03",
     summary:
       "Endpoint Protection shields employee devices by detecting and quarantining PII before it can surface, protecting organizations from DPDP fines of up to Rs. 250 Cr.",
     homeBrand: "Endpoint Protection",
     homeHeadline: "Protecting employee devices kept Rs. 250 Cr in DPDP fines off the table.",
     homeDescription:
-      "I designed the detection and quarantine flows for Endpoint Protection, the device-level security layer of the Data Compass suite, so organizations could prove compliance before a violation occurred.",
+      "Designed the detection and quarantine flows for Endpoint Protection, the device-level security layer of the Data Compass suite, so organizations could prove compliance before a violation occurred.",
     homeTags: ["Enterprise", "B2B", "Compliance", "Security", "Product UX"],
     workAccent: "blue",
     workPreview: "placeholder",
@@ -162,47 +223,6 @@ export const caseStudies: CaseStudy[] = [
         kicker: "Tradeoffs",
         title: "Where the judgment lives",
         body: "The layout keeps decisions visible so the designer's thinking remains legible, even when only placeholder content is present.",
-      },
-    ],
-  },
-  {
-    slug: "atlas",
-    title: "EqualAll donation platform",
-    eyebrow: "Case study 03",
-    summary:
-      "EqualAll opened a new donation-driven revenue stream for Ketto by designing a platform that enterprise CSR teams could actually adopt and deploy.",
-    homeBrand: "EqualAll",
-    homeHeadline: "EqualAll turned enterprise CSR budgets into a new revenue stream for Ketto.",
-    homeDescription:
-      "I designed the donation platform experience that helped Ketto unlock corporate giving at scale, creating a new business line by making CSR-driven donation flows simple enough for enterprise teams to own.",
-    homeTags: ["Social Impact", "Fintech", "B2B", "CSR", "Platform"],
-    workAccent: "orange",
-    workPreview: "placeholder",
-    status: "Placeholder case study",
-    visibility: "public",
-    metadata: [
-      { label: "Role", value: "Design owner" },
-      { label: "Timeline", value: "10 weeks" },
-      { label: "Team", value: "Cross-functional squad" },
-      { label: "Skills", value: "IA, content hierarchy, systems" },
-      { label: "Status", value: "Placeholder / public" },
-    ],
-    sections: [
-      {
-        kicker: "Impact",
-        title: "Placeholder for future outcomes",
-        body: "This section will later hold measurable results. The important part in Phase 1 is that the route exists and is public.",
-        visual: "Visual placeholder",
-      },
-      {
-        kicker: "Decisions",
-        title: "A route ready for gating later",
-        body: "Future client-side gating can be layered in without changing the slug structure or the content shape.",
-      },
-      {
-        kicker: "Reflection",
-        title: "Keep the structure reusable",
-        body: "The content model is intentionally simple so later phases can swap in real projects without reworking the route system.",
       },
     ],
   },
