@@ -10,6 +10,7 @@ import InspectorExplorer from "./InspectorExplorer";
 import ScanWorkflowVisual from "./ScanWorkflowVisual";
 import OnboardingFlowVisual from "./OnboardingFlowVisual";
 import OutcomeImpactVisual from "./OutcomeImpactVisual";
+import { EqualAllExperimentVisual } from "./EqualAllExperimentVisual";
 
 type PageProps = {
   params: Promise<{
@@ -266,6 +267,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
                           <ScanWorkflowVisual />
                         ) : item.visualType === "onboarding-flow" ? (
                           <OnboardingFlowVisual />
+                        ) : item.visualType === "equalall-anchor" ? (
+                          <EqualAllExperimentVisual experiment="anchor" />
+                        ) : item.visualType === "equalall-impact" ? (
+                          <EqualAllExperimentVisual experiment="impact" />
+                        ) : item.visualType === "equalall-tangible" ? (
+                          <EqualAllExperimentVisual experiment="tangible" />
+                        ) : item.visualType === "equalall-carousel" ? (
+                          <EqualAllExperimentVisual experiment="carousel" />
+                        ) : item.visualType === "equalall-recurring" ? (
+                          <EqualAllExperimentVisual experiment="recurring" />
                         ) : (
                           <div
                             className={`case-visual-placeholder case-visual-${(itemIndex % 3) + 1}`}

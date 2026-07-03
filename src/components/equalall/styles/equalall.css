@@ -136,6 +136,10 @@
   place-items: center;
 }
 
+.ea-phone-fit {
+  position: relative;
+}
+
 .ea-phone {
   position: relative;
   padding: 11px;
@@ -145,7 +149,8 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.14),
     0 2px 6px rgba(20, 16, 12, 0.22),
     0 32px 80px rgba(20, 16, 12, 0.34);
-  transform-origin: center center;
+  transform-origin: top left;
+  width: 412px; /* PHONE_W + bezels */
 }
 
 .ea-phone-island {
@@ -1532,4 +1537,99 @@
 
 .ea-keepsake-reset:active {
   color: var(--ea-ink);
+}
+
+/* ============================================================
+   Embedded demos (case-study visuals)
+   ============================================================ */
+
+.ea-demo-shell {
+  height: 640px;
+  border-radius: 10px;
+  background: #eef0f2;
+}
+
+.ea-demo {
+  display: grid;
+  gap: 0;
+  background: #eef0f2;
+  border-radius: 10px;
+  padding: 26px 24px 14px;
+}
+
+.ea-demo-frame {
+  height: 560px;
+}
+
+.ea-demo-frame .ea-phone-stage {
+  min-height: 0;
+}
+
+.ea-demo-caption {
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  padding-top: 12px;
+}
+
+.ea-demo-caption {
+  font-family: var(--ea-font-ui);
+  font-size: 12.5px;
+  font-weight: 550;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* The finger + loop-reset fade live inside the phone viewport */
+
+.ea-finger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  pointer-events: none;
+}
+
+.ea-finger-dot {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ea-r-pill);
+  background: rgba(34, 29, 23, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px rgba(34, 29, 23, 0.25);
+  backdrop-filter: blur(2px);
+}
+
+.ea-finger-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ea-r-pill);
+  border: 2px solid rgba(34, 29, 23, 0.4);
+}
+
+.ea-demo-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: var(--ea-surface);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ea-demo-fade.ea-fading {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .ea-demo-frame {
+    height: 470px;
+  }
+
+  .ea-demo-shell {
+    height: 550px;
+  }
 }

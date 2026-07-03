@@ -55,7 +55,7 @@ export function HeroCarousel() {
   }
 
   return (
-    <div className="ea-hero" ref={frameRef}>
+    <div className="ea-hero" ref={frameRef} data-ea-target="hero-frame">
       <motion.div
         className="ea-hero-track"
         style={{ x }}

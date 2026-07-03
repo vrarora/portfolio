@@ -41,15 +41,23 @@ export function PhoneFrame({
   return (
     <div className="ea-phone-stage" ref={stageRef}>
       <div
-        className="ea-phone"
+        className="ea-phone-fit"
         style={
           scale === null
             ? { visibility: "hidden" }
-            : { transform: `scale(${scale})` }
+            : {
+                width: (PHONE_W + BEZEL * 2) * scale,
+                height: (PHONE_H + BEZEL * 2) * scale,
+              }
         }
       >
-        <div className="ea-phone-island" aria-hidden="true" />
-        <div className="ea-phone-screen">{children}</div>
+        <div
+          className="ea-phone"
+          style={scale === null ? undefined : { transform: `scale(${scale})` }}
+        >
+          <div className="ea-phone-island" aria-hidden="true" />
+          <div className="ea-phone-screen">{children}</div>
+        </div>
       </div>
     </div>
   );

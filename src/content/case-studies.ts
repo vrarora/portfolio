@@ -164,12 +164,32 @@ export const caseStudies: CaseStudy[] = [
         kicker: "The Work",
         title: "Designing Against the Clock",
         body: "Every change I made after that either protected the feeling or converted it before it cooled. None of these was the win on its own. Their culmination was.",
-        bullets: [
-          "The amount was where doubt first crept in. \"How much is right?\" is paralyzing when you are giving to strangers with nothing to compare against, so a \"Most chosen\" amount answered it instantly and kept a moved donor from cooling off while deciding.",
-          "The amounts were bare numbers, so I gave each one meaning. \"$100\" became \"$100 helps feed five children for a week,\" and gifts started moving up the ladder because the ladder finally meant something.",
-          "The cart's final step showed an abstract total, the least emotional moment in the flow. I changed it to show what the money became, a medical kit that helps save a life, so the last click felt like the feeling rather than a checkout.",
-          "Donors kept clicking the campaign photo as if it would open, reaching for the feeling. Instead of a dead end, I turned it into a carousel with a Donate button docked inside, so looking closer led straight into giving.",
-          "Recurring giving came from the same read. The donors most moved to give were often the ones least willing to come back and feel it again, so I let them turn a single gift into a monthly one and offered recurring giving right after donating, a way to keep doing good without re-living what hurt.",
+        items: [
+          {
+            body: "The amount was where doubt first crept in. \"How much is right?\" is paralyzing when you are giving to strangers with nothing to compare against, so a \"Most chosen\" amount answered it instantly and kept a moved donor from cooling off while deciding.",
+            visual: "The Most chosen anchor: doubt answered instantly",
+            visualType: "equalall-anchor",
+          },
+          {
+            body: "The amounts were bare numbers, so I gave each one meaning. \"$100\" became \"$100 helps feed five children for a week,\" and gifts started moving up the ladder because the ladder finally meant something.",
+            visual: "Impact amounts: every rung of the ladder carries meaning",
+            visualType: "equalall-impact",
+          },
+          {
+            body: "The final step before payment showed an abstract total, the least emotional moment in the flow. I changed it to show what the money became, a medical kit that helps save a life, so the last click felt like the feeling rather than a checkout.",
+            visual: "The tangible confirm: the gift becomes the thing it buys",
+            visualType: "equalall-tangible",
+          },
+          {
+            body: "Donors kept clicking the campaign photo as if it would open, reaching for the feeling. Instead of a dead end, I turned it into a carousel with a Donate button docked inside, so looking closer led straight into giving.",
+            visual: "The hero carousel: looking closer leads into giving",
+            visualType: "equalall-carousel",
+          },
+          {
+            body: "Recurring giving came from the same read. The donors most moved to give were often the ones least willing to come back and feel it again, so I let them turn a single gift into a monthly one and offered recurring giving right after donating, a way to keep doing good without re-living what hurt.",
+            visual: "Recurring giving: one peak becomes a standing commitment",
+            visualType: "equalall-recurring",
+          },
         ],
       },
       {
