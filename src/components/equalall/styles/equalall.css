@@ -168,6 +168,8 @@
   overflow: hidden;
   background: var(--ea-surface);
   position: relative;
+  isolation: isolate;
+  transform: translateZ(0); /* keep transformed sheets inside the radius clip */
 }
 
 /* ============================================================
@@ -915,4 +917,317 @@
   font-size: 11px;
   font-weight: 550;
   color: var(--ea-ink-3);
+}
+
+/* ============================================================
+   Tangible confirm (the gift becomes the thing)
+   ============================================================ */
+
+.ea-becomes {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.ea-becomes-amount {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 40px;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  color: var(--ea-ink);
+  font-optical-sizing: auto;
+}
+
+.ea-becomes-permo {
+  font-family: var(--ea-font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ea-ink-2);
+  letter-spacing: 0.01em;
+}
+
+.ea-becomes-thread {
+  width: 2px;
+  height: 26px;
+  margin: 8px 0;
+  border-radius: var(--ea-r-pill);
+  background: linear-gradient(180deg, var(--ea-accent), rgba(226, 83, 44, 0.15));
+  transform-origin: top center;
+}
+
+.ea-tangible-card {
+  width: 100%;
+  margin: 0;
+  border-radius: var(--ea-r-lg);
+  border: 1px solid var(--ea-line);
+  background: var(--ea-card);
+  box-shadow: var(--ea-shadow-card);
+  overflow: hidden;
+}
+
+.ea-tangible-card img {
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+}
+
+.ea-tangible-card figcaption {
+  display: grid;
+  gap: 3px;
+  padding: 13px 16px 15px;
+}
+
+.ea-tangible-title {
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 17px;
+  font-weight: 620;
+  letter-spacing: -0.005em;
+  color: var(--ea-ink);
+}
+
+.ea-tangible-detail {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ea-ink-2);
+}
+
+.ea-monthly-chip {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: var(--ea-r-pill);
+  background: var(--ea-trust-tint);
+  color: var(--ea-trust);
+  font-size: 11.5px;
+  font-weight: 620;
+}
+
+.ea-pay-cta {
+  width: 100%;
+  height: 52px;
+  border-radius: 16px;
+  background: #101010;
+  color: #fff;
+  font-size: 15.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 10px 24px rgba(16, 16, 16, 0.24);
+}
+
+.ea-pay-mark {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   Payment sheet (fictional wallet)
+   ============================================================ */
+
+.ea-pay-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 22;
+  background: rgba(24, 22, 20, 0.98);
+  border-radius: 26px 26px 0 0;
+  padding: 18px 20px 26px;
+  color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 -12px 48px rgba(10, 8, 6, 0.4);
+}
+
+.ea-pay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ea-pay-brand {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ea-pay-close {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--ea-r-pill);
+  background: rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ea-pay-body {
+  display: grid;
+  gap: 14px;
+  padding-top: 16px;
+}
+
+.ea-pay-card-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ea-pay-card-art {
+  position: relative;
+  width: 52px;
+  height: 34px;
+  flex: 0 0 52px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5a7bd8 0%, #3a55a8 55%, #2b3f85 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.ea-pay-card-chip {
+  position: absolute;
+  top: 12px;
+  left: 7px;
+  width: 9px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 224, 130, 0.9);
+}
+
+.ea-pay-card-info {
+  display: grid;
+  gap: 1px;
+}
+
+.ea-pay-card-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ea-pay-card-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ea-pay-lines {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+  padding: 2px 0 4px;
+}
+
+.ea-pay-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.ea-pay-line dt {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ea-pay-line dd {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.ea-pay-line-sub dd {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ea-pay-permo {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ea-pay-confirm {
+  width: 100%;
+  height: 50px;
+  border-radius: 15px;
+  background: #fff;
+  color: #111;
+  font-size: 15.5px;
+  font-weight: 650;
+}
+
+.ea-pay-processing {
+  min-height: 168px;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+}
+
+.ea-pay-ring-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+.ea-pay-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ea-r-pill);
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.9);
+  animation: ea-spin 0.8s linear infinite;
+}
+
+@keyframes ea-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ea-pay-check {
+  width: 36px;
+  height: 36px;
+  color: #6ee7a0;
+}
+
+.ea-pay-status {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================================================
+   Keepsake stub (replaced next milestone)
+   ============================================================ */
+
+.ea-keepsake {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  background: var(--ea-surface);
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 32px;
+}
+
+.ea-keepsake-stub {
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 20px;
+}
+
+.ea-keepsake-reset {
+  justify-self: center;
+  padding: 10px 20px;
+  border-radius: var(--ea-r-pill);
+  border: 1px solid var(--ea-line-strong);
+  font-size: 13.5px;
+  font-weight: 600;
 }

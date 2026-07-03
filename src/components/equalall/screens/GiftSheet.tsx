@@ -66,18 +66,7 @@ export function GiftSheet() {
   const isConfirm = state.step === "confirm";
 
   return (
-    <>
-      <motion.div
-        className="ea-scrim"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={FADE}
-        onClick={
-          interactive ? () => dispatch({ type: "CLOSE_GIFT" }) : undefined
-        }
-      />
-      <motion.div
+    <motion.div
         className="ea-sheet"
         role="dialog"
         aria-modal="true"
@@ -114,7 +103,6 @@ export function GiftSheet() {
             )}
           </AnimatePresence>
         </div>
-      </motion.div>
-    </>
+    </motion.div>
   );
 }

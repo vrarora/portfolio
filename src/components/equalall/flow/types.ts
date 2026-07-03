@@ -32,6 +32,7 @@ export type DonationAction =
   | { type: "CONTINUE_TO_CONFIRM" }
   | { type: "BACK_TO_GIFT" }
   | { type: "OPEN_PAYMENT" }
+  | { type: "CANCEL_PAYMENT" }
   | { type: "AUTHORIZE_PAYMENT" }
   | { type: "PAYMENT_DONE"; receipt?: Receipt }
   | { type: "SET_HERO_INDEX"; index: number }

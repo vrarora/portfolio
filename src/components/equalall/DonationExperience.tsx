@@ -6,7 +6,10 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { LockSimple } from "@phosphor-icons/react";
 import { StatusBar } from "./chrome/StatusBar";
 import { useDonationFlow } from "./flow/DonationFlowProvider";
+import { FADE } from "./motionTokens";
 import { GiftSheet } from "./screens/GiftSheet";
+import { KeepsakeScreen } from "./screens/KeepsakeScreen";
+import { PaymentSheet } from "./screens/PaymentSheet";
 import { StoryScreen } from "./screens/StoryScreen";
 
 /** The whole product: story screen in a scroll container, the persistent
@@ -16,7 +19,9 @@ import { StoryScreen } from "./screens/StoryScreen";
 export function DonationExperience() {
   const { state, dispatch, mode, viewportRef } = useDonationFlow();
   const interactive = mode === "interactive";
-  const sheetOpen = state.step === "gift" || state.step === "confirm";
+  const giftOpen = state.step === "gift" || state.step === "confirm";
+  const paymentOpen = state.step === "payment" || state.step === "processing";
+  const scrimVisible = giftOpen || paymentOpen;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -45,7 +50,26 @@ export function DonationExperience() {
           </span>
         </div>
 
-        <AnimatePresence>{sheetOpen && <GiftSheet key="gift" />}</AnimatePresence>
+        <AnimatePresence>
+          {scrimVisible && (
+            <motion.div
+              key="scrim"
+              className="ea-scrim"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={FADE}
+              onClick={
+                interactive && giftOpen
+                  ? () => dispatch({ type: "CLOSE_GIFT" })
+                  : undefined
+              }
+            />
+          )}
+          {giftOpen && <GiftSheet key="gift" />}
+          {paymentOpen && <PaymentSheet key="payment" />}
+          {state.step === "keepsake" && <KeepsakeScreen key="keepsake" />}
+        </AnimatePresence>
       </div>
     </MotionConfig>
   );

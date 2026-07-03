@@ -51,6 +51,9 @@ export function donationReducer(
     case "OPEN_PAYMENT":
       return state.step === "confirm" ? { ...state, step: "payment" } : state;
 
+    case "CANCEL_PAYMENT":
+      return state.step === "payment" ? { ...state, step: "confirm" } : state;
+
     case "AUTHORIZE_PAYMENT":
       return state.step === "payment"
         ? { ...state, step: "processing" }
