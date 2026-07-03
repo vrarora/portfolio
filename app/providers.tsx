@@ -1,23 +1,27 @@
 "use client";
 
 import { IconContext } from "@phosphor-icons/react";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {
+  const lenisRef = useRef<import("lenis").default | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
-    let lenis: import("lenis").default | null = null;
     let rafId: number;
 
     import("lenis").then(({ default: Lenis }) => {
-      lenis = new Lenis({
+      const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
+      lenisRef.current = lenis;
 
       function raf(time: number) {
-        lenis!.raf(time);
+        lenis.raf(time);
         rafId = requestAnimationFrame(raf);
       }
 
@@ -26,9 +30,14 @@ export function Providers({ children }: { children: ReactNode }) {
 
     return () => {
       cancelAnimationFrame(rafId);
-      lenis?.destroy();
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  }, [pathname]);
 
   return (
     <IconContext.Provider

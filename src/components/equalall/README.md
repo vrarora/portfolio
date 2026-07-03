@@ -9,7 +9,7 @@ Two hosts render the same product:
 
 - **Interactive mockup** — `app/mockups/equalall/page.tsx` (`/mockups/equalall`).
   Desktop: centered phone frame. Below 480px: full-bleed real mweb page.
-- **Case-study embeds** — five scripted micro-demos on `/case-studies/atlas`,
+- **Case-study embeds** — five scripted micro-demos on `/case-studies/equalall`,
   one per experiment, wired through `visualType: "equalall-*"` in
   `src/content/case-studies.ts` and the switch in
   `app/case-studies/[slug]/page.tsx` via the IO-lazy wrapper
@@ -155,7 +155,7 @@ never sees a growing pane.
 - `scripts/capture-equalall-thumbnails.mjs` — regenerates
   `public/images/equalall/equalall-cover.webp`, the single phone-on-canvas
   Story cover shared by the homepage work card (`workPreview: "cover"`) and
-  the atlas case hero. Run against a production build (dev would leak the
+  the equalall case hero. Run against a production build (dev would leak the
   agentation button into captures):
   `npm run build && (cd out && python3 -m http.server 8788)` then
   `BASE_URL=http://localhost:8788 node scripts/capture-equalall-thumbnails.mjs`.

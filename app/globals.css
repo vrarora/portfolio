@@ -2953,6 +2953,10 @@ h3 {
   line-height: var(--leading-text-md);
 }
 
+.case-section-item .case-item-bullets {
+  gap: 12px;
+}
+
 .case-item-bullets li .case-visual-placeholder {
   margin-top: 1rem;
 }

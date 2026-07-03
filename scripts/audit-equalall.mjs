@@ -149,7 +149,7 @@ const cs = await browser.newPage({
   viewport: { width: 1440, height: 900 },
   deviceScaleFactor: 2,
 });
-await cs.goto(`${BASE_URL}/case-studies/atlas/`, { waitUntil: "networkidle" });
+await cs.goto(`${BASE_URL}/case-studies/equalall/`, { waitUntil: "networkidle" });
 await cs.waitForTimeout(1000);
 const shells = cs.locator(".ea-demo-shell, .ea-demo");
 const count = await shells.count();

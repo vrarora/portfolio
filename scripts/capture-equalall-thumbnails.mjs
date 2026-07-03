@@ -1,7 +1,7 @@
 /**
  * Captures the EqualAll cover thumbnail: a single phone (glass bezel) showing
  * the Story screen on the warm desktop-stage canvas. Used identically on the
- * homepage work card and the atlas case-study hero.
+ * homepage work card and the equalall case-study hero.
  *
  * Usage:
  *   BASE_URL=http://localhost:8788 node scripts/capture-equalall-thumbnails.mjs

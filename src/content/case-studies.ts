@@ -25,7 +25,7 @@ export type CaseStudy = {
     visualType?: string;
     metrics?: Array<{ start: string; end: string; desc: string }>;
     items?: Array<{
-      body: string;
+      body?: string;
       bullets?: string[];
       visual: string;
       visualType?: string;
@@ -85,10 +85,9 @@ export const caseStudies: CaseStudy[] = [
       {
         kicker: "Supporting Decisions",
         title: "The Same Principle, Applied Across Every Layer",
-        body: "The same logic carried through every remaining module.",
+        body: "The same logic carried through every remaining module. The right inspector adapts to wherever the user is in the hierarchy.",
         items: [
           {
-            body: "The right inspector adapts to wherever the user is in the hierarchy.",
             bullets: [
               "A compliance leader at the Organization level sees coverage and risk.",
               "An IT admin at the Table level sees metadata, lineage, and scan history.",
@@ -127,7 +126,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "atlas",
+    slug: "equalall",
     title: "40% More Revenue From Every Donor",
     eyebrow: "Case study 02",
     summary:

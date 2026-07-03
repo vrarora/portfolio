@@ -4,7 +4,7 @@
  * Usage:
  *   BASE_URL=http://localhost:3001 node scripts/verify-equalall.mjs
  *
- * Asserts the full interactive donation flow, the live embeds on the atlas
+ * Asserts the full interactive donation flow, the live embeds on the equalall
  * case study (playing via Lenis-native wheel scrolling), the reduced-motion
  * fallback, and the two-player scheduler cap.
  */
@@ -85,7 +85,7 @@ const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto(`${BASE_URL}/case-studies/atlas/`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE_URL}/case-studies/equalall/`, { waitUntil: "networkidle" });
   await page.waitForTimeout(1000);
 
   for (let i = 0; i < 12; i++) {
@@ -121,7 +121,7 @@ const browser = await chromium.launch();
     viewport: { width: 1440, height: 1000 },
     reducedMotion: "reduce",
   });
-  await page.goto(`${BASE_URL}/case-studies/atlas/`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE_URL}/case-studies/equalall/`, { waitUntil: "networkidle" });
   await page.waitForTimeout(800);
   for (let i = 0; i < 12; i++) {
     await page.mouse.wheel(0, 420);

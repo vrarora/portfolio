@@ -254,7 +254,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     </div>
                     {section.items?.map((item, itemIndex) => (
                       <div key={itemIndex} className="case-section-item">
-                        {renderParagraphs(item.body)}
+                        {item.body && renderParagraphs(item.body)}
                         {item.bullets && item.bullets.length > 0 && (
                           <ul className="case-item-bullets">
                             {item.bullets.map((bullet, bi) => (
