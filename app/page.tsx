@@ -261,23 +261,17 @@ function WorkPreview({
   variant,
   brand,
   thumbnailImage,
-  phoneImages,
 }: {
   variant: (typeof caseStudies)[number]["workPreview"];
   brand: string;
   thumbnailImage?: string;
-  phoneImages?: string[];
 }) {
-  if (variant === "phones" && phoneImages && phoneImages.length > 0) {
+  if (variant === "cover" && thumbnailImage) {
     return (
-      <div className="work-preview work-preview-phones" aria-hidden="true">
-        <div className="preview-frame preview-commerce-stage">
-          {phoneImages.map((src, index) => (
-            <div key={src} className={`preview-phone preview-phone-shot preview-phone-${index + 1}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" loading="lazy" className="preview-phone-shot-img" />
-            </div>
-          ))}
+      <div className="work-preview work-preview-cover" aria-hidden="true">
+        <div className="preview-frame preview-cover-frame">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={thumbnailImage} alt="" loading="lazy" className="preview-cover-img" />
         </div>
       </div>
     );
@@ -1225,7 +1219,7 @@ export default function HomePage() {
                 <article className={`work-card work-card-${study.workAccent}`}>
                   {study.workPreview === "placeholder" ? (
                     <div className="work-card-link work-card-link-disabled">
-                      <WorkPreview variant={study.workPreview} brand={study.homeBrand} thumbnailImage={study.thumbnailImage} phoneImages={study.phoneImages} />
+                      <WorkPreview variant={study.workPreview} brand={study.homeBrand} thumbnailImage={study.thumbnailImage} />
 
                       <div className="work-card-body">
                         <div className="work-card-copy">
@@ -1259,7 +1253,7 @@ export default function HomePage() {
                     </div>
                   ) : (
                     <Link className="work-card-link" href={`/case-studies/${study.slug}`}>
-                      <WorkPreview variant={study.workPreview} brand={study.homeBrand} thumbnailImage={study.thumbnailImage} phoneImages={study.phoneImages} />
+                      <WorkPreview variant={study.workPreview} brand={study.homeBrand} thumbnailImage={study.thumbnailImage} />
 
                       <div className="work-card-body">
                         <div className="work-card-copy">

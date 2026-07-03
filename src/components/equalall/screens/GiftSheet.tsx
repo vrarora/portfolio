@@ -1,13 +1,15 @@
 "use client";
 
+import { useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { LockSimple, X } from "@phosphor-icons/react";
 import { SlotText } from "slot-text/react";
 import { formatAmount, getTier } from "../data/campaign";
 import { useDonationFlow } from "../flow/DonationFlowProvider";
-import { FADE, SPRING_SHEET, SPRING_STEP } from "../motionTokens";
+import { FADE, SPRING_SHEET } from "../motionTokens";
 import { AmountTiers } from "./AmountTiers";
 import { FrequencyToggle } from "./FrequencyToggle";
+import { StepPager } from "./StepPager";
 import { TangibleConfirm } from "./TangibleConfirm";
 
 function GiftStep() {
@@ -16,15 +18,25 @@ function GiftStep() {
   const tier = state.tierId ? getTier(state.tierId) : null;
 
   return (
-    <motion.div
-      className="ea-sheet-step"
-      initial={{ x: -36, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -36, opacity: 0 }}
-      transition={SPRING_STEP}
-    >
+    <div className="ea-sheet-step">
       <h2 className="ea-sheet-title">Your gift</h2>
+      <span className="ea-title-stitch" aria-hidden="true" />
       <FrequencyToggle />
+      <span className="ea-freq-note" aria-live="polite">
+        <AnimatePresence initial={false}>
+          {state.frequency === "monthly" && (
+            <motion.span
+              key="note"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={FADE}
+            >
+              You can cancel anytime.
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </span>
       <AmountTiers />
       <motion.button
         type="button"
@@ -53,7 +65,7 @@ function GiftStep() {
         <LockSimple size={11} weight="fill" />
         Protected by bank-grade encryption
       </span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -64,6 +76,12 @@ export function GiftSheet() {
   const { state, dispatch, mode } = useDonationFlow();
   const interactive = mode === "interactive";
   const isConfirm = state.step === "confirm";
+
+  // Forward when heading to confirm, back when returning — the pager slides
+  // the incoming step in from the matching side.
+  const prevConfirmRef = useRef(isConfirm);
+  const direction = isConfirm ? 1 : prevConfirmRef.current ? -1 : 0;
+  prevConfirmRef.current = isConfirm;
 
   return (
     <motion.div
@@ -95,13 +113,12 @@ export function GiftSheet() {
           <X size={15} weight="bold" />
         </button>
         <div className="ea-sheet-body">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {isConfirm ? (
-              <TangibleConfirm key="confirm" />
-            ) : (
-              <GiftStep key="gift" />
-            )}
-          </AnimatePresence>
+          <StepPager
+            stepKey={isConfirm ? "confirm" : "gift"}
+            direction={direction}
+          >
+            {isConfirm ? <TangibleConfirm /> : <GiftStep />}
+          </StepPager>
         </div>
     </motion.div>
   );

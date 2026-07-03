@@ -115,7 +115,9 @@ export const SCRIPTS: Record<ExperimentId, DemoScript> = {
       { kind: "pause", ms: 500 },
       { kind: "action", action: { type: "AUTHORIZE_PAYMENT" } },
       { kind: "caption", text: "And right after giving, once more" },
-      { kind: "pause", ms: 2800 },
+      // processing (2.5s) + keepsake journey choreography — the invite is
+      // fully in at ~4.0s after the keepsake mounts (keepsakeTiming.ts)
+      { kind: "pause", ms: 6600 },
       { kind: "tap", target: "invite-accept", hold: 900 },
       { kind: "caption", text: "Keep giving without re-living it" },
       { kind: "pause", ms: 900 },

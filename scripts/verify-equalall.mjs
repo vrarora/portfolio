@@ -57,8 +57,10 @@ const browser = await chromium.launch();
   await page.waitForTimeout(600);
   check("payment sheet appears", await page.locator(".ea-pay-sheet").isVisible());
 
+  // processing (2.5s) + dawn + journey choreography + reference roll
+  // (reference settles ~mount + 4.25s; see keepsakeTiming.ts)
   await page.locator('[data-ea-target="pay-confirm"]').click();
-  await page.waitForTimeout(3400);
+  await page.waitForTimeout(7300);
   const ref = await page.locator(".ea-keepsake-meta dd").first().innerText();
   check(
     "keepsake shows a reference number",

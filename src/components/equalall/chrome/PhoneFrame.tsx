@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export const PHONE_W = 390;
 export const PHONE_H = 844;
-const BEZEL = 11;
+// Thin modern rail; must match .ea-phone padding in equalall.css.
+const BEZEL = 9;
 
 /** Renders children inside a fixed 390x844 logical phone screen, scaled to fit
  * the parent container. Fills its parent; parent controls available space. */

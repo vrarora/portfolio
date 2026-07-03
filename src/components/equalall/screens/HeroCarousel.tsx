@@ -68,7 +68,14 @@ export function HeroCarousel() {
         onDragEnd={(_, info) => settleDrag(info.offset.x, info.velocity.x)}
       >
         {slides.map((slide, i) => (
-          <div className="ea-hero-slide" key={slide.src}>
+          <div
+            className={
+              i === state.heroIndex
+                ? "ea-hero-slide ea-active"
+                : "ea-hero-slide"
+            }
+            key={slide.src}
+          >
             <img
               src={slide.src}
               alt={slide.alt}

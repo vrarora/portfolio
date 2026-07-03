@@ -54,11 +54,23 @@ export function AmountTiers() {
           >
             {selectedTier ? (
               <>
-                <HeartStraight size={13} weight="fill" />
+                {/* one warm pulse per selection — the keyed remount restarts it */}
+                <motion.span
+                  className="ea-impact-heart"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: [0, 1.25, 1] }}
+                  transition={{
+                    duration: 0.5,
+                    times: [0, 0.55, 1],
+                    ease: "easeOut",
+                  }}
+                >
+                  <HeartStraight size={13} weight="fill" />
+                </motion.span>
                 {selectedTier.impact}
               </>
             ) : (
-              "Choose an amount that feels right"
+              "Pick an amount to see what it becomes"
             )}
           </motion.p>
         </AnimatePresence>

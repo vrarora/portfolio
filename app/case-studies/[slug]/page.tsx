@@ -161,7 +161,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
             <div className="case-hero-visual" data-case-reveal>
               <div className="case-hero-visual-frame">
-                {study.thumbnailImage ? (
+                {study.workPreview === "cover" && study.thumbnailImage ? (
+                  // mweb product: the phone cover carries its own frame, no
+                  // desktop browser chrome
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={study.thumbnailImage} alt={`${study.title} interface`} className="preview-cover-img" />
+                ) : study.thumbnailImage ? (
                   <div className="preview-browser-chrome">
                     <div className="preview-browser-bar">
                       <div className="preview-browser-dots">

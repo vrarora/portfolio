@@ -1,14 +1,39 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "@phosphor-icons/react";
 import { campaign, formatAmount, getTier } from "../data/campaign";
 import { useDonationFlow } from "../flow/DonationFlowProvider";
-import { FADE, SPRING_SHEET } from "../motionTokens";
+import { SPRING_SHEET } from "../motionTokens";
+import { PayMark } from "./PayMark";
+import { StepPager } from "./StepPager";
 
 const AUTHORIZE_MS = 1600;
 const DONE_HOLD_MS = 900;
+
+/** Charcoal card with a foil chip and contactless arcs — drawn, not a
+ * stock gradient. */
+function CardArt() {
+  return (
+    <span className="ea-pay-card-art" aria-hidden="true">
+      <span className="ea-pay-card-chip" />
+      <svg
+        className="ea-pay-card-waves"
+        viewBox="0 0 10 12"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+      >
+        <path d="M2 4.2a4.4 4.4 0 0 1 0 3.6" opacity="0.45" />
+        <path d="M4.6 2.8a7.2 7.2 0 0 1 0 6.4" opacity="0.7" />
+        <path d="M7.2 1.4a10 10 0 0 1 0 9.2" />
+      </svg>
+      <span className="ea-pay-card-brand">VISA</span>
+    </span>
+  );
+}
 
 function PaymentDetails() {
   const { state, dispatch, mode } = useDonationFlow();
@@ -17,18 +42,9 @@ function PaymentDetails() {
   if (tier === null) return null;
 
   return (
-    <motion.div
-      key="details"
-      className="ea-pay-body"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={FADE}
-    >
+    <div className="ea-pay-body">
       <div className="ea-pay-card-row">
-        <span className="ea-pay-card-art" aria-hidden="true">
-          <span className="ea-pay-card-chip" />
-        </span>
+        <CardArt />
         <span className="ea-pay-card-info">
           <span className="ea-pay-card-name">Visa •••• 4821</span>
           <span className="ea-pay-card-sub">Sarah Mitchell</span>
@@ -66,71 +82,91 @@ function PaymentDetails() {
       >
         Confirm gift
       </motion.button>
-    </motion.div>
+    </div>
   );
 }
 
 function PaymentProcessing() {
   const { dispatch } = useDonationFlow();
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    const id = window.setTimeout(
+    const authId = window.setTimeout(() => setAuthorized(true), AUTHORIZE_MS);
+    const doneId = window.setTimeout(
       () => dispatch({ type: "PAYMENT_DONE" }),
       AUTHORIZE_MS + DONE_HOLD_MS,
     );
-    return () => window.clearTimeout(id);
+    return () => {
+      window.clearTimeout(authId);
+      window.clearTimeout(doneId);
+    };
   }, [dispatch]);
 
   return (
-    <motion.div
-      key="processing"
-      className="ea-pay-body ea-pay-processing"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={FADE}
-    >
+    <div className="ea-pay-body ea-pay-processing">
       <span className="ea-pay-ring-wrap">
-        <motion.span
-          className="ea-pay-ring"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: [1, 1, 0] }}
-          transition={{
-            duration: (AUTHORIZE_MS + 300) / 1000,
-            times: [0, 0.88, 1],
-          }}
-        />
-        <motion.svg
-          className="ea-pay-check"
-          viewBox="0 0 36 36"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: AUTHORIZE_MS / 1000, duration: 0.2 }}
-        >
-          <motion.path
-            d="M10 18.6 L15.6 24.2 L26.4 12.8"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{
-              delay: AUTHORIZE_MS / 1000,
-              duration: 0.38,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          />
-        </motion.svg>
+        <AnimatePresence initial={false}>
+          {!authorized && (
+            <motion.span
+              key="ring"
+              className="ea-pay-ring"
+              exit={{ opacity: 0, scale: 0.72 }}
+              transition={{ duration: 0.18, ease: "easeIn" }}
+            />
+          )}
+        </AnimatePresence>
+        {authorized && (
+          <svg className="ea-pay-check" viewBox="0 0 36 36">
+            <motion.circle
+              cx="18"
+              cy="18"
+              r="16.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              initial={{ scale: 0.72, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.4 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <motion.path
+              d="M11.2 18.7 L16 23.4 L25 13.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{
+                delay: 0.1,
+                duration: 0.34,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            />
+          </svg>
+        )}
       </span>
-      <span className="ea-pay-status">Processing…</span>
-    </motion.div>
+      <span className="ea-pay-status" aria-live="polite">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={authorized ? "done" : "processing"}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+          >
+            {authorized ? "Done" : "Sending your gift safely…"}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </div>
   );
 }
 
-/** Fictional wallet-style payment sheet. Dark glass, hairline dividers,
- * a processing ring that resolves into a drawn checkmark. */
+/** Fictional wallet-style payment sheet. Fully opaque dark surface (any
+ * translucency lets the bright story page ghost through), hairline
+ * dividers, a processing ring that resolves into a drawn checkmark. */
 export function PaymentSheet() {
   const { state, dispatch, mode } = useDonationFlow();
   const interactive = mode === "interactive";
@@ -148,7 +184,9 @@ export function PaymentSheet() {
       transition={SPRING_SHEET}
     >
       <div className="ea-pay-head">
-        <span className="ea-pay-brand"> Pay</span>
+        <span className="ea-pay-brand">
+          <PayMark />
+        </span>
         {!processing && (
           <button
             type="button"
@@ -165,9 +203,9 @@ export function PaymentSheet() {
           </button>
         )}
       </div>
-      <AnimatePresence mode="wait" initial={false}>
+      <StepPager stepKey={processing ? "processing" : "details"}>
         {processing ? <PaymentProcessing /> : <PaymentDetails />}
-      </AnimatePresence>
+      </StepPager>
     </motion.div>
   );
 }

@@ -33,7 +33,7 @@ export const campaign = {
   organizer: {
     name: "Hope Alliance International",
     verified: true,
-    note: "Registered nonprofit partner",
+    note: "Registered nonprofit",
   },
   raised: 48236,
   goal: 75000,

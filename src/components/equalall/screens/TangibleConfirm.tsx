@@ -5,11 +5,15 @@ import { ArrowLeft, Repeat } from "@phosphor-icons/react";
 import { formatAmount, getTier } from "../data/campaign";
 import { useDonationFlow } from "../flow/DonationFlowProvider";
 import { SPRING_POP, SPRING_STEP } from "../motionTokens";
+import { PayMark } from "./PayMark";
+import { StitchThread } from "./StitchThread";
 
+// Quick stagger: the card must be visible while the sheet is still growing,
+// or the mid-transition frame reads as an empty white expanse.
 const STAGGER = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.12 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.04 },
   },
 };
 
@@ -29,13 +33,7 @@ export function TangibleConfirm() {
   if (tier === null) return null;
 
   return (
-    <motion.div
-      className="ea-sheet-step"
-      initial={{ x: 36, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 36, opacity: 0 }}
-      transition={SPRING_STEP}
-    >
+    <div className="ea-sheet-step">
       <button
         type="button"
         className="ea-sheet-back"
@@ -61,17 +59,7 @@ export function TangibleConfirm() {
           )}
         </motion.div>
 
-        <motion.span
-          className="ea-becomes-thread"
-          aria-hidden="true"
-          variants={{
-            hidden: { scaleY: 0 },
-            show: {
-              scaleY: 1,
-              transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-            },
-          }}
-        />
+        <StitchThread length={30} delay={0.12} duration={0.42} />
 
         <motion.figure
           className="ea-tangible-card"
@@ -102,8 +90,9 @@ export function TangibleConfirm() {
         whileTap={interactive ? { scale: 0.97 } : undefined}
         onClick={() => dispatch({ type: "OPEN_PAYMENT" })}
       >
-        Give with <span className="ea-pay-mark"> Pay</span>
+        <span>Give with</span>
+        <PayMark />
       </motion.button>
-    </motion.div>
+    </div>
   );
 }

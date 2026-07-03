@@ -3886,21 +3886,31 @@ h3 {
   }
 }
 
-.work-preview-phones .preview-frame {
-  padding: clamp(1.2rem, 1.8vw, 1.6rem);
-  aspect-ratio: 1.46 / 0.96;
+/* Single-phone cover (EqualAll): one baked phone-on-canvas image, shared by
+   the homepage work card and the case-study hero. Warm bg matches the image's
+   own canvas so edges blend. */
+.preview-cover-frame {
+  aspect-ratio: 1180 / 900;
   background: #f0ece4;
 }
 
-.preview-phone-shot {
-  display: block;
-  position: relative;
-}
-
-.preview-phone-shot-img {
+.preview-cover-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
   display: block;
+}
+
+/* In the case hero the same cover fills the frame with no browser chrome. */
+.case-hero-visual-frame:has(.preview-cover-img) {
+  padding: 0;
+  overflow: hidden;
+}
+
+.case-hero-visual-frame:has(.preview-cover-img)::before {
+  display: none;
+}
+
+.case-hero-visual-frame .preview-cover-img {
+  min-height: 0;
 }

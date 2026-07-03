@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import {
   Export,
   Heart,
@@ -36,7 +37,10 @@ function ProgressModule() {
         <div
           className="ea-progress-fill"
           style={{ width: filled ? `${pct}%` : "0%" }}
-        />
+        >
+          {/* one settle shimmer as the 1.1s fill lands — never loops */}
+          <span className="ea-progress-shimmer" aria-hidden="true" />
+        </div>
       </div>
       <span className="ea-progress-donors ea-num">
         {campaign.donorCount.toLocaleString("en-US")} people have given
@@ -53,9 +57,29 @@ function OrganizerRow() {
       </span>
       <span className="ea-organizer-info">
         <span className="ea-organizer-name">
-          {campaign.organizer.name}
+          <span className="ea-organizer-name-text">
+            {campaign.organizer.name}
+          </span>
           {campaign.organizer.verified && (
-            <SealCheck size={15} weight="fill" className="ea-organizer-seal" />
+            // stamps in like the keepsake's ink — the same trust language
+            <motion.span
+              className="ea-organizer-seal-wrap"
+              initial={{ opacity: 0, scale: 1.6, rotate: 6 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 420,
+                damping: 22,
+                delay: 0.6,
+                opacity: { duration: 0.12, delay: 0.6 },
+              }}
+            >
+              <SealCheck
+                size={15}
+                weight="fill"
+                className="ea-organizer-seal"
+              />
+            </motion.span>
           )}
         </span>
         <span className="ea-organizer-note">{campaign.organizer.note}</span>

@@ -57,7 +57,7 @@ export function RecurringInvite({ delay = 0 }: { delay?: number }) {
             transition={FADE}
           >
             <p className="ea-invite-copy">
-              Keep this going, without feeling it twice.
+              Be part of what happens next month.
             </p>
             <motion.button
               type="button"

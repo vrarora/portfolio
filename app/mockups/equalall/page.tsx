@@ -2,6 +2,7 @@
 
 import { DonationExperience } from "@/components/equalall/DonationExperience";
 import { PhoneFrame } from "@/components/equalall/chrome/PhoneFrame";
+import { StageGlow } from "@/components/equalall/chrome/StageGlow";
 import { DonationFlowProvider } from "@/components/equalall/flow/DonationFlowProvider";
 import { fraunces } from "@/components/equalall/fonts";
 import { useIsMobile } from "@/components/equalall/useIsMobile";
@@ -17,9 +18,12 @@ export default function EqualAllMockupPage() {
             <DonationExperience />
           </div>
         ) : (
-          <PhoneFrame>
-            <DonationExperience />
-          </PhoneFrame>
+          <>
+            <StageGlow />
+            <PhoneFrame>
+              <DonationExperience />
+            </PhoneFrame>
+          </>
         )}
       </DonationFlowProvider>
     </main>

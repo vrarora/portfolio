@@ -8,6 +8,7 @@ app/agentation-devtools.tsx
 
 # Private/planning files
 .DS_Store
+.audit/
 .planning/
 Context/
 Case Study Context/

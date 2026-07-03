@@ -19,11 +19,14 @@
   --ea-line: rgba(34, 29, 23, 0.09);
   --ea-line-strong: rgba(34, 29, 23, 0.16);
 
-  /* The feeling — one warm accent, used semantically */
-  --ea-accent: #e2532c;
+  /* The feeling — one warm accent, used semantically. Flat fills only:
+     gradients on interactive elements read as template work. */
+  --ea-accent: #e05430;
   --ea-accent-deep: #c03f1d;
   --ea-accent-tint: #fcefe8;
   --ea-accent-glow: rgba(226, 83, 44, 0.32);
+  --ea-shadow-accent: 0 1px 2px rgba(160, 50, 20, 0.16),
+    0 8px 22px rgba(160, 50, 20, 0.22);
 
   /* Trust green — verified badges, secure chips, success */
   --ea-trust: #2e7a4e;
@@ -72,6 +75,8 @@
   font: inherit;
   text-transform: none;
   letter-spacing: normal;
+  /* The portfolio caps bare h1 at 12ch below 720px — never inherit that. */
+  max-width: none;
 }
 
 .ea-root :where(button) {
@@ -107,6 +112,7 @@
    ============================================================ */
 
 .ea-mockup-page {
+  position: relative;
   min-height: 100dvh;
   display: grid;
   background:
@@ -119,6 +125,58 @@
   padding: 28px;
 }
 
+/* Ambient light-spill from the phone's screen onto the stage. Gradients
+   don't transition, so three fixed layers crossfade by opacity. */
+.ea-stage-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ea-stage-glow > span {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.9s ease;
+}
+
+.ea-glow-warm {
+  background: radial-gradient(
+    60% 55% at 50% 52%,
+    rgba(224, 84, 48, 0.07),
+    rgba(224, 84, 48, 0) 70%
+  );
+}
+
+.ea-glow-dusk {
+  background: radial-gradient(
+    62% 58% at 50% 52%,
+    rgba(25, 23, 21, 0.38),
+    rgba(25, 23, 21, 0) 72%
+  );
+}
+
+.ea-glow-dawn {
+  background:
+    radial-gradient(
+      55% 48% at 50% 48%,
+      rgba(224, 84, 48, 0.16),
+      rgba(224, 84, 48, 0) 68%
+    ),
+    radial-gradient(
+      70% 62% at 50% 58%,
+      rgba(169, 127, 49, 0.1),
+      rgba(169, 127, 49, 0) 72%
+    );
+}
+
+/* On real phones the product IS the page — no stage, no padding. */
+@media (max-width: 480px) {
+  .ea-mockup-page {
+    padding: 0;
+    background: var(--ea-surface);
+  }
+}
+
 .ea-fullbleed {
   height: 100dvh;
   width: 100%;
@@ -129,6 +187,8 @@
    ============================================================ */
 
 .ea-phone-stage {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   min-height: calc(100dvh - 56px);
@@ -140,28 +200,60 @@
   position: relative;
 }
 
+/* iPhone 17 Pro glass bezel: a polished titanium rail catching light on
+   opposing corners, a thin black glass ring under the screen, and a faint
+   specular sweep across the front. BEZEL in PhoneFrame.tsx = padding here. */
 .ea-phone {
   position: relative;
-  padding: 11px;
-  background: linear-gradient(160deg, #26221e 0%, #16130f 60%, #211d18 100%);
-  border-radius: 61px;
+  padding: 9px;
+  background: linear-gradient(
+    135deg,
+    #e6e6ec 0%,
+    #9a9ba2 16%,
+    #4f5055 42%,
+    #3a3b40 58%,
+    #6d6e74 84%,
+    #d2d2d9 100%
+  );
+  border-radius: 58px;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-    0 2px 6px rgba(20, 16, 12, 0.22),
-    0 32px 80px rgba(20, 16, 12, 0.34);
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(20, 16, 12, 0.2),
+    0 40px 90px rgba(20, 16, 12, 0.3);
   transform-origin: top left;
-  width: 412px; /* PHONE_W + bezels */
+  width: 408px; /* PHONE_W + bezels (9*2) */
+}
+
+/* Specular glass sweep over the whole front — subtle enough to leave the
+   screen legible. */
+.ea-phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 40;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.1) 18%,
+    transparent 34%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
 }
 
 .ea-phone-island {
   position: absolute;
-  top: 24px;
+  top: 22px;
   left: 50%;
   transform: translateX(-50%);
-  width: 118px;
-  height: 34px;
-  background: #060505;
-  border-radius: 20px;
+  width: 124px;
+  height: 35px;
+  background: #000;
+  border-radius: 18px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
   z-index: 30;
   pointer-events: none;
 }
@@ -169,11 +261,13 @@
 .ea-phone-screen {
   width: 390px;
   height: 844px;
-  border-radius: 50px;
+  border-radius: 49px; /* concentric: outer 58 − 9 bezel */
   overflow: hidden;
   background: var(--ea-surface);
   position: relative;
   isolation: isolate;
+  /* thin black glass ring between the rail and the screen */
+  box-shadow: 0 0 0 2px #05050a;
   transform: translateZ(0); /* keep transformed sheets inside the radius clip */
 }
 
@@ -250,14 +344,31 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(250, 248, 244, 0.86);
-  backdrop-filter: blur(16px) saturate(1.5);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  background: rgba(250, 248, 244, 0.94);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
 }
 
-@supports not (backdrop-filter: blur(16px)) {
+/* Progressive bottom edge — scrolled content dissolves under the glass
+   instead of cutting off against a hard line. */
+.ea-chrome-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 248, 244, 0.94) 0%,
+    rgba(250, 248, 244, 0) 100%
+  );
+  pointer-events: none;
+}
+
+@supports not (backdrop-filter: blur(20px)) {
   .ea-chrome-head {
-    background: rgba(250, 248, 244, 0.97);
+    background: rgba(250, 248, 244, 0.98);
   }
 }
 
@@ -311,6 +422,8 @@
 .ea-hero-slide {
   flex: 0 0 100%;
   height: 100%;
+  /* the Ken Burns scale must not bleed into the neighboring slide */
+  overflow: hidden;
 }
 
 .ea-hero-slide img {
@@ -319,6 +432,52 @@
   object-fit: cover;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* Slow breath on the visible photo — barely-there life, never a zoom. */
+.ea-hero-slide.ea-active img {
+  animation: ea-kenburns 18s linear infinite alternate;
+  will-change: transform;
+}
+
+@keyframes ea-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.055) translateX(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-hero-slide.ea-active img {
+    animation: none;
+  }
+}
+
+/* Quiet bottom scrim so the dots and docked CTA always sit on a legible
+   surface, whatever the photo does. */
+.ea-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 88px;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 13, 9, 0) 0%,
+    rgba(18, 13, 9, 0.07) 38%,
+    rgba(18, 13, 9, 0.26) 100%
+  );
+  pointer-events: none;
+}
+
+.ea-hero-location,
+.ea-hero-dots,
+.ea-hero-donate {
+  z-index: 1;
 }
 
 .ea-hero-location {
@@ -374,15 +533,12 @@
   height: 42px;
   padding: 0 17px;
   border-radius: var(--ea-r-pill);
-  background: linear-gradient(180deg, #e8603a 0%, #dc4b24 100%);
+  background: var(--ea-accent);
   color: #fff;
   font-size: 14.5px;
   font-weight: 650;
   letter-spacing: 0.005em;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 2px 6px rgba(160, 50, 20, 0.3),
-    0 10px 24px rgba(160, 50, 20, 0.34);
+  box-shadow: 0 2px 8px rgba(20, 12, 8, 0.28);
 }
 
 /* Title */
@@ -390,12 +546,13 @@
 .ea-story-title {
   margin: 18px 20px 0;
   font-family: var(--ea-font-serif), Georgia, serif;
-  font-size: 26px;
-  line-height: 1.18;
+  font-size: 25px;
+  line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.012em;
   color: var(--ea-ink);
   font-optical-sizing: auto;
+  text-wrap: balance;
 }
 
 /* Progress */
@@ -431,10 +588,45 @@
 }
 
 .ea-progress-fill {
+  position: relative;
+  overflow: hidden;
   height: 100%;
   border-radius: var(--ea-r-pill);
-  background: linear-gradient(90deg, #e8603a, #d94a22);
+  background: var(--ea-accent);
   transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* One highlight pass as the fill settles (fill starts at 0.35s, runs 1.1s;
+   the shimmer meets it landing). Single iteration — never loops. */
+.ea-progress-shimmer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 46px;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-60px);
+  animation: ea-progress-shimmer 0.8s ease-out 1.5s 1 both;
+}
+
+@keyframes ea-progress-shimmer {
+  from {
+    transform: translateX(-60px);
+  }
+  to {
+    transform: translateX(360px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-progress-shimmer {
+    animation: none;
+  }
 }
 
 .ea-progress-donors {
@@ -474,6 +666,7 @@
   display: grid;
   gap: 1px;
   min-width: 0;
+  flex: 1;
 }
 
 .ea-organizer-name {
@@ -487,6 +680,16 @@
   white-space: nowrap;
 }
 
+.ea-organizer-name-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ea-organizer-seal-wrap {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
 .ea-organizer-seal {
   color: var(--ea-trust);
   flex: 0 0 auto;
@@ -495,6 +698,9 @@
 .ea-organizer-note {
   font-size: 12px;
   color: var(--ea-ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ea-secure-chip {
@@ -627,15 +833,12 @@
   width: 100%;
   height: 54px;
   border-radius: 18px;
-  background: linear-gradient(180deg, #e8603a 0%, #db4922 100%);
+  background: var(--ea-accent);
   color: #fff;
   font-size: 16.5px;
   font-weight: 680;
   letter-spacing: 0.005em;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 3px 8px rgba(160, 50, 20, 0.22),
-    0 12px 28px rgba(160, 50, 20, 0.26);
+  box-shadow: var(--ea-shadow-accent);
 }
 
 .ea-donate-dock-note {
@@ -665,10 +868,28 @@
   bottom: 0;
   z-index: 21;
   background: var(--ea-card);
-  border-radius: 26px 26px 0 0;
+  border-radius: 30px 30px 0 0;
   box-shadow: var(--ea-shadow-sheet);
   padding: 10px 20px 22px;
   touch-action: none;
+}
+
+/* Step pager — animated-height container that crossfades sheet steps. */
+
+.ea-step-pager {
+  position: relative;
+}
+
+.ea-step-pane {
+  width: 100%;
+}
+
+.ea-step-pane-out {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
 }
 
 .ea-sheet-grabber {
@@ -739,6 +960,24 @@
   font-optical-sizing: auto;
 }
 
+/* Quiet stitch mark under the sheet title — the promise thread's first
+   appearance in the flow. Static by design. */
+.ea-title-stitch {
+  justify-self: center;
+  width: 28px;
+  height: 3px;
+  /* nets out the grid gap it introduces so the sheet height is unchanged */
+  margin: -10px 0 -6px;
+  background-image: radial-gradient(
+    circle at 1.5px 1.5px,
+    var(--ea-accent) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 8px 3px;
+  background-repeat: repeat-x;
+  opacity: 0.7;
+}
+
 /* Frequency toggle */
 
 .ea-freq {
@@ -787,7 +1026,7 @@
 .ea-tiers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .ea-tier {
@@ -830,33 +1069,17 @@
   top: -9px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 3px 9px;
+  padding: 3px 9px 4px;
   border-radius: var(--ea-r-pill);
   background: var(--ea-accent);
   color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.015em;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(192, 63, 29, 0.35);
-  animation: ea-badge-pulse 2.8s ease-in-out infinite;
-}
-
-@keyframes ea-badge-pulse {
-  0%,
-  100% {
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.055);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ea-tier-badge {
-    animation: none;
-  }
+  box-shadow:
+    0 0 0 2px var(--ea-card),
+    0 2px 6px rgba(192, 63, 29, 0.24);
 }
 
 /* Impact line */
@@ -868,22 +1091,43 @@
 }
 
 .ea-impact-line {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  display: block;
   text-align: center;
-  font-size: 13.5px;
+  font-size: 13px;
+  line-height: 1.45;
   font-weight: 550;
   color: var(--ea-ink-3);
+  text-wrap: balance;
 }
 
 .ea-impact-line.ea-has-tier {
   color: var(--ea-accent-deep);
 }
 
+/* Inline with the text so multi-line wraps keep the heart attached to the
+   first words instead of floating beside the block. */
 .ea-impact-line svg {
-  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: -1.5px;
+  margin-right: 5px;
+}
+
+/* The pulse wrapper stays inline so wraps keep the heart with the words */
+.ea-impact-heart {
+  display: inline-block;
+}
+
+/* Reserved-height reassurance under the frequency toggle — always mounted
+   so the sheet never changes height when it appears. */
+.ea-freq-note {
+  height: 18px;
+  margin: -6px 0 -8px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--ea-ink-3);
 }
 
 /* Sheet CTA */
@@ -892,7 +1136,7 @@
   width: 100%;
   height: 52px;
   border-radius: 16px;
-  background: linear-gradient(180deg, #e8603a 0%, #db4922 100%);
+  background: var(--ea-accent);
   color: #fff;
   font-size: 16px;
   font-weight: 680;
@@ -900,10 +1144,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 3px 8px rgba(160, 50, 20, 0.2),
-    0 10px 24px rgba(160, 50, 20, 0.22);
+  box-shadow: var(--ea-shadow-accent);
   transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -954,12 +1195,16 @@
   letter-spacing: 0.01em;
 }
 
-.ea-becomes-thread {
-  width: 2px;
-  height: 26px;
-  margin: 8px 0;
-  border-radius: var(--ea-r-pill);
-  background: linear-gradient(180deg, var(--ea-accent), rgba(226, 83, 44, 0.15));
+/* The Kept Promise thread (shared StitchThread component) — a stitched
+   coral line connecting the donor's act to its outcome. */
+.ea-stitch {
+  display: block;
+  color: var(--ea-accent);
+}
+
+.ea-becomes .ea-stitch {
+  margin: 7px 0;
+  opacity: 0.85;
   transform-origin: top center;
 }
 
@@ -997,6 +1242,7 @@
   font-size: 12.5px;
   line-height: 1.45;
   color: var(--ea-ink-2);
+  text-wrap: pretty;
 }
 
 .ea-monthly-chip {
@@ -1023,13 +1269,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  box-shadow: 0 10px 24px rgba(16, 16, 16, 0.24);
+  gap: 7px;
+  box-shadow: 0 1px 2px rgba(16, 16, 16, 0.14), 0 8px 22px rgba(16, 16, 16, 0.2);
 }
 
-.ea-pay-mark {
-  font-weight: 700;
-  letter-spacing: 0.01em;
+.ea-pay-cta .ea-paymark {
+  font-weight: 650;
 }
 
 /* ============================================================
@@ -1042,8 +1287,8 @@
   right: 0;
   bottom: 0;
   z-index: 22;
-  background: rgba(24, 22, 20, 0.98);
-  border-radius: 26px 26px 0 0;
+  background: #191715;
+  border-radius: 30px 30px 0 0;
   padding: 18px 20px 26px;
   color: rgba(255, 255, 255, 0.94);
   box-shadow: 0 -12px 48px rgba(10, 8, 6, 0.4);
@@ -1059,8 +1304,23 @@
 
 .ea-pay-brand {
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 650;
   letter-spacing: 0.01em;
+}
+
+/* Wallet lockup — SVG mark + wordmark, scales with surrounding text. */
+
+.ea-paymark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+}
+
+.ea-paymark svg {
+  width: 1.05em;
+  height: 1.05em;
+  display: block;
+  margin-top: -0.12em;
 }
 
 .ea-pay-close {
@@ -1087,22 +1347,80 @@
 
 .ea-pay-card-art {
   position: relative;
-  width: 52px;
-  height: 34px;
-  flex: 0 0 52px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #5a7bd8 0%, #3a55a8 55%, #2b3f85 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  width: 54px;
+  height: 36px;
+  flex: 0 0 54px;
+  border-radius: 7px;
+  background: #2c2e33;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 .ea-pay-card-chip {
   position: absolute;
   top: 12px;
   left: 7px;
-  width: 9px;
-  height: 7px;
+  width: 10px;
+  height: 8px;
   border-radius: 2px;
-  background: rgba(255, 224, 130, 0.9);
+  background: linear-gradient(150deg, #e8c777 0%, #c9a14e 100%);
+  box-shadow: inset 0 0 0 0.5px rgba(80, 58, 20, 0.55);
+  overflow: hidden;
+}
+
+/* One specular pass over the foil chip shortly after the sheet settles */
+.ea-pay-card-chip::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 0;
+  width: 5px;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 252, 240, 0.85) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-8px) rotate(8deg);
+  animation: ea-chip-glint 0.9s ease-out 0.7s 1 both;
+}
+
+@keyframes ea-chip-glint {
+  from {
+    transform: translateX(-8px) rotate(8deg);
+  }
+  to {
+    transform: translateX(14px) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-pay-card-chip::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+.ea-pay-card-waves {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+  width: 9px;
+  height: 11px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ea-pay-card-brand {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  font-size: 6.5px;
+  font-weight: 750;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .ea-pay-card-info {
@@ -1157,6 +1475,7 @@
 }
 
 .ea-pay-confirm {
+  position: relative;
   width: 100%;
   height: 50px;
   border-radius: 15px;
@@ -1166,11 +1485,44 @@
   font-weight: 650;
 }
 
+/* Contactless-style pulse when the donor commits (fine for embeds to skip —
+   synthetic clicks never hold :active; the finger ripple covers them) */
+.ea-pay-confirm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ea-pay-confirm:active::after {
+  animation: ea-nfc-pulse 0.4s ease-out;
+}
+
+@keyframes ea-nfc-pulse {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-pay-confirm:active::after {
+    animation: none;
+  }
+}
+
 .ea-pay-processing {
-  min-height: 168px;
+  min-height: 190px;
   align-content: center;
   justify-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .ea-pay-ring-wrap {
@@ -1185,8 +1537,8 @@
   position: absolute;
   inset: 0;
   border-radius: var(--ea-r-pill);
-  border: 3px solid rgba(255, 255, 255, 0.18);
-  border-top-color: rgba(255, 255, 255, 0.9);
+  border: 2.5px solid rgba(255, 255, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.92);
   animation: ea-spin 0.8s linear infinite;
 }
 
@@ -1197,13 +1549,15 @@
 }
 
 .ea-pay-check {
-  width: 36px;
-  height: 36px;
-  color: #6ee7a0;
+  width: 44px;
+  height: 44px;
+  color: #fff;
 }
 
 .ea-pay-status {
   font-size: 13px;
+  font-weight: 520;
+  letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -1281,13 +1635,55 @@
   }
 }
 
+/* Half-res render; bilinear upscale does the softening, so no CSS blur —
+   the shader's embers and grain dither must stay crisp-ish. */
+.ea-aurora-host,
 .ea-aurora-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  filter: blur(6px);
-  transform: scale(1.04);
+}
+
+/* Dawn for CSS hosts (embeds, shader fallback): the payment sheet's charcoal
+   dissolving off the aurora. The shader route grades this in-shader. */
+.ea-dawn {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      120% 90% at 50% 42%,
+      rgba(224, 84, 48, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #191715 0%, #1d1915 55%, #2a1f16 100%);
+  animation: ea-dawn-break 1.1s cubic-bezier(0.33, 1, 0.68, 1) 0.2s both;
+}
+
+@keyframes ea-dawn-break {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-dawn {
+    animation: none;
+  }
+}
+
+/* Full-screen paper film — ties the aurora light to the card's grain. */
+.ea-keepsake-film {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Keepsake layout */
@@ -1321,6 +1717,10 @@
   font-optical-sizing: auto;
 }
 
+.ea-keepsake-word {
+  display: inline-block;
+}
+
 .ea-keepsake-lede {
   font-size: 14px;
   font-weight: 520;
@@ -1328,6 +1728,12 @@
 }
 
 /* The gift record card */
+
+.ea-keepsake-drop {
+  /* entrance spring lives here so the card itself is free for the stamp
+     jolt and the pointer tilt */
+  display: grid;
+}
 
 .ea-keepsake-card {
   position: relative;
@@ -1368,41 +1774,138 @@
   letter-spacing: 0.14em;
 }
 
-.ea-keepsake-headline {
-  font-family: var(--ea-font-serif), Georgia, serif;
-  font-size: 21px;
+/* The journey timeline — three waypoints stitched by the promise thread.
+   Node column is 16px wide; the thread segments' center (margin-left 6.5px
+   + 1.5px half-width = 8px) aligns with the node centers. */
+
+.ea-journey {
+  display: grid;
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.ea-waypoint {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  column-gap: 12px;
+  align-items: start;
+}
+
+.ea-waypoint-node {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--ea-r-pill);
+  justify-self: center;
+  margin-top: 4px;
+}
+
+.ea-waypoint-now .ea-waypoint-node {
+  background: var(--ea-accent);
+  box-shadow: 0 0 0 3px var(--ea-accent-tint);
+}
+
+.ea-waypoint-next .ea-waypoint-node {
+  border: 2px solid var(--ea-accent);
+  background: #fffdf9;
+}
+
+.ea-waypoint-ahead .ea-waypoint-node {
+  border: 2px solid var(--ea-line-strong);
+  background: #fffdf9;
+  /* centers against the 44px destination thumbnail */
+  margin-top: 17px;
+}
+
+.ea-waypoint-body {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+/* space for the stamp landing on the top-right of the card */
+.ea-waypoint-now .ea-waypoint-body {
+  padding-right: 52px;
+}
+
+.ea-waypoint-title {
+  font-size: 14px;
   font-weight: 620;
-  line-height: 1.22;
-  letter-spacing: -0.008em;
-  padding-right: 64px;
+  line-height: 1.3;
+  color: var(--ea-ink);
+}
+
+.ea-waypoint-next .ea-waypoint-title,
+.ea-waypoint-ahead .ea-waypoint-title {
+  color: var(--ea-ink-2);
+}
+
+.ea-waypoint-ahead .ea-waypoint-title {
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 14.5px;
   font-optical-sizing: auto;
 }
 
-.ea-keepsake-sub {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--ea-ink-2);
-  padding-right: 64px;
-}
-
-.ea-keepsake-amount-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.ea-keepsake-amount {
-  font-family: var(--ea-font-serif), Georgia, serif;
-  font-size: 34px;
-  font-weight: 640;
-  letter-spacing: -0.02em;
-}
-
-.ea-keepsake-permo {
+.ea-waypoint-sub {
   font-size: 12px;
-  font-weight: 620;
-  color: var(--ea-accent-deep);
+  line-height: 1.4;
+  color: var(--ea-ink-3);
+}
+
+.ea-waypoint-amount {
+  font-weight: 700;
+  color: var(--ea-ink-2);
+}
+
+.ea-journey-seg {
+  height: 34px;
+  margin: 2px 0 2px 6.5px;
+}
+
+.ea-stitch-ahead {
+  opacity: 0.55;
+}
+
+.ea-waypoint-dest {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ea-waypoint-thumb {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--ea-r-sm);
+  object-fit: cover;
+  box-shadow: var(--ea-shadow-card);
+}
+
+.ea-waypoint-dest-text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.ea-journey-promise {
+  margin-top: 12px;
+  display: grid;
+  gap: 3px;
+  font-family: var(--ea-font-serif), Georgia, serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ea-ink-2);
+  font-optical-sizing: auto;
+}
+
+.ea-journey-promise-by {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ea-gold);
+}
+
+.ea-keepsake-stub {
+  display: grid;
+  gap: 4px;
 }
 
 .ea-keepsake-divider {
@@ -1426,9 +1929,12 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  gap: 16px;
 }
 
 .ea-keepsake-meta-row dt {
+  flex: 0 0 auto;
+  white-space: nowrap;
   font-size: 11.5px;
   font-weight: 550;
   letter-spacing: 0.02em;
@@ -1437,6 +1943,8 @@
 
 .ea-keepsake-meta-row dd {
   margin: 0;
+  min-width: 0;
+  text-align: right;
   font-size: 12.5px;
   font-weight: 620;
   color: var(--ea-ink);
@@ -1452,12 +1960,63 @@
   pointer-events: none;
 }
 
+/* One pass of light across the paper as the card settles */
+
+.ea-keepsake-shine {
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: 0;
+  width: 42%;
+  opacity: 0;
+  transform: translateX(-130%) rotate(10deg);
+  background: linear-gradient(
+    100deg,
+    rgba(255, 252, 244, 0) 0%,
+    rgba(255, 250, 238, 0.4) 45%,
+    rgba(255, 243, 224, 0.62) 50%,
+    rgba(255, 250, 238, 0.4) 55%,
+    rgba(255, 252, 244, 0) 100%
+  );
+  filter: blur(3px);
+  animation: ea-card-shine 1.05s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes ea-card-shine {
+  0% {
+    opacity: 0;
+    transform: translateX(-130%) rotate(10deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(420%) rotate(10deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea-keepsake-shine {
+    animation: none;
+  }
+}
+
+/* Pointer-tracked glare — the paper catching light as the card tilts */
+
+.ea-keepsake-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .ea-stamp {
   position: absolute;
   top: 14px;
   right: 14px;
-  width: 84px;
-  height: 84px;
+  width: 64px;
+  height: 64px;
   color: var(--ea-accent-deep);
   opacity: 0.82;
   mix-blend-mode: multiply;
@@ -1504,13 +2063,11 @@
   height: 46px;
   padding: 0 22px;
   border-radius: var(--ea-r-pill);
-  background: linear-gradient(180deg, #e8603a 0%, #db4922 100%);
+  background: var(--ea-accent);
   color: #fff;
   font-size: 14.5px;
   font-weight: 650;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 8px 20px rgba(160, 50, 20, 0.28);
+  box-shadow: var(--ea-shadow-accent);
 }
 
 .ea-invite-set {
@@ -1570,13 +2127,12 @@
   display: grid;
   place-items: center;
   padding-top: 12px;
-}
-
-.ea-demo-caption {
   font-family: var(--ea-font-ui);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 550;
-  color: #6b7280;
+  letter-spacing: 0.01em;
+  /* warmed toward the ink scale — the cool gray fought the paper language */
+  color: var(--ea-ink-2);
   text-align: center;
 }
 
@@ -1598,7 +2154,7 @@
   inset: 0;
   border-radius: var(--ea-r-pill);
   background: rgba(34, 29, 23, 0.28);
-  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 10px rgba(34, 29, 23, 0.25);
   backdrop-filter: blur(2px);
 }
@@ -1607,7 +2163,7 @@
   position: absolute;
   inset: 0;
   border-radius: var(--ea-r-pill);
-  border: 2px solid rgba(34, 29, 23, 0.4);
+  border: 2px solid rgba(34, 29, 23, 0.35);
 }
 
 .ea-demo-fade {
