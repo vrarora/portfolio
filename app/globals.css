@@ -3885,3 +3885,22 @@ h3 {
     font-size: 36px;
   }
 }
+
+.work-preview-phones .preview-frame {
+  padding: clamp(1.2rem, 1.8vw, 1.6rem);
+  aspect-ratio: 1.46 / 0.96;
+  background: #f0ece4;
+}
+
+.preview-phone-shot {
+  display: block;
+  position: relative;
+}
+
+.preview-phone-shot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}

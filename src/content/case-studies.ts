@@ -8,8 +8,9 @@ export type CaseStudy = {
   homeDescription: string;
   homeTags: string[];
   workAccent: "green" | "blue" | "orange";
-  workPreview: "dashboard" | "workflow" | "commerce" | "screenshot" | "placeholder";
+  workPreview: "dashboard" | "workflow" | "commerce" | "screenshot" | "placeholder" | "phones";
   thumbnailImage?: string;
+  phoneImages?: string[];
   status: "Placeholder case study";
   visibility: "public";
   metadata: Array<{
@@ -138,7 +139,12 @@ export const caseStudies: CaseStudy[] = [
       "Designed and owned EqualAll, Ketto's 0→1 donation platform for Western donors, taking revenue per donor from launch through a 40% lift by designing for the fading emotion behind every gift.",
     homeTags: ["Social Impact", "0→1", "Growth", "Consumer", "Product UX"],
     workAccent: "orange",
-    workPreview: "commerce",
+    workPreview: "phones",
+    phoneImages: [
+      "/images/equalall/thumb-story.webp",
+      "/images/equalall/thumb-gift.webp",
+      "/images/equalall/thumb-keepsake.webp",
+    ],
     status: "Placeholder case study",
     visibility: "public",
     metadata: [
