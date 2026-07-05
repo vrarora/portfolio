@@ -35,15 +35,17 @@ import {
   CloudLightning,
   CloudFog,
   LockSimple,
+  List,
+  X,
 } from "@phosphor-icons/react";
 import { caseStudies } from "@/content/case-studies";
 import { siteLinks } from "@/content/site-links";
 
 const heroNavItems = [
   { label: "Overview", href: "#top", icon: House, active: true },
-  { label: "Signals", href: "#work", icon: Briefcase },
-  { label: "Projects", href: "#about", icon: User },
-  { label: "Process", href: "#contact", icon: ChatDots },
+  { label: "Work", href: "#work", icon: Briefcase },
+  { label: "About", href: "#about", icon: User },
+  { label: "Contact", href: "#contact", icon: ChatDots },
 ] as const;
 
 const heroActionItems = [
@@ -630,6 +632,26 @@ export default function HomePage() {
   const [weather, setWeather] = useState<{ temp: number; code: number } | null>(null);
   const [dateStr, setDateStr] = useState("");
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Mobile menu: lock body scroll while open and close on Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [menuOpen]);
+
   useEffect(() => {
     const now = new Date();
     setDateStr(now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }));
@@ -1055,15 +1077,89 @@ export default function HomePage() {
             </a>
           ))}
         </div>
+
+        <button
+          type="button"
+          className="hero-menu-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+        </button>
       </header>
+
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="hero-mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+        >
+          <nav className="hero-mobile-menu-nav" aria-label="Primary">
+            {heroNavItems.map(({ label, href }) => {
+              const isActive = href === activeHref;
+              return (
+                <a
+                  key={label}
+                  className={`hero-mobile-menu-link${isActive ? " is-active" : ""}`}
+                  href={href}
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveHref(href);
+                    setMenuOpen(false);
+                    // Restore scroll immediately so the target scroll isn't
+                    // blocked by the body scroll-lock from the open menu.
+                    document.body.style.overflow = "";
+                    if (href === "#contact") {
+                      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+                    } else if (href === "#top") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                >
+                  {label}
+                </a>
+              );
+            })}
+          </nav>
+
+          <div className="hero-mobile-menu-actions" aria-label="Social and resume links">
+            {heroActionItems.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                className="hero-mobile-menu-action"
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                title={label}
+                onClick={() => setMenuOpen(false)}
+              >
+                <Icon size={22} />
+                <span>{label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <section className="hero hero-home" id="top" aria-label="Hero">
         <SectionReveal className="hero-copy">
           <div className="hero-intro-row">
             <span className="status-line-label">Vaibhav is</span>
-            <span className="status-avatar" aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/me.webp" alt="" className="status-avatar-photo" />
+            <span className="status-avatar-wrap" aria-hidden="true">
+              <span className="status-avatar">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/me.webp" alt="" className="status-avatar-photo" />
+              </span>
+              {/* Halo sits outside the avatar's overflow:hidden clip so the
+                  dot and its pulse ring are not cropped at the corner. */}
               <span className="status-avatar-halo" />
             </span>
             <div className="status-line-copy">

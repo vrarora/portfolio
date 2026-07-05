@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+/* Responsive media: never let images/video force horizontal overflow.
+   Class-level height rules (object-fit boxes) override this element selector,
+   so components that fill a fixed box are unaffected. */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Hide Next.js dev overlay UI */
 nextjs-portal,
 #__next-build-watcher,
@@ -293,6 +302,106 @@ h3 {
     background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ── Mobile hamburger toggle + overlay menu ──────────────────────────────
+   Hidden on desktop/tablet; revealed below 768px (see mobile media query).
+   The overlay is only rendered in React while open, but we also hard-hide it
+   at >=768px as a safety net. */
+.hero-menu-toggle {
+  display: none;
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-black);
+  cursor: pointer;
+  z-index: 40;
+}
+
+.hero-mobile-menu {
+  position: fixed;
+  inset: 0;
+  /* Below the sticky header (z-index 30) so its close (X) toggle stays visible
+     and clickable on top of the overlay; the menu links clear the header via
+     the top padding. */
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 6rem 2rem 3rem;
+  background: var(--color-white);
+  animation: hero-mobile-menu-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hero-mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-mobile-menu-link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0.5rem 0;
+  font-size: clamp(2rem, 11vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-gray-400);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: color 0.25s ease;
+}
+
+.hero-mobile-menu-link.is-active,
+.hero-mobile-menu-link:hover {
+  color: var(--color-black);
+}
+
+.hero-mobile-menu-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-mobile-menu-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--color-gray-950);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .hero-mobile-menu {
+    display: none;
+  }
+}
+
 .nav-button,
 .top-action {
   position: relative;
@@ -422,6 +531,15 @@ h3 {
   line-height: 0.96;
 }
 
+/* Positioning context that does NOT clip, so the status halo (and its pulse
+   ring) can sit at the avatar's corner without being cropped by the avatar's
+   own overflow:hidden. */
+.status-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
 .status-avatar {
   position: relative;
   width: 84px;
@@ -450,9 +568,23 @@ h3 {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: rgba(255, 193, 48, 1);
+  background: #16a34a;
   border: 2px solid #fff;
   z-index: 2;
+  animation: status-halo-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes status-halo-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(22, 163, 74, 0);
+    transform: scale(1.08);
+  }
 }
 
 
@@ -3316,15 +3448,29 @@ h3 {
   }
 }
 
-@media (max-width: 1100px) {
+/* ═══════════════════════════════════════════════════════════════════════
+   TABLET — 768px to 1199px
+   Two-column layouts where appropriate; large blocks stack. Desktop (>=1200px)
+   uses the base rules above unchanged.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1199px) {
 
+  /* minmax(0, 1fr) — not 1fr — so a wide child's min-content (the display
+     title, the logo marquee track) can't blow the single column past the
+     viewport. Standard grid-blowout guard. */
   .hero,
   .contact-section {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero {
     min-height: auto;
+  }
+
+  /* Below ~1050px the base 5.9rem floor freezes the title so the nowrap
+     line clips. Let 9vw govern the tablet range so the longest line fits. */
+  .hero-title {
+    font-size: clamp(3.2rem, 9vw, 6.5rem);
   }
 
   .hero-secondary {
@@ -3345,6 +3491,10 @@ h3 {
   .hero-services-canvas {
     display: grid;
     gap: 1rem;
+    /* Base sets a fixed 648px height for the desktop absolute-positioned
+       card stack; let it grow with the stacked cards here so they don't
+       overflow into the work section below. */
+    height: auto;
     min-height: auto;
     margin-top: 0;
     overflow: visible;
@@ -3355,6 +3505,9 @@ h3 {
     width: auto;
     min-height: auto;
     transform: none;
+    /* Neutralise the inline z-index from getServiceCardStyle so stacked
+       cards don't layer over sibling sections. */
+    z-index: auto !important;
   }
 
   .proof-grid,
@@ -3394,7 +3547,7 @@ h3 {
   }
 
   .work-principles-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .work-principle-card {
@@ -3519,24 +3672,10 @@ h3 {
   .preview-workflow-chip-row {
     grid-column: 1;
   }
-}
 
-@media (max-width: 1024px) {
-  .hero-header {
-    grid-template-columns: 1fr;
-    justify-items: start;
-  }
-
-  .hero-dock {
-    justify-content: flex-start;
-  }
-
-  .hero-dock-shell {
-    justify-self: start;
-  }
-
+  /* Case-study rail narrows but stays two-column on tablet. */
   .case-study-shell {
-    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-columns: 180px minmax(0, 1fr);
   }
 
   .hero-intro-row {
@@ -3549,7 +3688,64 @@ h3 {
   }
 }
 
-@media (max-width: 720px) {
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE — 320px to 767px
+   Single column, hamburger navigation, full-bleed, >=44px touch targets.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Show hamburger; hide the desktop icon dock + social row. */
+  .hero-menu-toggle {
+    display: inline-flex;
+    right: 16px;
+  }
+
+  .hero-dock,
+  .hero-actions {
+    display: none;
+  }
+
+  /* Touch targets: text links that would otherwise be < 44px tall. */
+  .text-link,
+  .contact-social-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Principle cards: single column, content stacked top-to-bottom. The cards
+     start overlapped (a deck) and unfurl into place as the section scrolls
+     into view, driven by --principles-progress (0 = stacked, 1 = unfurled). */
+  .work-principles-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .work-principle-card {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    min-height: auto;
+    will-change: transform;
+    transform: translateY(calc(var(--stack, 0) * -100% * (1 - var(--principles-progress, 1))));
+    z-index: calc(6 - var(--stack, 0));
+  }
+
+  .work-principle-card:nth-child(1) { --stack: 0; }
+  .work-principle-card:nth-child(2) { --stack: 1; }
+  .work-principle-card:nth-child(3) { --stack: 2; }
+  .work-principle-card:nth-child(4) { --stack: 3; }
+  .work-principle-card:nth-child(5) { --stack: 4; }
+  .work-principle-card:nth-child(6) { --stack: 5; }
+
+  .work-principle-copy {
+    max-width: none;
+  }
+
+  .work-principle-ticket {
+    align-self: flex-start;
+  }
+
   .portfolio-page {
     width: 100%;
     padding-top: 0;
@@ -3572,7 +3768,7 @@ h3 {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 0.75rem;
-    padding: 18px 16px;
+    padding: 8px 16px;
   }
 
   .hero-wordmark,
@@ -3622,8 +3818,14 @@ h3 {
     padding-top: 1rem;
   }
 
+  /* Hide the services rail (Services / status / See work) and the hero
+     scroll-down chip on mobile. */
   .hero-services-rail {
-    max-width: 100%;
+    display: none;
+  }
+
+  .scroll-chip {
+    display: none;
   }
 
   .hero-services-main {
@@ -3652,12 +3854,12 @@ h3 {
   }
 
   .work-headline {
-    font-size: clamp(1.7rem, 7vw, 2.8rem);
+    font-size: clamp(1.4rem, 6vw, 2rem);
   }
 
   .work-description {
     max-width: 100%;
-    font-size: clamp(1.2rem, 5.4vw, 1.8rem);
+    font-size: clamp(1rem, 4.2vw, 1.35rem);
   }
 
   .work-tag-row {
@@ -3692,15 +3894,81 @@ h3 {
   .hero-services-lede,
   .hero-services-copy {
     max-width: 100%;
+    font-size: clamp(1.05rem, 4.6vw, 1.35rem);
   }
 
+  .hero-services-title {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  .hero-service-card-head h3 {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .about-title {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  /* About body copy: small and full-width (no clamp) per request. */
+  .about-text {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    width: 100%;
+    max-width: none;
+  }
+
+  .about-sticky-copy {
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  .about-resume {
+    font-size: 1rem;
+  }
+
+  /* Mobile: shrink the display title and allow the hyphenated compound
+     ("SYSTEMS-MINDED") to wrap so nothing clips at 320–767px. min-width:0
+     lets the grid item respect the track instead of its content min-content. */
+  .hero-copy {
+    min-width: 0;
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 9.5vw, 3rem);
+  }
+
+  /* overflow-wrap:anywhere (not break-word) so the title's *min-content*
+     collapses — otherwise the nested grid tracks size to the unbroken
+     "SYSTEMS-MINDED" and overflow the viewport. The hyphen is preferred as
+     the break point, so it wraps cleanly rather than mid-word. */
+  .hero-title,
   .hero-title-line {
     white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .hero-title-line-middle,
   .hero-title-line-last {
     padding-left: 0;
+  }
+
+  /* CTAs sit on one line, aligned to the left edge (drop the desktop indent
+     that otherwise squeezed them into a wrap). */
+  .hero-cta-row {
+    margin-left: 0;
+  }
+
+  /* Hero footer stacks; the fixed-width "SHIPPED AT" marquee goes fluid so it
+     can't overflow the column and spill off the left edge. */
+  .hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .hero-marquee {
+    width: 100%;
+    align-self: stretch;
   }
 
   .hero-intro-row {
@@ -3717,11 +3985,14 @@ h3 {
     height: 4.9rem;
   }
 
+  /* Small status dot in the top-right corner, matching desktop (was a large
+     misplaced blob over the face). */
   .status-avatar-halo {
-    top: 0.45rem;
-    left: 1.65rem;
-    width: 1.85rem;
-    height: 1.85rem;
+    top: -4px;
+    right: -4px;
+    left: auto;
+    width: 16px;
+    height: 16px;
   }
 
 
@@ -3730,7 +4001,7 @@ h3 {
   }
 
   .status-role-line {
-    font-size: 1.8rem;
+    font-size: clamp(1.25rem, 5.2vw, 1.5rem);
   }
 
   .proof-grid,
@@ -3749,33 +4020,183 @@ h3 {
     padding-inline: 16px;
   }
 
+  /* Contact: drop the sticky reveal-footer (it clipped the taller stacked
+     content) and stack the two columns so everything is visible. */
+  .contact-section {
+    position: static;
+  }
+
+  .contact-top {
+    flex-direction: column;
+    gap: 28px;
+    padding: 40px 16px 0;
+  }
+
+  .contact-left {
+    width: 100%;
+  }
+
+  .contact-scroll-top {
+    align-self: flex-start;
+  }
+
+  .contact-socials-label {
+    font-size: 1.1rem;
+  }
+
+  .contact-logo-word {
+    font-size: 26vw;
+  }
+
+  .contact-footer-bar {
+    padding: 16px;
+    font-size: 12px;
+  }
+
   .eyebrow-row,
-  .section-head,
-  .back-row {
+  .section-head {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .case-study-shell {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  /* Compact back-row: single line, no social icons, fixed short height so the
+     TOC tab strip can sit flush beneath it. */
+  .back-row {
+    flex-direction: row;
+    align-items: center;
+    height: 52px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
+  .back-row-actions {
+    display: none;
+  }
+
+  .case-study-shell {
+    /* minmax(0, 1fr) so a wide visual's min-content can't blow the single
+       column past the viewport (canvas metrics, browser-chrome previews). */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    /* Clear the fixed back-row (~45px) + fixed TOC tab strip (~44px). */
+    margin-top: 96px;
+  }
+
+  /* TOC becomes a fixed, horizontally-scrollable tab strip directly beneath
+     the fixed back-row. */
   .case-study-rail {
-    position: static;
-    top: auto;
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    z-index: 45;
+    height: auto;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
   .case-study-rail-inner {
     position: static;
+    display: block;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .case-rail-label {
+    display: none;
+  }
+
+  .case-toc-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 12px;
+  }
+
+  .case-toc-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .case-toc-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 11px 12px;
+  }
+
+  .case-toc-list a.is-active,
+  .case-toc-list a:hover {
+    border-left: none;
+    border-bottom-color: var(--border-active);
   }
 
   .case-study-main {
     width: 100%;
   }
 
+  /* These content grids are implicit single-column (display:grid, no template).
+     An implicit `auto` column blows out to its content's min-content and
+     cascades to every sibling section — pin them to minmax(0,1fr) so section
+     bodies, headings and visuals stay within the viewport. */
+  .case-sections,
+  .case-section,
+  .case-section-heading,
+  .case-section-body,
+  .case-section-intro,
+  .case-section-item {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
   .case-metadata-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Case-study typography — scale hero + section text down for mobile. */
+  .case-study-page .case-hero h1,
+  .case-study-main #overview .case-hero-copy h1 {
+    font-size: clamp(1.6rem, 7.5vw, 2.2rem);
+    line-height: 1.1;
+  }
+
+  .case-study-page .case-hero-copy .lede {
+    font-size: clamp(1rem, 4.4vw, 1.25rem);
+    line-height: 1.45;
+  }
+
+  .case-study-page .case-section-heading h2 {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .case-study-page .case-section-body p {
+    font-size: clamp(1rem, 4.2vw, 1.15rem);
+    line-height: 1.55;
+  }
+
+  /* Screenshot previews: give the frame a landscape ratio so the wide
+     dashboard image scales to fit instead of being cropped in a tall,
+     near-square box. */
+  .case-hero-visual-frame,
+  .case-hero-visual-frame:has(.preview-browser-chrome) {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .preview-browser-chrome {
+    aspect-ratio: 3 / 2;
+    height: auto;
+  }
+
+  .preview-screenshot-img {
+    object-position: top center;
   }
 
   .case-toc-list a {
@@ -3865,7 +4286,8 @@ h3 {
   font-weight: 400;
 }
 
-@media (max-width: 600px) {
+/* Mobile (see 767px tier above): outcome metrics stack to one column. */
+@media (max-width: 767px) {
   .oiv-metrics {
     grid-template-columns: 1fr;
   }

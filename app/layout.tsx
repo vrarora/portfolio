@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import "../src/styles/tokens.css";
@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: "Vaibhav Arora | Product Design Portfolio",
   description:
     "Vaibhav Arora is a product designer who ships in code. Flat, editorial, high-signal.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -57,12 +57,33 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
       const W = canvas.width;
       const H = canvas.height;
 
-      // Set line coordinates based on actual dimensions
+      // Top & bottom border lines are always horizontal.
+      segs.current[0].axis = "h";
       segs.current[0].coord = 0.5;
+      segs.current[1].axis = "h";
       segs.current[1].coord = H - 0.5;
-      segs.current[2].coord = W / 3;
-      segs.current[3].coord = (2 * W) / 3;
 
+      // When the metrics stack (mobile), the two dividers between them are
+      // horizontal — follow the actual row separators instead of running
+      // vertically through the stacked content.
+      const stacked = window.matchMedia("(max-width: 767px)").matches;
+      if (stacked) {
+        const wrapTop = wrap.getBoundingClientRect().top;
+        const metricEls = wrap.querySelectorAll(".oiv-metric");
+        const dividerY = (i: number, fallback: number) =>
+          metricEls[i]
+            ? metricEls[i].getBoundingClientRect().bottom - wrapTop
+            : fallback;
+        segs.current[2].axis = "h";
+        segs.current[2].coord = dividerY(0, H / 3);
+        segs.current[3].axis = "h";
+        segs.current[3].coord = dividerY(1, (2 * H) / 3);
+      } else {
+        segs.current[2].axis = "v";
+        segs.current[2].coord = W / 3;
+        segs.current[3].axis = "v";
+        segs.current[3].coord = (2 * W) / 3;
+      }
     };
 
     init();
