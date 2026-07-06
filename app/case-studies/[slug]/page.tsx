@@ -11,6 +11,11 @@ import ScanWorkflowVisual from "./ScanWorkflowVisual";
 import OnboardingFlowVisual from "./OnboardingFlowVisual";
 import OutcomeImpactVisual from "./OutcomeImpactVisual";
 import { EqualAllExperimentVisual } from "./EqualAllExperimentVisual";
+import DesignRepoPlaybookCards from "./DesignRepoPlaybookCards";
+import DesignRepoContrastVisual from "./DesignRepoContrastVisual";
+import DesignRepoLoopVisual from "./DesignRepoLoopVisual";
+import DesignRepoPipelineVisual from "./DesignRepoPipelineVisual";
+import DesignRepoDemoVisual from "./DesignRepoDemoVisual";
 
 type PageProps = {
   params: Promise<{
@@ -282,6 +287,18 @@ export default async function CaseStudyPage({ params }: PageProps) {
                           <EqualAllExperimentVisual experiment="carousel" />
                         ) : item.visualType === "equalall-recurring" ? (
                           <EqualAllExperimentVisual experiment="recurring" />
+                        ) : item.visualType === "designrepo-playbook" ? (
+                          <DesignRepoPlaybookCards />
+                        ) : item.visualType === "designrepo-contrast" ? (
+                          <DesignRepoContrastVisual />
+                        ) : item.visualType === "designrepo-loop" ? (
+                          <DesignRepoLoopVisual />
+                        ) : item.visualType === "designrepo-pipeline" ? (
+                          <DesignRepoPipelineVisual />
+                        ) : item.visualType === "designrepo-demo" ? (
+                          <DesignRepoDemoVisual />
+                        ) : item.visualType === "outcome-impact" ? (
+                          <OutcomeImpactVisual metrics={section.metrics} />
                         ) : (
                           <div
                             className={`case-visual-placeholder case-visual-${(itemIndex % 3) + 1}`}

@@ -126,9 +126,118 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
+    slug: "design-repo",
+    title: "The Workflow That Rewrote Design's Job Description",
+    eyebrow: "Case study 02",
+    summary:
+      "An AI-native design workflow at IDfy where every design runs as code: handoff became a git pull, turnaround fell from weeks to days, and twenty designers, PMs, and developers build inside one repo.",
+    homeBrand: "Design Repo",
+    homeHeadline: "The design repo cut design turnaround at IDfy from weeks to days.",
+    homeDescription:
+      "Built and rolled out an AI-native design workflow at IDfy: a standalone repo where every design runs as code, a pull is the handoff, and twenty designers, PMs, and developers now build inside it.",
+    homeTags: ["AI-Native", "Design Systems", "DesignOps", "Infrastructure", "Product UX"],
+    workAccent: "blue",
+    workPreview: "cover",
+    thumbnailImage: "/images/design-repo/design-repo-cover.webp",
+    status: "Placeholder case study",
+    visibility: "public",
+    metadata: [
+      { label: "Company", value: "IDfy" },
+      { label: "Product", value: "Privy Design Repo" },
+      { label: "Role", value: "Product Designer 2" },
+      { label: "Timeline", value: "Apr – Jun 2026" },
+      { label: "Outcome", value: "Design turnaround from weeks to days" },
+    ],
+    sections: [
+      {
+        kicker: "Context",
+        title: "The Fastest Workflow at IDfy Died the Day It Worked",
+        body: "At IDfy I stopped drawing screens and started shipping them. Designing in code and delivering the frontend myself with AI agents meant backend developers stayed on backend problems. It worked: my pull request was accepted and a Data Compass module shipped to production.\n\nThen we retired the workflow, and the reason matters.",
+        items: [
+          {
+            bullets: [
+              "IDfy runs on Elixir and Phoenix LiveView, a stack AI agents handle poorly.",
+              "The tech lead held a principle I still agree with: if you cannot explain your code and own it, you do not write it.",
+              "I could ship the code. I could not own it. The honest move was to stop.",
+              "But the experiment had proven something that would not go away: the speed was real, and it had nothing to do with me typing code.",
+            ],
+            visual: "The loop that died: Figma to IDE to a merged PR, then retired",
+            visualType: "designrepo-loop",
+          },
+        ],
+      },
+      {
+        kicker: "The Insight",
+        title: "If I Could Not Own the Code, I Could Make the Design Run",
+        body: "The real bottleneck was never design speed. It was the handoff artifact.\n\nA static mockup forces everyone downstream to re-derive intent. The developer measures spacing off a picture. The PM re-explains the flow in comments. An AI agent guesses at everything the picture cannot say. A design that runs carries its own intent.",
+        items: [
+          {
+            bullets: [
+              "I built a standalone design repo: every design migrated out of Figma into running code, organized around Privy's product language, deployed on Vercel.",
+              "It is deliberately not production code. The org stack stays with the engineers who own it.",
+              "It is the design itself, kept in the only format that answers questions without me in the room.",
+            ],
+            visual: "What a developer receives: the same screen, static versus running",
+            visualType: "designrepo-contrast",
+          },
+        ],
+      },
+      {
+        kicker: "The Work",
+        title: "A Pull Became the Handoff",
+        body: "Handoff stopped being a ceremony. Developers clone the repo, and the pull is the handoff.",
+        items: [
+          {
+            bullets: [
+              "A dev agent pointed at the design-as-code plus the PRD and TRD builds the production feature in the org stack, because nothing is left to interpretation.",
+              "Designers adopted first. They watched modules ship in days and started building inside the repo themselves.",
+              "Then I saw the gap in how PMs prototyped and taught them to build on the repo itself, so their Claude mockups come out true to Privy's design language.",
+              "I formalized it with enablement sessions, the design team first and then PMs, plus a CONTRIBUTING guide and README that treat the repo as a product.",
+              "Today twenty people build inside it: eight designers, five product managers, and seven developers.",
+            ],
+            visual: "The pipeline: the Figma chain versus a repo pull, and twenty builders arriving",
+            visualType: "designrepo-pipeline",
+          },
+          {
+            body: "The playbook that formalized it treats the repo as a product. It onboards designers in the language they already speak.",
+            visual: "The playbook: real excerpts from the repo docs, lightly anonymized",
+            visualType: "designrepo-playbook",
+          },
+        ],
+      },
+      {
+        kicker: "Outcome",
+        title: "Design Became Something the Company Demos",
+        body: "Design at IDfy used to be something stakeholders reviewed. Now it is something the company demos.",
+        metrics: [
+          { start: "2 wks", end: "18 hrs", desc: "One full module, brief to delivered design" },
+          { start: "0", end: "20", desc: "Designers, PMs, and devs building in the repo" },
+          { start: "0%", end: "100%", desc: "New feature design now ships through the repo" },
+        ],
+        items: [
+          {
+            bullets: [
+              "Pre-sales walks clients through working prototypes built on the repo, seeded with mock data while the real backend is wired in. Trust gets built before a contract exists.",
+              "The Lineage module, four base screens with multi-level flows and a full graph view, was delivered end to end in under 18 hours. Before the repo, two weeks bought only its base structure.",
+              "The repo is our bread and butter now. Countless designs have shipped through it, and the pattern holds: what took weeks now takes days.",
+              "The bottleneck was never how fast I could design. It was how much of my intent survived the handoff.",
+              "One proof is on this site: every interactive screen in the other two case studies was designed and built through this same workflow.",
+            ],
+            visual: "The client demo: a working prototype in a live call",
+            visualType: "designrepo-demo",
+          },
+          {
+            visual: "Outcome metrics",
+            visualType: "outcome-impact",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "equalall",
     title: "40% More Revenue From Every Donor",
-    eyebrow: "Case study 02",
+    eyebrow: "Case study 03",
     summary:
       "Owning revenue per donor on Ketto's 0→1 bet to win Western donors, where a gift is a race against a feeling that fades.",
     homeBrand: "EqualAll",
@@ -202,47 +311,6 @@ export const caseStudies: CaseStudy[] = [
           { start: "0",    end: "5",    desc: "Experiments shipped as one system" },
           { start: "0 mo", end: "5 mo", desc: "Nov 2024 to Mar 2025 build window" },
         ],
-      },
-    ],
-  },
-  {
-    slug: "signal",
-    title: "Endpoint Protection operating model",
-    eyebrow: "Case study 03",
-    summary:
-      "Endpoint Protection shields employee devices by detecting and quarantining PII before it can surface, protecting organizations from DPDP fines of up to Rs. 250 Cr.",
-    homeBrand: "Endpoint Protection",
-    homeHeadline: "Protecting employee devices kept Rs. 250 Cr in DPDP fines off the table.",
-    homeDescription:
-      "Designed the detection and quarantine flows for Endpoint Protection, the device-level security layer of the Data Compass suite, so organizations could prove compliance before a violation occurred.",
-    homeTags: ["Enterprise", "B2B", "Compliance", "Security", "Product UX"],
-    workAccent: "blue",
-    workPreview: "placeholder",
-    status: "Placeholder case study",
-    visibility: "public",
-    metadata: [
-      { label: "Role", value: "Product design lead" },
-      { label: "Timeline", value: "6 weeks" },
-      { label: "Team", value: "Design, engineering" },
-      { label: "Skills", value: "Flows, prototyping, storytelling" },
-      { label: "Status", value: "Placeholder / public" },
-    ],
-    sections: [
-      {
-        kicker: "Opportunity",
-        title: "Why the project exists",
-        body: "The structure should reward skimming while still leaving room for deeper content once real work is selected.",
-        visual: "Visual placeholder",
-      },
-      {
-        kicker: "Solution",
-        title: "What the interface would show",
-        body: "Later phases can replace this with real artifacts while preserving the section order and metadata cadence.",
-      },
-      {
-        kicker: "Tradeoffs",
-        title: "Where the judgment lives",
-        body: "The layout keeps decisions visible so the designer's thinking remains legible, even when only placeholder content is present.",
       },
     ],
   },
