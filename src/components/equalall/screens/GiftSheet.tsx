@@ -103,16 +103,18 @@ export function GiftSheet() {
         }}
       >
         <span className="ea-sheet-grabber" aria-hidden="true" />
-        <button
-          type="button"
-          className="ea-sheet-close"
-          aria-label="Close"
-          data-ea-target="gift-close"
-          onClick={() => dispatch({ type: "CLOSE_GIFT" })}
-        >
-          <X size={15} weight="bold" />
-        </button>
         <div className="ea-sheet-body">
+          {/* Inside .ea-sheet-body (position: relative) so its top offset
+              matches the step's back button, which shares this context. */}
+          <button
+            type="button"
+            className="ea-sheet-close"
+            aria-label="Close"
+            data-ea-target="gift-close"
+            onClick={() => dispatch({ type: "CLOSE_GIFT" })}
+          >
+            <X size={15} weight="bold" />
+          </button>
           <StepPager
             stepKey={isConfirm ? "confirm" : "gift"}
             direction={direction}

@@ -28,7 +28,7 @@ export type DonorEntry = {
 
 export const campaign = {
   brand: "EqualAll",
-  title: "Meals and medicine for children surviving the drought",
+  title: "Meals and medicine for children",
   location: "Turkana County, Kenya",
   organizer: {
     name: "Hope Alliance International",

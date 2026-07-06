@@ -11,6 +11,8 @@ import ScanWorkflowVisual from "./ScanWorkflowVisual";
 import OnboardingFlowVisual from "./OnboardingFlowVisual";
 import OutcomeImpactVisual from "./OutcomeImpactVisual";
 import { EqualAllExperimentVisual } from "./EqualAllExperimentVisual";
+import EqualAllContextGapVisual from "./EqualAllContextGapVisual";
+import EqualAllFadingFeelingVisual from "./EqualAllFadingFeelingVisual";
 import DesignRepoPlaybookCards from "./DesignRepoPlaybookCards";
 import DesignRepoContrastVisual from "./DesignRepoContrastVisual";
 import DesignRepoLoopVisual from "./DesignRepoLoopVisual";
@@ -246,6 +248,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
                       )}
                       {section.visualType === "fragmented-landscape" ? (
                         <DataStreamVisual />
+                      ) : section.visualType === "equalall-context-gap" ? (
+                        <EqualAllContextGapVisual />
+                      ) : section.visualType === "equalall-fading-feeling" ? (
+                        <EqualAllFadingFeelingVisual />
                       ) : section.visualType === "outcome-impact" ? (
                         <OutcomeImpactVisual metrics={section.metrics} />
                       ) : section.visual ? (

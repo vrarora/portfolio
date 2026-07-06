@@ -545,7 +545,7 @@
 
 .ea-story-title {
   margin: 18px 20px 0;
-  font-family: var(--ea-font-serif), Georgia, serif;
+  font-family: var(--ea-font-ui);
   font-size: 25px;
   line-height: 1.2;
   font-weight: 600;
@@ -731,12 +731,11 @@
 
 .ea-story-body p {
   margin: 0;
-  font-family: var(--ea-font-serif), Georgia, serif;
+  font-family: var(--ea-font-ui);
   font-size: 16px;
   line-height: 1.56;
-  font-weight: 420;
+  font-weight: 500;
   color: rgba(34, 29, 23, 0.84);
-  font-optical-sizing: auto;
 }
 
 /* Donor feed */
@@ -1090,7 +1089,11 @@
   align-items: center;
 }
 
-.ea-impact-line {
+/* .ea-root scope raises specificity to 0-2-0 / 0-3-0 so these survive the
+   case-study page's leaking `.case-study-page .case-section-body p` rule
+   (0-2-1) — without it the coral impact line renders grey inside the embed
+   while staying correct on the standalone mockup. */
+.ea-root .ea-impact-line {
   display: block;
   text-align: center;
   font-size: 13px;
@@ -1100,7 +1103,7 @@
   text-wrap: balance;
 }
 
-.ea-impact-line.ea-has-tier {
+.ea-root .ea-impact-line.ea-has-tier {
   color: var(--ea-accent-deep);
 }
 
@@ -1840,9 +1843,8 @@
 }
 
 .ea-waypoint-ahead .ea-waypoint-title {
-  font-family: var(--ea-font-serif), Georgia, serif;
+  font-family: var(--ea-font-ui);
   font-size: 14.5px;
-  font-optical-sizing: auto;
 }
 
 .ea-waypoint-sub {
@@ -1890,11 +1892,11 @@
   margin-top: 12px;
   display: grid;
   gap: 3px;
-  font-family: var(--ea-font-serif), Georgia, serif;
+  font-family: var(--ea-font-ui);
   font-size: 13.5px;
   line-height: 1.45;
+  font-weight: 500;
   color: var(--ea-ink-2);
-  font-optical-sizing: auto;
 }
 
 .ea-journey-promise-by {
@@ -2122,16 +2124,25 @@
   min-height: 0;
 }
 
-.ea-demo-caption {
-  min-height: 34px;
-  display: grid;
-  place-items: center;
-  padding-top: 12px;
+/* .ea-root.ea-demo compound (0-3-0) outranks the case-study page's leaking
+   `.case-study-page .case-section-body p` rule (0-2-1), which otherwise forces
+   this <p> to width:100% / gray-3 / weight 400. */
+.ea-root.ea-demo .ea-demo-caption {
+  /* a filled white pill that hugs its content, centered under the phone with
+     a clear gap from the mockup above it */
+  justify-self: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 26px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #e3e6eb;
+  border-radius: var(--ea-r-pill);
+  box-shadow: 0 1px 2px rgba(20, 22, 26, 0.05);
   font-family: var(--ea-font-ui);
   font-size: 13px;
   font-weight: 550;
   letter-spacing: 0.01em;
-  /* warmed toward the ink scale — the cool gray fought the paper language */
   color: var(--ea-ink-2);
   text-align: center;
 }
