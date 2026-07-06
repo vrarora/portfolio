@@ -3280,7 +3280,9 @@ h3 {
 .eaff-traveler-ring {
   transform-box: fill-box;
   transform-origin: center;
-  animation: eaff-pulse 2s ease-out infinite;
+  /* pulses through the travel (begin 1.5s + ~3.2s), then settles invisible so
+     only the solid dot rests at the receded marker */
+  animation: eaff-pulse 2s ease-out 1.5s 2 both;
 }
 
 @keyframes eaff-pulse {

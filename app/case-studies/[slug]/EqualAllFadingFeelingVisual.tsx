@@ -150,28 +150,29 @@ export default function EqualAllFadingFeelingVisual() {
         </text>
 
         {/* The feeling itself: a pulsing dot that rides DOWN the curve while
-            playing — starting at the peak and cooling toward payment, looping.
+            playing — starting at the peak and cooling until it comes to rest at
+            the "wave has receded" marker (~0.83 along the curve), then freezes.
             Reduced motion / off-screen shows it resting at the peak. */}
         {phase === "play" ? (
-          <g className="eaff-traveler">
+          <g className="eaff-traveler" opacity="0">
             <circle className="eaff-traveler-ring" cx="0" cy="0" r="9" fill="#e05430" fillOpacity="0.45" />
             <circle cx="0" cy="0" r="6" fill="#e05430" stroke="#faf8f4" strokeWidth="2" />
             <animate
               attributeName="opacity"
-              dur="4s"
+              dur="3.2s"
               begin="1.5s"
-              repeatCount="indefinite"
-              values="0;1;1;1;0"
-              keyTimes="0;0.08;0.5;0.9;1"
+              fill="freeze"
+              values="0;1;1"
+              keyTimes="0;0.12;1"
             />
             <animateMotion
-              dur="4s"
+              dur="3.2s"
               begin="1.5s"
-              repeatCount="indefinite"
+              fill="freeze"
               calcMode="spline"
               keyTimes="0;1"
-              keyPoints="0;1"
-              keySplines="0.45 0 0.55 1"
+              keyPoints="0;0.83"
+              keySplines="0.4 0 0.5 1"
             >
               <mpath href="#eaff-curve-path" />
             </animateMotion>
