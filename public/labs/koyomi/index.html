@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>暦 KOYOMI — the seventy-two seasons</title>
+    <meta name="description" content="A living almanac of Japan's 72 microseasons, computed from the sun's true position and painted in traditional pigments." />
+    <meta name="theme-color" content="#f3efe5" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='9' fill='%23c53d43'/%3E%3Ctext x='32' y='45' font-size='40' text-anchor='middle' fill='%23fdfbf5' font-family='serif'%3E暦%3C/text%3E%3C/svg%3E" />
+    <link rel="preload" href="/labs/koyomi/fonts/shippori-b1-medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/labs/koyomi/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/labs/koyomi/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      /* Pre-boot palette — neutral paper, replaced by JS before first frame. */
+      :root {
+        --bg-top: #f3efe5;
+        --bg-bottom: #efeadd;
+        --ink: #2b2b2b;
+        --ink-soft: #8d887b;
+        --line: #d8d2c2;
+        --vignette: rgba(43, 43, 43, 0.04);
+        --vignette-mid: rgba(43, 43, 43, 0.022);
+        --vignette-half: rgba(43, 43, 43, 0.01);
+        --accent: #c53d43;
+      }
+    </style>
+    <script type="module" crossorigin src="/labs/koyomi/assets/index-CBumWQ-9.js"></script>
+    <link rel="stylesheet" crossorigin href="/labs/koyomi/assets/index-D0BBcWtw.css">
+  </head>
+  <body>
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="chrome chrome-top">
+      <a class="brand" href="#/" id="brand" title="Return to today">
+        <span class="stamp" aria-hidden="true" lang="ja">暦</span>
+        <span class="brand-name">Koyomi</span>
+        <span class="brand-jp" lang="ja" aria-hidden="true">七十二候</span>
+      </a>
+      <nav class="menu" aria-label="Views">
+        <button class="menu-btn" id="btn-year" aria-haspopup="dialog">Year</button>
+        <button class="menu-btn" id="btn-sound" aria-pressed="false">
+          Sound<span class="sound-dot" aria-hidden="true"></span>
+        </button>
+        <button class="menu-btn" id="btn-about" aria-haspopup="dialog">About</button>
+      </nav>
+    </header>
+
+    <div class="visually-hidden" id="sr-status" role="status" aria-live="polite"></div>
+
+    <main id="season" class="season">
+      <div class="scroll">
+        <p class="pentad-no" id="pentad-no" lang="ja"></p>
+        <h1 class="pentad-kanji" id="pentad-kanji" lang="ja"></h1>
+      </div>
+      <div class="latin">
+        <p class="sekki-line" id="sekki-line"></p>
+        <p class="pentad-en" id="pentad-en"></p>
+        <p class="romaji" id="romaji"></p>
+        <p class="dates" id="dates"></p>
+        <div class="pigment-row">
+          <div class="pigments" id="pigments" role="list" aria-label="Traditional pigments of this season"></div>
+          <span class="pigment-name" id="pigment-name" aria-hidden="true"></span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="chrome chrome-bottom">
+      <button class="today-chip off" id="today-chip">
+        <span class="now-dot" aria-hidden="true"></span>Return to today
+      </button>
+      <div class="nav-cluster">
+        <button class="nav-arrow" id="prev" aria-label="Previous kō">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="counter" id="counter"></div>
+        <button class="nav-arrow" id="next" aria-label="Next kō">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="key-hint" aria-hidden="true">← → · T · Y</div>
+    </footer>
+
+    <div class="overlay" id="wheel-overlay" role="dialog" aria-modal="true" aria-label="Year wheel" hidden>
+      <div class="overlay-bg"></div>
+      <div class="wheel-wrap" id="wheel-wrap"></div>
+    </div>
+
+    <div class="overlay" id="about-overlay" role="dialog" aria-modal="true" aria-label="About Koyomi" hidden>
+      <div class="overlay-bg"></div>
+      <div class="about-inner" id="about-inner"></div>
+    </div>
+
+  </body>
+</html>

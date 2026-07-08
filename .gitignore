@@ -2,6 +2,7 @@
 out/
 node_modules/
 *.tsbuildinfo
+.labs-src/
 
 # Local dev tooling — not for production
 app/agentation-devtools.tsx
