@@ -26,7 +26,8 @@ export function PlaygroundChrome({ introRef }: PlaygroundChromeProps) {
           Playground<span className="pg-title-dot">.</span>
         </h1>
         <p className="pg-subtext">
-          Where my experiments live. Open one.
+          A growing collection of my side projects, interaction studies and concept
+          explorations, laid out as a connected field to open, drag and revisit.
         </p>
       </div>
       <Link className="pg-back" href="/#work">
