@@ -37,6 +37,7 @@ import {
   LockSimple,
   List,
   X,
+  Sparkle,
 } from "@phosphor-icons/react";
 import { caseStudies } from "@/content/case-studies";
 import { siteLinks } from "@/content/site-links";
@@ -44,6 +45,7 @@ import { siteLinks } from "@/content/site-links";
 const heroNavItems = [
   { label: "Overview", href: "#top", icon: House, active: true },
   { label: "Work", href: "#work", icon: Briefcase },
+  { label: "Playground", href: "/playground/", icon: Sparkle },
   { label: "About", href: "#about", icon: User },
   { label: "Contact", href: "#contact", icon: ChatDots },
 ] as const;
@@ -841,6 +843,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const sectionIds = heroNavItems
+      .filter(({ href }) => href.startsWith("#"))
       .map(({ href }) => href.slice(1))
       .filter(Boolean);
 
@@ -1022,6 +1025,25 @@ export default function HomePage() {
         <nav className="hero-dock" aria-label="Primary">
           <div className="hero-dock-shell">
             {heroNavItems.map(({ label, href, icon: Icon }, index) => {
+              // Route items (e.g. /playground/) navigate away from the homepage:
+              // plain Link, no scrollspy state, never is-active here.
+              if (!href.startsWith("#")) {
+                return (
+                  <Link
+                    key={label}
+                    className="nav-button hero-button"
+                    href={href}
+                    ref={(node) => {
+                      buttonRefs.current[index] = node;
+                    }}
+                    aria-label={label}
+                    title={label}
+                  >
+                    <Icon size={20} weight="bold" />
+                  </Link>
+                );
+              }
+
               const isActive = href === activeHref;
 
               return (
@@ -1100,6 +1122,24 @@ export default function HomePage() {
         >
           <nav className="hero-mobile-menu-nav" aria-label="Primary">
             {heroNavItems.map(({ label, href }) => {
+              // Route items: real navigation via Link; close the menu and
+              // restore body scroll before the route change unmounts the lock.
+              if (!href.startsWith("#")) {
+                return (
+                  <Link
+                    key={label}
+                    className="hero-mobile-menu-link"
+                    href={href}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      document.body.style.overflow = "";
+                    }}
+                  >
+                    {label}
+                  </Link>
+                );
+              }
+
               const isActive = href === activeHref;
               return (
                 <a
