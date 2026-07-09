@@ -35,7 +35,11 @@ export function videoRect(
 ): StageGeometry {
   const { W, H, fieldTop, fieldHeight } = state;
   const ar = node.data.aspectRatio;
-  const availableH = Math.max(120, cardTop - DETAIL_CARD_GAP - (fieldTop + DETAIL_TOP_GAP));
+  // Short phone viewports (Safari toolbars eat ~180px) leave little room
+  // between the intro and the card; tighter gaps keep the stage usable.
+  const cardGap = W <= 767 ? 24 : DETAIL_CARD_GAP;
+  const topGap = W <= 767 ? 12 : DETAIL_TOP_GAP;
+  const availableH = Math.max(120, cardTop - cardGap - (fieldTop + topGap));
   const maxH = Math.min(Math.max(160, fieldHeight - 150), availableH);
   let h = Math.min(maxH, maxWidth / ar);
   let w = h * ar;
@@ -43,8 +47,8 @@ export function videoRect(
     w = maxWidth;
     h = w / ar;
   }
-  const bottom = cardTop - DETAIL_CARD_GAP;
-  const minY = fieldTop + DETAIL_TOP_GAP + h / 2;
+  const bottom = cardTop - cardGap;
+  const minY = fieldTop + topGap + h / 2;
   return { x: W / 2, y: clamp(bottom - h / 2, minY, H - h / 2 - 24), w, h };
 }
 
@@ -94,21 +98,15 @@ export function stepSimulation(state: EngineState, t: number, stageTarget: Stage
   const pY = (mouse.ey - cy) * parallaxScale;
 
   // Stage grow progress (0 = node-sized, 1 = fully open) and crossfade.
-  // Measured on area, not width: a portrait stage (pulse) can open NARROWER
-  // than the hover box, so width-based progress would run backwards and pin
-  // the stage at 0. Area grows monotonically for every aspect ratio, and the
-  // max(1, …) denominator keeps the close flight (target = the box itself,
-  // delta 0) saturated at 1 until the rect lands, exactly as before.
-  let p = 0;
-  if (state.central && stageTarget) {
-    const boxArea = HBOX_W * HBOX_H;
-    p = clamp(
-      (sg.w * sg.h - boxArea) / Math.max(1, stageTarget.w * stageTarget.h - boxArea),
-      0,
-      1,
-    );
-  }
-  state.p = p;
+  // p is an explicitly eased value, never derived from the rect: on a short
+  // phone viewport the fully open stage (the portrait pulse stage, or any
+  // stage once Show more shrinks the available room) can be SMALLER than
+  // the hover box, so any size-ratio progress runs backwards and pins the
+  // stage invisible at 0 while it is open.
+  const pTarget = state.central && stageTarget && !state.closing ? 1 : 0;
+  state.p = reducedMotion ? pTarget : lerp(state.p, pTarget, STAGE_LERP);
+  if (Math.abs(state.p - pTarget) < 0.004) state.p = pTarget;
+  const p = state.p;
   state.cf = clamp(p / 0.25, 0, 1);
 
   const drag = state.drag.node;

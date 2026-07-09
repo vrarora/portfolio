@@ -128,6 +128,25 @@ async function openNode(page, id) {
   await page.close();
 }
 
+// ---- Short phone viewport (Safari toolbars) — pulse stage + Show more ----------
+{
+  const page = await browser.newPage({
+    viewport: { width: 390, height: 664 },
+    deviceScaleFactor: 2,
+    isMobile: true,
+    hasTouch: true,
+  });
+  await page.goto(`${BASE_URL}/playground/#open-pulse`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(2200);
+  console.log("short viewport:");
+  await shot(page, "14-short-stage-pulse");
+
+  await page.locator(".pg-card-showmore").click();
+  await page.waitForTimeout(1200);
+  await shot(page, "15-short-show-more");
+  await page.close();
+}
+
 // ---- Reduced motion ---------------------------------------------------------------
 {
   const page = await browser.newPage({

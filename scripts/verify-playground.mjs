@@ -389,6 +389,79 @@ const browser = await chromium.launch();
   await context.close();
 }
 
+// ---- Short phone viewport (Safari toolbars: ~664px, not 844) -------------------
+// Regression for the two real-device bugs: the open pulse stage is SMALLER
+// than the hover box here, and Show more shrinks any stage below it — both
+// pinned the size-derived progress at 0 and made stage + card invisible.
+{
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 664 },
+    isMobile: true,
+    hasTouch: true,
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto(`${BASE_URL}/playground/`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(1200);
+
+  const pulse = await labelCenter(page, "pulse");
+  await page.touchscreen.tap(pulse.x, pulse.y);
+  let shortOpen = null;
+  try {
+    await page.waitForFunction(
+      () => parseFloat(document.querySelector(".pg-card")?.style.opacity || "0") > 0.9,
+      null,
+      { timeout: 5000 },
+    );
+    shortOpen = await page.evaluate(() => ({
+      title: document.querySelector(".pg-card-title")?.textContent,
+      stageOpacity: parseFloat(document.querySelector(".pg-stage")?.style.opacity || "0"),
+      stageW: parseFloat(document.querySelector(".pg-stage")?.style.width || "0"),
+    }));
+  } catch {
+    /* falls through to the failing check */
+  }
+  check(
+    "short viewport: pulse opens with a visible stage",
+    !!shortOpen &&
+      shortOpen.title === "Pulse" &&
+      shortOpen.stageOpacity > 0.9 &&
+      shortOpen.stageW > 90,
+    JSON.stringify(shortOpen),
+  );
+
+  await page.locator(".pg-card-showmore").click();
+  await page.waitForTimeout(900);
+  const afterMore = await page.evaluate(() => ({
+    cardOpacity: parseFloat(document.querySelector(".pg-card")?.style.opacity || "0"),
+    stageOpacity: parseFloat(document.querySelector(".pg-stage")?.style.opacity || "0"),
+    stageH: parseFloat(document.querySelector(".pg-stage")?.style.height || "0"),
+    descVisible: (() => {
+      const d = document.querySelector(".pg-card-desc");
+      return !!d && d.getBoundingClientRect().height > 20;
+    })(),
+  }));
+  check(
+    "short viewport: Show more keeps stage and card visible",
+    afterMore.cardOpacity > 0.9 &&
+      afterMore.stageOpacity > 0.9 &&
+      afterMore.stageH > 90 &&
+      afterMore.descVisible,
+    JSON.stringify(afterMore),
+  );
+
+  await page.locator(".pg-card-close").click();
+  await page.waitForFunction(
+    () => document.querySelector(".pg-stage")?.style.display === "none",
+    null,
+    { timeout: 5000 },
+  );
+  check("short viewport: close returns to the field", true);
+  check("no page errors on short viewport", errors.length === 0, errors.join(" | "));
+  await context.close();
+}
+
 await browser.close();
 
 if (failures > 0) {
