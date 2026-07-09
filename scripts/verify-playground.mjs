@@ -10,10 +10,25 @@
  * zoom, drag, the open stage with card navigation, deep links, all four
  * same-domain lab builds, reduced motion and the mobile touch surface.
  */
+import { readFileSync, readdirSync } from "node:fs";
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:8788";
 let failures = 0;
+
+// Expected counts come from the content file and the labs directory, so
+// adding a node (see ADDING-A-NODE.md) never breaks this suite.
+const contentSrc = readFileSync(
+  new URL("../src/content/playground.ts", import.meta.url),
+  "utf8",
+);
+const NODE_COUNT = [...contentSrc.matchAll(/^\s*id: "/gm)].length;
+const LAB_SLUGS = readdirSync(new URL("../public/labs/", import.meta.url), {
+  withFileTypes: true,
+})
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name);
+const pad2 = (n) => String(n).padStart(2, "0");
 
 function check(label, ok, detail = "") {
   console.log(`${ok ? "PASS" : "FAIL"}  ${label}${!ok && detail ? `  (${detail})` : ""}`);
@@ -42,7 +57,10 @@ const browser = await chromium.launch();
   await page.goto(`${BASE_URL}/playground/`, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(1200);
 
-  check("field renders 4 nodes", (await page.locator("[data-pg-node]").count()) === 4);
+  check(
+    `field renders ${NODE_COUNT} nodes`,
+    (await page.locator("[data-pg-node]").count()) === NODE_COUNT,
+  );
   const calm = await page.evaluate(() => ({
     stage: document.querySelector(".pg-stage")?.style.display,
     cardHidden: document.querySelector(".pg-card")?.getAttribute("aria-hidden"),
@@ -153,7 +171,7 @@ const browser = await chromium.launch();
   }));
   check(
     "click opens the stage with the right card",
-    open.title === "Koyomi" && open.cur === "01" && open.tot === "04",
+    open.title === "Koyomi" && open.cur === "01" && open.tot === pad2(NODE_COUNT),
     JSON.stringify(open),
   );
   check("open writes the deep-link hash", open.hash === "#open-koyomi");
@@ -226,8 +244,7 @@ const browser = await chromium.launch();
 // ---- Lab builds (base-path regression) ----------------------------------------
 {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
-  const slugs = ["koyomi", "memento-mori", "pulse", "hover-reveal"];
-  for (const slug of slugs) {
+  for (const slug of LAB_SLUGS) {
     const errors = [];
     const failed = [];
     const onError = (e) => errors.push(e.message);
