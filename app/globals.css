@@ -6059,10 +6059,14 @@ text.drp-g-in {
    Single column, hamburger navigation, full-bleed, >=44px touch targets.
    ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
-  /* Show hamburger; hide the desktop icon dock + social row. */
+  /* Show hamburger; hide the desktop icon dock + social row. The toggle
+     joins the header's flex flow (see .hero-header below) instead of
+     absolutely overhanging the 30px-tall bar. */
   .hero-menu-toggle {
     display: inline-flex;
-    right: 16px;
+    position: static;
+    transform: none;
+    flex: 0 0 auto;
   }
 
   .hero-dock,
@@ -6086,15 +6090,21 @@ text.drp-g-in {
     gap: 1rem;
   }
 
+  /* Ticket visual above the copy (DOM order is copy -> ticket, so reverse);
+     the kicker eyebrow duplicates the ticket text and is dropped on mobile. */
   .work-principle-card {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 1rem;
     min-height: auto;
     will-change: transform;
     transform: translateY(calc(var(--stack, 0) * -100% * (1 - var(--principles-progress, 1))));
     z-index: calc(6 - var(--stack, 0));
+  }
+
+  .work-principle-kicker {
+    display: none;
   }
 
   .work-principle-card:nth-child(1) { --stack: 0; }
@@ -6127,12 +6137,14 @@ text.drp-g-in {
     margin-inline: clamp(var(--space-16), 4vw, var(--space-48));
   }
 
+  /* The hamburger sits in flow inside the nav container (no absolute
+     overhang) with 8px of container padding above and below it. */
   .hero-header {
     top: 0;
     height: auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.75rem;
     padding: 8px 16px;
   }
@@ -6220,12 +6232,17 @@ text.drp-g-in {
   }
 
   .work-headline {
-    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-size: 16px;
+    line-height: 1.25;
+    /* Fill the container width: undo the global h2 text-wrap: balance,
+       which rags the title short of the right edge. */
+    text-wrap: pretty;
+    max-width: none;
   }
 
   .work-description {
     max-width: 100%;
-    font-size: clamp(1rem, 4.2vw, 1.35rem);
+    font-size: 16px;
   }
 
   .work-tag-row {
@@ -6236,10 +6253,11 @@ text.drp-g-in {
     padding-left: 0;
   }
 
+  /* Chips hug their content: 4px padding all around, no forced height. */
   .work-tag {
-    min-height: 30px;
-    padding: 0.25rem 0.8rem;
-    font-size: 13px;
+    min-height: 0;
+    padding: 4px;
+    font-size: 12px;
   }
 
   .preview-dashboard-body,
@@ -6275,9 +6293,9 @@ text.drp-g-in {
     font-size: clamp(2rem, 9vw, 2.6rem);
   }
 
-  /* About body copy: small and full-width (no clamp) per request. */
+  /* About body copy: 16px and full-width (no clamp) per request. */
   .about-text {
-    font-size: 1.05rem;
+    font-size: 16px;
     line-height: 1.5;
     width: 100%;
     max-width: none;
@@ -6351,24 +6369,42 @@ text.drp-g-in {
     height: 4.9rem;
   }
 
-  /* Small status dot in the top-right corner (hidden on desktop, where the
-     status-pill dot covers this role; was a large misplaced blob over the face). */
+  /* Small status dot seated ON the oval avatar's top-right edge (hidden on
+     desktop, where the status-pill dot covers this role). The box corner
+     would float off the ellipse, so it sits at the ~45deg point instead. */
   .status-avatar-halo {
     display: block;
-    top: -4px;
-    right: -4px;
+    top: 2px;
+    right: 5px;
     left: auto;
     width: 16px;
     height: 16px;
   }
 
+  /* "IN THE MARKET" rides the avatar's top line, level with the green dot;
+     the role line below takes the full row. display:contents promotes both
+     out of .status-line-copy into the wrapping intro-row flex. */
+  .status-line-copy {
+    display: contents;
+  }
 
   .status-pill-accent {
+    align-self: flex-start;
+    margin-top: 2px;
     font-size: 0.92rem;
   }
 
+  /* The desktop pill dot would land on the avatar now — the halo is the
+     one status dot on mobile. */
+  .status-pill-accent::before,
+  .status-pill-accent::after {
+    display: none;
+  }
+
   .status-role-line {
-    font-size: clamp(1.25rem, 5.2vw, 1.5rem);
+    flex-basis: 100%;
+    font-size: 14px;
+    animation-duration: 900ms;
   }
 
   .proof-grid,
@@ -6376,7 +6412,31 @@ text.drp-g-in {
     grid-template-columns: 1fr;
   }
 
+  /* Service cards: a full-bleed horizontal snap carousel instead of the
+     tablet's vertical stack (the negative margins cancel the section's
+     16px inline padding so cards can run edge to edge). */
+  .hero-services-canvas {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .hero-services-canvas::-webkit-scrollbar {
+    display: none;
+  }
+
   .hero-service-card {
+    flex: 0 0 85%;
+    min-width: 0;
+    scroll-snap-align: start;
     padding: 1.2rem;
     border-radius: 1.5rem;
   }
@@ -6412,7 +6472,8 @@ text.drp-g-in {
   }
 
   .contact-logo-word {
-    font-size: 26vw;
+    /* 26vw clipped the wordmark at the right edge on phones. */
+    font-size: 21vw;
   }
 
   .contact-footer-bar {

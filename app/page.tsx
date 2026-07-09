@@ -899,9 +899,12 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    // Rotate the hero role line; phones get a calmer pace so the line can
+    // be read before it swaps.
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const intervalId = window.setInterval(() => {
       setRoleIndex((currentIndex) => (currentIndex + 1) % heroRoleItems.length);
-    }, 2600);
+    }, isMobile ? 5200 : 2600);
 
     return () => {
       window.clearInterval(intervalId);
