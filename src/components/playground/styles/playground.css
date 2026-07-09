@@ -26,6 +26,20 @@
   user-select: none;
   -webkit-user-select: none;
   cursor: default;
+  /* Soften the landing from the homepage: the field settles in rather than
+     snapping onto the page. */
+  animation: pg-page-enter 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pg-page-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.012);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .pg-root :where(img, video) {
@@ -737,6 +751,10 @@
 /* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
+  .pg-root {
+    animation: none;
+  }
+
   .pg-node-box {
     transition: opacity 0.2s ease;
   }
