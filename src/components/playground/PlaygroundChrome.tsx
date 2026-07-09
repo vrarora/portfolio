@@ -26,8 +26,7 @@ export function PlaygroundChrome({ introRef }: PlaygroundChromeProps) {
           Playground<span className="pg-title-dot">.</span>
         </h1>
         <p className="pg-subtext">
-          Independent experiments built in code. Generative scenes, interaction studies and
-          product concepts, drifting in a connected field. Open one, drag it around, revisit.
+          Where my experiments live. Open one.
         </p>
       </div>
       <Link className="pg-back" href="/#work">
