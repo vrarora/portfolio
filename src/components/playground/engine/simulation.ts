@@ -94,9 +94,19 @@ export function stepSimulation(state: EngineState, t: number, stageTarget: Stage
   const pY = (mouse.ey - cy) * parallaxScale;
 
   // Stage grow progress (0 = node-sized, 1 = fully open) and crossfade.
+  // Measured on area, not width: a portrait stage (pulse) can open NARROWER
+  // than the hover box, so width-based progress would run backwards and pin
+  // the stage at 0. Area grows monotonically for every aspect ratio, and the
+  // max(1, …) denominator keeps the close flight (target = the box itself,
+  // delta 0) saturated at 1 until the rect lands, exactly as before.
   let p = 0;
   if (state.central && stageTarget) {
-    p = clamp((sg.w - HBOX_W) / Math.max(1, stageTarget.w - HBOX_W), 0, 1);
+    const boxArea = HBOX_W * HBOX_H;
+    p = clamp(
+      (sg.w * sg.h - boxArea) / Math.max(1, stageTarget.w * stageTarget.h - boxArea),
+      0,
+      1,
+    );
   }
   state.p = p;
   state.cf = clamp(p / 0.25, 0, 1);
