@@ -1284,6 +1284,11 @@ h3 {
   text-wrap: pretty;
 }
 
+/* The condensed variant is mobile-only; desktop/tablet show the full copy. */
+.work-description-short {
+  display: none;
+}
+
 .work-card-footer {
   display: grid;
   gap: 1rem;
@@ -6118,8 +6123,44 @@ text.drp-g-in {
     max-width: none;
   }
 
+  /* Ticket fills the card width; text wraps naturally inside the wider shape
+     (line-height loosened since it's no longer forced onto 2-3 tight lines). */
   .work-principle-ticket {
-    align-self: flex-start;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 84px;
+    padding: 1rem 1.1rem;
+    line-height: 1.05;
+  }
+
+  .work-principle-text {
+    font-size: 16px;
+  }
+
+  .work-rail-note {
+    font-size: 16px;
+  }
+
+  /* Floating stat bubbles over the about photo: shrink the oversized hero
+     numbers so the three cards don't swamp the portrait, and let the card
+     hug the now-smaller text instead of floating it in a large padded box. */
+  .about-floating-card {
+    width: auto;
+    max-width: 62%;
+    padding: 0.85rem 1rem;
+    border-radius: 1rem;
+  }
+
+  .about-floating-value {
+    font-size: 16px;
+  }
+
+  .about-floating-label {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    font-size: 14px;
   }
 
   .portfolio-page {
@@ -6234,15 +6275,25 @@ text.drp-g-in {
   .work-headline {
     font-size: 16px;
     line-height: 1.25;
-    /* Fill the container width: undo the global h2 text-wrap: balance,
-       which rags the title short of the right edge. */
-    text-wrap: pretty;
+    /* Fill the container width greedily: undo the global h2 text-wrap:
+       balance AND pretty (both pull words up and wrap short of the right
+       edge) so each line fills before wrapping. */
+    text-wrap: normal;
     max-width: none;
   }
 
   .work-description {
     max-width: 100%;
     font-size: 16px;
+  }
+
+  /* Swap the full copy for the condensed one-liner on phones. */
+  .work-description-full {
+    display: none;
+  }
+
+  .work-description-short {
+    display: block;
   }
 
   .work-tag-row {
@@ -6362,6 +6413,9 @@ text.drp-g-in {
 
   .status-line-label {
     font-size: 1.75rem;
+    /* Center "Vaibhav is" against the avatar blob on its flex line (the pill
+       beside it keeps its own flex-start so it stays level with the dot). */
+    align-self: center;
   }
 
   .status-avatar {
@@ -6433,12 +6487,22 @@ text.drp-g-in {
     display: none;
   }
 
+  /* Near-full-width square tiles: wide enough that the numbered items sit on
+     one line each (no squished wrapping), with a 1:1 floor so the card keeps
+     its square shape and only grows taller if content genuinely needs it. A
+     small next-card peek preserves the carousel affordance. */
   .hero-service-card {
-    flex: 0 0 85%;
+    flex: 0 0 calc(100vw - 3rem);
     min-width: 0;
+    aspect-ratio: 1 / 1;
     scroll-snap-align: start;
-    padding: 1.2rem;
+    padding: 1.35rem;
     border-radius: 1.5rem;
+  }
+
+  .hero-service-list {
+    font-size: 16px;
+    gap: 0.5rem;
   }
 
   .footer {

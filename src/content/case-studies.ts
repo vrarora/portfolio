@@ -6,6 +6,8 @@ export type CaseStudy = {
   homeBrand: string;
   homeHeadline: string;
   homeDescription: string;
+  /** Condensed one-line variant shown on the work card at <=767px. */
+  homeDescriptionShort: string;
   homeTags: string[];
   workAccent: "green" | "blue" | "orange";
   workPreview: "dashboard" | "workflow" | "commerce" | "screenshot" | "placeholder" | "cover";
@@ -44,6 +46,8 @@ export const caseStudies: CaseStudy[] = [
     homeHeadline: "Data Compass turned a 3-week bank POC into ₹10Cr+ ARR.",
     homeDescription:
       "Drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
+    homeDescriptionShort:
+      "Turned bank data-privacy compliance into an investigation workflow — and IDfy's first enterprise data client.",
     homeTags: ["Enterprise", "B2B", "Compliance", "Data Discovery", "Product UX"],
     workAccent: "green",
     workPreview: "screenshot",
@@ -135,6 +139,8 @@ export const caseStudies: CaseStudy[] = [
     homeHeadline: "The design repo cut design turnaround at IDfy from weeks to days.",
     homeDescription:
       "Built and rolled out an AI-native design workflow at IDfy: a standalone repo where every design runs as code, a pull is the handoff, and twenty designers, PMs, and developers now build inside it.",
+    homeDescriptionShort:
+      "An AI-native workflow where every design runs as code and a git pull is the handoff — now twenty builders strong.",
     homeTags: ["AI-Native", "Design Systems", "DesignOps", "Infrastructure", "Product UX"],
     workAccent: "blue",
     workPreview: "cover",
@@ -244,6 +250,8 @@ export const caseStudies: CaseStudy[] = [
     homeHeadline: "EqualAll's 40% Lift in Revenue Per Donor",
     homeDescription:
       "Designed and owned EqualAll, Ketto's 0→1 donation platform for Western donors, taking revenue per donor from launch through a 40% lift by designing for the fading emotion behind every gift.",
+    homeDescriptionShort:
+      "Owned Ketto's 0→1 donation platform for Western donors — a 40% lift in revenue per donor by designing for the emotion behind each gift.",
     homeTags: ["Social Impact", "0→1", "Growth", "Consumer", "Product UX"],
     workAccent: "orange",
     workPreview: "cover",

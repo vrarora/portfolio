@@ -1372,7 +1372,8 @@ export default function HomePage() {
                               ))}
                             </div>
                             <h2 className="work-headline">{study.homeHeadline}</h2>
-                            <p className="work-description">{study.homeDescription}</p>
+                            <p className="work-description work-description-full">{study.homeDescription}</p>
+                            <p className="work-description work-description-short">{study.homeDescriptionShort}</p>
                           </div>
                         </div>
 
@@ -1406,7 +1407,8 @@ export default function HomePage() {
                               ))}
                             </div>
                             <h2 className="work-headline">{study.homeHeadline}</h2>
-                            <p className="work-description">{study.homeDescription}</p>
+                            <p className="work-description work-description-full">{study.homeDescription}</p>
+                            <p className="work-description work-description-short">{study.homeDescriptionShort}</p>
                           </div>
                         </div>
 
