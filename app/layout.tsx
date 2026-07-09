@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Vaibhav Arora — systems-minded product designer",
+        alt: "Vaibhav Arora, systems-minded product designer",
       },
     ],
   },

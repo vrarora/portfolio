@@ -1435,7 +1435,7 @@ export default function HomePage() {
           <aside className="work-rail">
             <SectionReveal className="work-rail-inner">
               <p className="work-rail-kicker">Work</p>
-              <p className="work-rail-note">A sneak preview of selected projects between ‘23—’26</p>
+              <p className="work-rail-note">A sneak preview of selected projects between ‘23–’26</p>
             </SectionReveal>
           </aside>
         </div>
