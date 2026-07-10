@@ -91,4 +91,22 @@ export const playgroundNodes: PlaygroundNode[] = [
     z: 0.45,
     liveUrl: "/labs/hover-reveal/",
   },
+  {
+    id: "atmos",
+    title: "Atmos",
+    index: "0288",
+    category: "Weather instrument",
+    year: "2026",
+    description:
+      "A full-bleed weather app where the sky is the interface. Every condition and time of day is an art-directed composition of live WebGL shaders driven by real forecasts. Press the temperature curve and the whole sky time-travels to that hour, sun and moon gliding along their arc.",
+    type: "video",
+    src: "/playground/atmos/preview.mp4",
+    poster: "/playground/atmos/poster.webp",
+    aspectRatio: 444 / 960,
+    // Lower-centre, kept clear of the viewport centre so it does not auto-hover
+    // on load (the engine seeds the cursor at centre until the first move).
+    home: [0.5, 0.66],
+    z: -0.15,
+    liveUrl: "/labs/atmos/",
+  },
 ];

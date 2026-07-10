@@ -70,6 +70,16 @@ const LABS = [
     build: () => {},
     distDir: ".",
   },
+  {
+    slug: "atmos",
+    repo: "https://github.com/vrarora/atmos.git",
+    build: (dir) => {
+      run("npm", ["ci"], dir);
+      run("npx", ["tsc", "-b"], dir);
+      run("npx", ["vite", "build", "--base=/labs/atmos/"], dir);
+    },
+    distDir: "dist",
+  },
 ];
 
 function run(command, args, cwd) {

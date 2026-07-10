@@ -203,6 +203,50 @@ const LABS = [
       return { clipStartMs, posterBuffer };
     },
   },
+  {
+    slug: "atmos",
+    viewport: { width: 390, height: 844 },
+    orientation: "portrait",
+    // Living weather instrument: real Open-Meteo forecast for the default city
+    // (San Francisco). Let the sky settle, capture the editorial hero as the
+    // poster, then press-drag the temperature timeline so the whole sky
+    // time-travels through the day (the signature interaction), release to let
+    // it spring back to now, and open the glass dock to reveal week + stats.
+    async run(page, t0) {
+      await page.goto(`http://localhost:${PORT}/labs/atmos/`, { waitUntil: "load" });
+      // Wait for the forecast fetch + sky/shader warmup before filming.
+      await page.waitForSelector(".timeline-hit", { state: "visible" });
+      await page.waitForTimeout(3200);
+
+      const clipStartMs = Date.now() - t0;
+      await page.waitForTimeout(900);
+      const posterBuffer = await page.screenshot({ type: "png" });
+      await page.waitForTimeout(700);
+
+      // Scrub the sky: press and drag across the timeline hit-area. The sky
+      // morphs hour by hour and the sun/moon glide along the arc.
+      const hit = page.locator(".timeline-hit");
+      const box = await hit.boundingBox();
+      const y = box.y + box.height / 2;
+      const x0 = box.x + box.width * 0.08;
+      const x1 = box.x + box.width * 0.94;
+      await page.mouse.move(x0, y);
+      await page.mouse.down();
+      const steps = 48;
+      for (let i = 0; i <= steps; i++) {
+        await page.mouse.move(x0 + ((x1 - x0) * i) / steps, y);
+        await page.waitForTimeout(70);
+      }
+      await page.waitForTimeout(500);
+      await page.mouse.up(); // springs back to now
+      await page.waitForTimeout(1100);
+
+      // Open the glass dock: week + stats constellation slides up.
+      await page.click(".dock-handle");
+      await page.waitForTimeout(2200);
+      return { clipStartMs, posterBuffer };
+    },
+  },
 ];
 
 function transcode(lab, webmPath, clipStartMs, outPath) {
