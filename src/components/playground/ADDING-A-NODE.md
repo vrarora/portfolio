@@ -1,5 +1,10 @@
 # Adding a new experiment to the Playground
 
+> Working with Claude? There is a matching skill, `add-playground-node`
+> (`.claude/skills/add-playground-node/SKILL.md`), that drives this whole
+> procedure with the technical gotchas baked in. This file is the plain-English
+> version for doing it by hand.
+
 This guide assumes nothing about the codebase. Follow it top to bottom and
 a new node appears in the constellation. Total hands-on time is usually
 under 30 minutes; most of it is waiting for the build/recording scripts.

@@ -17,6 +17,7 @@ AGENTS.md
 HANDOFF.md
 docs/
 .impeccable.md
-.claude/
+.claude/*
+!.claude/skills/
 .cursorrules
 .cursor/
