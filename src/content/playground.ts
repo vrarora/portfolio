@@ -109,4 +109,21 @@ export const playgroundNodes: PlaygroundNode[] = [
     z: -0.15,
     liveUrl: "/labs/atmos/",
   },
+  {
+    id: "east-is-up",
+    title: "East Is Up",
+    index: "0921",
+    category: "Walking museum",
+    year: "2026",
+    description:
+      "A scroll-driven walking museum through the complete Twenty One Pilots mythology, Blurryface to Breach. One continuous camera glides through seven rooms, each with its own palette, fog, typography, and a sixteen-song score that turns with the story. Every monument is hand-drawn to canvas at boot, no image assets anywhere. It ends in darkness, with one lit torch.",
+    type: "video",
+    src: "/playground/east-is-up/preview.mp4",
+    poster: "/playground/east-is-up/poster.webp",
+    aspectRatio: 960 / 600,
+    // Top-centre pocket, well above the auto-hover dead zone at [0.5, ~0.45].
+    home: [0.48, 0.16],
+    z: 0.25,
+    liveUrl: "/labs/east-is-up/",
+  },
 ];

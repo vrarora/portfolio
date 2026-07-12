@@ -71,6 +71,16 @@ const LABS = [
     distDir: ".",
   },
   {
+    slug: "east-is-up",
+    repo: "https://github.com/vrarora/top-lore.git",
+    build: (dir) => {
+      run("npm", ["ci"], dir);
+      run("npx", ["tsc", "--noEmit"], dir);
+      run("npx", ["vite", "build", "--base=/labs/east-is-up/"], dir);
+    },
+    distDir: "dist",
+  },
+  {
     slug: "atmos",
     repo: "https://github.com/vrarora/atmos.git",
     build: (dir) => {

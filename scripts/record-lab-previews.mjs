@@ -204,6 +204,38 @@ const LABS = [
     },
   },
   {
+    slug: "east-is-up",
+    viewport: { width: 1280, height: 800 },
+    orientation: "landscape",
+    // Scroll-driven 3D walk through the Twenty One Pilots lore. Enter the Dema
+    // violation-file gate, deep-link glide (a hyperlapse through the first
+    // three rooms), settle at the top of the wall for the poster, then
+    // wheel-walk over the crest into Trench: torch chain, yellow petals,
+    // the drawn valley. Browser is muted; the gate click is the audio unlock.
+    async run(page, t0) {
+      await page.goto(`http://localhost:${PORT}/labs/east-is-up/#p=0.408`, {
+        waitUntil: "load",
+      });
+      await page.waitForSelector(".pre-enter.ready", { state: "visible" });
+      await page.waitForTimeout(600);
+
+      const clipStartMs = Date.now() - t0;
+      await page.waitForTimeout(300);
+      // ENTER resolves the gate; the stored deep link then glides the walk
+      // from the archive door to the top of the Dema wall.
+      await page.click(".pre-enter");
+      await page.waitForTimeout(3600);
+      const posterBuffer = await page.screenshot({ type: "png" }); // the crest vista
+      // Walk over the wall into Trench: the valley, torches, petals.
+      for (let i = 0; i < 26; i++) {
+        await page.mouse.wheel(0, 110);
+        await page.waitForTimeout(210);
+      }
+      await page.waitForTimeout(700);
+      return { clipStartMs, posterBuffer };
+    },
+  },
+  {
     slug: "atmos",
     viewport: { width: 390, height: 844 },
     orientation: "portrait",
