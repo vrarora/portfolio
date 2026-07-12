@@ -110,8 +110,9 @@ export const playgroundNodes: PlaygroundNode[] = [
     liveUrl: "/labs/atmos/",
   },
   {
+    // display name is "Tøp Løre" (user's request); slug/id/urls stay east-is-up
     id: "east-is-up",
-    title: "East Is Up",
+    title: "Tøp Løre",
     index: "0921",
     category: "Walking museum",
     year: "2026",
