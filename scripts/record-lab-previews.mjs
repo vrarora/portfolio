@@ -207,13 +207,13 @@ const LABS = [
     slug: "east-is-up",
     viewport: { width: 1280, height: 800 },
     orientation: "landscape",
-    // Scroll-driven 3D walk through the Twenty One Pilots lore, in three
-    // beats: enter the Dema violation-file gate and deep-link glide (a
-    // hyperlapse through the first three rooms) to the top of the wall
-    // (poster there), wheel-walk over the crest into Trench's torch valley,
-    // then a hash jump glides the rest of the journey to the ending —
-    // darkness with one lit torch. Browser is muted; the gate click is the
-    // audio unlock.
+    // Scroll-driven 3D walk: wall-crest vista held as the opening frame,
+    // then a slow descent into Trench's torch valley.
+    //
+    // Gate entry + deep-link glide (#p=0.408) happen entirely in PRE-ROLL
+    // so no fps-bound animation jank appears in the recorded clip.
+    // Playwright's Ticker-clamped physics take 4-6× 60fps wall time;
+    // 15 s pre-roll is a safe budget for the glide to fully settle.
     async run(page, t0) {
       await page.goto(`http://localhost:${PORT}/labs/east-is-up/#p=0.408`, {
         waitUntil: "load",
@@ -221,25 +221,20 @@ const LABS = [
       await page.waitForSelector(".pre-enter.ready", { state: "visible" });
       await page.waitForTimeout(600);
 
-      const clipStartMs = Date.now() - t0;
-      await page.waitForTimeout(300);
-      // ENTER resolves the gate; the stored deep link then glides the walk
-      // from the archive door to the top of the Dema wall.
+      // Enter and let the entire deep-link glide finish before recording.
       await page.click(".pre-enter");
-      await page.waitForTimeout(3100);
-      const posterBuffer = await page.screenshot({ type: "png" }); // the crest vista
-      // A few steps over the wall into Trench: the valley, torches, petals.
-      for (let i = 0; i < 6; i++) {
-        await page.mouse.wheel(0, 150);
-        await page.waitForTimeout(170);
+      await page.waitForTimeout(15000); // glide settles at wall crest in pre-roll
+
+      // Clip starts: scene is settled at the crest vista (p≈0.408).
+      const clipStartMs = Date.now() - t0;
+      const posterBuffer = await page.screenshot({ type: "png" }); // wall-crest vista
+
+      // Slow cinematic descent into Trench's torch valley.
+      // Small increments at short intervals keep per-frame jump low at low fps.
+      for (let i = 0; i < 60; i++) {
+        await page.mouse.wheel(0, 20);
+        await page.waitForTimeout(150);
       }
-      await page.waitForTimeout(200);
-      // The finale: a prod deep link glides the remaining journey — SAI, the
-      // strait, the tower — into the nightfall and the lit torch. Recording
-      // runs at a handful of fps and Ticker clamps dt, so the glide is
-      // fps-bound: budget most of the clip's tail for it.
-      await page.evaluate(() => { window.location.hash = "#p=0.997"; });
-      await page.waitForTimeout(5300);
       return { clipStartMs, posterBuffer };
     },
   },
