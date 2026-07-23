@@ -81,6 +81,13 @@ const LABS = [
     distDir: "dist",
   },
   {
+    slug: "rolling-paper",
+    repo: "https://github.com/vrarora/rolling-paper.git",
+    // Plain static HTML with all JS/CSS inline; Three.js + GSAP loaded from CDN.
+    build: () => {},
+    distDir: ".",
+  },
+  {
     slug: "atmos",
     repo: "https://github.com/vrarora/atmos.git",
     build: (dir) => {

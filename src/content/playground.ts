@@ -110,6 +110,22 @@ export const playgroundNodes: PlaygroundNode[] = [
     liveUrl: "/labs/atmos/",
   },
   {
+    id: "rolling-paper",
+    title: "Rolling Paper",
+    index: "2741",
+    category: "3D canvas study",
+    year: "2026",
+    description:
+      "An endless printing roll that steers on your cursor through a Three.js scene. Move to steer the barrel and a paper ribbon unfurls behind it, pressing portfolio pages into the floor as the counter ticks up. The print never stops.",
+    type: "video",
+    src: "/playground/rolling-paper/preview.mp4",
+    poster: "/playground/rolling-paper/poster.webp",
+    aspectRatio: 960 / 600,
+    home: [0.82, 0.45],
+    z: 0.1,
+    liveUrl: "/labs/rolling-paper/",
+  },
+  {
     // display name is "Tøp Løre" (user's request); slug/id/urls stay east-is-up
     id: "east-is-up",
     title: "Tøp Løre",

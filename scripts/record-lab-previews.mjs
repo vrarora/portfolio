@@ -282,6 +282,38 @@ const LABS = [
       return { clipStartMs, posterBuffer };
     },
   },
+  {
+    slug: "rolling-paper",
+    viewport: { width: 1280, height: 800 },
+    orientation: "landscape",
+    // Three.js printing roll: a heavy barrel steers on pointer movement,
+    // printing portfolio pages in its wake. Wait for the GSAP intro fade-in
+    // then sweep the mouse to steer the roll across the floor.
+    async run(page, t0) {
+      await page.goto(`http://localhost:${PORT}/labs/rolling-paper/`, { waitUntil: "load" });
+      await page.waitForSelector("#stage", { state: "visible" });
+      // GSAP intro: canvas fades in over 2.2s, HUD staggered to ~1.7s.
+      await page.waitForTimeout(2800);
+
+      const clipStartMs = Date.now() - t0;
+      const posterBuffer = await page.screenshot({ type: "png" });
+
+      // Steer the roll: sweep the mouse slowly across the scene so the barrel
+      // turns and the paper ribbon unfurls behind it.
+      const cx = 640, cy = 400;
+      await page.mouse.move(cx, cy);
+      await page.waitForTimeout(300);
+      for (let i = 0; i <= 60; i++) {
+        const angle = (i / 60) * Math.PI * 1.5;
+        const x = cx + Math.cos(angle) * 280;
+        const y = cy + Math.sin(angle) * 160;
+        await page.mouse.move(x, y);
+        await page.waitForTimeout(100);
+      }
+      await page.waitForTimeout(1500);
+      return { clipStartMs, posterBuffer };
+    },
+  },
 ];
 
 function transcode(lab, webmPath, clipStartMs, outPath) {
