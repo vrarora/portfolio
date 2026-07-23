@@ -14,6 +14,18 @@ const devtoolsAlias = existsSync(devtoolsPath)
 const nextConfig = {
   output: "export",
   trailingSlash: true,
+  // In dev mode, Next.js doesn't resolve public/labs/*/index.html for
+  // directory-style URLs the way Vercel's static serving does. This rewrite
+  // bridges that gap so "Open live ↗" works on localhost too.
+  // (Rewrites have no effect on the static export output.)
+  async rewrites() {
+    return [
+      {
+        source: "/labs/:slug/",
+        destination: "/labs/:slug/index.html",
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     unoptimized: true,
