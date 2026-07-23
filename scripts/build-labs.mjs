@@ -83,8 +83,18 @@ const LABS = [
   {
     slug: "rolling-paper",
     repo: "https://github.com/vrarora/rolling-paper.git",
-    // Plain static HTML with all JS/CSS inline; Three.js + GSAP loaded from CDN.
-    build: () => {},
+    // App is a single self-contained index.html; Three.js + GSAP come from CDN.
+    // Download the CDN scripts locally so the recording script works without
+    // external network access and so the lab doesn't depend on CDN uptime.
+    build: (dir) => {
+      run("curl", ["-L", "-o", join(dir, "three.min.js"), "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"], dir);
+      run("curl", ["-L", "-o", join(dir, "gsap.min.js"), "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"], dir);
+      const html = readFileSync(join(dir, "index.html"), "utf8");
+      const patched = html
+        .replace("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", "./three.min.js")
+        .replace("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js", "./gsap.min.js");
+      writeFileSync(join(dir, "index.html"), patched);
+    },
     distDir: ".",
   },
   {
