@@ -94,6 +94,8 @@ const LABS = [
       html = html
         .replace("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", "./three.min.js")
         .replace("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js", "./gsap.min.js");
+      // Match the playground node name (source may still carry the upstream title)
+      html = html.replace(/<title>[^<]*<\/title>/, "<title>Rolling Paper</title>");
       // Remove the VX brand / edition HUD elements (not relevant for portfolio context)
       html = html.replace(
         /\s*<div class="hud" id="brand">[\s\S]*?<\/div>\s*\n\s*<div class="hud" id="edition">[\s\S]*?<\/div>/,
