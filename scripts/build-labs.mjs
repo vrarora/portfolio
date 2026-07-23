@@ -89,11 +89,58 @@ const LABS = [
     build: (dir) => {
       run("curl", ["-L", "-o", join(dir, "three.min.js"), "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"], dir);
       run("curl", ["-L", "-o", join(dir, "gsap.min.js"), "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"], dir);
-      const html = readFileSync(join(dir, "index.html"), "utf8");
-      const patched = html
+      let html = readFileSync(join(dir, "index.html"), "utf8");
+      // Localise CDN scripts
+      html = html
         .replace("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", "./three.min.js")
         .replace("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js", "./gsap.min.js");
-      writeFileSync(join(dir, "index.html"), patched);
+      // Remove the VX brand / edition HUD elements (not relevant for portfolio context)
+      html = html.replace(
+        /\s*<div class="hud" id="brand">[\s\S]*?<\/div>\s*\n\s*<div class="hud" id="edition">[\s\S]*?<\/div>/,
+        "",
+      );
+      // Inject async atlas upgrade: replace procedural cards with real case-study images
+      const atlasUpgrade = `
+        // Replace procedural atlas with real portfolio case-study images (async).
+        (function upgradeAtlasWithImages() {
+          var CELL = 512;
+          var srcs = [
+            "/images/data-compass-thumbnail.webp",
+            "/images/dc-scan-classification.webp",
+            "/images/dc-inspector-default.webp",
+            "/images/dc-level-schema.webp",
+            "/images/dc-level-database.webp",
+            "/images/dc-onboard-quick.webp",
+            "/images/equalall/equalall-cover.webp",
+            "/images/design-repo/design-repo-cover.webp",
+          ];
+          var ctx = atlasTex.image.getContext("2d");
+          var loaded = 0;
+          srcs.forEach(function (src, i) {
+            var img = new Image();
+            img.onload = function () {
+              var x = i * CELL;
+              ctx.fillStyle = "#f8f8f8";
+              ctx.fillRect(x, 0, CELL, CELL);
+              var scale = Math.max(CELL / img.naturalWidth, CELL / img.naturalHeight);
+              var dw = img.naturalWidth * scale;
+              var dh = img.naturalHeight * scale;
+              ctx.drawImage(img, x + (CELL - dw) / 2, (CELL - dh) / 2, dw, dh);
+              if (++loaded === srcs.length) {
+                atlasTex.needsUpdate = true;
+                barrelTex.needsUpdate = true;
+                window.__rollPaperReady = true;
+              }
+            };
+            img.onerror = function () { loaded++; };
+            img.src = src;
+          });
+        })();`;
+      html = html.replace(
+        "var barrelTex = atlasTex.clone();",
+        atlasUpgrade + "\n        var barrelTex = atlasTex.clone();",
+      );
+      writeFileSync(join(dir, "index.html"), html);
     },
     distDir: ".",
   },

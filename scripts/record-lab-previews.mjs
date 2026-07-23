@@ -291,13 +291,14 @@ const LABS = [
     // then sweep the mouse to steer the roll across the floor.
     async run(page, t0) {
       await page.goto(`http://localhost:${PORT}/labs/rolling-paper/`, { waitUntil: "load" });
-      // Wait for the HUD brand element to become visible — it only fades in after
-      // Three.js has initialised and GSAP's intro animation completes (~1.7s).
+      // Wait for the hint HUD (Three.js + GSAP init) then for all portfolio
+      // images to load into the atlas before the clip starts.
       await page.waitForFunction(
-        () => parseFloat(window.getComputedStyle(document.querySelector("#brand")).opacity) > 0.5,
+        () => { var el = document.querySelector("#hint"); return el && parseFloat(window.getComputedStyle(el).opacity) > 0.5; },
         { timeout: 10000 },
       );
-      await page.waitForTimeout(1500);
+      await page.waitForFunction(() => window.__rollPaperReady === true, { timeout: 12000 });
+      await page.waitForTimeout(800);
 
       const clipStartMs = Date.now() - t0;
       const posterBuffer = await page.screenshot({ type: "png" });

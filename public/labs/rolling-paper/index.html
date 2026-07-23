@@ -190,15 +190,6 @@
   <body>
     <canvas id="stage"></canvas>
 
-    <div class="hud" id="brand">
-      <div class="mark">VX<sup>&reg;</sup></div>
-      <div class="sub">Press Division</div>
-    </div>
-
-    <div class="hud" id="edition">
-      Selected works<br /><b>Edition 2019 &mdash; 2026</b>
-    </div>
-
     <div class="hud" id="counter">
       <div class="num" id="counterNum">0000</div>
       <div class="lbl">Pages printed</div>
@@ -718,6 +709,43 @@
         barrelTex.wrapT = THREE.ClampToEdgeWrapping;
         barrelTex.repeat.set(1, 1);
         barrelTex.offset.x = 0.25;
+
+        // Replace the procedural atlas with real portfolio case-study images.
+        // Runs async so the scene starts immediately with the placeholder.
+        (function upgradeAtlasWithImages() {
+          var CELL = 512;
+          var srcs = [
+            "/images/data-compass-thumbnail.webp",
+            "/images/dc-scan-classification.webp",
+            "/images/dc-inspector-default.webp",
+            "/images/dc-level-schema.webp",
+            "/images/dc-level-database.webp",
+            "/images/dc-onboard-quick.webp",
+            "/images/equalall/equalall-cover.webp",
+            "/images/design-repo/design-repo-cover.webp",
+          ];
+          var ctx = atlasTex.image.getContext("2d");
+          var loaded = 0;
+          srcs.forEach(function (src, i) {
+            var img = new Image();
+            img.onload = function () {
+              var x = i * CELL;
+              ctx.fillStyle = "#f8f8f8";
+              ctx.fillRect(x, 0, CELL, CELL);
+              var scale = Math.max(CELL / img.naturalWidth, CELL / img.naturalHeight);
+              var dw = img.naturalWidth * scale;
+              var dh = img.naturalHeight * scale;
+              ctx.drawImage(img, x + (CELL - dw) / 2, (CELL - dh) / 2, dw, dh);
+              if (++loaded === srcs.length) {
+                atlasTex.needsUpdate = true;
+                barrelTex.needsUpdate = true;
+                window.__rollPaperReady = true;
+              }
+            };
+            img.onerror = function () { loaded++; };
+            img.src = src;
+          });
+        })();
         var paperMat = new THREE.MeshStandardMaterial({
           map: barrelTex,
           roughness: 0.92,
