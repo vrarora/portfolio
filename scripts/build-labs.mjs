@@ -99,18 +99,19 @@ const LABS = [
         /\s*<div class="hud" id="brand">[\s\S]*?<\/div>\s*\n\s*<div class="hud" id="edition">[\s\S]*?<\/div>/,
         "",
       );
-      // Inject async atlas upgrade: replace procedural cards with real case-study images
+      // Inject async atlas upgrade: replace procedural cards with playground
+      // experiment stills (plus two case-study covers to fill the 8-cell atlas).
       const atlasUpgrade = `
-        // Replace procedural atlas with real portfolio case-study images (async).
+        // Replace procedural atlas with playground + case-study images (async).
         (function upgradeAtlasWithImages() {
           var CELL = 512;
           var srcs = [
-            "/images/data-compass-thumbnail.webp",
-            "/images/dc-scan-classification.webp",
-            "/images/dc-inspector-default.webp",
-            "/images/dc-level-schema.webp",
-            "/images/dc-level-database.webp",
-            "/images/dc-onboard-quick.webp",
+            "/images/playground/koyomi.webp",
+            "/images/playground/memento-mori.webp",
+            "/images/playground/pulse.webp",
+            "/images/playground/hover-reveal.webp",
+            "/images/playground/atmos.webp",
+            "/images/playground/east-is-up.webp",
             "/images/equalall/equalall-cover.webp",
             "/images/design-repo/design-repo-cover.webp",
           ];
@@ -132,7 +133,13 @@ const LABS = [
                 window.__rollPaperReady = true;
               }
             };
-            img.onerror = function () { loaded++; };
+            img.onerror = function () {
+              if (++loaded === srcs.length) {
+                atlasTex.needsUpdate = true;
+                barrelTex.needsUpdate = true;
+                window.__rollPaperReady = true;
+              }
+            };
             img.src = src;
           });
         })();`;

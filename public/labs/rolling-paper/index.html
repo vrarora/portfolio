@@ -703,24 +703,17 @@
         // The barrel wears the same atlas. With circumference == atlas length the
         // texture is glued to the mesh (repeat 1, constant 0.25 phase) and the card
         // touching the floor is always the exact card the ribbon prints there.
-        var barrelTex = atlasTex.clone();
-        barrelTex.needsUpdate = true;
-        barrelTex.wrapS = THREE.RepeatWrapping;
-        barrelTex.wrapT = THREE.ClampToEdgeWrapping;
-        barrelTex.repeat.set(1, 1);
-        barrelTex.offset.x = 0.25;
-
-        // Replace the procedural atlas with real portfolio case-study images.
-        // Runs async so the scene starts immediately with the placeholder.
+        
+        // Replace procedural atlas with playground + case-study images (async).
         (function upgradeAtlasWithImages() {
           var CELL = 512;
           var srcs = [
-            "/images/data-compass-thumbnail.webp",
-            "/images/dc-scan-classification.webp",
-            "/images/dc-inspector-default.webp",
-            "/images/dc-level-schema.webp",
-            "/images/dc-level-database.webp",
-            "/images/dc-onboard-quick.webp",
+            "/images/playground/koyomi.webp",
+            "/images/playground/memento-mori.webp",
+            "/images/playground/pulse.webp",
+            "/images/playground/hover-reveal.webp",
+            "/images/playground/atmos.webp",
+            "/images/playground/east-is-up.webp",
             "/images/equalall/equalall-cover.webp",
             "/images/design-repo/design-repo-cover.webp",
           ];
@@ -742,10 +735,22 @@
                 window.__rollPaperReady = true;
               }
             };
-            img.onerror = function () { loaded++; };
+            img.onerror = function () {
+              if (++loaded === srcs.length) {
+                atlasTex.needsUpdate = true;
+                barrelTex.needsUpdate = true;
+                window.__rollPaperReady = true;
+              }
+            };
             img.src = src;
           });
         })();
+        var barrelTex = atlasTex.clone();
+        barrelTex.needsUpdate = true;
+        barrelTex.wrapS = THREE.RepeatWrapping;
+        barrelTex.wrapT = THREE.ClampToEdgeWrapping;
+        barrelTex.repeat.set(1, 1);
+        barrelTex.offset.x = 0.25;
         var paperMat = new THREE.MeshStandardMaterial({
           map: barrelTex,
           roughness: 0.92,
