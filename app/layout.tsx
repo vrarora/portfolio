@@ -5,6 +5,7 @@ import "../src/styles/tokens.css";
 import "../src/styles/data-compass-tokens.css";
 import "slot-text/style.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "./providers";
 import AgentationDevtools from "#agentation-devtools";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <Analytics />
         <AgentationDevtools />
       </body>
     </html>
