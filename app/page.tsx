@@ -1199,7 +1199,14 @@ export default function HomePage() {
             <span className="status-avatar-wrap" aria-hidden="true">
               <span className="status-avatar">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/me.webp" alt="" className="status-avatar-photo" />
+                <img
+                  src="/images/me.webp"
+                  alt=""
+                  className="status-avatar-photo"
+                  width={480}
+                  height={720}
+                  decoding="async"
+                />
               </span>
               {/* Halo sits outside the avatar's overflow:hidden clip so the
                   dot and its pulse ring are not cropped at the corner. */}
@@ -1516,9 +1523,13 @@ export default function HomePage() {
           <SectionReveal className="about-media">
             <div className="about-photo-box">
               <img
-                src="/images/about_me.png"
+                src="/images/about_me.webp"
                 alt="Vaibhav Arora"
                 className="about-photo"
+                loading="lazy"
+                decoding="async"
+                width={1436}
+                height={1436}
               />
 
               <article className="about-floating-card about-floating-card-top">
