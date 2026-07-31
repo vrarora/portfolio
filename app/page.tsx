@@ -41,6 +41,7 @@ import {
 } from "@phosphor-icons/react";
 import { caseStudies } from "@/content/case-studies";
 import { siteLinks } from "@/content/site-links";
+import { TownSquareEmbed } from "@/components/TownSquareEmbed";
 
 const heroNavItems = [
   { label: "Overview", href: "#top", icon: House, active: true },
@@ -1628,6 +1629,8 @@ export default function HomePage() {
           </div>
         </SectionReveal>
       </section>
+
+      <TownSquareEmbed />
 
       </div>{/* end .portfolio-scroll-content */}
 

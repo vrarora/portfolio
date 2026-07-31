@@ -1,0 +1,73 @@
+.townsquare-section {
+  padding: 0 64px 96px;
+  background-color: var(--color-white);
+}
+
+.townsquare-root {
+  width: 100%;
+  min-height: 220px;
+}
+
+/*
+  Hosted style.css uses #townsquare-root#townsquare-root (0-2-0) and loads after
+  this file. Beat it with one extra class so the chat strip stays seamless.
+*/
+.townsquare-section #townsquare-root#townsquare-root {
+  --scene: transparent;
+  --ground-fill: transparent;
+  --page: transparent;
+  --action-zone-fill: transparent;
+  --surface: #ffffff;
+  --ink: #000000;
+  --you: #fd431d;
+  --tree-trunk: #6b7280;
+  --tree-canopy: #d1d5db;
+  --other: #000000;
+  --ground-line: var(--border-medium);
+  --ground: var(--border-medium);
+  --you-deep: var(--you);
+  --text: var(--ink);
+  --muted: var(--ink);
+  /* TownSquare ships warm drop shadows on the composer; portfolio is flat. */
+  --bshadow: none;
+  --tray-shadow: none;
+  --shadow: none;
+}
+
+.townsquare-section #townsquare-root .townsquare__toolbar .townsquare-avatar__composer--docked,
+.townsquare-section #townsquare-root .townsquare-avatar__composer {
+  /* Shadow was the only separation from the white page; soft flat hairline instead. */
+  box-shadow: none;
+  border: 1px solid var(--border-subtle);
+  background: var(--color-white);
+}
+
+.townsquare-section #townsquare-root .townsquare__toolbar .townsquare-avatar__composer--docked {
+  /* Widget default right padding (7px) leaves the send control floating left of the pill curve. */
+  padding-right: 3px;
+}
+
+.townsquare-section #townsquare-root .townsquare__toolbar .townsquare__button,
+.townsquare-section #townsquare-root .townsquare__toolbar .townsquare-avatar__send {
+  box-shadow: none;
+  border: 1px solid var(--border-subtle);
+  background: var(--color-white);
+}
+
+.townsquare-section #townsquare-root .townsquare__toolbar .townsquare-avatar__send--ready {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.townsquare-root :where(h1, h2, h3, h4, h5, h6, p, button, input, label, a) {
+  text-transform: none;
+  letter-spacing: normal;
+  max-width: none;
+  font-weight: inherit;
+}
+
+@media (max-width: 900px) {
+  .townsquare-section {
+    padding: 0 24px 64px;
+  }
+}

@@ -56,6 +56,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <link rel="preconnect" href="https://townsquare.cauenapier.com" crossOrigin="anonymous" />
       </head>
       <body>
         <Providers>
