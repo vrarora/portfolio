@@ -1,6 +1,8 @@
 export type CaseStudy = {
   slug: string;
   title: string;
+  /** Year shown on work cards. */
+  year: string;
   eyebrow: string;
   summary: string;
   homeBrand: string;
@@ -38,6 +40,7 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "data-compass",
+    year: "2025",
     title: "₹10Cr ARR from a Three-Week Design Window",
     eyebrow: "Case study 01",
     summary:
@@ -131,6 +134,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "design-repo",
+    year: "2026",
     title: "The Workflow That Rewrote Design's Job Description",
     eyebrow: "Case study 02",
     summary:
@@ -242,6 +246,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "equalall",
+    year: "2025",
     title: "40% More Revenue From Every Donor",
     eyebrow: "Case study 03",
     summary:

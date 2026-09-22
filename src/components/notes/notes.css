@@ -1,0 +1,67 @@
+.notes-board {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.14) 1px, transparent 1.2px);
+  background-size: 16px 16px;
+  overflow: hidden;
+}
+
+.notes-card {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 200px;
+  padding: var(--s-5) var(--s-6);
+  background: var(--paper);
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-2);
+  box-shadow: var(--shadow-card);
+  transform: rotate(var(--rot));
+}
+
+.notes-card-text {
+  text-wrap: pretty;
+}
+
+.notes-card-meta {
+  margin-top: var(--s-4);
+  color: var(--ink-3);
+}
+
+.notes-owner {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--paper);
+  font-size: var(--t-micro);
+  line-height: 14px;
+  font-weight: var(--weight-strong);
+}
+
+.notes-board-cta {
+  position: absolute;
+  right: var(--s-6);
+  bottom: var(--s-6);
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.notes-board-hint {
+  color: var(--ink-3);
+}
+
+@media (max-width: 767px) {
+  .notes-board {
+    min-height: 420px;
+  }
+
+  .notes-card {
+    width: min(200px, 60%);
+  }
+}

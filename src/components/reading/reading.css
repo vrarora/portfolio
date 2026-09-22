@@ -1,0 +1,141 @@
+@property --line-fill {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: -14%;
+}
+
+.reading {
+  display: flow-root;
+}
+
+.reading-p {
+  position: relative;
+}
+
+.reading-p + .reading-p {
+  margin-top: var(--s-7);
+}
+
+.rt {
+  display: inline;
+}
+
+.rt-atom {
+  white-space: nowrap;
+}
+
+/* One visual line. The gradient sweeps from ink to dim as --line-fill grows. */
+.reading-line {
+  --line-fill: -14%;
+  color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    var(--ink) 0%,
+    var(--ink) calc(var(--line-fill) - 14%),
+    var(--ink-dim) calc(var(--line-fill) + 14%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: --line-fill 140ms linear;
+}
+
+.reading-line.is-line-past,
+.reading.is-static .reading-line {
+  color: var(--ink);
+  background-image: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+}
+
+/* Links keep their underline; the text colour comes from the line. */
+.reading-line a {
+  text-decoration-color: var(--hairline-2);
+}
+
+.reading-line a:hover {
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+}
+
+/* Treatments */
+.rt-serif {
+  color: inherit;
+}
+
+.rt-blur {
+  display: inline-block;
+  filter: blur(3px);
+  transition: filter 600ms var(--ease-out-quart);
+}
+
+.reading-line.is-line-active .rt-blur,
+.reading.is-static .rt-blur {
+  filter: blur(0);
+}
+
+.rt-tag {
+  position: relative;
+  display: inline-block;
+  padding: 0 7px;
+  margin-inline: 1px;
+  font-size: var(--t-caption);
+  line-height: 16px;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.01em;
+  vertical-align: 1px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 3px;
+  background:
+    radial-gradient(circle at 0 0, var(--ink-3) 1px, transparent 1.5px),
+    radial-gradient(circle at 100% 0, var(--ink-3) 1px, transparent 1.5px),
+    radial-gradient(circle at 0 100%, var(--ink-3) 1px, transparent 1.5px),
+    radial-gradient(circle at 100% 100%, var(--ink-3) 1px, transparent 1.5px);
+}
+
+.rt-logo {
+  display: inline-block;
+  vertical-align: -3px;
+  margin: 0 1px;
+}
+
+.rt-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+/* Logo stack: stacked at rest, fanned once the line is read. */
+.rt-logos {
+  --fan-w: calc(16px + (var(--n) - 1) * 8px);
+  position: relative;
+  display: inline-block;
+  width: var(--fan-w);
+  height: 16px;
+  vertical-align: -3px;
+  margin: 0 3px;
+}
+
+.rt-logos img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  transform: translate(calc(var(--i) * 3px), 0) rotate(calc(-3deg + var(--i) * 3deg));
+  transition: transform 480ms var(--ease-overshoot);
+  transition-delay: calc(var(--i) * 40ms);
+}
+
+.reading-line.is-line-active .rt-logos img,
+.reading.is-static .rt-logos img,
+.rt-logos:hover img {
+  transform: translate(calc(var(--i) * 8px), calc(-1px - var(--i) * 1px)) rotate(calc(-12deg + var(--i) * 12deg));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-line {
+    transition: none;
+  }
+}

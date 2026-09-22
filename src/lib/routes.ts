@@ -5,5 +5,6 @@ export const routes = {
   writing: "/writing/",
   notes: "/#notes",
   playground: "/playground/",
-  caseStudy: (slug: string) => `/work/${slug}/`,
+  // Points at the legacy pages until step 6 ships /work/[slug]/.
+  caseStudy: (slug: string) => `/case-studies/${slug}/`,
 } as const;
