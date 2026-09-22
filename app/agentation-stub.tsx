@@ -1,3 +1,3 @@
-export default function AgentationDevtools() {
+export function AgentationDevtools() {
   return null;
 }

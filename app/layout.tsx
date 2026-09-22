@@ -7,7 +7,7 @@ import "slot-text/style.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "./providers";
-import AgentationDevtools from "#agentation-devtools";
+import { AgentationDevtools } from "#agentation-devtools";
 
 const SITE_URL = "https://vrarora.vercel.app";
 const OG_DESCRIPTION =
