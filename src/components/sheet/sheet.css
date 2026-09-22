@@ -1,0 +1,162 @@
+html.sheet-open {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.sheet-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet-scrim);
+  background: rgba(17, 17, 17, 0.24);
+}
+
+.sheet-panel {
+  position: fixed;
+  top: var(--sheet-top);
+  inset-inline: 0;
+  bottom: auto;
+  z-index: var(--z-sheet);
+  width: 100%;
+  max-width: none;
+  height: calc(100dvh - var(--sheet-top));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sheet) var(--r-sheet) 0 0;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-sheet);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  outline: none;
+  touch-action: none;
+}
+
+.sheet-panel::backdrop {
+  display: none;
+}
+
+.sheet-grabber {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 36px;
+  height: 4px;
+  margin-left: -18px;
+  border-radius: 2px;
+  background: var(--ink-4);
+}
+
+.sheet-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6);
+  height: 56px;
+  padding: 0 var(--s-6) 0 var(--s-8);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--d-fast) var(--ease-out-quart);
+}
+
+.sheet-panel[data-scrolled] .sheet-head {
+  border-bottom-color: var(--hairline);
+}
+
+.sheet-head-text {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-5);
+  overflow: hidden;
+}
+
+.sheet-title {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+}
+
+.sheet-subtitle {
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sheet-close {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 50%;
+  background: var(--paper);
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease-out-quart);
+}
+
+.sheet-close:hover {
+  background: var(--paper-2);
+}
+
+.sheet-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: var(--s-9) var(--gutter) var(--s-15);
+}
+
+/* Background dims while a sheet is open */
+.work-behind {
+  transition: opacity var(--d-base) var(--ease-out-quart), filter var(--d-base) var(--ease-out-quart),
+    transform var(--d-base) var(--ease-out-quart);
+}
+
+.work-behind.is-behind {
+  opacity: 0.5;
+  filter: saturate(0.6);
+  transform: scale(0.985);
+}
+
+@media (max-width: 767px) {
+  .sheet-panel {
+    top: 16px;
+    height: calc(100dvh - 16px);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .sheet-head {
+    padding-top: 6px;
+  }
+
+  .sheet-body {
+    padding-top: var(--s-7);
+  }
+}
+
+@media (pointer: coarse) {
+  .sheet-close {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-behind.is-behind {
+    transform: none;
+  }
+}

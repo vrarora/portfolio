@@ -17,6 +17,8 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <SkyLayer />
       <PageShell>{children}</PageShell>
       <SiteFooter />
+      <div id="sheet-root" />
+      <div id="ask-root" />
     </>
   );
 }

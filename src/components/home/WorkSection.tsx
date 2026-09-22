@@ -1,23 +1,21 @@
-import Link from "next/link";
+"use client";
 
-import { CaseStudyGrid } from "@/components/work/CaseStudyGrid";
+import { useState } from "react";
+
+import { WorkTabsPanel } from "@/components/work/WorkTabsPanel";
+import type { WorkTab } from "@/components/work/WorkTabs";
 import { workCopy } from "@/content/about";
-import { routes } from "@/lib/routes";
 
-/** Home work section. Step 5 adds the Case studies / Experiments tabs. */
+import "@/components/work/work.css";
+
 export function WorkSection() {
+  const [tab, setTab] = useState<WorkTab>("case-studies");
   return (
     <section className="home-section home-work home-bleed" id="work" aria-labelledby="work-heading">
-      <div className="home-work-head">
-        <h2 id="work-heading" className="home-section-heading">
-          {workCopy.label}
-        </h2>
-        <p className="home-section-intro">{workCopy.caseStudiesIntro}</p>
-      </div>
-      <CaseStudyGrid />
-      <p className="home-work-more">
-        <Link href={routes.experiments}>See the experiments</Link>
-      </p>
+      <h2 id="work-heading" className="home-section-heading home-work-heading">
+        {workCopy.label}
+      </h2>
+      <WorkTabsPanel tab={tab} onTabChange={setTab} scope="home" />
     </section>
   );
 }

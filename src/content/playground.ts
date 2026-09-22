@@ -8,6 +8,8 @@ export type PlaygroundNode = {
   category: string;
   year: string;
   description: string;
+  /** One line for the experiments list. */
+  blurb: string;
   type: PlaygroundNodeType;
   /** Preview media: a muted looping MP4 (video) or a still (image). */
   src: string;
@@ -34,6 +36,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "A living almanac of Japan's 72 microseasons. Every five days the calendar turns and the whole scene follows: a generative particle field, an OKLab palette, typography that page-turns between seasons, and a quiet Web Audio ambience.",
+    blurb: "An almanac that turns every five days with Japan's 72 microseasons.",
     type: "video",
     src: "/playground/koyomi/preview.mp4",
     poster: "/playground/koyomi/poster.webp",
@@ -50,6 +53,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "A human life, in weeks. Enter a birthday and a field of week-lights burns in, one for every week already spent, then the piece counts what is left. Staged like a ritual: threshold, birth, the burn, the ledger, the turn, the vigil.",
+    blurb: "Your life in weeks, lit one at a time.",
     type: "video",
     src: "/playground/memento-mori/preview.mp4",
     poster: "/playground/memento-mori/poster.webp",
@@ -66,6 +70,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "An AI-native personal finance prototype. A spending pulse that projects where the month is heading, a budget breakdown that names the leaks, and a planning conversation that drafts a recovery plan in front of you.",
+    blurb: "A personal finance prototype that talks you through the month.",
     type: "video",
     src: "/playground/pulse/preview.mp4",
     poster: "/playground/pulse/poster.webp",
@@ -83,6 +88,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "A clay relief of Marcus Aurelius that turns to polished metal under the cursor. The brush widens with pointer speed, the metal cools back to clay when you stop, and leaving the frame resets the sculpt.",
+    blurb: "Marcus Aurelius in clay, polished to metal by your cursor.",
     type: "video",
     src: "/playground/hover-reveal/preview.mp4",
     poster: "/playground/hover-reveal/poster.webp",
@@ -99,6 +105,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "A full-bleed weather app where the sky is the interface. Every condition and time of day is an art-directed composition of live WebGL shaders driven by real forecasts. Press the temperature curve and the whole sky time-travels to that hour, sun and moon gliding along their arc.",
+    blurb: "A weather app where the sky is the interface.",
     type: "video",
     src: "/playground/atmos/preview.mp4",
     poster: "/playground/atmos/poster.webp",
@@ -117,6 +124,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "An endless printing roll that steers on your cursor through a Three.js scene. Move to steer the barrel and a paper ribbon unfurls behind it, pressing portfolio pages into the floor as the counter ticks up. The print never stops.",
+    blurb: "An endless printing roll you steer with the cursor.",
     type: "video",
     src: "/playground/rolling-paper/preview.mp4",
     poster: "/playground/rolling-paper/poster.webp",
@@ -134,6 +142,7 @@ export const playgroundNodes: PlaygroundNode[] = [
     year: "2026",
     description:
       "A scroll-driven walking museum through the complete Twenty One Pilots mythology, Blurryface to Breach. One continuous camera glides through seven rooms, each with its own palette, fog, typography, and a sixteen-song score that turns with the story. Every monument is hand-drawn to canvas at boot, no image assets anywhere. It ends in darkness, with one lit torch.",
+    blurb: "A walking museum through the Twenty One Pilots mythology.",
     type: "video",
     src: "/playground/east-is-up/preview.mp4",
     poster: "/playground/east-is-up/poster.webp",
