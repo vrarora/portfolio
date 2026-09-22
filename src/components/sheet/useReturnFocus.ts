@@ -6,14 +6,18 @@ import { useEffect, useRef } from "react";
  */
 export function useReturnFocus(active: boolean, fallback?: () => HTMLElement | null) {
   const previous = useRef<HTMLElement | null>(null);
+  const wasActive = useRef(false);
   const fallbackRef = useRef(fallback);
   fallbackRef.current = fallback;
 
   useEffect(() => {
     if (active) {
+      wasActive.current = true;
       previous.current = (document.activeElement as HTMLElement | null) ?? null;
       return;
     }
+    if (!wasActive.current) return;
+    wasActive.current = false;
     const target = previous.current?.isConnected ? previous.current : fallbackRef.current?.() ?? null;
     previous.current = null;
     if (target) {

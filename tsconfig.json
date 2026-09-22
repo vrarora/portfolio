@@ -26,6 +26,9 @@
       "@/*": [
         "./src/*"
       ],
+      "@convex/*": [
+        "./convex/*"
+      ],
       "#agentation-devtools": [
         "./app/agentation-devtools.tsx",
         "./app/agentation-stub.tsx"

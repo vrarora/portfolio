@@ -9,7 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "dev:convex": "convex dev",
-    "convex:codegen": "convex codegen"
+    "convex:codegen": "convex codegen",
+    "check:prompt": "tsx scripts/check-prompt-budget.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.77",
@@ -36,6 +37,7 @@
     "ffmpeg-static": "^5.3.0",
     "playwright": "^1.59.1",
     "sharp": "^0.35.3",
+    "tsx": "^4.23.15",
     "typescript": "^5.8.3"
   },
   "allowScripts": {

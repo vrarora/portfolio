@@ -19,7 +19,7 @@ export function HomePage() {
         </div>
       </div>
       <div className="home-col">
-        <Opinion />
+        <Opinion variant="afterAssistant" />
         <WorkSection />
         <WritingList id="writing" />
         <NotesWallSection />

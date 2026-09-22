@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as assistant from "../assistant.js";
+import type * as knowledge from "../knowledge.js";
+import type * as lib_guards from "../lib/guards.js";
 import type * as notes from "../notes.js";
 import type * as rateLimits from "../rateLimits.js";
 
@@ -18,6 +21,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  assistant: typeof assistant;
+  knowledge: typeof knowledge;
+  "lib/guards": typeof lib_guards;
   notes: typeof notes;
   rateLimits: typeof rateLimits;
 }>;

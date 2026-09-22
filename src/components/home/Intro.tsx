@@ -47,7 +47,8 @@ export function Intro() {
           <a href={siteLinks.twitter} target="_blank" rel="noreferrer">
             X
           </a>
-          . The resume is one click away in the footer if you need the formal version.
+          . If you&apos;d rather not wait, the assistant answers in my voice, and I read every note left on the
+          wall.
         </p>
       </Reading>
 
