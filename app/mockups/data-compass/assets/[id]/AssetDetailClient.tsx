@@ -31,6 +31,7 @@ import {
 } from "@phosphor-icons/react";
 import { DcTopNav, DcSidebar, type NavItem } from "@/components/data-compass/library";
 import "../../styles.css";
+import "@/styles/data-compass-tokens.css";
 import "../../hover-tokens.css";
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────

@@ -30,6 +30,7 @@ import {
   type TreeItem,
 } from "@/components/data-compass/library";
 import "./styles.css";
+import "@/styles/data-compass-tokens.css";
 import "./hover-tokens.css";
 
 type NodeType =

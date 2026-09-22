@@ -1,6 +1,7 @@
 import { existsSync } from "fs";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -39,4 +40,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === "1", openAnalyzer: false });
+
+export default withBundleAnalyzer(nextConfig);

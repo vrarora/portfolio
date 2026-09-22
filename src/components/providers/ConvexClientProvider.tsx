@@ -1,11 +1,13 @@
 "use client";
 
-import { ConvexProvider } from "convex/react";
+import dynamic from "next/dynamic";
 import type { ConvexReactClient } from "convex/react";
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
-import { convexConfigured, getConvexClient } from "@/lib/convexClient";
+import { convexConfigured, loadConvexClient } from "@/lib/convexClient";
+
+const ConvexProvider = dynamic(() => import("convex/react").then((m) => m.ConvexProvider), { ssr: false });
 
 type ConvexGate = {
   /** True when NEXT_PUBLIC_CONVEX_URL was present at build time. */
@@ -32,9 +34,15 @@ const ConvexGateContext = createContext<ConvexGate>({
  */
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   const [client, setClient] = useState<ConvexReactClient | null>(null);
+  const requested = useRef(false);
 
   const connect = useCallback(() => {
-    setClient((current) => current ?? getConvexClient());
+    if (requested.current) return;
+    requested.current = true;
+    void loadConvexClient().then((next) => {
+      if (next) setClient(next);
+      else requested.current = false;
+    });
   }, []);
 
   const value = useMemo<ConvexGate>(

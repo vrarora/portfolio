@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import "@/styles/tokens.css";
 import "@/styles/layers.css";
 import "@/styles/reset.css";
-import "@/styles/data-compass-tokens.css";
 import "slot-text/style.css";
 
 import { Analytics } from "@vercel/analytics/next";

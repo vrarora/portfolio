@@ -11,10 +11,12 @@ import { Tag } from "@/components/reading/Treatments";
 import { assistantCopy } from "@/content/assistant-faq";
 import { SPRING_PANEL, SPRING_SHEET } from "@/styles/motion";
 import { useAsk } from "./AskProvider";
-import { AskThread } from "./AskThread";
+import dynamic from "next/dynamic";
+
+const AskThread = dynamic(() => import("./AskThread").then((m) => m.AskThread), { ssr: false });
+const MessageBubble = dynamic(() => import("./MessageBubble").then((m) => m.MessageBubble), { ssr: false });
 import { Composer } from "./Composer";
 import type { ComposerHandle } from "./Composer";
-import { MessageBubble } from "./MessageBubble";
 import { SuggestionChips } from "./SuggestionChips";
 import { useAskThread } from "./useAskThread";
 import type { AskItem } from "./types";

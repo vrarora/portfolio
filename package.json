@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "dev:convex": "convex dev",
     "convex:codegen": "convex codegen",
-    "check:prompt": "tsx scripts/check-prompt-budget.ts"
+    "check:prompt": "tsx scripts/check-prompt-budget.ts",
+    "verify:routes": "node scripts/verify-routes.mjs",
+    "report:bundle": "node scripts/bundle-report.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.77",
@@ -31,6 +33,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.3.6",
     "@types/node": "^22.15.0",
     "@types/react": "^19.0.14",
     "@types/react-dom": "^19.0.11",
