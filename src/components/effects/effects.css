@@ -33,3 +33,68 @@
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+
+/* Shader sky fades in over the CSS gradient once its first frame is drawn */
+.fx-sky-gl-wrap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-in-out);
+}
+
+.fx-sky-gl-wrap[data-ready] {
+  opacity: 1;
+}
+
+.fx-sky-gl {
+  width: 100%;
+  height: 100%;
+}
+
+/* Sky dial */
+.fx-dial-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.fx-dial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklch, var(--sky-ink), transparent 70%);
+  background: var(--control-tint);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform var(--d-tick) var(--ease-out-quart), background var(--d-slow) var(--ease-in-out);
+}
+
+.fx-dial:hover {
+  transform: translateY(-1px);
+}
+
+.fx-dial:active {
+  transform: scale(0.96);
+}
+
+.fx-dial-label {
+  color: var(--sky-ink);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 400ms var(--ease-out-quart), transform 400ms var(--ease-out-quart);
+}
+
+.fx-dial-label.is-shown {
+  opacity: 0.85;
+  transform: none;
+}
+
+@media (pointer: coarse) {
+  .fx-dial {
+    width: 44px;
+    height: 44px;
+  }
+}

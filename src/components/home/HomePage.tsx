@@ -1,4 +1,4 @@
-import { LeafShadow } from "@/components/effects/LeafShadow";
+import { HomeLeaves } from "./HomeLeaves";
 import { NotesWallSection } from "@/components/notes/NotesWallSection";
 import { Intro } from "./Intro";
 import { Opinion } from "./Opinion";
@@ -12,7 +12,7 @@ export function HomePage() {
   return (
     <div className="home">
       <div className="home-hero-wrap">
-        <LeafShadow />
+        <HomeLeaves />
         <div className="home-col">
           <Intro />
           <UpTo />

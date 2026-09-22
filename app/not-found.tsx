@@ -5,14 +5,16 @@ import "@/styles/utilities.css";
 import "@/components/site/site.css";
 import "@/components/effects/effects.css";
 
+import { SkyDial } from "@/components/effects/SkyDial";
 import { SkyLayer } from "@/components/effects/SkyLayer";
+import { SkyProvider } from "@/components/effects/SkyProvider";
 import { PageShell } from "@/components/site/PageShell";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SkipLink } from "@/components/site/SkipLink";
 
 export default function NotFound() {
   return (
-    <>
+    <SkyProvider>
       <SkipLink />
       <SkyLayer />
       <PageShell>
@@ -24,7 +26,7 @@ export default function NotFound() {
           </p>
         </section>
       </PageShell>
-      <SiteFooter />
-    </>
+      <SiteFooter dial={<SkyDial />} />
+    </SkyProvider>
   );
 }
