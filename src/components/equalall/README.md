@@ -48,9 +48,6 @@ don't put it in copy.
 its parent (ResizeObserver). The `.ea-phone-fit` wrapper reserves the
 *scaled* dimensions so layout never overflows. Nothing inside uses
 `position: fixed`; all overlays are absolute within `.ea-viewport`.
-The internal scroll container carries `data-lenis-prevent` because the
-portfolio runs Lenis globally.
-
 The bezel is an iPhone 17 Pro glass treatment (`.ea-phone` in
 `styles/equalall.css`): a polished titanium rail (metallic gradient catching
 light on opposing corners), a 2px black glass ring on `.ea-phone-screen`, a

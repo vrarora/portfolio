@@ -1,0 +1,53 @@
+.home-section {
+  width: 100%;
+  max-width: var(--col-reading-max);
+  margin-top: var(--s-14);
+}
+
+.home-section-heading {
+  margin-bottom: var(--s-5);
+}
+
+.home-section-intro {
+  color: var(--ink-2);
+  margin-bottom: var(--s-8);
+}
+
+/* Writing */
+.home-writing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.home-writing-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: baseline;
+  gap: var(--s-5);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.home-writing-index {
+  color: var(--ink-3);
+}
+
+.home-writing-title {
+  text-wrap: pretty;
+}
+
+.home-writing-tag {
+  font-size: var(--t-caption);
+  line-height: var(--lh-caption);
+  color: var(--ink-3);
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-pill);
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+
+.writing-page .home-section {
+  margin-top: var(--s-12);
+}

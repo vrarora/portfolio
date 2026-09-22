@@ -26,7 +26,7 @@ export function DonationExperience() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="ea-viewport" ref={viewportRef}>
-        <div className="ea-scroll" data-lenis-prevent>
+        <div className="ea-scroll">
           <div className="ea-chrome-head">
             <StatusBar />
           </div>

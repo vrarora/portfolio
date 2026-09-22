@@ -1,42 +1,49 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import "./globals.css";
-import "../src/styles/tokens.css";
-import "../src/styles/data-compass-tokens.css";
+
+import "@/styles/tokens.css";
+import "@/styles/layers.css";
+import "@/styles/reset.css";
+import "@/styles/data-compass-tokens.css";
 import "slot-text/style.css";
 
 import { Analytics } from "@vercel/analytics/next";
-import { Providers } from "./providers";
 import { AgentationDevtools } from "#agentation-devtools";
 
+import { fontClassName } from "@/styles/fonts";
+import { Providers } from "./providers";
+
 const SITE_URL = "https://vrarora.vercel.app";
-const OG_DESCRIPTION =
-  "Systems-minded designer who ships in code. Flat, editorial, high-signal.";
+const TITLE = "Vaibhav Arora, Product Designer";
+const DESCRIPTION =
+  "Vaibhav Arora is a product designer at IDfy working on privacy and data governance. He ships in code and keeps a wall of experiments.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Vaibhav Arora | Product Design Portfolio",
-  description:
-    "Vaibhav Arora is a product designer who ships in code. Flat, editorial, high-signal.",
+  title: {
+    default: TITLE,
+    template: "%s | Vaibhav Arora",
+  },
+  description: DESCRIPTION,
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: "Vaibhav Arora",
-    title: "Vaibhav Arora | Product Design Portfolio",
-    description: OG_DESCRIPTION,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Vaibhav Arora, systems-minded product designer",
+        alt: "Vaibhav Arora, product designer at IDfy",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vaibhav Arora | Product Design Portfolio",
-    description: OG_DESCRIPTION,
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["/og-image.png"],
   },
 };
@@ -44,24 +51,14 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#fdfdfc",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-        <link rel="preconnect" href="https://townsquare.cauenapier.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={fontClassName}>
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
         <Analytics />
         <AgentationDevtools />
       </body>

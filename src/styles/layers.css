@@ -1,0 +1,16 @@
+:root {
+  --z-sky: -2;
+  --z-leaf: -1;
+  --z-content: 0;
+  --z-reading: 5;
+  --z-stickers: 10;
+  --z-header: 20;
+  --z-notes-peek: 25;
+  --z-sheet-scrim: 40;
+  --z-sheet: 41;
+  --z-ask: 50;
+  --z-controls: 55;
+  --z-toast: 60;
+  --z-admin: 70;
+  --z-skip: 80;
+}

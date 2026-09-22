@@ -1,0 +1,33 @@
+"use client";
+
+import { useEffect } from "react";
+
+import { SKY_STOPS, nearestSkyStop, useLocalHour } from "@/lib/hour";
+
+const GRAIN =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+
+/**
+ * Fixed CSS sky behind the page shell. Picks the nearest hour stop and
+ * writes the palette onto :root so the footer and controls tint with it.
+ */
+export function SkyLayer() {
+  const hour = useLocalHour();
+
+  useEffect(() => {
+    if (hour === null) return;
+    const palette = SKY_STOPS[nearestSkyStop(hour)];
+    const root = document.documentElement.style;
+    root.setProperty("--sky-zenith", palette.zenith);
+    root.setProperty("--sky-mid", palette.mid);
+    root.setProperty("--sky-horizon", palette.horizon);
+    root.setProperty("--sky-ink", palette.ink);
+    root.setProperty("--sky-stars", String(palette.stars));
+  }, [hour]);
+
+  return (
+    <div className="fx-sky" aria-hidden="true">
+      <div className="fx-sky-grain" style={{ backgroundImage: GRAIN }} />
+    </div>
+  );
+}

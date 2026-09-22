@@ -71,7 +71,7 @@ export function KeepsakeScreen() {
       )}
       <span className="ea-keepsake-film" aria-hidden="true" />
 
-      <div className="ea-keepsake-content" data-lenis-prevent>
+      <div className="ea-keepsake-content">
         <header className="ea-keepsake-head">
           <RevealTitle text="Thank you, truly." delay={KEEPSAKE_T.title} />
           <motion.p

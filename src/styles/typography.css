@@ -1,0 +1,121 @@
+html {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-body);
+  font-feature-settings: "liga", "calt", "cv11";
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  color: var(--ink);
+  background: var(--sky-horizon);
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--weight-strong);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-h1);
+  line-height: var(--lh-h1);
+}
+
+h2 {
+  font-size: var(--t-h2);
+  line-height: var(--lh-h2);
+}
+
+h3 {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+}
+
+em {
+  font-style: normal;
+  font-weight: var(--weight-strong);
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--hairline-2);
+  text-underline-offset: 0.18em;
+  transition: color var(--d-fast) var(--ease-out-quart),
+    text-decoration-color var(--d-fast) var(--ease-out-quart);
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--accent), white 70%);
+}
+
+/* Type utilities */
+.t-micro {
+  font-size: var(--t-micro);
+  line-height: var(--lh-micro);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-caption {
+  font-size: var(--t-caption);
+  line-height: var(--lh-caption);
+}
+
+.t-lede {
+  font-size: var(--t-lede);
+  line-height: var(--lh-lede);
+}
+
+.t-serif {
+  font-family: var(--font-serif-italic);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.12em;
+  line-height: 1;
+}
+
+.t-num {
+  font-variant-numeric: tabular-nums;
+}

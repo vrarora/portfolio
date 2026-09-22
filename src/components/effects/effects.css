@@ -1,0 +1,16 @@
+.fx-sky {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sky);
+  background: linear-gradient(180deg, var(--sky-zenith), var(--sky-mid) 55%, var(--sky-horizon));
+  transition: background var(--d-slow) var(--ease-in-out);
+  pointer-events: none;
+}
+
+.fx-sky-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-size: 160px 160px;
+}

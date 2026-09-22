@@ -1,3 +1,4 @@
+import "../../globals.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaretLeft } from "@phosphor-icons/react/dist/ssr";

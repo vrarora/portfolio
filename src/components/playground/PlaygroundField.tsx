@@ -73,7 +73,7 @@ export function PlaygroundField() {
   }, [activeId, rootRef]);
 
   return (
-    <div className="pg-root" ref={rootRef} data-lenis-prevent>
+    <div className="pg-root" ref={rootRef}>
       <canvas className="pg-canvas" ref={canvasRef} aria-hidden="true" />
       <PlaygroundChrome introRef={introRef} />
       <div className="pg-field">

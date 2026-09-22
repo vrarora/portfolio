@@ -139,7 +139,7 @@ export function TownSquareEmbed() {
         id="townsquare-root"
         ref={rootRef}
         className="townsquare-root"
-        data-lenis-prevent
+       
       />
     </section>
   );

@@ -21,7 +21,7 @@ React state exists only for discrete UI: `activeId`, `showMore`,
 `coarsePointer`.
 
 - `PlaygroundField.tsx` — client root `.pg-root`; composes everything, owns
-  `useFieldEngine`, carries `data-lenis-prevent`, moves focus to the card
+  `useFieldEngine`, moves focus to the card
   close button on open and back to the node on close.
 - `PlaygroundChrome.tsx` — top chrome: "V." mark home link, centred intro
   whose **measured bottom edge sets the field top**, bracketed
@@ -85,13 +85,6 @@ React state exists only for discrete UI: `activeId`, `showMore`,
   `calc(100vw - 24px)`, stage max 92vw, HUD copy switches to
   Pinch/Drag/Tap.
 
-### Lenis
-
-Double defense: `app/providers.tsx` calls `lenis.stop()` whenever
-`pathname.startsWith("/playground")` (checked on async init AND on every
-route change — the stop must never fire off-playground), plus
-`data-lenis-prevent` on `.pg-root`. The page itself is
-`position: fixed; inset: 0; overflow: hidden`.
 
 ## Visual language (portfolio skin)
 
@@ -125,7 +118,7 @@ interactive elements. Focus rings use the site-wide `--color-link` blue.
   H.264 loop (`ffmpeg-static`) and encodes the poster (sharp).
 - `scripts/verify-playground.mjs` — ~30 end-to-end checks: calm field,
   hover previews, zoom, drag, stage + card, deep links, all four labs,
-  reduced motion, mobile touch (CDP-dispatched touch drag + pinch), Lenis
+  reduced motion, mobile touch (CDP-dispatched touch drag + pinch)
   gating. Run against a production build:
   `npm run build && (cd out && python3 -m http.server 8788)` then
   `env -u PLAYWRIGHT_BROWSERS_PATH BASE_URL=http://localhost:8788 node scripts/verify-playground.mjs`.
