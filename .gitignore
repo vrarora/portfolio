@@ -4,6 +4,9 @@ node_modules/
 *.tsbuildinfo
 .labs-src/
 
+# Local env (written by npx convex dev)
+.env*.local
+
 # Local dev tooling — not for production
 app/agentation-devtools.tsx
 

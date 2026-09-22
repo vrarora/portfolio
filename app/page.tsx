@@ -132,33 +132,6 @@ const aboutTestimonials = [
   },
 ] as const;
 
-const aboutMediaItems = {
-  speaking: [
-    {
-      meta: "Garage de Ideas | February 2024",
-      title: "How Not to Be a Great Mentor",
-      cta: "Watch talk",
-    },
-    {
-      meta: "Research Labs Podcast | July 2023",
-      title: "E59: UX Research, Conducting Interviews",
-      cta: "Watch talk",
-    },
-  ],
-  writing: [
-    {
-      meta: "Fundament | May 2024",
-      title: "The Future of the Job Market in UX & PD",
-      cta: "Read article",
-    },
-    {
-      meta: "UX Collective | July 2019",
-      title: "How to Manage 1-on-1’s for Growth",
-      cta: "Read article",
-    },
-  ],
-} as const;
-
 const workPrincipleCards = [
   {
     kicker: "MENTAL MODEL FIRST",
@@ -1547,40 +1520,6 @@ export default function HomePage() {
                 <p className="about-floating-value">3.5+</p>
                 <p className="about-floating-label">Years experience</p>
               </article>
-            </div>
-          </SectionReveal>
-
-          <SectionReveal className="about-links" style={{ display: "none" }}>
-            <div className="about-links-columns">
-              <div className="about-links-column">
-                <p className="about-links-heading">Speaking</p>
-                {aboutMediaItems.speaking.map((item) => (
-                  <article key={item.title} className="about-link-card">
-                    <div className="about-link-thumb" />
-                    <p className="about-link-meta">{item.meta}</p>
-                    <p className="about-link-title">{item.title}</p>
-                    <a className="button about-link-cta" href={siteLinks.bookIntro} target="_blank" rel="noreferrer">
-                      <ArrowUpRight size={16} />
-                      {item.cta}
-                    </a>
-                  </article>
-                ))}
-              </div>
-
-              <div className="about-links-column">
-                <p className="about-links-heading">Writing</p>
-                {aboutMediaItems.writing.map((item) => (
-                  <article key={item.title} className="about-link-card">
-                    <div className="about-link-thumb" />
-                    <p className="about-link-meta">{item.meta}</p>
-                    <p className="about-link-title">{item.title}</p>
-                    <a className="button about-link-cta" href={siteLinks.bookIntro} target="_blank" rel="noreferrer">
-                      <ArrowUpRight size={16} />
-                      {item.cta}
-                    </a>
-                  </article>
-                ))}
-              </div>
             </div>
           </SectionReveal>
         </div>
