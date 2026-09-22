@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import "./design-repo.css";
+
 /**
  * Beat 3 pipeline for the design-repo case study, in terminal language.
  * Plays once on scroll-into-view: the old Figma chain sits muted at the top

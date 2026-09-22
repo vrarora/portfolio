@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import "./design-repo.css";
+
 /**
  * Beat 1 vignette for the design-repo case study: the workflow that died the
  * day it worked, told in three looping acts inside one window. Act 1: drawing

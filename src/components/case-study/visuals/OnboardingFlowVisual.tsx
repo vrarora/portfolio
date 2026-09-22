@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import "./inline-visuals.css";
+
 const IMG_ASPECT = 849 / 1728;
 
 // Feature positions as fractions of the 1728×849 screenshot.

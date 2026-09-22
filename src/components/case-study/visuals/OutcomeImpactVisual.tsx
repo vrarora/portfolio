@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { SlotText } from "slot-text/react";
 
+import "./outcome-impact.css";
+
 export type OutcomeMetric = { start: string; end: string; desc: string };
 
 const DEFAULT_METRICS: OutcomeMetric[] = [

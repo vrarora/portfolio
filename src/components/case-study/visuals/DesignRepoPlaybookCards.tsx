@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import "./design-repo.css";
+
 /**
  * Beat 3 playbook artifact for the design-repo case study: one terminal
  * window reading the repo's real README.md and CONTRIBUTING.md (supplied by

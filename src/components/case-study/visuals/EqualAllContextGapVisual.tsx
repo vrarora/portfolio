@@ -3,6 +3,8 @@
 import { fraunces } from "@/components/equalall/fonts";
 import { useInViewReveal } from "./useInViewReveal";
 
+import "./equalall-diagrams.css";
+
 /**
  * The Context gap: donors arrived, scrolled deep, and were clearly moved, yet
  * gave below Ketto's own benchmark. Engagement bars stay tall; the giving bar

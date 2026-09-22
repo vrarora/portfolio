@@ -3,6 +3,8 @@
 import { fraunces } from "@/components/equalall/fonts";
 import { useInViewReveal } from "./useInViewReveal";
 
+import "./equalall-diagrams.css";
+
 /**
  * "A gift is a race against a fading feeling" — the case study's spine, drawn.
  *

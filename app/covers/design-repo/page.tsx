@@ -1,4 +1,4 @@
-import "../../globals.css";
+import "./covers.css";
 import type { Metadata } from "next";
 
 /**

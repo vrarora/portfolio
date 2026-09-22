@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import "./design-repo.css";
+
 /**
  * Beat 4 scene for the design-repo case study: a pre-sales client call where
  * a working prototype is clicked through live in a screen share. The cursor

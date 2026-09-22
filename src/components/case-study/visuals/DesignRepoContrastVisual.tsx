@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import "./design-repo.css";
+
 /**
  * Beat 2 contrast for the design-repo case study, told as two clickable
  * scenes (same pattern as the beat 1 vignette). Scene 1: the old handoff —

@@ -1,0 +1,11 @@
+/* Extracted from app/globals.css in the v2 migration. Prefixed rules only. */
+
+.flat-list-scroll {
+  animation: flatListScroll 14s linear infinite;
+  will-change: transform;
+}
+
+@keyframes flatListScroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}

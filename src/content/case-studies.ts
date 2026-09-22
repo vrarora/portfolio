@@ -24,6 +24,8 @@ export type CaseStudy = {
     kicker: string;
     title: string;
     body: string;
+    /** Short serif annotation shown in the margin. */
+    callout?: string;
     bullets?: string[];
     visual?: string;
     visualType?: string;
@@ -76,6 +78,8 @@ export const caseStudies: CaseStudy[] = [
         kicker: "The Central Decision",
         title: "Hierarchy Versus a Flat List",
         body: "The compliance officer using this product needed to locate sensitive customer data scattered across dozens of systems, each owned by a different team.",
+        callout:
+          "The design work was about deciding which complexity each type of user should encounter, and at what point in their workflow.",
         items: [
           {
             body: "The first proposal was a flat list: every data asset in a single scrollable view. The argument was simplicity. At enterprise scale, that means thousands of assets with no way to narrow. The PM was not immediately convinced, so we ran user testing. Users in the flat list condition did not know where to start.",

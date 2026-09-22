@@ -1,0 +1,408 @@
+/* Layout ----------------------------------------------------------------- */
+.cs {
+  width: 100%;
+}
+
+.cs-page-top {
+  padding-top: var(--s-8);
+}
+
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-2);
+}
+
+.cs-grid {
+  width: 100%;
+  max-width: calc(var(--col-bleed) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.cs-column {
+  width: 100%;
+  max-width: var(--col-bleed);
+  margin-inline: auto;
+}
+
+/* At the bleed width the column is 760 and prose stays at 550, centred. */
+.cs-hero,
+.cs-section-head,
+.cs-prose,
+.cs-item,
+.cs-figure:not(.cs-figure--bleed) {
+  width: 100%;
+  max-width: var(--col-reading-max);
+  margin-inline: auto;
+}
+
+.cs-figure--bleed {
+  width: 100%;
+  max-width: var(--col-bleed);
+  margin-inline: auto;
+}
+
+/* Rail (TOC) */
+.cs-rail {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cs-grid {
+    display: grid;
+    grid-template-columns: var(--col-toc) minmax(0, 1fr);
+    gap: var(--s-11);
+    max-width: calc(var(--col-toc) + var(--s-11) + var(--col-bleed) + var(--gutter) * 2);
+  }
+
+  .cs-rail {
+    display: block;
+  }
+
+  .cs-toc {
+    position: sticky;
+    top: var(--s-8);
+  }
+
+  .cs--sheet .cs-toc {
+    top: var(--s-4);
+  }
+}
+
+@media (min-width: 1200px) {
+  .cs-grid {
+    grid-template-columns: var(--col-toc) minmax(0, var(--col-bleed)) var(--col-margin);
+    max-width: calc(var(--col-toc) + var(--col-bleed) + var(--col-margin) + var(--s-11) * 2 + var(--gutter) * 2);
+  }
+
+  .cs-grid::after {
+    content: "";
+  }
+}
+
+/* Mobile: TOC becomes a horizontal strip under the hero */
+@media (max-width: 767px) {
+  .cs-rail {
+    display: block;
+    order: 2;
+    margin: var(--s-8) calc(var(--gutter) * -1) 0;
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .cs-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cs-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cs-column {
+    order: 1;
+  }
+
+  .cs-toc-label {
+    display: none;
+  }
+
+  .cs-toc-list {
+    display: flex;
+    gap: var(--s-4);
+    white-space: nowrap;
+  }
+
+  .cs-toc-list a {
+    padding: 4px 10px;
+    border: 1px solid var(--hairline-2);
+    border-radius: var(--r-pill);
+  }
+
+  .cs-toc-num {
+    display: none;
+  }
+}
+
+/* TOC ---------------------------------------------------------------------- */
+.cs-toc-label {
+  color: var(--ink-3);
+  margin-bottom: var(--s-5);
+}
+
+.cs-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-3);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.cs-toc-list a {
+  display: flex;
+  gap: var(--s-4);
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color var(--d-fast) var(--ease-out-quart);
+}
+
+.cs-toc-list a:hover {
+  color: var(--ink-2);
+}
+
+.cs-toc-list a.is-active {
+  color: var(--ink);
+}
+
+.cs-toc-num {
+  flex: none;
+  color: var(--ink-4);
+}
+
+/* Hero --------------------------------------------------------------------- */
+.cs-hero {
+  padding-top: var(--s-10);
+  outline: none;
+}
+
+.cs--sheet .cs-hero {
+  padding-top: var(--s-4);
+}
+
+.cs-eyebrow {
+  color: var(--ink-3);
+  margin-bottom: var(--s-6);
+}
+
+.cs-title {
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  font-weight: var(--weight-strong);
+  text-wrap: balance;
+}
+
+.cs-lede {
+  margin-top: var(--s-6);
+  font-size: var(--t-lede);
+  line-height: var(--lh-lede);
+  color: var(--ink-2);
+}
+
+.cs-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--s-8);
+  margin-top: var(--s-9);
+  border-top: 1px solid var(--hairline);
+}
+
+.cs-meta-row {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.cs-meta-row dt {
+  color: var(--ink-3);
+}
+
+.cs-hero-figure {
+  margin-top: var(--s-10);
+}
+
+/* Sections ----------------------------------------------------------------- */
+.cs-section {
+  position: relative;
+  margin-top: var(--s-12);
+  outline: none;
+}
+
+.cs-kicker {
+  color: var(--ink-3);
+  margin-bottom: var(--s-4);
+}
+
+.cs-kicker .t-num {
+  color: var(--ink-4);
+  margin-right: 2px;
+}
+
+.cs-prose {
+  margin-top: var(--s-6);
+}
+
+.cs-prose p + p,
+.cs-item p + p {
+  margin-top: var(--s-7);
+}
+
+.cs-item {
+  margin-top: var(--s-9);
+}
+
+.cs-bullets {
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s-4);
+}
+
+.cs-bullets li {
+  position: relative;
+  padding-left: var(--s-6);
+}
+
+.cs-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+
+/* Figures ------------------------------------------------------------------ */
+.cs-figure {
+  margin-top: var(--s-8);
+}
+
+.cs-figure-frame {
+  border-radius: var(--r-3);
+  overflow: hidden;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+
+.cs-figure-frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cs-figure-frame:has(> :not(img)) {
+  aspect-ratio: auto !important;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.cs-caption {
+  margin-top: var(--s-4);
+  color: var(--ink-3);
+}
+
+/* Margin notes ------------------------------------------------------------- */
+.cs-margin-note {
+  display: block;
+  margin: 0 0 var(--s-6);
+  padding-left: var(--s-6);
+  border-left: 1px solid var(--hairline-2);
+  color: var(--ink-2);
+}
+
+.cs-margin-text {
+  font-family: var(--font-serif-italic);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 22px;
+}
+
+@media (min-width: 1200px) {
+  .cs-margin-note {
+    position: absolute;
+    left: calc(100% + var(--s-11));
+    width: var(--col-margin);
+    margin: 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .cs-margin-text {
+    font-size: 15px;
+    line-height: 20px;
+    background-image: linear-gradient(var(--hairline-2), var(--hairline-2));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 900ms var(--ease-out-quart);
+  }
+
+  .cs-prose.is-visible .cs-margin-text {
+    background-size: 100% 1px;
+  }
+}
+
+/* Footnotes ---------------------------------------------------------------- */
+.cs-fn-mark a {
+  text-decoration: none;
+  color: var(--ink-2);
+  padding: 0 2px;
+}
+
+.cs-fn-note {
+  display: block;
+  margin-top: var(--s-4);
+  color: var(--ink-3);
+}
+
+.cs-fn-num {
+  color: var(--ink-4);
+  margin-right: 4px;
+}
+
+@media (min-width: 1200px) {
+  .cs-fn-note {
+    position: absolute;
+    left: calc(100% + var(--s-11));
+    width: var(--col-margin);
+    margin-top: 0;
+  }
+}
+
+/* Phone media */
+.cs-phone {
+  width: min(320px, 100%);
+  aspect-ratio: 390 / 844;
+  margin-inline: auto;
+}
+
+.cs-phone video,
+.cs-phone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reveal ------------------------------------------------------------------- */
+[data-cs-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--d-slow) var(--ease-out-quart), transform var(--d-slow) var(--ease-out-quart);
+}
+
+[data-cs-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cs-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Sheet variant: the sheet body provides its padding; keep the bleed inside it */
+.cs--sheet .cs-grid {
+  padding-inline: 0;
+}
