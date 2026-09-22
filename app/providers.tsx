@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
+import { ConvexClientProvider } from "@/components/providers/ConvexClientProvider";
+
 export function Providers({ children }: { children: ReactNode }) {
   const lenisRef = useRef<import("lenis").default | null>(null);
   const pathname = usePathname();
@@ -52,12 +54,14 @@ export function Providers({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    <IconContext.Provider
-      value={{
-        weight: "bold",
-      }}
-    >
-      {children}
-    </IconContext.Provider>
+    <ConvexClientProvider>
+      <IconContext.Provider
+        value={{
+          weight: "bold",
+        }}
+      >
+        {children}
+      </IconContext.Provider>
+    </ConvexClientProvider>
   );
 }
