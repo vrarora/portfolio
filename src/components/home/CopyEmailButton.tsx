@@ -3,6 +3,8 @@
 import { Check, Copy } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 
+import { cue } from "@/components/audio/cues";
+
 export function CopyEmailButton({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<number | null>(null);
@@ -14,6 +16,7 @@ export function CopyEmailButton({ email }: { email: string }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(email);
+      cue("chime");
       setCopied(true);
       if (timer.current) window.clearTimeout(timer.current);
       timer.current = window.setTimeout(() => setCopied(false), 1600);

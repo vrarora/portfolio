@@ -4,6 +4,7 @@ import { CloudSun, Moon, MoonStars, Sun, SunHorizon } from "@phosphor-icons/reac
 import { useEffect, useState } from "react";
 import type { KeyboardEvent } from "react";
 
+import { cue } from "@/components/audio/cues";
 import { nearestSkyStop } from "@/lib/hour";
 import type { SkyStop } from "@/lib/hour";
 import { useSky } from "./SkyProvider";
@@ -47,6 +48,7 @@ export function SkyDial() {
   }, [preview]);
 
   const step = (dir: 1 | -1) => {
+    cue("toggle");
     const index = ORDER.indexOf(preview);
     const next = ORDER[(index + dir + ORDER.length) % ORDER.length];
     setPreview(next);

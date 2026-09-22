@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { MouseEvent } from "react";
 
+import { cue } from "@/components/audio/cues";
+
 import type { CaseStudy } from "@/content/case-studies";
 import { routes } from "@/lib/routes";
 
@@ -17,6 +19,8 @@ export function WorkCard({ study, onOpen, priority }: Props) {
       href={routes.caseStudy(study.slug)}
       onClick={onOpen ? (event) => onOpen(study.slug, event) : undefined}
       data-slug={study.slug}
+      onMouseEnter={() => cue("tick")}
+      onPointerDown={() => cue("press")}
     >
       <span className="work-card-cover">
         {study.thumbnailImage ? (

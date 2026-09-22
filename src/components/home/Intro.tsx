@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
+import { StickerStack } from "@/components/effects/StickerStack";
 import { InlineLogo, Reading, Serif } from "@/components/reading/Reading";
 import { EMAIL, about, logos } from "@/content/about";
 import { siteLinks } from "@/content/site-links";
@@ -9,7 +10,7 @@ export function Intro() {
   return (
     <section className="home-intro" aria-labelledby="intro-name">
       <div className="home-byline">
-        <span className="home-avatar" id="avatar-anchor">
+        <StickerStack>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/me-64.webp"
@@ -20,7 +21,7 @@ export function Intro() {
             decoding="async"
             fetchPriority="high"
           />
-        </span>
+        </StickerStack>
         <div className="home-byline-text">
           <h1 id="intro-name">{about.name}</h1>
           <p className="home-role">{about.role}</p>

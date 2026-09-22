@@ -4,6 +4,8 @@ import { motion } from "motion/react";
 import { useId } from "react";
 import type { KeyboardEvent } from "react";
 
+import { cue } from "@/components/audio/cues";
+
 export type WorkTab = "case-studies" | "experiments";
 
 export const WORK_TABS: Array<{ id: WorkTab; label: string }> = [
@@ -57,7 +59,10 @@ export function WorkTabs({ value, onChange, scope }: Props) {
             aria-selected={selected}
             aria-controls={panelId(scope, tab.id)}
             tabIndex={selected ? 0 : -1}
-            onClick={() => onChange(tab.id)}
+            onClick={() => {
+              if (tab.id !== value) cue("toggle");
+              onChange(tab.id);
+            }}
           >
             {tab.label}
             {selected ? (

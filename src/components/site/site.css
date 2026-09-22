@@ -49,11 +49,34 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s-8);
+  padding-right: calc(var(--gutter) + 108px);
+}
+
+@media (max-width: 767px) {
+  .site-header-inner {
+    padding-right: calc(var(--gutter) + 40px);
+    gap: var(--s-5);
+  }
+
+  .site-header-right {
+    gap: var(--s-5);
+  }
+
+  .site-nav-list {
+    gap: var(--s-5);
+  }
+}
+
+@media (max-width: 479px) {
+  .site-nav-list li:last-child {
+    display: none;
+  }
 }
 
 .site-wordmark {
   font-weight: var(--weight-strong);
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .site-header-right {

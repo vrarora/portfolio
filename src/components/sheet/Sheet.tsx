@@ -7,6 +7,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
+import { cue } from "@/components/audio/cues";
 import { ScrollRootContext } from "@/components/case-study/ScrollRootContext";
 import { EASE_OUT_QUART, SPRING_SHEET } from "@/styles/motion";
 import { useReturnFocus } from "./useReturnFocus";
@@ -52,6 +53,7 @@ export function Sheet({ open, onClose, title, subtitle, fallbackFocus, children 
 
   useEffect(() => {
     if (!open) return;
+    cue("page");
     setBackgroundInert(true);
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -63,6 +65,7 @@ export function Sheet({ open, onClose, title, subtitle, fallbackFocus, children 
     const focusTimer = window.setTimeout(() => closeRef.current?.focus({ preventScroll: true }), 30);
     return () => {
       setBackgroundInert(false);
+      cue("release");
       document.removeEventListener("keydown", onKey);
       window.clearTimeout(focusTimer);
     };

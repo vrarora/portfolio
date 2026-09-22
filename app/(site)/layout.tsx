@@ -5,6 +5,9 @@ import "@/styles/utilities.css";
 import "@/components/site/site.css";
 import "@/components/effects/effects.css";
 
+import { AudioProvider } from "@/components/audio/AudioProvider";
+import { MusicPill } from "@/components/audio/MusicPill";
+import { SoundToggle } from "@/components/audio/SoundToggle";
 import { AskLauncher } from "@/components/assistant/AskLauncher";
 import { AskPanel } from "@/components/assistant/AskPanel";
 import { AskProvider } from "@/components/assistant/AskProvider";
@@ -19,6 +22,7 @@ import { SkipLink } from "@/components/site/SkipLink";
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <SkyProvider>
+      <AudioProvider>
       <AskProvider>
         <SkipLink />
         <SkyLayer />
@@ -26,8 +30,11 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         <SiteFooter dial={<SkyDial />} />
         <div id="sheet-root" />
         <NotesPeek />
+        <MusicPill />
+        <SoundToggle />
         <AskPanel />
       </AskProvider>
+      </AudioProvider>
     </SkyProvider>
   );
 }

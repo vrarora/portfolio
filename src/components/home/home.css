@@ -51,7 +51,8 @@
 .home-byline {
   display: flex;
   align-items: center;
-  gap: var(--s-5);
+  gap: var(--s-3);
+  margin-left: -6px;
   margin-bottom: var(--s-9);
 }
 

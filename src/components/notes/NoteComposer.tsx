@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 
+import { cue } from "@/components/audio/cues";
 import { NOTE_COLORS, NOTE_NAME_MAX, NOTE_POINTS_TOTAL_MAX, NOTE_STROKES_MAX, NOTE_TEXT_MAX } from "@/shared/limits";
 import type { NoteColor } from "@/shared/limits";
 import { countPoints } from "@/shared/strokeCodec";
@@ -89,7 +90,9 @@ export function NoteComposer({ open, onClose, onSubmit, onPosted }: Props) {
     setError(null);
     const outcome = await onSubmit({ authorName: name, text, strokes, color, website });
     setBusy(false);
+    if (!outcome.ok) cue("error");
     if (outcome.ok) {
+      cue("success");
       reset();
       onPosted();
       onClose();

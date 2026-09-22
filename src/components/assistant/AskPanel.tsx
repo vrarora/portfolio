@@ -4,6 +4,7 @@ import { ArrowCounterClockwise, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { cue } from "@/components/audio/cues";
 import { ConvexScope } from "@/components/providers/ConvexClientProvider";
 import { useReturnFocus } from "@/components/sheet/useReturnFocus";
 import { Tag } from "@/components/reading/Treatments";
@@ -44,6 +45,7 @@ export function AskPanel() {
 
   useEffect(() => {
     if (!open) return;
+    cue("page");
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
@@ -61,6 +63,12 @@ export function AskPanel() {
   }, [thread.localItems, serverItems, thread.welcome]);
 
   const thinking = items.some((i) => i.role === "assistant" && i.status !== "done");
+  const wasThinking = useRef(false);
+  useEffect(() => {
+    if (thinking && !wasThinking.current) cue("loading");
+    if (!thinking && wasThinking.current) cue("ready");
+    wasThinking.current = thinking;
+  }, [thinking]);
   const live = thread.gate.configured;
 
   // Keep the newest message in view
