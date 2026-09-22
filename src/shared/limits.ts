@@ -1,0 +1,14 @@
+export const NOTE_TEXT_MAX = 280;
+export const NOTE_NAME_MAX = 24;
+export const NOTE_DEFAULT_NAME = "Anonymous";
+export const NOTE_STROKES_MAX = 40;
+export const NOTE_POINTS_PER_STROKE_MAX = 200;
+export const NOTE_POINTS_TOTAL_MAX = 4000;
+export const NOTE_COORD_MAX = 1000;
+export const NOTE_ROTATION_MAX = 6;
+export const NOTE_REMOVE_WINDOW_MS = 15 * 60 * 1000;
+export const NOTE_DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
+export const NOTES_HOME_COUNT = 12;
+export const NOTE_COLORS = ["paper", "accent", "gold", "green", "blue"] as const;
+export type NoteColor = (typeof NOTE_COLORS)[number];
+export const NOTE_STROKE_COLORS = ["#111111", "#5b7f5e"] as const;

@@ -9,6 +9,7 @@ import { AskLauncher } from "@/components/assistant/AskLauncher";
 import { AskPanel } from "@/components/assistant/AskPanel";
 import { AskProvider } from "@/components/assistant/AskProvider";
 import { SkyDial } from "@/components/effects/SkyDial";
+import { NotesPeek } from "@/components/notes/NotesPeek";
 import { SkyLayer } from "@/components/effects/SkyLayer";
 import { SkyProvider } from "@/components/effects/SkyProvider";
 import { PageShell } from "@/components/site/PageShell";
@@ -24,6 +25,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         <PageShell headerTrailing={<AskLauncher />}>{children}</PageShell>
         <SiteFooter dial={<SkyDial />} />
         <div id="sheet-root" />
+        <NotesPeek />
         <AskPanel />
       </AskProvider>
     </SkyProvider>

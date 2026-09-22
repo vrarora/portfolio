@@ -1,6 +1,7 @@
+/* Board ---------------------------------------------------------------- */
 .notes-board {
   position: relative;
-  min-height: 360px;
+  min-height: 520px;
   border: 1px solid var(--hairline);
   border-radius: var(--r-4);
   background-color: var(--paper);
@@ -9,38 +10,16 @@
   overflow: hidden;
 }
 
-.notes-card {
+.notes-board[data-loading] {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1.2px);
+}
+
+.notes-empty {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: 200px;
-  padding: var(--s-5) var(--s-6);
-  background: var(--paper);
-  border: 1px solid var(--hairline-2);
-  border-radius: var(--r-2);
-  box-shadow: var(--shadow-card);
-  transform: rotate(var(--rot));
-}
-
-.notes-card-text {
-  text-wrap: pretty;
-}
-
-.notes-card-meta {
-  margin-top: var(--s-4);
+  inset: 0;
+  display: grid;
+  place-items: center;
   color: var(--ink-3);
-}
-
-.notes-owner {
-  display: inline-block;
-  margin-left: 4px;
-  padding: 0 6px;
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  color: var(--paper);
-  font-size: var(--t-micro);
-  line-height: 14px;
-  font-weight: var(--weight-strong);
 }
 
 .notes-board-cta {
@@ -56,12 +35,485 @@
   color: var(--ink-3);
 }
 
+/* Cards ---------------------------------------------------------------- */
+.notes-card {
+  width: 184px;
+  padding: var(--s-5) var(--s-6);
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-2);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  transform-origin: center;
+}
+
+.notes-card--board {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  translate: -50% -50%;
+  rotate: var(--rot);
+}
+
+.notes-card--accent { background: color-mix(in oklch, var(--paper), var(--accent) 14%); }
+.notes-card--gold { background: #f7efd9; }
+.notes-card--green { background: #e9f0e6; }
+.notes-card--blue { background: #e8eff6; }
+
+.notes-card-doodle {
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 120px;
+  margin-bottom: var(--s-3);
+}
+
+.notes-card-text {
+  font-size: 13px;
+  line-height: 18px;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.notes-card-meta {
+  margin-top: var(--s-4);
+  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.notes-card-author {
+  color: var(--ink-2);
+}
+
+.notes-owner {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--paper);
+  font-size: var(--t-micro);
+  line-height: 14px;
+  font-weight: var(--weight-strong);
+}
+
+.notes-card-remove {
+  margin-left: auto;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+}
+
+.notes-card-remove:hover {
+  color: var(--ink);
+}
+
+/* Stack layout on small screens */
 @media (max-width: 767px) {
   .notes-board {
-    min-height: 420px;
+    min-height: 0;
+    padding: var(--s-6) var(--s-6) 88px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-5);
+    align-items: start;
   }
 
-  .notes-card {
-    width: min(200px, 60%);
+  .notes-card--board {
+    position: relative;
+    left: auto;
+    top: auto;
+    translate: none;
+    width: auto;
+    rotate: calc(var(--rot) * 0.5);
   }
+
+  .notes-empty {
+    position: static;
+    grid-column: 1 / -1;
+    padding: var(--s-9) 0;
+  }
+
+  .notes-board-cta {
+    right: var(--s-6);
+    bottom: var(--s-6);
+  }
+}
+
+/* Composer dialog --------------------------------------------------------- */
+.notes-dialog {
+  width: min(720px, 92vw);
+  max-width: none;
+  max-height: min(560px, 86dvh);
+  padding: 0;
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-4);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 80px -24px rgba(0, 0, 0, 0.35);
+}
+
+.notes-dialog::backdrop {
+  background: rgba(17, 17, 17, 0.28);
+  backdrop-filter: blur(2px);
+}
+
+.notes-form {
+  display: flex;
+  flex-direction: column;
+  max-height: min(560px, 86dvh);
+}
+
+.notes-form-head,
+.notes-form-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6);
+  padding: var(--s-6) var(--s-8);
+}
+
+.notes-form-head {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.notes-form-foot {
+  border-top: 1px solid var(--hairline);
+}
+
+.notes-form-title {
+  font-size: var(--t-body);
+  font-weight: var(--weight-strong);
+}
+
+.notes-form-cancel {
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  padding: 0;
+}
+
+.notes-form-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: var(--s-8);
+  padding: var(--s-7) var(--s-8);
+  overflow-y: auto;
+}
+
+.notes-form-fields {
+  display: grid;
+  gap: var(--s-6);
+  align-content: start;
+}
+
+.notes-field {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.notes-field-label {
+  color: var(--ink-3);
+  display: flex;
+  justify-content: space-between;
+}
+
+.notes-field input,
+.notes-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-2);
+  background: var(--paper);
+  resize: vertical;
+  font-family: inherit;
+}
+
+.notes-field input:focus-visible,
+.notes-field textarea:focus-visible {
+  outline: none;
+  border-color: var(--ink-3);
+}
+
+.notes-colors {
+  display: flex;
+  gap: var(--s-4);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.notes-colors legend {
+  width: 100%;
+  margin-bottom: var(--s-3);
+  padding: 0;
+}
+
+.notes-color {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-2);
+  cursor: pointer;
+}
+
+.notes-color input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.notes-color:has(input:checked) {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--ink);
+}
+
+.notes-color:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.notes-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.notes-form-doodle {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.notes-doodle {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.notes-doodle-canvas {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r-3);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1.2px);
+  background-size: 12px 12px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.notes-doodle-canvas[data-tool="eraser"] {
+  cursor: cell;
+}
+
+.notes-doodle-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.notes-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.notes-tool[aria-pressed="true"] {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.notes-tool:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.notes-tool--swatch::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--swatch);
+}
+
+.notes-tool-gap {
+  flex: 1;
+}
+
+.notes-error {
+  color: #a24a3d;
+  min-height: 16px;
+}
+
+.notes-count {
+  color: var(--ink-4);
+}
+
+@media (max-width: 767px) {
+  .notes-dialog {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+  }
+
+  .notes-form {
+    max-height: 100dvh;
+    height: 100dvh;
+  }
+
+  .notes-form-body {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-tool {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Right-edge peek --------------------------------------------------------- */
+.notes-peek {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: var(--z-notes-peek);
+  width: 28px;
+  height: 96px;
+  border: 1px solid var(--hairline-2);
+  border-right: 0;
+  border-radius: var(--r-2) 0 0 var(--r-2);
+  background: var(--paper);
+  color: var(--ink-2);
+  font-size: var(--t-caption);
+  font-weight: var(--weight-strong);
+  writing-mode: vertical-rl;
+  transform: translate(100%, -50%);
+  transition: transform var(--d-base) var(--ease-out-expo), color var(--d-fast) var(--ease-out-quart);
+  cursor: pointer;
+}
+
+.notes-peek[data-visible] {
+  transform: translate(0, -50%);
+}
+
+.notes-peek:hover {
+  color: var(--ink);
+}
+
+html.ask-open .notes-peek,
+html.sheet-open .notes-peek {
+  transform: translate(100%, -50%);
+}
+
+@media (max-width: 767px) {
+  .notes-peek {
+    display: none;
+  }
+}
+
+/* Admin ------------------------------------------------------------------ */
+.admin-page {
+  padding-top: var(--s-12);
+  max-width: 900px;
+}
+
+.admin-page h1 {
+  margin-bottom: var(--s-8);
+}
+
+.admin-token {
+  display: flex;
+  align-items: end;
+  gap: var(--s-5);
+  max-width: 420px;
+}
+
+.admin-token .notes-field {
+  flex: 1;
+}
+
+.admin-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  margin-bottom: var(--s-7);
+  flex-wrap: wrap;
+}
+
+.admin-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-link {
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.admin-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--s-6);
+  align-items: start;
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.admin-row.is-hidden {
+  opacity: 0.5;
+}
+
+.admin-doodle {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-2);
+  display: block;
+}
+
+.admin-meta {
+  color: var(--ink-3);
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+.admin-actions {
+  display: flex;
+  gap: var(--s-3);
+}
+
+.admin-error {
+  color: #a24a3d;
 }
