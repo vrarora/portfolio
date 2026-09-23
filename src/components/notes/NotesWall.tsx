@@ -10,8 +10,10 @@ import { useNotes } from "./useNotes";
 
 export const COMPOSE_EVENT = "vp:notes:compose";
 
+type Layout = "board" | "stack";
+
 /** Live board. Renders inside ConvexScope. */
-export function NotesWall() {
+export function NotesWall({ layout = "board" }: { layout?: Layout }) {
   const { notes, paused, loading, submit, remove } = useNotes();
   const [composing, setComposing] = useState(false);
   const [posted, setPosted] = useState(false);
@@ -32,11 +34,11 @@ export function NotesWall() {
 
   return (
     <>
-      <div className="notes-board" data-loading={loading ? "" : undefined}>
+      <div className={`notes-board notes-board--${layout}`} data-loading={loading ? "" : undefined}>
         {notes && notes.length === 0 ? <p className="notes-empty">{notesCopy.empty}</p> : null}
         <AnimatePresence initial={false}>
           {(notes ?? []).map((note) => (
-            <NoteCard key={note.id} note={note} onRemove={note.mine ? () => remove(note.id) : undefined} />
+            <NoteCard key={note.id} note={note} layout={layout} onRemove={note.mine ? () => remove(note.id) : undefined} />
           ))}
         </AnimatePresence>
         <div className="notes-board-cta">

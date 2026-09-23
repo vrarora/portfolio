@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 
-import { WritingList } from "@/components/home/WritingList";
+import { RedirectHome } from "@/components/site/RedirectHome";
 
 export const metadata: Metadata = {
   title: "Writing",
-  description: "Essays in progress by Vaibhav Arora.",
+  robots: { index: false },
 };
 
+/** Writing lives on the home page. */
 export default function WritingPage() {
-  return (
-    <section className="container writing-page">
-      <WritingList heading="Writing" headingLevel="h1" />
-    </section>
-  );
+  return <RedirectHome hash="writing" />;
 }

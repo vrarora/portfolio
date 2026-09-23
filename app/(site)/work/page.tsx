@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
-import { WorkPage } from "@/components/work/WorkPage";
+import { RedirectHome } from "@/components/site/RedirectHome";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Case studies and experiments by Vaibhav Arora.",
+  robots: { index: false },
 };
 
+/** Work lives on the home page; case studies keep their own URLs under /work/[slug]/. */
 export default function Page() {
-  return (
-    <Suspense fallback={null}>
-      <WorkPage />
-    </Suspense>
-  );
+  return <RedirectHome hash="work" />;
 }

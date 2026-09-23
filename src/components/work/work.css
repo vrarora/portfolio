@@ -242,20 +242,6 @@
   .work-row-open { grid-area: open; margin-top: var(--s-2); }
 }
 
-/* /work page */
-.work-page {
-  padding-top: var(--s-12);
-  max-width: calc(var(--col-bleed) + var(--gutter) * 2);
-}
-
-.work-page-head {
-  margin-bottom: var(--s-9);
-}
-
-.work-page-head h1 {
-  outline: none;
-}
-
 .home-work-heading {
   margin-bottom: var(--s-6);
 }

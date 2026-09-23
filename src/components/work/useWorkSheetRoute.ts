@@ -29,7 +29,7 @@ export function useWorkSheetRoute() {
     if (pushed.current && state?.vpSheet) {
       window.history.back();
     } else {
-      router.replace("/work/", { scroll: false });
+      router.replace("/", { scroll: false });
     }
     pushed.current = false;
   }, [router]);

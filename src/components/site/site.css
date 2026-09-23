@@ -100,8 +100,18 @@
 }
 
 .site-nav-link:hover,
-.site-nav-link[aria-current="page"] {
+.site-nav-link[aria-expanded="true"] {
   color: var(--ink);
+}
+
+/* Nav and footer entries rendered as buttons read like the links beside them */
+button.site-nav-link,
+.site-footer-btn {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
 }
 
 /* Footer, transparent over the sky */
@@ -122,12 +132,15 @@
   min-height: 100%;
 }
 
-.site-footer a {
+.site-footer a,
+.site-footer-btn {
   color: inherit;
+  text-decoration: underline;
   text-decoration-color: color-mix(in oklch, currentColor, transparent 65%);
 }
 
-.site-footer a:hover {
+.site-footer a:hover,
+.site-footer-btn:hover {
   color: inherit;
   text-decoration-color: currentColor;
 }

@@ -1,14 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { NotesLink } from "@/components/notes/NotesLink";
 import { routes } from "@/lib/routes";
 import { EMAIL, socialLinks } from "./SocialLinks";
 
 const INTERNAL = [
   { label: "Work", href: routes.work },
-  { label: "Experiments", href: routes.experiments },
   { label: "Writing", href: routes.writing },
-  { label: "Notes", href: routes.notes },
 ] as const;
 
 export function SiteFooter({ dial }: { dial?: ReactNode }) {
@@ -22,6 +21,9 @@ export function SiteFooter({ dial }: { dial?: ReactNode }) {
                 <Link href={item.href}>{item.label}</Link>
               </li>
             ))}
+            <li>
+              <NotesLink className="site-footer-btn">Notes</NotesLink>
+            </li>
             {socialLinks.map((link) => (
               <li key={link.label}>
                 <a

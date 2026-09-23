@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 
-import { useConvexAvailable, useConvexGate } from "@/components/providers/ConvexClientProvider";
-import { COMPOSE_EVENT } from "./NotesWall";
+import { useConvexAvailable } from "@/components/providers/ConvexClientProvider";
+import { notesCopy } from "@/content/about";
+import { useNotesDrawer } from "./NotesDrawerProvider";
 
 import "./notes.css";
 
-/** Right-edge tab that scrolls to the wall and opens the composer. */
+/** Right-edge tab that opens the notes drawer. */
 export function NotesPeek() {
   const available = useConvexAvailable();
-  const gate = useConvexGate();
+  const { openFrom } = useNotesDrawer();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -22,20 +23,16 @@ export function NotesPeek() {
 
   if (!available) return null;
 
-  const go = () => {
-    gate.connect();
-    const target = document.getElementById("notes");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.setTimeout(() => window.dispatchEvent(new CustomEvent(COMPOSE_EVENT)), 500);
-    } else {
-      window.location.href = "/#notes";
-    }
-  };
-
   return (
-    <button type="button" className="notes-peek" data-visible={visible ? "" : undefined} onClick={go} data-fixed-control>
-      Leave a note
+    <button
+      type="button"
+      className="notes-peek"
+      data-visible={visible ? "" : undefined}
+      onClick={(event) => openFrom(event.currentTarget)}
+      aria-controls="notes-drawer"
+      data-fixed-control
+    >
+      {notesCopy.button}
     </button>
   );
 }

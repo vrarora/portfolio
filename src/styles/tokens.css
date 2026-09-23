@@ -224,6 +224,7 @@
   --page-max: 1040px;
   --gutter: 24px;
   --assistant-w: 380px;
+  --notes-canvas-w: min(880px, 100vw);
   --sheet-top: 92px;
   --header-h: 56px;
 }

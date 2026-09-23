@@ -1,5 +1,4 @@
 import { HomeLeaves } from "./HomeLeaves";
-import { NotesWallSection } from "@/components/notes/NotesWallSection";
 import { Intro } from "./Intro";
 import { Opinion } from "./Opinion";
 import { UpTo } from "./UpTo";
@@ -22,7 +21,6 @@ export function HomePage() {
         <Opinion variant="afterAssistant" />
         <WorkSection />
         <WritingList id="writing" />
-        <NotesWallSection />
       </div>
     </div>
   );

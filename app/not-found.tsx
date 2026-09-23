@@ -22,7 +22,7 @@ export default function NotFound() {
           <h1>Nothing here.</h1>
           <p style={{ color: "var(--ink-2)", marginTop: "var(--s-5)" }}>
             That page moved or never existed. <Link href="/">Back to the start</Link>, or{" "}
-            <Link href="/work/">see the work</Link>.
+            <Link href="/#work">see the work</Link>.
           </p>
         </section>
       </PageShell>

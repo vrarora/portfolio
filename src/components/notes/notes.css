@@ -112,36 +112,125 @@
   color: var(--ink);
 }
 
-/* Stack layout on small screens */
-@media (max-width: 767px) {
-  .notes-board {
-    min-height: 0;
-    padding: var(--s-6) var(--s-6) 88px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s-5);
-    align-items: start;
-  }
+/* Stacked board: a two-column pile of cards, used on phones */
+.notes-board--stack {
+  min-height: 0;
+  padding: var(--s-6) var(--s-6) 88px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  align-items: start;
+}
 
-  .notes-card--board {
-    position: relative;
-    left: auto;
-    top: auto;
-    translate: none;
-    width: auto;
-    rotate: calc(var(--rot) * 0.5);
-  }
+.notes-card--stack {
+  width: auto;
+  rotate: calc(var(--rot) * 0.5);
+}
 
-  .notes-empty {
-    position: static;
-    grid-column: 1 / -1;
-    padding: var(--s-9) 0;
-  }
+.notes-board--stack .notes-empty {
+  position: static;
+  grid-column: 1 / -1;
+  padding: var(--s-9) 0;
+}
 
-  .notes-board-cta {
-    right: var(--s-6);
-    bottom: var(--s-6);
-  }
+/* Canvas panel ------------------------------------------------------------ */
+.notes-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-notes-scrim);
+  background: rgba(17, 17, 17, 0.24);
+}
+
+.notes-canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-notes);
+  width: var(--notes-canvas-w);
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-left: 1px solid var(--hairline);
+  box-shadow: -24px 0 60px -40px rgba(0, 0, 0, 0.35);
+  will-change: transform;
+}
+
+.notes-canvas--sheet {
+  left: 0;
+  width: auto;
+  border-left: 0;
+}
+
+.notes-canvas-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-6) var(--s-6) var(--s-6) var(--s-8);
+  border-bottom: 1px solid var(--hairline);
+  flex: none;
+}
+
+.notes-canvas-title {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-strong);
+}
+
+.notes-canvas-sub {
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.notes-canvas-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.notes-canvas-close:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+/* The board fills the panel; its dot grid becomes the canvas */
+.notes-canvas-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.notes-canvas .notes-board {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.notes-canvas .notes-board--stack {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+}
+
+.notes-canvas .notes-board--stack .notes-board-cta {
+  position: sticky;
+  bottom: 0;
+  right: auto;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  padding: var(--s-5) 0;
+  background: linear-gradient(to top, var(--paper) 70%, transparent);
 }
 
 /* Composer dialog --------------------------------------------------------- */
@@ -421,6 +510,7 @@
 }
 
 html.ask-open .notes-peek,
+html.notes-open .notes-peek,
 html.sheet-open .notes-peek {
   transform: translate(100%, -50%);
 }

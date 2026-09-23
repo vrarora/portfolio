@@ -9,7 +9,7 @@
 
 .home-col {
   width: 100%;
-  max-width: calc(var(--col-bleed) + var(--gutter) * 2);
+  max-width: calc(var(--col-reading-max) + var(--gutter) * 2);
   margin-inline: auto;
   padding-inline: var(--gutter);
   display: flex;
@@ -21,10 +21,6 @@
   width: 100%;
   max-width: var(--col-reading-max);
   margin-top: var(--s-14);
-}
-
-.home-bleed {
-  max-width: var(--col-bleed);
 }
 
 .home-section-heading {
@@ -174,10 +170,8 @@
 }
 
 /* Work */
-.home-work-head {
-  width: 100%;
-  max-width: var(--col-reading-max);
-  margin-inline: auto;
+.home-work-heading:focus {
+  outline: none;
 }
 
 /* Writing */
@@ -213,10 +207,6 @@
   border-radius: var(--r-pill);
   padding: 1px 8px;
   white-space: nowrap;
-}
-
-.writing-page .home-section {
-  margin-top: var(--s-12);
 }
 
 @media (max-width: 767px) {

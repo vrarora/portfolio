@@ -36,7 +36,8 @@ CONVEX_AGENT_MODE=anonymous npx convex dev
 
 ```
 app/                 routes; (site) carries the shell (sky, header, footer, controls)
-  (site)/            home, /work, /work/[slug], /writing, /admin/notes
+  (site)/            home (work, writing, notes drawer), /work/[slug], /admin/notes;
+                     /work and /writing redirect to home anchors
   case-studies/      legacy URLs, redirect to /work/[slug]
   mockups/ covers/ playground/   standalone artifacts, no site chrome
 src/content/         copy and data (case studies, labs, about, FAQ, stickers, seeds)

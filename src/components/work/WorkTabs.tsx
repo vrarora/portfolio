@@ -16,7 +16,7 @@ export const WORK_TABS: Array<{ id: WorkTab; label: string }> = [
 type Props = {
   value: WorkTab;
   onChange: (tab: WorkTab) => void;
-  /** Distinguishes several tablists on one page (home and /work). */
+  /** Distinguishes tablists when more than one renders on a page. */
   scope: string;
 };
 
