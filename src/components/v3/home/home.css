@@ -1,0 +1,395 @@
+.hm {
+  position: relative;
+  overflow-x: clip;
+}
+
+.hm-col {
+  position: relative;
+  z-index: 1;
+  width: min(var(--v3-col), 100% - 2 * var(--v3-gutter));
+  margin-inline: auto;
+}
+
+/* A soft light over the top of the page that fades into the paper. */
+.hm-bloom {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(86vh, 820px);
+  opacity: 0.7;
+  mask-image: linear-gradient(to bottom, #000 25%, transparent);
+  pointer-events: none;
+}
+
+/* Hero ---------------------------------------------------------------------- */
+
+.hm-hero {
+  padding-top: clamp(72px, 16vh, 150px);
+}
+
+.hm-stamp {
+  display: inline-block;
+  transform: rotate(-4deg);
+  filter: drop-shadow(0 6px 12px rgba(40, 30, 60, 0.16));
+}
+
+/* Perforated edges: holes sit on the border every 8px, so the paper is 96px, a multiple of 8. */
+.hm-stamp-paper {
+  display: block;
+  width: 96px;
+  height: 96px;
+  padding: 6px;
+  background: #fffdf8;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    radial-gradient(circle, transparent 2.4px, #000 2.8px) -4px -4px / 8px 8px;
+}
+
+.hm-stamp-paper img {
+  display: block;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+}
+
+.hm-id {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 22px;
+}
+
+.hm-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.hm-role {
+  margin: 2px 0 0;
+  font-size: 15px;
+  color: var(--ink-3);
+  letter-spacing: -0.01em;
+}
+
+.hm-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.hm-meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hm-time {
+  min-width: 8.5ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.hm-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: -6px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.hm-icon:hover {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Narrative ----------------------------------------------------------------- */
+
+.hm-narrative {
+  margin-top: clamp(96px, 20vh, 190px);
+}
+
+.hm-narrative p {
+  margin: 0 0 1.1em;
+  font-size: clamp(24px, 3.3vw, 32px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.042em;
+  text-wrap: pretty;
+}
+
+/* Without script the text stays dark; once live, each word waits faint until it is read. */
+.hm-narrative .is-live [data-word] {
+  --read: 0.28;
+}
+
+.hm-word {
+  color: rgb(17 17 17 / var(--read, 1));
+}
+
+.hm-logos {
+  display: inline-flex;
+  vertical-align: -0.16em;
+  margin-inline: 0.04em;
+  opacity: var(--read, 1);
+}
+
+.hm-logos img {
+  width: 1.04em;
+  height: 1.04em;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--paper), 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.hm-logos img + img {
+  margin-left: -0.3em;
+}
+
+.hm-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgb(17 17 17 / 0.22);
+  text-underline-offset: 0.16em;
+  transition: text-decoration-color 160ms ease;
+}
+
+.hm-link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Shelf --------------------------------------------------------------------- */
+
+.hm-shelf {
+  margin-top: clamp(80px, 14vh, 150px);
+}
+
+.hm-label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.hm-records {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 22px 22px 24px 4px;
+  list-style: none;
+}
+
+.hm-records li {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  aspect-ratio: 1;
+}
+
+.hm-records li:hover,
+.hm-records li:focus-within {
+  z-index: 3;
+}
+
+.hm-record {
+  position: absolute;
+  inset: 0;
+  display: block;
+  isolation: isolate;
+  text-decoration: none;
+}
+
+.v3 .hm-record:focus-visible {
+  outline-offset: 8px;
+}
+
+.hm-disc {
+  position: absolute;
+  inset: 4%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #202020 0 1px, #303030 1.4px 2px, #181818 2.4px 3px);
+  transform: translateX(8%) rotate(0deg);
+  transition: transform 0.4s var(--v3-ease);
+}
+
+.hm-disc > span {
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: #d7c3a3;
+  box-shadow: inset 0 0 0 1px #b6a286;
+}
+
+.hm-disc > span::after {
+  content: "";
+  display: block;
+  width: 12%;
+  height: 12%;
+  margin: 44%;
+  border-radius: 50%;
+  background: #292929;
+}
+
+.hm-sleeve {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 2px;
+  transform: rotate(var(--tilt));
+  transform-origin: 50% 90%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.13);
+  transition:
+    transform 0.32s var(--v3-ease),
+    box-shadow 0.32s var(--v3-ease);
+}
+
+.hm-record:hover .hm-sleeve,
+.hm-record:focus-visible .hm-sleeve {
+  transform: translateY(-8px) rotate(-5deg);
+  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.16);
+}
+
+.hm-record:hover .hm-disc,
+.hm-record:focus-visible .hm-disc {
+  transform: translate(25%, -7%) rotate(28deg);
+}
+
+.hm-sleeve-title {
+  position: absolute;
+  top: 9%;
+  left: 9%;
+  right: 9%;
+  font-size: clamp(10px, 1.1vw, 12px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.hm-sleeve--night .hm-sleeve-title {
+  color: #fbf6ee;
+}
+
+/* A screen from the project, tucked into the sleeve's lower corner. */
+.hm-sleeve-shot {
+  position: absolute;
+  top: 38%;
+  left: 20%;
+  width: 110%;
+  height: auto;
+  border-radius: 4px 0 0 0;
+  box-shadow: 0 4px 14px rgba(20, 20, 40, 0.18);
+}
+
+.hm-detail {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-height: 48px;
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+
+.hm-detail strong {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.hm-detail span {
+  min-width: 0;
+  color: var(--ink-2);
+}
+
+.hm-detail em {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-style: normal;
+  color: var(--ink-3);
+}
+
+.hm-detail .hm-detail-hint {
+  color: var(--ink-4);
+}
+
+/* Footer -------------------------------------------------------------------- */
+
+.hm-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(96px, 16vh, 160px);
+  padding: 24px 0 40px;
+  border-top: 1px solid var(--hairline);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.hm-foot p {
+  margin: 0;
+}
+
+.hm-foot nav {
+  display: flex;
+  gap: 18px;
+}
+
+.hm-foot a {
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.hm-foot a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 620px) {
+  .hm-records {
+    margin-inline: calc(-1 * var(--v3-gutter));
+    padding: 24px 40px 28px var(--v3-gutter);
+    overflow-x: auto;
+    scroll-padding-inline: var(--v3-gutter);
+    scrollbar-width: none;
+  }
+
+  .hm-records li {
+    flex: 0 0 104px;
+  }
+
+  .hm-sleeve-title {
+    font-size: 11px;
+  }
+
+  .hm-detail {
+    flex-wrap: wrap;
+  }
+
+  .hm-detail em {
+    margin-left: 0;
+  }
+}
+
+/* Touch screens open a record on tap, so there is no hover to echo. */
+@media (hover: none) {
+  .hm-detail {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-sleeve,
+  .hm-disc {
+    transition: none;
+  }
+}

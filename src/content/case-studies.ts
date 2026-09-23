@@ -83,12 +83,12 @@ export const caseStudies: CaseStudy[] = [
         items: [
           {
             body: "The first proposal was a flat list: every data asset in a single scrollable view. The argument was simplicity. At enterprise scale, that means thousands of assets with no way to narrow. The PM was not immediately convinced, so we ran user testing. Users in the flat list condition did not know where to start.",
-            visual: "Flat list — the original direction",
+            visual: "Flat list: the original direction",
             visualType: "flat-list-mockup",
           },
           {
             body: "A hierarchy from Organization to Column let users move from broad risk visibility to the exact field under investigation. The hierarchy won the test. We shipped the Explore flow before the POC.",
-            visual: "Hierarchy explorer — the shipped Explore module",
+            visual: "Hierarchy explorer: the shipped Explore module",
             visualType: "hierarchy-explorer",
           },
         ],
@@ -103,7 +103,7 @@ export const caseStudies: CaseStudy[] = [
               "A compliance leader at the Organization level sees coverage and risk.",
               "An IT admin at the Table level sees metadata, lineage, and scan history.",
             ],
-            visual: "Contextual inspector — level-aware details",
+            visual: "Contextual inspector: level-aware details",
             visualType: "inspector-explorer",
           },
           {
@@ -113,7 +113,7 @@ export const caseStudies: CaseStudy[] = [
               "Cron expressions show as plain-English descriptions on hover.",
               "Workflow IDs copy with one click for log investigation.",
             ],
-            visual: "Scan workflow operations — triage view",
+            visual: "Scan workflow operations: triage view",
             visualType: "scan-workflow",
           },
           {
@@ -123,7 +123,7 @@ export const caseStudies: CaseStudy[] = [
               "The first catalogue scan moved into the onboarding flow itself.",
               "The admin connects a source and immediately sees data, without returning to a separate screen.",
             ],
-            visual: "Asset onboarding — connector selection and first scan",
+            visual: "Asset onboarding: connector selection and first scan",
             visualType: "onboarding-flow",
           },
         ],

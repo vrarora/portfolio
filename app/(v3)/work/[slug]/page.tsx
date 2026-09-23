@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ReadingPage } from "@/components/case-study/ReadingPage";
+import { Reader } from "@/components/v3/reader/Reader";
 import { caseStudies } from "@/content/case-studies";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -33,7 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
-  if (!study) notFound();
-  return <ReadingPage study={study} />;
+  const index = caseStudies.findIndex((s) => s.slug === slug);
+  if (index < 0) notFound();
+  const next = caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
+  return <Reader study={caseStudies[index]} next={next} />;
 }

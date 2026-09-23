@@ -1,0 +1,86 @@
+/* Shared by the v3 home page and the case-study reader. */
+
+.v3 {
+  --v3-col: 560px;
+  --v3-gutter: clamp(20px, 5vw, 32px);
+  --v3-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-feature-default);
+}
+
+.v3 a {
+  color: inherit;
+}
+
+.v3 :focus-visible {
+  outline: 1.5px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.v3-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Bloom ------------------------------------------------------------------- */
+
+.bloom {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--b-base);
+}
+
+.bloom::before,
+.bloom::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(28px);
+}
+
+.bloom::before {
+  background:
+    radial-gradient(38% 42% at 24% 30%, var(--b-a), transparent 70%),
+    radial-gradient(34% 40% at 80% 72%, var(--b-b), transparent 70%);
+}
+
+.bloom::after {
+  background: radial-gradient(32% 36% at 62% 22%, var(--b-c), transparent 70%);
+  opacity: 0.85;
+}
+
+.bloom--live::before {
+  animation: bloom-drift 22s ease-in-out infinite alternate;
+}
+
+.bloom--live::after {
+  animation: bloom-drift 28s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes bloom-drift {
+  from {
+    transform: translate3d(-5%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(5%, 4%, 0) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom--live::before,
+  .bloom--live::after {
+    animation: none;
+  }
+}

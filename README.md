@@ -35,8 +35,10 @@ CONVEX_AGENT_MODE=anonymous npx convex dev
 ## Layout of the code
 
 ```
-app/                 routes; (site) carries the shell (sky, header, footer, controls)
-  (site)/            home (work, writing, notes drawer), /work/[slug], /admin/notes;
+app/                 routes
+  (v3)/              home and the /work/[slug] case-study reader, in a quiet shell
+  story/             the illustrated scroll story (canvas, its own chrome)
+  (site)/            v2 shell (sky, header, footer, controls): /admin/notes;
                      /work and /writing redirect to home anchors
   case-studies/      legacy URLs, redirect to /work/[slug]
   mockups/ covers/ playground/   standalone artifacts, no site chrome
