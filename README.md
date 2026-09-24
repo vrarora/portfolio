@@ -37,6 +37,7 @@ CONVEX_AGENT_MODE=anonymous npx convex dev
 ```
 app/                 routes
   (v3)/              home and the /work/[slug] case-study reader, in a quiet shell
+                     with the hour sky, click sounds and a custom cursor
   story/             the illustrated scroll story (canvas, its own chrome)
   (site)/            v2 shell (sky, header, footer, controls): /admin/notes;
                      /work and /writing redirect to home anchors

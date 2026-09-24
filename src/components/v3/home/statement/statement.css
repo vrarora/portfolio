@@ -1,0 +1,398 @@
+/* What I do: body text that fills as it is read, after anirudh.info. */
+
+.st {
+  --st-faint: 0.32;
+  --st-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --st-rgb: 86 85 85;
+}
+
+/* Without script the text stays dark; once live, each word waits faint until it is read. */
+.st.is-live [data-word] {
+  --read: 0;
+}
+
+.st-word {
+  color: rgb(var(--st-rgb) / calc(var(--st-faint) + (1 - var(--st-faint)) * var(--read, 1)));
+}
+
+.st-run {
+  white-space: nowrap;
+}
+
+/* Scribble ------------------------------------------------------------------ */
+
+.st-scribble-wrap {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.08em;
+  vertical-align: -0.1em;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(-12px) scale(0.96);
+  transition:
+    opacity 0.56s var(--st-ease),
+    transform 0.56s var(--st-ease),
+    filter 0.56s var(--st-ease);
+}
+
+.st-scribble-wrap[data-on],
+.st:not(.is-live) .st-scribble-wrap {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.st-scribble {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.st-scribble path {
+  fill: none;
+  stroke: #1c1b1a;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Desirable tag: the word turns serif inside a selection box with corner handles. */
+.st-tag {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  color: rgb(var(--st-rgb) / calc(var(--st-faint) + (1 - var(--st-faint)) * var(--read, 1)));
+  filter: blur(1.4px);
+  transform: translateX(-6px) rotate(-1deg);
+  transition:
+    transform 0.6s var(--st-ease),
+    filter 0.6s var(--st-ease),
+    color 0.6s var(--st-ease),
+    padding 0.6s var(--st-ease);
+}
+
+.st-tag::before,
+.st-tag::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s var(--st-ease) 0.08s;
+}
+
+.st-tag::before {
+  inset: 0.14em 0 0.06em;
+  border: 1px solid #111;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* Four square handles, one painted into each corner of a box just outside the frame. */
+.st-tag::after {
+  inset: calc(0.14em - 2.5px) -2.5px calc(0.06em - 2.5px);
+  background:
+    linear-gradient(#111 0 0) left top / 5px 5px no-repeat,
+    linear-gradient(#111 0 0) right top / 5px 5px no-repeat,
+    linear-gradient(#111 0 0) left bottom / 5px 5px no-repeat,
+    linear-gradient(#111 0 0) right bottom / 5px 5px no-repeat;
+}
+
+.st-tag[data-on],
+.st:not(.is-live) .st-tag {
+  padding: 0 0.2em;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #111;
+  filter: none;
+  transform: none;
+}
+
+.st-tag[data-on]::before,
+.st-tag[data-on]::after,
+.st:not(.is-live) .st-tag::before,
+.st:not(.is-live) .st-tag::after {
+  opacity: 1;
+}
+
+/* People ---------------------------------------------------------------------- */
+
+.st-people {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: rgb(var(--st-rgb) / calc(var(--st-faint) + (1 - var(--st-faint)) * var(--read, 1)));
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.st-people:hover {
+  color: var(--ink);
+  transform: translateY(-0.02em);
+}
+
+.st-people:active {
+  transform: scale(0.985);
+}
+
+/* Logo stack -------------------------------------------------------------------- */
+
+.st-stack {
+  --tile: 1.5em;
+
+  position: relative;
+  display: inline-block;
+  width: var(--tile);
+  height: var(--tile);
+  margin: 0 0.18em 0 0.26em;
+  vertical-align: -0.42em;
+  perspective: 260px;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(-12px) scale(0.96);
+  transition:
+    opacity 0.6s var(--st-ease),
+    transform 0.6s var(--st-ease),
+    filter 0.6s var(--st-ease);
+}
+
+.st-stack[data-on],
+.st:not(.is-live) .st-stack {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.st-tile {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1.5px solid #fff;
+  border-radius: 0.34em;
+  background: var(--tint, #fff);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.06), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.54s var(--st-ease),
+    box-shadow 0.54s var(--st-ease);
+}
+
+.st-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.st-tile[data-depth="0"] {
+  z-index: 3;
+  transform: none;
+}
+
+.st-tile[data-depth="1"] {
+  z-index: 2;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  transform: translate(-5px, -4px) rotate(-11deg);
+}
+
+.st-tile[data-depth="2"] {
+  z-index: 1;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  transform: translate(-6px, -1px) rotate(11deg);
+}
+
+.st-stack:hover .st-tile[data-depth="0"],
+.st-stack:focus-visible .st-tile[data-depth="0"] {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+
+.st-stack:hover .st-tile[data-depth="1"] {
+  transform: translate(-5px, -4px) rotate(-12deg);
+}
+
+.st-stack:hover .st-tile[data-depth="2"] {
+  transform: translate(-5px, -1px) rotate(12deg);
+}
+
+/* Two identical keyframes so every press restarts the flip. */
+.st-tile[data-flip="0"] {
+  animation: st-flip-a 0.9s var(--st-ease);
+}
+
+.st-tile[data-flip="1"] {
+  animation: st-flip-b 0.9s var(--st-ease);
+}
+
+@keyframes st-flip-a {
+  0% {
+    transform: translate(-4px, -1px) rotate(10deg);
+  }
+  45% {
+    transform: translate(3px, -0.5em) rotate(-8deg) scale(1.08);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes st-flip-b {
+  0% {
+    transform: translate(-4px, -1px) rotate(10deg);
+  }
+  45% {
+    transform: translate(3px, -0.5em) rotate(-8deg) scale(1.08);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.st-stack::after {
+  content: attr(data-company);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 30;
+  padding: 6px 10px 7px;
+  border-radius: 999px;
+  background: rgba(5, 5, 5, 0.94);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 0.22s var(--st-ease),
+    transform 0.22s var(--st-ease);
+}
+
+.st-stack:hover::after,
+.st-stack:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.v3 .st-stack:focus-visible {
+  outline: none;
+}
+
+.st-stack:focus-visible .st-tile[data-depth="0"] {
+  box-shadow: 0 0 0 2px #111;
+}
+
+/* People field ------------------------------------------------------------------ */
+
+html.is-people-open {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+html.is-people-open .hm-sheet,
+html.is-people-open .hm-contact,
+html.is-people-open .v3-controls {
+  filter: blur(7px);
+  opacity: 0.72;
+  pointer-events: none;
+  transition:
+    filter 0.26s ease,
+    opacity 0.26s ease;
+}
+
+.pf {
+  position: fixed;
+  inset: 0;
+  z-index: 92;
+}
+
+.pf-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(253, 252, 252, 0.42);
+  opacity: 0;
+  transition: opacity 0.26s ease;
+}
+
+.pf[data-visible] .pf-scrim {
+  opacity: 1;
+}
+
+.pf-word {
+  position: fixed;
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #111;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.13em;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.6), 0 0 18px rgba(255, 255, 255, 0.8);
+}
+
+.pf-word:hover {
+  color: rgb(17 17 17 / 0.7);
+}
+
+.pf-card {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: clamp(112px, 12vw, 176px);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow:
+    0 18px 40px rgba(17, 17, 17, 0.1),
+    0 2px 6px rgba(17, 17, 17, 0.05);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(calc(var(--s) * 0.72)) rotate(calc(var(--r) - 4deg));
+  transition:
+    opacity 0.24s ease var(--delay),
+    transform 0.4s var(--st-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay);
+}
+
+.pf[data-visible] .pf-card {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(var(--s)) rotate(var(--r));
+}
+
+.pf-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 620px) {
+  .pf-card {
+    width: clamp(78px, 24vw, 104px);
+  }
+
+  .st-stack::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st-scribble-wrap,
+  .st-tag,
+  .st-stack,
+  .st-tile,
+  .pf-card,
+  .pf-scrim {
+    transition: none;
+    animation: none;
+  }
+}

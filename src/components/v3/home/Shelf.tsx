@@ -12,7 +12,7 @@ export function Shelf() {
   const [active, setActive] = useState<ShelfRecord | null>(null);
 
   return (
-    <section id="work" className="hm-shelf hm-col" aria-labelledby="hm-shelf-title">
+    <section id="work" className="hm-section hm-shelf" aria-labelledby="hm-shelf-title">
       <h2 id="hm-shelf-title" className="hm-label">
         Projects
       </h2>
@@ -50,9 +50,7 @@ export function Shelf() {
             <span>{active.line}</span>
             <em>{active.meta}</em>
           </>
-        ) : (
-          <span className="hm-detail-hint">Pick a record</span>
-        )}
+        ) : null}
       </div>
     </section>
   );

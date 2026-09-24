@@ -1,12 +1,13 @@
-/** Persisted audio preferences. Cuelume and the ambient engine read these; nothing autoplays. */
+/** Persisted audio preferences. UI sounds are on until the visitor turns them off; ambient music never autoplays. */
 export const PREF_SOUNDS = "vp.settings.uiSounds";
 export const PREF_AMBIENT = "vp.settings.ambient";
 
-function read(key: string) {
+function read(key: string, fallback = false) {
   try {
-    return window.localStorage.getItem(key) === "1";
+    const value = window.localStorage.getItem(key);
+    return value === null ? fallback : value === "1";
   } catch {
-    return false;
+    return fallback;
   }
 }
 
@@ -19,7 +20,7 @@ function write(key: string, value: boolean) {
 }
 
 export const audioPrefs = {
-  soundsEnabled: () => read(PREF_SOUNDS),
+  soundsEnabled: () => read(PREF_SOUNDS, true),
   setSoundsEnabled: (v: boolean) => write(PREF_SOUNDS, v),
   ambientWanted: () => read(PREF_AMBIENT),
   setAmbientWanted: (v: boolean) => write(PREF_AMBIENT, v),

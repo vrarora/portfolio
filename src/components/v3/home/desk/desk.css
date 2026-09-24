@@ -1,0 +1,19 @@
+/* Desk scene: a risograph print pinned to the page. */
+
+.ds {
+  width: min(600px, calc(100% - 2 * var(--v3-gutter)));
+  margin: clamp(80px, 12vh, 120px) auto 0;
+  padding: 14px;
+  background: #f6f0e4;
+  box-shadow:
+    0 1px 2px rgba(40, 30, 20, 0.08),
+    0 18px 40px rgba(40, 30, 20, 0.1);
+  transform: rotate(-0.8deg);
+}
+
+.ds canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}

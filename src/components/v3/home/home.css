@@ -1,42 +1,57 @@
+/* Home: a paper card floating on the live sky, after jaksenc.com/about and anirudh.info, set in Inter. */
+
 .hm {
+  --hm-col: 552px;
+  --hm-paper: #fbfbfb;
+  --hm-body: #565555;
+  --hm-underline: #c4c4c4;
+  --hm-edge: 12px;
+
   position: relative;
-  overflow-x: clip;
+  z-index: 0;
+  isolation: isolate;
+}
+
+/* Negative-z sky stays inside this stacking context, above the shell's paper. */
+.hm .fx-sky {
+  z-index: -1;
+}
+
+.hm-sheet {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100svh - 2 * var(--hm-edge));
+  margin: var(--hm-edge);
+  overflow: clip;
+  border-radius: 16px;
+  background: var(--hm-paper);
+  box-shadow:
+    0 0 0 1px rgba(30, 42, 55, 0.05),
+    0 18px 50px rgba(10, 12, 30, 0.12);
+  transition:
+    filter 0.26s ease,
+    opacity 0.26s ease;
 }
 
 .hm-col {
-  position: relative;
-  z-index: 1;
-  width: min(var(--v3-col), 100% - 2 * var(--v3-gutter));
+  width: min(var(--hm-col), 100% - 2 * var(--v3-gutter));
   margin-inline: auto;
-}
-
-/* A soft light over the top of the page that fades into the paper. */
-.hm-bloom {
-  position: absolute;
-  inset: 0 0 auto;
-  height: min(86vh, 820px);
-  opacity: 0.7;
-  mask-image: linear-gradient(to bottom, #000 25%, transparent);
-  pointer-events: none;
+  padding-top: clamp(64px, 11vh, 96px);
 }
 
 /* Hero ---------------------------------------------------------------------- */
 
-.hm-hero {
-  padding-top: clamp(72px, 16vh, 150px);
-}
-
 .hm-stamp {
   display: inline-block;
   transform: rotate(-4deg);
-  filter: drop-shadow(0 6px 12px rgba(40, 30, 60, 0.16));
+  filter: drop-shadow(0 4px 8px rgba(40, 30, 60, 0.14));
 }
 
-/* Perforated edges: holes sit on the border every 8px, so the paper is 96px, a multiple of 8. */
+/* Perforated edges: holes sit on the border every 8px, so the paper is 72px, a multiple of 8. */
 .hm-stamp-paper {
   display: block;
-  width: 96px;
-  height: 96px;
+  width: 72px;
+  height: 72px;
   padding: 6px;
   background: #fffdf8;
   mask:
@@ -46,43 +61,41 @@
 
 .hm-stamp-paper img {
   display: block;
-  width: 84px;
-  height: 84px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
 }
 
 .hm-id {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px 24px;
-  margin-top: 22px;
+  gap: 8px 24px;
+  margin-top: 20px;
 }
 
 .hm-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.hm-role {
-  margin: 2px 0 0;
-  font-size: 15px;
-  color: var(--ink-3);
-  letter-spacing: -0.01em;
+  line-height: 22px;
+  letter-spacing: -0.006em;
 }
 
 .hm-meta {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
-  color: var(--ink-2);
+  font-size: 13px;
+  color: var(--ink-3);
 }
 
 .hm-meta li {
@@ -102,9 +115,9 @@
   width: 28px;
   height: 28px;
   margin: -6px;
-  border-radius: 50%;
-  color: var(--ink-2);
-  transition: color 160ms ease, background-color 160ms ease;
+  border-radius: 6px;
+  color: var(--ink-3);
+  transition: color 140ms ease, background-color 140ms ease;
 }
 
 .hm-icon:hover {
@@ -112,74 +125,483 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-/* Narrative ----------------------------------------------------------------- */
+/* Hover cards ------------------------------------------------------------------ */
 
-.hm-narrative {
-  margin-top: clamp(96px, 20vh, 190px);
-}
-
-.hm-narrative p {
-  margin: 0 0 1.1em;
-  font-size: clamp(24px, 3.3vw, 32px);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.042em;
-  text-wrap: pretty;
-}
-
-/* Without script the text stays dark; once live, each word waits faint until it is read. */
-.hm-narrative .is-live [data-word] {
-  --read: 0.28;
-}
-
-.hm-word {
-  color: rgb(17 17 17 / var(--read, 1));
-}
-
-.hm-logos {
+.hm-trigger {
   display: inline-flex;
-  vertical-align: -0.16em;
-  margin-inline: 0.04em;
-  opacity: var(--read, 1);
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  margin: 0 -6px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font: inherit;
+  color: inherit;
+  transition: color 140ms ease, background-color 140ms ease;
 }
 
-.hm-logos img {
-  width: 1.04em;
-  height: 1.04em;
+.hm-trigger:hover,
+.hm-trigger[aria-expanded="true"] {
+  color: var(--ink);
+}
+
+.hc {
+  position: relative;
+  display: inline-flex;
+}
+
+.hc-card {
+  position: absolute;
+  top: calc(100% + 12px);
+  z-index: 30;
+  display: block;
+  border-radius: 14px;
+  background: #202124;
+  box-shadow:
+    0 18px 40px rgba(10, 10, 20, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.006em;
+  color: #f2f2f0;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-4px) scale(0.98);
+  transform-origin: top center;
+  transition:
+    opacity 160ms ease,
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 200ms;
+}
+
+/* A bridge over the gap, so the pointer can move from the trigger into the card. */
+.hc-card::before {
+  content: "";
+  position: absolute;
+  inset: -14px 0 auto;
+  height: 14px;
+}
+
+.hc-card[data-open] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.hc-card--start {
+  left: -40px;
+  transform-origin: top left;
+}
+
+.hc-card--center {
+  left: 50%;
+  translate: -50% 0;
+}
+
+.hc-card--end {
+  right: -8px;
+  transform-origin: top right;
+}
+
+.hc-muted {
+  color: rgba(242, 242, 240, 0.55);
+}
+
+/* Location: his photo pinned on a map of the city. */
+.hc-map {
+  width: 300px;
+  padding: 5px;
+}
+
+.hc-map-art {
+  position: relative;
+  display: block;
+  height: 176px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.map-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hc-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 0;
+  height: 0;
+}
+
+.hc-pin img {
+  position: absolute;
+  width: 48px;
+  max-width: none;
+  height: 48px;
+  border: 3px solid #fff;
   border-radius: 50%;
   object-fit: cover;
-  background: #fff;
-  box-shadow: 0 0 0 2px var(--paper), 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-.hm-logos img + img {
-  margin-left: -0.3em;
+.hc-pin-ring {
+  position: absolute;
+  width: 116px;
+  height: 116px;
+  border: 1px solid rgba(110, 150, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(80, 120, 255, 0.18);
+  animation: hc-ring 2.8s ease-in-out infinite;
+}
+
+@keyframes hc-ring {
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+.hc-caption {
+  display: block;
+  padding: 12px 14px 9px;
+}
+
+/* Time: the same moment across a few cities. */
+.hc-clock {
+  width: 272px;
+  padding: 12px 8px 8px;
+}
+
+.wc,
+.wc-head,
+.wc-row {
+  display: block;
+}
+
+.wc-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 10px 10px;
+}
+
+.wc-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 44px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: rgba(242, 242, 240, 0.72);
+}
+
+.wc-row[data-home] {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.wc-time {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Email: a plain label. */
+.hc-tip {
+  padding: 9px 14px;
+  white-space: nowrap;
+}
+
+/* Resume: the first page, and a way to take it with you. */
+.hc-resume {
+  width: 236px;
+  padding: 5px;
+}
+
+.hc-resume-page {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 360 / 466;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.hc-resume-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 9px 7px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.hc-resume-row:hover span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 620px) {
+  .hc-card--center {
+    left: -40px;
+    translate: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-card,
+  .hc-pin-ring {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Sections ------------------------------------------------------------------ */
+
+.hm-section {
+  margin-top: 72px;
+}
+
+.hm-hero + .hm-section {
+  margin-top: 88px;
+}
+
+.hm-label {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.hm-section p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: -0.006em;
+  color: var(--hm-body);
+  text-wrap: pretty;
 }
 
 .hm-link {
   text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: rgb(17 17 17 / 0.22);
-  text-underline-offset: 0.16em;
-  transition: text-decoration-color 160ms ease;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--hm-underline);
+  text-underline-offset: 3px;
+  transition: color 140ms ease, text-decoration-color 140ms ease;
 }
 
 .hm-link:hover {
+  color: var(--ink);
   text-decoration-color: currentColor;
 }
 
+/* Who I am reads as prose, so its paragraphs sit a full line apart. */
+.hm-prose p {
+  margin-bottom: 20px;
+}
+
+/* Anchors the term tooltip on narrow screens. */
+.hm-upto {
+  position: relative;
+}
+
+/* Smaller notes under an up-to line, set on a soft dot. */
+.hm-notes {
+  margin: -4px 0 14px;
+  padding: 0 0 0 14px;
+  list-style: none;
+}
+
+.hm-notes li {
+  position: relative;
+  margin-bottom: 6px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--hm-body);
+}
+
+.hm-notes li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: -12px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+
+/* A term with a dashed underline; its explanation floats above on hover or focus. */
+.hm-term {
+  position: relative;
+  display: inline;
+}
+
+.hm-term-trigger {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline dashed;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--hm-underline);
+  text-underline-offset: 3px;
+  transition: color 140ms ease, text-decoration-color 140ms ease;
+}
+
+.hm-term-trigger:hover,
+.hm-term-trigger:focus-visible {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+
+.hm-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 4;
+  width: max-content;
+  max-width: 240px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #1b1b1a;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+  font-size: 12px;
+  line-height: 1.45;
+  color: #f4f4f2;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 140ms ease,
+    transform 180ms var(--v3-ease),
+    visibility 0s linear 180ms;
+  pointer-events: none;
+}
+
+.hm-term:hover .hm-tip,
+.hm-term-trigger:focus + .hm-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition-delay: 0s;
+}
+
+/* Learn more: the row track grows from 0fr to 1fr, so the text opens to its own height. */
+.hm-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 420ms var(--v3-ease),
+    opacity 280ms ease;
+}
+
+.hm-more[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.hm-more-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.hm-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--hm-body);
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.hm-toggle:hover {
+  color: var(--ink);
+}
+
+.hm-toggle svg {
+  transition: transform 280ms var(--v3-ease);
+}
+
+.hm-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* Find me ------------------------------------------------------------------- */
+
+.hm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 144px);
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 16px;
+  border-radius: 8px;
+  background: #f0f1ef;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.hm-card:hover {
+  background: #e7e8e5;
+}
+
+.hm-card-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.006em;
+  color: var(--ink);
+}
+
+.hm-card-line {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ink-3);
+}
+
+.hm-card-arrow {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  color: var(--ink-3);
+  transition: transform 160ms var(--v3-ease), color 160ms ease;
+}
+
+.hm-card:hover .hm-card-arrow {
+  color: var(--ink);
+  transform: translate(1px, -1px);
+}
+
 /* Shelf --------------------------------------------------------------------- */
-
-.hm-shelf {
-  margin-top: clamp(80px, 14vh, 150px);
-}
-
-.hm-label {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-}
 
 .hm-records {
   display: flex;
@@ -319,42 +741,28 @@
   color: var(--ink-3);
 }
 
-.hm-detail .hm-detail-hint {
-  color: var(--ink-4);
-}
-
-/* Footer -------------------------------------------------------------------- */
-
-.hm-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: clamp(96px, 16vh, 160px);
-  padding: 24px 0 40px;
-  border-top: 1px solid var(--hairline);
-  font-size: 13px;
-  color: var(--ink-3);
-}
-
-.hm-foot p {
-  margin: 0;
-}
-
-.hm-foot nav {
-  display: flex;
-  gap: 18px;
-}
-
-.hm-foot a {
-  text-decoration: none;
-  transition: color 160ms ease;
-}
-
-.hm-foot a:hover {
-  color: var(--ink);
-}
-
 @media (max-width: 620px) {
+  .hm-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Centred on the term, the tooltip can run off a phone's edge; here it spans the column instead. */
+  .hm-term {
+    position: static;
+  }
+
+  .hm-tip {
+    left: 0;
+    width: auto;
+    max-width: none;
+    transform: translateY(4px);
+  }
+
+  .hm-term:hover .hm-tip,
+  .hm-term-trigger:focus + .hm-tip {
+    transform: none;
+  }
+
   .hm-records {
     margin-inline: calc(-1 * var(--v3-gutter));
     padding: 24px 40px 28px var(--v3-gutter);
@@ -389,7 +797,250 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hm-sleeve,
-  .hm-disc {
+  .hm-disc,
+  .hm-more,
+  .hm-toggle svg,
+  .hm-tip {
     transition: none;
+  }
+}
+
+/* Card footer -------------------------------------------------------------------- */
+
+.cf {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(56px, 9vh, 88px);
+  padding: 22px clamp(20px, 3vw, 32px);
+  border-top: 1px solid var(--hairline);
+}
+
+/* The signature writes left to right, as a pen would. */
+.cf-sign {
+  justify-self: start;
+  margin: 0;
+  padding: 0 8px 0 2px;
+  font-size: 40px;
+  line-height: 1;
+  color: #1c1b1a;
+  clip-path: inset(-20% 100% -20% 0);
+  transition: clip-path 1.6s cubic-bezier(0.55, 0.1, 0.35, 1) 0.2s;
+}
+
+.cf-sign[data-signed] {
+  clip-path: inset(-20% -10% -20% 0);
+}
+
+.cf-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.cf-nav a {
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.cf-nav a:hover {
+  color: var(--ink);
+}
+
+.cf-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+
+.cf-social {
+  display: flex;
+  justify-self: end;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-social a {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: var(--ink-3);
+  transition: color 140ms ease, background-color 140ms ease;
+}
+
+.cf-social a:hover {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Contact sky ---------------------------------------------------------------------- */
+
+.hm-contact {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 62svh;
+  padding: 64px var(--v3-gutter) 96px;
+  text-align: center;
+}
+
+.hm-contact-copy {
+  max-width: 34em;
+  margin: 0;
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, var(--sky-ink) 55%, transparent);
+  transition: color 1.2s ease;
+}
+
+.hm-contact-copy a {
+  color: var(--sky-ink);
+  text-decoration: none;
+  transition: opacity 140ms ease;
+}
+
+.hm-contact-copy a:hover {
+  opacity: 0.75;
+}
+
+/* Sky scrub: an icon for the live sky and a tick for each hour of the day. */
+.ss {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px 0 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sky-zenith) 70%, rgba(0, 0, 0, 0.4));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 6px 18px rgba(0, 0, 0, 0.18);
+  color: #fff;
+}
+
+.ss-live {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  transition: background-color 140ms ease;
+}
+
+.ss-live:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ss-live-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffd966;
+}
+
+.ss-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 28px;
+  padding: 0 4px;
+  touch-action: none;
+}
+
+.ss-tick {
+  width: 1.5px;
+  height: 8px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.5);
+  transition:
+    height 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.24s ease;
+}
+
+.ss-tick[data-active] {
+  height: 16px;
+  width: 2px;
+  background: #fff;
+}
+
+.ss-track:hover .ss-tick:not([data-active]) {
+  height: 10px;
+}
+
+/* Controls ------------------------------------------------------------------------ */
+
+.v3-controls {
+  position: fixed;
+  top: calc(var(--hm-edge) + 12px);
+  right: calc(var(--hm-edge) + 12px);
+  z-index: 20;
+}
+
+.v3-sound {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.06);
+  color: var(--ink-2);
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.v3-sound:hover {
+  background: rgba(17, 17, 17, 0.1);
+  color: var(--ink);
+}
+
+.v3-sound[aria-pressed="false"] {
+  color: var(--ink-4);
+}
+
+@media (max-width: 720px) {
+  .cf {
+    grid-template-columns: 1fr auto;
+    row-gap: 18px;
+  }
+
+  .cf-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .hm {
+    --hm-edge: 0px;
+  }
+
+  .hm-sheet {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .v3-controls {
+    top: 12px;
+    right: 12px;
   }
 }
