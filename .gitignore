@@ -18,7 +18,6 @@ Context/
 Case Study Context/
 AGENTS.md
 HANDOFF.md
-docs/
 .impeccable.md
 .claude/*
 !.claude/skills/
