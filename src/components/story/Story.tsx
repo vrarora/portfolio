@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { StoryScene } from "./engine/scene";
-import { AFTER_BEATS, LINES, STORY_LENGTH_VH, afterProgress, afterToStory } from "./engine/timeline";
+import { AFTER_BEATS, LINES, STORY_LENGTH_VH, afterProgress } from "./engine/timeline";
 import { constellationBox } from "./engine/constellation";
 import { bump, clamp01, range } from "./engine/math";
 import { Soundscape } from "./audio/soundscape";
@@ -16,12 +16,6 @@ type LineRig = { el: HTMLElement; chars: HTMLElement[]; last: number[]; visible:
 
 const CHAR_SOFTNESS = 8;
 const MAX_DPR = 2;
-
-/** The Work link lands where he sets out to meet the people he designs for. */
-const WORK_AT = afterToStory(0.035);
-
-/** Scroll offset of a story fraction, as a top position inside the track. */
-const trackTop = (p: number) => `${p * (STORY_LENGTH_VH - 100)}vh`;
 
 export function Story() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -162,7 +156,9 @@ export function Story() {
       <canvas ref={canvasRef} className="story-canvas" aria-hidden="true" />
 
       <header className="story-bar">
-        <p className="story-name">Vaibhav Arora</p>
+        <Link className="story-name" href="/">
+          Vaibhav Arora
+        </Link>
         <nav className="story-actions" aria-label="Site">
           <button
             type="button"
@@ -179,9 +175,6 @@ export function Story() {
             </span>
             {soundOn ? "Sound on" : "Sound off"}
           </button>
-          <a className="story-work" href="#work">
-            Work
-          </a>
         </nav>
       </header>
 
@@ -213,9 +206,7 @@ export function Story() {
         </svg>
       </div>
 
-      <div className="story-track" style={{ height: `${STORY_LENGTH_VH}vh` }} aria-hidden="true">
-        <span id="work" className="story-anchor" style={{ top: trackTop(WORK_AT) }} />
-      </div>
+      <div className="story-track" style={{ height: `${STORY_LENGTH_VH}vh` }} aria-hidden="true" />
     </div>
   );
 }

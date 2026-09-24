@@ -36,6 +36,7 @@ export function LogoStack({ ids }: { ids: readonly LogoId[] }) {
       tabIndex={0}
       aria-label={`${active.alt}. Press to see the next company.`}
       data-word
+      data-click-sound="off"
       data-company={active.alt}
       onClick={next}
       onKeyDown={onKeyDown}

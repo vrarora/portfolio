@@ -75,6 +75,7 @@ export function Statement() {
         type="button"
         className="st-people"
         data-word
+        data-click-sound="off"
         aria-expanded={peopleOpen}
         aria-haspopup="dialog"
         onClick={openPeople}

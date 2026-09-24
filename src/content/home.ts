@@ -1,4 +1,4 @@
-import { caseStudies } from "./case-studies";
+import { caseStudies, type CaseStudy } from "./case-studies";
 import { siteLinks } from "./site-links";
 
 /**
@@ -26,8 +26,16 @@ export const hero = {
 export type LogoId = "idfy" | "ketto" | "wysa";
 
 /** Square marks cut from each wordmark, stacked as tiles in the statement; the tint shows through the mark's white. */
-export const LOGOS: Record<LogoId, { src: string; alt: string; tint: string }> = {
-  idfy: { src: "/images/logos/marks/idfy.png", alt: "IDfy", tint: "#fde9e7" },
+/** The full wordmark, for the project tile where a cropped mark would lose half the name. */
+type Wordmark = { src: string; width: number; height: number };
+
+export const LOGOS: Record<LogoId, { src: string; alt: string; tint: string; wordmark?: Wordmark }> = {
+  idfy: {
+    src: "/images/logos/marks/idfy.png",
+    alt: "IDfy",
+    tint: "#fde9e7",
+    wordmark: { src: "/images/logos/idfy.png", width: 1080, height: 653 },
+  },
   ketto: { src: "/images/logos/marks/ketto.png", alt: "Ketto", tint: "#e3f5f2" },
   wysa: { src: "/images/logos/marks/wysa.png", alt: "Wysa", tint: "#eceffd" },
 };
@@ -131,39 +139,45 @@ export const BLOOMS = {
 
 export type BloomName = keyof typeof BLOOMS;
 
-/** One sleeve on the project shelf. */
-export type ShelfRecord = {
+/** Icons drawn on the bloom tiles of personal work. */
+export type ProjectGlyph = "shapes" | "book";
+
+/** The mark that floats beside a hovered project row: a company logo, or a bloom with an icon for personal work. */
+export type ProjectMark = { logo: LogoId } | { bloom: BloomName; glyph: ProjectGlyph };
+
+/** One row in the Projects list. */
+export type ProjectRow = {
   id: string;
+  year: string;
   title: string;
-  line: string;
-  meta: string;
+  role: string;
   href: string;
-  bloom: BloomName;
-  /** Tilt of the sleeve on the shelf, in degrees. */
-  tilt: number;
-  image?: string;
+  mark: ProjectMark;
 };
 
-const LINES: Record<string, string> = {
-  "data-compass": "A three-week bank POC that became IDfy's first enterprise data client.",
-  "design-repo": "Design that runs, so a pull became the handoff.",
-  equalall: "Designing a gift against a fading feeling.",
+const COMPANY_LOGOS: Partial<Record<string, LogoId>> = {
+  "data-compass": "idfy",
+  "design-repo": "idfy",
+  equalall: "ketto",
 };
 
-const TILTS = [-3, 2, -2, 3, -1];
+const markOf = (study: CaseStudy): ProjectMark => {
+  const logo = COMPANY_LOGOS[study.slug];
+  return logo ? { logo } : { bloom: study.workAccent, glyph: "book" };
+};
 
-const shelf: readonly Omit<ShelfRecord, "tilt">[] = [
+const roleOf = (study: CaseStudy) =>
+  study.metadata.find((item) => item.label === "Role")?.value ?? "Case study";
+
+export const projects: readonly ProjectRow[] = [
   ...caseStudies.map((study) => ({
     id: study.slug,
+    year: study.year,
     title: study.homeBrand,
-    line: LINES[study.slug] ?? study.summary,
-    meta: `Case study · ${study.year}`,
+    role: roleOf(study),
     href: `/work/${study.slug}/`,
-    bloom: study.workAccent,
-    image: study.thumbnailImage,
+    mark: markOf(study),
   })),
-  { id: "playground", title: "Playground", line: "Small things made on quiet nights, to see what would happen.", meta: "Experiments", href: "/playground/", bloom: "dusk" },
-  { id: "story", title: "A story", line: "A boy from a busy street in Bikaner.", meta: "Scroll story", href: "/story/", bloom: "night" },
+  { id: "playground", year: "2026", title: "Playground", role: "Experiment Lab", href: "/playground/", mark: { bloom: "dusk", glyph: "shapes" } },
+  { id: "story", year: "2026", title: "My Story", role: "Autobiography", href: "/story/", mark: { bloom: "night", glyph: "book" } },
 ];
-
-export const records: readonly ShelfRecord[] = shelf.map((record, i) => ({ ...record, tilt: TILTS[i % TILTS.length] }));

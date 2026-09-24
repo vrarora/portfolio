@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { AudioProvider } from "@/components/audio/AudioProvider";
 import { SkyProvider } from "@/components/effects/SkyProvider";
+import { ClickFeedback } from "@/components/v3/ClickFeedback";
 import { CustomCursor } from "@/components/v3/CustomCursor";
 import "@/styles/typography.css";
 import "@/styles/utilities.css";
@@ -14,6 +15,7 @@ export default function V3Layout({ children }: { children: ReactNode }) {
       <AudioProvider>
         <div className="v3">
           {children}
+          <ClickFeedback />
           <CustomCursor />
         </div>
       </AudioProvider>

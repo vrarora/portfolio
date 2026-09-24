@@ -5,7 +5,7 @@ import type { CaseStudy } from "@/content/case-studies";
 import type { BloomName } from "@/content/home";
 import { Bloom } from "../Bloom";
 import { readerMono } from "./fonts";
-import { outline, readingMinutes, type OutlineFigure } from "./outline";
+import { outline, type OutlineFigure } from "./outline";
 import { Rail } from "./Rail";
 import { ReaderVisual } from "./ReaderVisual";
 import "./reader.css";
@@ -48,7 +48,7 @@ function Figure({ figure, bloom, metrics }: { figure: OutlineFigure; bloom: Bloo
   );
 }
 
-/** A case study laid out like a long note: a floating contents rail beside one narrow column of reading. */
+/** A case study laid out like a long note: a floating contents rail beside one column of reading. */
 export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) {
   const sections = outline(study);
   const bloom = study.workAccent;
@@ -57,7 +57,7 @@ export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) 
     ...sections.map((s, i) => ({
       id: s.id,
       label: `${i + 1}. ${s.kicker}`,
-      subs: s.figures.map((f) => ({ id: f.id, label: f.label })),
+      subs: s.figures.flatMap((f) => (f.label ? [{ id: f.id, label: f.label }] : [])),
     })),
   ];
 
@@ -72,16 +72,12 @@ export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) 
       <article id={DOC_ID} className="rd-doc">
         <header id="overview" className="rd-head" tabIndex={-1}>
           <h1>{study.title}</h1>
-          <p className="rd-sub">
-            {study.eyebrow} · {readingMinutes(study)} min read
-          </p>
-          <p className="rd-summary">{study.summary}</p>
         </header>
 
         {study.thumbnailImage ? (
           <figure className="rd-fig rd-fig--cover">
             <Bloom name={bloom} live className="rd-fig-stage">
-              <Image className="rd-cover" src={study.thumbnailImage} alt={`${study.homeBrand}, the product`} width={1440} height={900} sizes="(max-width: 960px) 100vw, 550px" priority />
+              <Image className="rd-cover" src={study.thumbnailImage} alt={`${study.homeBrand}, the product`} width={1440} height={900} sizes="(max-width: 960px) 100vw, 832px" priority />
             </Bloom>
           </figure>
         ) : null}

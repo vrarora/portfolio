@@ -35,6 +35,7 @@ export function WhoIAm() {
       <button
         type="button"
         className="hm-toggle"
+        data-click-sound="off"
         aria-expanded={open}
         aria-controls={moreId}
         onClick={() => {

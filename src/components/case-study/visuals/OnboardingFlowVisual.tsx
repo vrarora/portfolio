@@ -180,7 +180,7 @@ export default function OnboardingFlowVisual() {
   const cursorY = cursorFy * h;
 
   return (
-    <div ref={wrapRef} style={{ background: "#eef0f2", borderRadius: 10, padding: "20px 24px 16px" }}>
+    <div ref={wrapRef}>
       <div
         ref={containerRef}
         style={{
@@ -297,7 +297,7 @@ export default function OnboardingFlowVisual() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: 12,
+          padding: "12px 0",
         }}
       >
         <div

@@ -13,6 +13,7 @@ export function SoundToggle() {
     <button
       type="button"
       className="v3-sound"
+      data-click-sound="off"
       aria-pressed={soundsOn}
       aria-label={soundsOn ? "Turn sounds off" : "Turn sounds on"}
       onClick={() => setSoundsOn(!soundsOn)}

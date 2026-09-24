@@ -135,6 +135,18 @@ html.has-custom-cursor :is(input, textarea, [contenteditable="true"]) {
   }
 }
 
+/* Click spark -------------------------------------------------------------- */
+
+.v3-spark {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483645;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
 /* Ink marks ---------------------------------------------------------------- */
 
 .ink {

@@ -1,6 +1,8 @@
 import { play, setEnabled, setVolume } from "cuelume";
 import type { SoundName } from "cuelume";
 
+import { setTapLevel } from "./tap";
+
 export type Cue =
   | "tick" | "press" | "release" | "page" | "toggle" | "chime"
   | "success" | "error" | "loading" | "ready" | "sparkle" | "arrival";
@@ -35,6 +37,10 @@ export function cue(name: Cue) {
   play(MAP[name]);
 }
 
+export function cuesEnabled() {
+  return enabled;
+}
+
 export function setCuesEnabled(value: boolean) {
   enabled = value;
   setEnabled(value);
@@ -43,4 +49,5 @@ export function setCuesEnabled(value: boolean) {
 /** Cues sit under the music while it plays. */
 export function setCuesUnderMusic(musicPlaying: boolean) {
   setVolume(musicPlaying ? 0.35 : 0.5);
+  setTapLevel(musicPlaying ? 0.7 : 1);
 }

@@ -11,7 +11,7 @@ import { signatureFont } from "./signatureFont";
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/#work" },
-  { label: "Story", href: "/story/" },
+  { label: "My Story", href: "/story/" },
   { label: "Playground", href: "/playground/" },
 ] as const;
 

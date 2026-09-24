@@ -155,7 +155,7 @@ export default function ScanWorkflowVisual() {
   const cursorY = cursorFy * h;
 
   return (
-    <div ref={wrapRef} style={{ background: "#eef0f2", borderRadius: 10, padding: "20px 24px 16px" }}>
+    <div ref={wrapRef}>
 
       {/* ── Mockup image + zoom ── */}
       <div
@@ -258,14 +258,14 @@ export default function ScanWorkflowVisual() {
         )}
       </div>
 
-      {/* ── Label — sits in grey area below the mockup ── */}
+      {/* ── Label — sits below the mockup ── */}
       <div
         style={{
           minHeight: 32,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: 12,
+          padding: "12px 0",
         }}
       >
         <div

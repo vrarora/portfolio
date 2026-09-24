@@ -2,7 +2,7 @@
 
 .hm {
   --hm-col: 552px;
-  --hm-paper: #fbfbfb;
+  --hm-paper: #fff;
   --hm-body: #565555;
   --hm-underline: #c4c4c4;
   --hm-edge: 12px;
@@ -313,10 +313,39 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Email: a plain label. */
-.hc-tip {
-  padding: 9px 14px;
+/* Email: the address, and a button that copies it. */
+.hc-email {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 5px 5px 14px;
   white-space: nowrap;
+}
+
+.hc-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 82px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 9px;
+  background: rgba(242, 242, 240, 0.1);
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.hc-copy:hover {
+  background: rgba(242, 242, 240, 0.16);
+}
+
+.hc-copy:focus-visible {
+  outline: 1px solid rgba(242, 242, 240, 0.55);
+  outline-offset: 2px;
 }
 
 /* Resume: the first page, and a way to take it with you. */
@@ -601,144 +630,171 @@
   transform: translate(1px, -1px);
 }
 
-/* Shelf --------------------------------------------------------------------- */
+/* Projects ------------------------------------------------------------------ */
 
-.hm-records {
-  display: flex;
-  gap: 6px;
+.hm-projects .hm-label {
+  margin-bottom: 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hm-projects-body {
+  position: relative;
+}
+
+.hm-rows {
   margin: 0;
-  padding: 22px 22px 24px 4px;
+  padding: 8px 0 0;
   list-style: none;
 }
 
-.hm-records li {
-  position: relative;
-  flex: 1 0 0;
-  min-width: 0;
-  aspect-ratio: 1;
-}
-
-.hm-records li:hover,
-.hm-records li:focus-within {
-  z-index: 3;
-}
-
-.hm-record {
-  position: absolute;
-  inset: 0;
-  display: block;
-  isolation: isolate;
-  text-decoration: none;
-}
-
-.v3 .hm-record:focus-visible {
-  outline-offset: 8px;
-}
-
-.hm-disc {
-  position: absolute;
-  inset: 4%;
+.hm-row {
   display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: repeating-radial-gradient(circle, #202020 0 1px, #303030 1.4px 2px, #181818 2.4px 3px);
-  transform: translateX(8%) rotate(0deg);
-  transition: transform 0.4s var(--v3-ease);
-}
-
-.hm-disc > span {
-  width: 30%;
-  height: 30%;
-  border-radius: 50%;
-  background: #d7c3a3;
-  box-shadow: inset 0 0 0 1px #b6a286;
-}
-
-.hm-disc > span::after {
-  content: "";
-  display: block;
-  width: 12%;
-  height: 12%;
-  margin: 44%;
-  border-radius: 50%;
-  background: #292929;
-}
-
-.hm-sleeve {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: 2px;
-  transform: rotate(var(--tilt));
-  transform-origin: 50% 90%;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.13);
-  transition:
-    transform 0.32s var(--v3-ease),
-    box-shadow 0.32s var(--v3-ease);
-}
-
-.hm-record:hover .hm-sleeve,
-.hm-record:focus-visible .hm-sleeve {
-  transform: translateY(-8px) rotate(-5deg);
-  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.16);
-}
-
-.hm-record:hover .hm-disc,
-.hm-record:focus-visible .hm-disc {
-  transform: translate(25%, -7%) rotate(28deg);
-}
-
-.hm-sleeve-title {
-  position: absolute;
-  top: 9%;
-  left: 9%;
-  right: 9%;
-  font-size: clamp(10px, 1.1vw, 12px);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.hm-sleeve--night .hm-sleeve-title {
-  color: #fbf6ee;
-}
-
-/* A screen from the project, tucked into the sleeve's lower corner. */
-.hm-sleeve-shot {
-  position: absolute;
-  top: 38%;
-  left: 20%;
-  width: 110%;
-  height: auto;
-  border-radius: 4px 0 0 0;
-  box-shadow: 0 4px 14px rgba(20, 20, 40, 0.18);
-}
-
-.hm-detail {
-  display: flex;
+  grid-template-columns: 48px minmax(0, 1fr) max-content;
   align-items: baseline;
-  gap: 10px;
-  min-height: 48px;
-  font-size: 13px;
-  letter-spacing: -0.005em;
+  column-gap: 40px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    opacity 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.26s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.hm-detail strong {
-  flex-shrink: 0;
+.hm-row:active {
+  transform: translateY(1px) scale(0.992);
+}
+
+.hm-row-year {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+
+.hm-row-title {
   font-weight: 500;
 }
 
-.hm-detail span {
-  min-width: 0;
-  color: var(--ink-2);
+.hm-row-role {
+  text-align: right;
+  white-space: nowrap;
+  color: var(--ink-3);
 }
 
-.hm-detail em {
-  flex-shrink: 0;
-  margin-left: auto;
-  font-style: normal;
-  color: var(--ink-3);
+/* The mark lives in the sheet's margin, so it only appears where the margin is wide enough to hold it. */
+.hm-mark {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hm-row[data-active] {
+    transform: translateX(2px);
+  }
+
+  .hm-rows[data-hovering] .hm-row:not([data-active]) {
+    opacity: 0.3;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 860px) {
+  .hm-mark {
+    --size: 56px;
+    --depth: 8px;
+
+    position: absolute;
+    top: calc(var(--size) / -2);
+    left: calc(-1 * var(--size) - 52px);
+    display: block;
+    width: var(--size);
+    height: var(--size);
+    pointer-events: none;
+    perspective: 520px;
+
+    /* A filter flattens 3D children, so the shadow lives here, outside the coin's 3D space. */
+    filter: drop-shadow(0 12px 14px rgba(20, 20, 40, 0.14));
+  }
+}
+
+.hm-mark-bob {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: hm-mark-bob 5.6s ease-in-out infinite alternate;
+}
+
+@keyframes hm-mark-bob {
+  from {
+    transform: translateY(-2px) rotateX(10deg) rotateZ(-4deg);
+  }
+  to {
+    transform: translateY(3px) rotateX(-6deg) rotateZ(3deg);
+  }
+}
+
+.hm-mark-coin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.hm-mark-coin > * {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+}
+
+.hm-mark-face {
+  overflow: hidden;
+  border: 1.5px solid #fff;
+  backface-visibility: hidden;
+  transform: translateZ(calc(var(--depth) / 2));
+}
+
+.hm-mark-face--back {
+  transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
+}
+
+.hm-mark-face--logo {
+  background: var(--tint);
+}
+
+.hm-mark-face--bloom {
+  display: grid;
+  place-items: center;
+  color: rgba(40, 30, 70, 0.72);
+}
+
+.hm-mark-face--night {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fbf6ee;
+}
+
+/* The glyph sits above the bloom's blurred lights. */
+.hm-mark-glyph {
+  position: relative;
+  z-index: 1;
+}
+
+.hm-mark-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+/* A wide wordmark sits whole inside the tile instead of filling it. */
+.hm-mark-face img.hm-mark-wordmark {
+  padding: 8px;
+  object-fit: contain;
+}
+
+.hm-mark-edge {
+  background: color-mix(in srgb, #ebe8e3, #c9c4bc calc(var(--shade) * 60%));
+  transform: translateZ(var(--z));
 }
 
 @media (max-width: 620px) {
@@ -763,41 +819,25 @@
     transform: none;
   }
 
-  .hm-records {
-    margin-inline: calc(-1 * var(--v3-gutter));
-    padding: 24px 40px 28px var(--v3-gutter);
-    overflow-x: auto;
-    scroll-padding-inline: var(--v3-gutter);
-    scrollbar-width: none;
+  .hm-row {
+    grid-template-columns: 40px minmax(0, 1fr);
+    row-gap: 6px;
+    column-gap: 20px;
   }
 
-  .hm-records li {
-    flex: 0 0 104px;
-  }
-
-  .hm-sleeve-title {
-    font-size: 11px;
-  }
-
-  .hm-detail {
-    flex-wrap: wrap;
-  }
-
-  .hm-detail em {
-    margin-left: 0;
-  }
-}
-
-/* Touch screens open a record on tap, so there is no hover to echo. */
-@media (hover: none) {
-  .hm-detail {
-    display: none;
+  .hm-row-role {
+    grid-column: 2;
+    text-align: left;
+    white-space: normal;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hm-sleeve,
-  .hm-disc,
+  .hm-mark-bob {
+    animation: none;
+  }
+
+  .hm-row,
   .hm-more,
   .hm-toggle svg,
   .hm-tip {

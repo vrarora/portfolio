@@ -168,9 +168,6 @@ export default function InspectorExplorer() {
   return (
     <div
       style={{
-        background: "#eef0f2",
-        borderRadius: 10,
-        padding: "20px 24px",
         fontFamily: "Inter, system-ui, sans-serif",
         userSelect: "none",
       }}

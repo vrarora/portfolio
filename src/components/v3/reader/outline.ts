@@ -2,7 +2,7 @@ import type { CaseStudy } from "@/content/case-studies";
 
 type Section = CaseStudy["sections"][number];
 
-export type OutlineFigure = { id: string; n: number; type: string; caption?: string; label: string };
+export type OutlineFigure = { id: string; n: number; type: string; caption?: string; label?: string };
 
 export type OutlineSection = {
   id: string;
@@ -23,15 +23,15 @@ export const slug = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-/** The tree shows a figure by the words before its colon. */
-const shortLabel = (caption: string | undefined, n: number) => caption?.split(":")[0].trim() || `Figure ${n}`;
+/** The tree lists a figure by the words before its colon; a figure without a caption stays out of it. */
+const shortLabel = (caption: string | undefined) => caption?.split(":")[0].trim() || undefined;
 
 export function outline(study: CaseStudy): OutlineSection[] {
   let n = 0;
   const figure = (type: string | undefined, caption: string | undefined): OutlineFigure | undefined => {
     if (!type) return undefined;
     n += 1;
-    return { id: `fig-${n}`, n, type, caption, label: shortLabel(caption, n) };
+    return { id: `fig-${n}`, n, type, caption, label: shortLabel(caption) };
   };
   return study.sections.map((section) => {
     const lead = figure(section.visualType, section.visual);
@@ -46,12 +46,4 @@ export function outline(study: CaseStudy): OutlineSection[] {
       figures: [lead, ...itemFigures].filter((f): f is OutlineFigure => f !== undefined),
     };
   });
-}
-
-/** Rough reading time at 230 words a minute. */
-export function readingMinutes(study: CaseStudy) {
-  const text = study.sections
-    .flatMap((s) => [s.body, ...(s.bullets ?? []), ...(s.items ?? []).flatMap((i) => [i.body ?? "", ...(i.bullets ?? [])])])
-    .join(" ");
-  return Math.max(1, Math.round(text.split(/\s+/).length / 230));
 }

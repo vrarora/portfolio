@@ -73,7 +73,7 @@ export function PeopleField({ anchor, onClose }: { anchor: RefObject<HTMLElement
 
   return createPortal(
     <div className="pf" data-visible={visible ? "" : undefined} role="dialog" aria-modal="true" aria-label="The people I design for">
-      <div className="pf-scrim" onClick={onClose} aria-hidden="true" />
+      <div className="pf-scrim" data-click-sound="off" onClick={onClose} aria-hidden="true" />
       {DOODLES.map((doodle, i) => {
         const spot = SPOTS[i % SPOTS.length];
         const style = { "--x": `${spot.x}vw`, "--y": `${spot.y}vh`, "--r": `${spot.r}deg`, "--s": spot.s, "--delay": `${i * 50}ms` } as CSSProperties;
@@ -88,6 +88,7 @@ export function PeopleField({ anchor, onClose }: { anchor: RefObject<HTMLElement
           ref={closeRef}
           type="button"
           className="pf-word"
+          data-click-sound="off"
           style={{
             left: label.left,
             top: label.top,

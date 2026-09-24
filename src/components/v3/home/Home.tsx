@@ -5,7 +5,7 @@ import { FindMe } from "./FindMe";
 import { CardFooter } from "./footer/CardFooter";
 import { Contact } from "./footer/Contact";
 import { Hero } from "./Hero";
-import { Shelf } from "./Shelf";
+import { Projects } from "./Projects";
 import { Statement } from "./statement/Statement";
 import { UpTo } from "./UpTo";
 import { WhoIAm } from "./WhoIAm";
@@ -23,7 +23,7 @@ export function Home() {
           <WhoIAm />
           <Statement />
           <UpTo />
-          <Shelf />
+          <Projects />
           <FindMe />
         </div>
         <DeskScene />

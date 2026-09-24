@@ -1,17 +1,17 @@
 /*
- * Three columns: the rail, the reading column, and a spacer that mirrors the rail.
- * The column stays centred on wide screens and slides right once the rail hits its minimum.
+ * A centred block: a 240px contents rail, an 84px gap, an 832px document, then a 160px spacer.
+ * The spacer offsets the wide gap so the document sits where a 40px gap would put it.
+ * The outer tracks absorb the rest of the width and keep the page white edge to edge.
  */
 .rd {
-  --rd-rail: 300px;
   --rd-top: 80px;
   --rd-line: rgba(0, 0, 0, 0.05);
   --rd-mono: var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   min-height: 100svh;
   display: grid;
+  grid-template-columns: minmax(var(--v3-gutter), 1fr) 240px 84px minmax(0, 832px) 160px minmax(var(--v3-gutter), 1fr);
   background: #fff;
-  grid-template-columns: minmax(var(--rd-rail), 1fr) minmax(0, var(--col-reading-max)) minmax(0, 1fr);
 }
 
 .rd [tabindex="-1"]:focus:not(:focus-visible) {
@@ -44,6 +44,7 @@
 /* Rail ---------------------------------------------------------------------- */
 
 .rd-rail {
+  grid-column: 2;
   position: sticky;
   top: 0;
   align-self: start;
@@ -55,8 +56,7 @@
 .rd-rail-in {
   display: flex;
   flex-direction: column;
-  max-width: 340px;
-  padding: var(--rd-top) 24px 40px clamp(32px, 5.3vw, 80px);
+  padding: var(--rd-top) 0 40px;
 }
 
 .rd-back {
@@ -171,9 +171,9 @@
 /* Document ------------------------------------------------------------------ */
 
 .rd-doc {
-  grid-column: 2;
+  grid-column: 4;
   min-width: 0;
-  padding: var(--rd-top) 16px 40px;
+  padding: var(--rd-top) 0 40px;
 }
 
 .rd-head,
@@ -183,8 +183,6 @@
 }
 
 .rd-head h1,
-.rd-sub,
-.rd-summary,
 .rd-prose p,
 .rd-prose li {
   font-size: var(--t-body);
@@ -198,21 +196,12 @@
   font-weight: var(--weight-strong);
 }
 
-.rd-sub {
-  margin: 4px 0 0;
-  color: var(--ink-3);
-}
-
-.rd-summary {
-  margin: 16px 0 0;
-}
-
 /* Each section opens on a hairline: title at the left, number at the right. */
 .rd-section-head {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-top: 64px;
+  margin-top: 58px;
   padding-bottom: 24px;
 }
 

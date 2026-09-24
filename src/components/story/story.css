@@ -24,11 +24,6 @@
   pointer-events: none;
 }
 
-.story-anchor {
-  position: absolute;
-  left: 0;
-}
-
 .story-bar {
   position: fixed;
   inset: 0 0 auto;
@@ -40,10 +35,11 @@
 }
 
 .story-name {
-  margin: 0;
   font-size: 17px;
   letter-spacing: 0.01em;
   color: var(--story-soft);
+  text-decoration: none;
+  transition: color 200ms ease;
 }
 
 .story-actions {
@@ -52,7 +48,6 @@
   gap: clamp(16px, 2.4vw, 28px);
 }
 
-.story-work,
 .story-sound {
   font: inherit;
   font-size: 17px;
@@ -65,18 +60,14 @@
   transition: color 200ms ease;
 }
 
-.story-work {
-  border-bottom: 1px solid var(--story-faint);
-}
-
-.story-work:hover,
+.story-name:hover,
 .story-sound:hover,
-.story-work:focus-visible,
+.story-name:focus-visible,
 .story-sound:focus-visible {
   color: var(--story-text);
 }
 
-.story-work:focus-visible,
+.story-name:focus-visible,
 .story-sound:focus-visible {
   outline: 1px solid var(--story-soft);
   outline-offset: 4px;

@@ -25,7 +25,7 @@ const FLAT_LIST_CARDS = [
 export default function FlatListMockup() {
   const cards = [...FLAT_LIST_CARDS, ...FLAT_LIST_CARDS];
   return (
-    <div style={{ background: "#eef0f2", borderRadius: 10, padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "center", aspectRatio: "1.75 / 1", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", aspectRatio: "1.75 / 1", fontFamily: "Inter, system-ui, sans-serif" }}>
       <div style={{ width: "100%", height: "100%", borderRadius: 7, overflow: "hidden", boxShadow: "0 2px 14px rgba(0,0,0,0.13)", display: "flex", flexDirection: "column" }}>
         {/* browser bar */}
         <div style={{ background: "#ffffff", borderBottom: "1px solid rgba(0,0,0,0.07)", padding: "0 10px", height: 26, display: "flex", alignItems: "center", gap: 7, flexShrink: 0 }}>

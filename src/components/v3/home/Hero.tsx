@@ -6,6 +6,7 @@ import Image from "next/image";
 import { EMAIL } from "@/content/about";
 import { hero } from "@/content/home";
 import { siteLinks } from "@/content/site-links";
+import { CopyButton } from "./hero/CopyButton";
 import { HoverCard } from "./hero/HoverCard";
 import { MapArt } from "./hero/MapArt";
 import { WorldClock } from "./hero/WorldClock";
@@ -61,14 +62,19 @@ export function Hero() {
           <li>
             <HoverCard
               align="end"
-              className="hc-tip"
+              interactive
+              label="Email"
+              className="hc-email"
               trigger={(props) => (
                 <a className="hm-icon" href={`mailto:${EMAIL}`} aria-label={`Email ${EMAIL}`} {...props}>
                   <EnvelopeSimple size={16} aria-hidden="true" />
                 </a>
               )}
             >
-              Email <span className="hc-muted">{EMAIL}</span>
+              <span>
+                Email <span className="hc-muted">{EMAIL}</span>
+              </span>
+              <CopyButton value={EMAIL} fallbackHref={`mailto:${EMAIL}`} />
             </HoverCard>
           </li>
           <li>
