@@ -1,0 +1,188 @@
+/* All work: the mobile stack and the table it opens into. Hidden on wide screens with a pointer. */
+
+.wt-collection,
+.wt-table {
+  display: none;
+}
+
+@media (max-width: 699px), (max-width: 1100px) and (hover: none) and (pointer: coarse) {
+  /* Collection ------------------------------------------------------------ */
+
+  .wt-collection {
+    position: fixed;
+    left: 50%;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 148px;
+    height: 80px;
+    padding: 6px 8px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-2);
+    font: 400 12px / 18px var(--font-sans);
+    transform: translateX(-50%);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* A soft fade from the page, so the stack never sits on top of text. */
+  .wt-collection::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -14px auto -24px calc(50% - 50vw);
+    width: 100vw;
+    background: linear-gradient(transparent, var(--paper) 38%);
+    pointer-events: none;
+  }
+
+  .wt-collection-objects {
+    position: relative;
+    display: block;
+    width: 108px;
+    height: 48px;
+  }
+
+  .wt-collection-objects[data-hidden] {
+    visibility: hidden;
+  }
+
+  .wt-collection-objects img {
+    position: absolute;
+    left: calc(var(--slot) * 13px);
+    bottom: 2px;
+    width: auto;
+    height: auto;
+    max-width: 50px;
+    max-height: 46px;
+    transform: rotate(var(--turn));
+    filter: drop-shadow(0 3px 3px rgba(40, 51, 67, 0.15));
+  }
+
+  /* Table ----------------------------------------------------------------- */
+
+  .wt-table {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* Closing: the page shows through while the objects fly back to the stack. */
+  .wt-table[data-phase="closing"] {
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .wt-table[data-phase="closing"] :is(.wt-identity, .wt-object > span, .wt-return, .wt-object img[data-current]) {
+    opacity: 0;
+  }
+
+  .wt-canvas {
+    position: relative;
+    width: min(100%, 760px);
+    height: max(100svh, 568px);
+    margin: auto;
+  }
+
+  .wt-identity {
+    position: absolute;
+    top: max(28px, env(safe-area-inset-top));
+    left: 24px;
+    margin: 0;
+    color: var(--ink-2);
+    font: 400 13px / 20px var(--font-sans);
+  }
+
+  .wt-objects {
+    position: absolute;
+    inset: 85px 0 100px;
+  }
+
+  .wt-object {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .wt-object img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(100% - 28px);
+    filter: drop-shadow(0 4px 6px rgba(40, 51, 67, 0.11));
+    will-change: transform;
+  }
+
+  .wt-object img[data-current] {
+    animation: wt-fade 220ms ease-out both;
+  }
+
+  .wt-object > span {
+    flex-shrink: 0;
+    font: 400 11px / 16px var(--font-sans);
+    white-space: nowrap;
+    animation: wt-fade 260ms ease-out both;
+  }
+
+  .wt-object[aria-pressed="true"] > span {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .wt-return {
+    position: absolute;
+    left: 50%;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-2);
+    font: 400 12px / 20px var(--font-sans);
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .wt-table button:focus-visible,
+  .wt-collection:focus-visible {
+    outline: 2px solid var(--ink-3);
+    outline-offset: 6px;
+  }
+}
+
+@keyframes wt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (orientation: landscape) {
+  .wt-canvas {
+    height: max(100svh, 640px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wt-object img[data-current],
+  .wt-object > span {
+    animation: none;
+  }
+}

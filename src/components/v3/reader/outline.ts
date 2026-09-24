@@ -1,8 +1,10 @@
-import type { CaseStudy } from "@/content/case-studies";
+import type { CaseStudy, CaseStudyMedia } from "@/content/case-studies";
 
 type Section = CaseStudy["sections"][number];
 
-export type OutlineFigure = { id: string; n: number; type: string; caption?: string; label?: string };
+type FigureSource = Pick<Section, "visual" | "visualType" | "media" | "mediaSlot" | "label">;
+
+export type OutlineFigure = { id: string; n: number; type?: string; media?: CaseStudyMedia; caption?: string; label?: string };
 
 export type OutlineSection = {
   id: string;
@@ -28,14 +30,21 @@ const shortLabel = (caption: string | undefined) => caption?.split(":")[0].trim(
 
 export function outline(study: CaseStudy): OutlineSection[] {
   let n = 0;
-  const figure = (type: string | undefined, caption: string | undefined): OutlineFigure | undefined => {
-    if (!type) return undefined;
+  const figure = (source: FigureSource): OutlineFigure | undefined => {
+    if (!source.visualType && !source.media && !source.mediaSlot) return undefined;
     n += 1;
-    return { id: `fig-${n}`, n, type, caption, label: shortLabel(caption) };
+    return {
+      id: `fig-${n}`,
+      n,
+      type: source.visualType,
+      media: source.media,
+      caption: source.visual,
+      label: source.label ?? shortLabel(source.visual),
+    };
   };
   return study.sections.map((section) => {
-    const lead = figure(section.visualType, section.visual);
-    const itemFigures = (section.items ?? []).map((item) => figure(item.visualType, item.visual));
+    const lead = figure(section);
+    const itemFigures = (section.items ?? []).map((item) => figure(item));
     return {
       id: slug(section.title),
       kicker: section.kicker,

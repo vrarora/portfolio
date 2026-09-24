@@ -276,6 +276,17 @@
     0 14px 36px rgba(30, 30, 60, 0.14);
 }
 
+/* An empty stage held for a recording that isn't exported yet. */
+.rd-fig-slot {
+  aspect-ratio: 16 / 10;
+}
+
+.rd-media {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .rd-fig figcaption {
   padding: 16px 32px 32px;
   font-size: var(--t-caption);
@@ -320,26 +331,23 @@
 
 .rd-end-next {
   display: grid;
+  justify-self: end;
   gap: 4px;
+  text-align: right;
   text-decoration: none;
 }
 
-.rd-end-title {
-  margin-top: 4px;
-  font-weight: var(--weight-strong);
+.rd-end-label {
+  color: var(--ink-3);
 }
 
-.rd-end-line {
-  color: var(--ink-3);
+.rd-end-title {
+  font-weight: var(--weight-strong);
 }
 
 .rd-end-next:hover .rd-end-title {
   text-decoration: underline;
   text-underline-offset: 0.18em;
-}
-
-.rd-end-home {
-  color: var(--ink-3);
 }
 
 /* Narrow screens ------------------------------------------------------------ */

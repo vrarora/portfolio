@@ -27,8 +27,8 @@ export const assistantFaq: Faq[] = [
     id: "data-compass",
     question: "Tell me about Data Compass.",
     answer:
-      "A major Indian bank gave us three weeks to prove Data Compass could show where personal data lived across their estate. The central call was a hierarchy over a flat list. The PM disagreed, so we tested both; people in the flat list did not know where to start. We shipped the Explore flow before the POC, the bank became a client, and the deal is worth about ₹10Cr in ARR.",
-    followUps: ["What did the hierarchy look like?", "How did you handle the PM disagreement?", "What else shipped in those three weeks?"],
+      "A major Indian bank gave us two weeks to prove Data Compass could show where personal data lived across their estate. The central call was a hierarchy over a flat list. The PM disagreed, so we tested both; people in the flat list did not know where to start. We shipped the Explore flow before the POC, the bank became a client, and the deal is worth about ₹10Cr in ARR.",
+    followUps: ["What did the hierarchy look like?", "How did you handle the PM disagreement?", "What else shipped in those two weeks?"],
     keywords: ["data compass", "compass", "bank", "poc", "hierarchy", "flat list", "dpdp", "privacy", "arr"],
   },
   {

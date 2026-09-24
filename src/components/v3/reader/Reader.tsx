@@ -7,6 +7,7 @@ import { Bloom } from "../Bloom";
 import { readerMono } from "./fonts";
 import { outline, type OutlineFigure } from "./outline";
 import { Rail } from "./Rail";
+import { ReaderMedia } from "./ReaderMedia";
 import { ReaderVisual } from "./ReaderVisual";
 import "./reader.css";
 
@@ -15,7 +16,10 @@ type Section = CaseStudy["sections"][number];
 const DOC_ID = "rd-doc";
 
 function Paragraphs({ text }: { text: string }) {
-  return text.split("\n\n").map((paragraph, i) => <p key={i}>{paragraph}</p>);
+  return text
+    .split("\n\n")
+    .filter(Boolean)
+    .map((paragraph, i) => <p key={i}>{paragraph}</p>);
 }
 
 function Bullets({ items }: { items?: string[] }) {
@@ -31,14 +35,22 @@ function Bullets({ items }: { items?: string[] }) {
 
 const figNumber = (n: number) => `Fig ${String(n).padStart(2, "0")}`;
 
-/** A mockup set on a bloom, with a numbered caption centred beneath it. */
+/** A mockup or recording set on a bloom, with a numbered caption centred beneath it. */
 function Figure({ figure, bloom, metrics }: { figure: OutlineFigure; bloom: BloomName; metrics?: Section["metrics"] }) {
   return (
     <figure id={figure.id} className="rd-fig" tabIndex={-1}>
       <Bloom name={bloom} className="rd-fig-stage">
-        <div className="rd-fig-card">
-          <ReaderVisual type={figure.type} metrics={metrics} />
-        </div>
+        {figure.media ? (
+          <div className="rd-fig-card">
+            <ReaderMedia media={figure.media} />
+          </div>
+        ) : figure.type ? (
+          <div className="rd-fig-card">
+            <ReaderVisual type={figure.type} metrics={metrics} />
+          </div>
+        ) : (
+          <div className="rd-fig-slot" aria-hidden="true" />
+        )}
       </Bloom>
       <figcaption>
         <span className="rd-fig-n">{figNumber(figure.n)}</span>
@@ -52,6 +64,7 @@ function Figure({ figure, bloom, metrics }: { figure: OutlineFigure; bloom: Bloo
 export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) {
   const sections = outline(study);
   const bloom = study.workAccent;
+  const cover = study.coverImage ?? (study.thumbnailImage ? { src: study.thumbnailImage, width: 1440, height: 900 } : undefined);
   const rail = [
     { id: "overview", label: "Overview", subs: [] },
     ...sections.map((s, i) => ({
@@ -74,10 +87,10 @@ export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) 
           <h1>{study.title}</h1>
         </header>
 
-        {study.thumbnailImage ? (
+        {cover ? (
           <figure className="rd-fig rd-fig--cover">
             <Bloom name={bloom} live className="rd-fig-stage">
-              <Image className="rd-cover" src={study.thumbnailImage} alt={`${study.homeBrand}, the product`} width={1440} height={900} sizes="(max-width: 960px) 100vw, 832px" priority />
+              <Image className="rd-cover" src={cover.src} alt={`${study.homeBrand}, the product`} width={cover.width} height={cover.height} sizes="(max-width: 960px) 100vw, 832px" priority />
             </Bloom>
           </figure>
         ) : null}
@@ -114,14 +127,10 @@ export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) 
         <footer className="rd-end">
           {next ? (
             <Link className="rd-end-next" href={`/work/${next.slug}/`}>
-              <span className="rd-th">Next case study</span>
+              <span className="rd-end-label">Next</span>
               <span className="rd-end-title">{next.homeBrand}</span>
-              <span className="rd-end-line">{next.title}</span>
             </Link>
           ) : null}
-          <Link className="rd-end-home" href="/#work">
-            Back to all projects
-          </Link>
         </footer>
       </article>
     </div>

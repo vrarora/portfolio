@@ -25,7 +25,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description: study.summary,
       url: `/work/${study.slug}/`,
-      images: study.thumbnailImage ? [{ url: study.thumbnailImage }] : undefined,
+      images: study.ogImage
+        ? [{ url: study.ogImage, width: 1200, height: 630 }]
+        : study.thumbnailImage
+          ? [{ url: study.thumbnailImage }]
+          : undefined,
     },
     twitter: { title, description: study.summary },
   };

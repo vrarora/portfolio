@@ -23,6 +23,7 @@ const equalAll = (experiment: "anchor" | "impact" | "tangible" | "carousel" | "r
 export const visualRegistry = {
   "fragmented-landscape": lazy(() => import("./visuals/DataStreamVisual")),
   "flat-list-mockup": lazy(() => import("./visuals/FlatListMockup")),
+  "flat-list-live": lazy(() => import("./visuals/FlatListLiveVisual")),
   "hierarchy-explorer": lazy(() => import("./visuals/HierarchyExplorer")),
   "inspector-explorer": lazy(() => import("./visuals/InspectorExplorer")),
   "scan-workflow": lazy(() => import("./visuals/ScanWorkflowVisual")),

@@ -1,3 +1,6 @@
+/** A product recording: mp4, webm or gif, with a still for reduced motion. */
+export type CaseStudyMedia = { src: string; poster: string; alt: string };
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -14,6 +17,10 @@ export type CaseStudy = {
   workAccent: "green" | "blue" | "orange";
   workPreview: "dashboard" | "workflow" | "commerce" | "screenshot" | "placeholder" | "cover";
   thumbnailImage?: string;
+  /** Hero image at the top of the case study. Falls back to thumbnailImage. */
+  coverImage?: { src: string; width: number; height: number };
+  /** 1200x630 link preview. Falls back to thumbnailImage. */
+  ogImage?: string;
   status: "Placeholder case study";
   visibility: "public";
   metadata: Array<{
@@ -29,12 +36,20 @@ export type CaseStudy = {
     bullets?: string[];
     visual?: string;
     visualType?: string;
+    media?: CaseStudyMedia;
+    /** Reserves an empty figure for a recording that isn't exported yet. */
+    mediaSlot?: boolean;
+    /** Rail label for the figure. Falls back to the caption text before a colon. */
+    label?: string;
     metrics?: Array<{ start: string; end: string; desc: string }>;
     items?: Array<{
       body?: string;
       bullets?: string[];
-      visual: string;
+      visual?: string;
       visualType?: string;
+      media?: CaseStudyMedia;
+      mediaSlot?: boolean;
+      label?: string;
     }>;
   }>;
 };
@@ -43,12 +58,12 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "data-compass",
     year: "2025",
-    title: "₹10Cr ARR from a Three-Week Design Window",
+    title: "₹10Cr ARR in two weeks",
     eyebrow: "Case study 01",
     summary:
-      "Built to help a major Indian bank stay ahead of up to Rs. 250 crore in data privacy penalties.",
+      "Built to help a major Indian bank stay ahead of up to ₹250 crore in DPDP penalties.",
     homeBrand: "Data Compass",
-    homeHeadline: "Data Compass turned a 3-week bank POC into ₹10Cr+ ARR.",
+    homeHeadline: "Data Compass turned a 2-week bank POC into ₹10Cr ARR.",
     homeDescription:
       "Drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
     homeDescriptionShort:
@@ -57,82 +72,107 @@ export const caseStudies: CaseStudy[] = [
     workAccent: "green",
     workPreview: "screenshot",
     thumbnailImage: "/images/data-compass-thumbnail.webp",
+    coverImage: { src: "/images/data-compass-cover.webp", width: 2880, height: 1660 },
+    ogImage: "/images/data-compass-og.jpg",
     status: "Placeholder case study",
     visibility: "public",
     metadata: [
       { label: "Company", value: "IDfy (Privy suite)" },
       { label: "Product", value: "Data Compass" },
       { label: "Role", value: "Sole Product Designer" },
-      { label: "Timeline", value: "3-week design and build window" },
+      { label: "Timeline", value: "2 weeks" },
       { label: "Team", value: "Senior PM, Tech Architect, 4 senior engineers, CTO" },
-      { label: "Outcome", value: "POC succeeded; bank converted to client" },
+      { label: "Outcome", value: "POC won, ₹10Cr ARR" },
     ],
     sections: [
       {
-        kicker: "Context",
-        title: "Three Weeks. A Bank POC. Everything On The Line.",
-        body: "India's Digital Personal Data Protection (DPDP) Act introduced penalties of up to Rs. 250 crore per violation for companies that could not account for where customer data lived. The bank needed a tool that could answer that question. We had three weeks.",
+        kicker: "The question",
+        title: "So picture this",
+        body: "You're the Head of InfoSec at a fintech company. Your team looks after customer data spread across dozens of systems. There are production databases, analytics warehouses, S3 buckets and a data lake or two, and on a normal Tuesday none of it worries you.\n\nSo tell me, do you know where every piece of personal data sits in all of that? Every Aadhaar number, every PAN, every bank account number tucked away in some table or some GCS folder?\n\nIf you don't, your company is exposed. Under India's DPDP Act, failing to protect personal data can cost up to ₹250 crore, and that ceiling applies to each breach. One bad incident can add up to far more.",
         visualType: "fragmented-landscape",
       },
       {
-        kicker: "The Central Decision",
-        title: "Hierarchy Versus a Flat List",
-        body: "The compliance officer using this product needed to locate sensitive customer data scattered across dozens of systems, each owned by a different team.",
-        callout:
-          "The design work was about deciding which complexity each type of user should encounter, and at what point in their workflow.",
+        kicker: "The problem",
+        title: "But the answer was broken",
+        body: "Data Compass is the tool that answers that question. It connects to your databases and buckets and finds the personal data inside them, so you can see where it sits and how sensitive it is. On paper the flow is simple. You add an asset and run two scans on it. A Discovery Scan reads the asset's structure, and a Classification Scan finds the personal data in it. Then you open Explore and look at what they found.\n\nWhen I joined IDfy, the developers had already built the backend, and it worked. The frontend had the basic flows, but nobody had thought about the people who would use them.\n\nThen a major private-sector Indian bank asked for a proof of concept. They wanted to deploy Data Compass inside their own environment and use it on their own data. The product would not have survived a week of real use, and the POC started in two weeks.\n\nWinning meant a bank logo and ₹10Cr of ARR. Compliance tools get bought for years at a time, so losing meant losing that bank for years too.\n\nI was the only designer, working with a senior PM, a tech architect, four engineers and our CTO. With two weeks on the clock, every idea had to be something the team could build before the bank logged in.",
+      },
+      {
+        kicker: "Onboarding",
+        title: "Adding an asset and scanning it right away",
+        body: "Everything starts with an asset. An IT admin connects a database or a bucket so Data Compass can scan it, and in the old product that took one long form and a few detours.",
         items: [
-          {
-            body: "The first proposal was a flat list: every data asset in a single scrollable view. The argument was simplicity. At enterprise scale, that means thousands of assets with no way to narrow. The PM was not immediately convinced, so we ran user testing. Users in the flat list condition did not know where to start.",
-            visual: "Flat list: the original direction",
-            visualType: "flat-list-mockup",
-          },
-          {
-            body: "A hierarchy from Organization to Column let users move from broad risk visibility to the exact field under investigation. The hierarchy won the test. We shipped the Explore flow before the POC.",
-            visual: "Hierarchy explorer: the shipped Explore module",
-            visualType: "hierarchy-explorer",
-          },
+          { body: "Data Compass supports more than 200 asset types.", bullets: ["The business wanted admins to see how big that list was.", "It also wanted to sell the assets a customer hadn't paid for.", "So I put the assets a customer can connect first, and grouped the rest below them under Premium.", "Admins reach what they can use straight away, and the premium assets are still there to tempt them."], visual: "You can connect what comes first. Everything else waits under Premium.", label: "Available first", media: { src: "/videos/data-compass/available-first.mp4", poster: "/videos/data-compass/available-first-poster.webp", alt: "The asset picker, with available assets listed first and premium assets tagged below them" } },
+          { body: "Even sorted, 200 cards is a lot to look through. I grouped the assets by category, such as databases, warehouses and object storage, and added a search box. An admin who wants Postgres can type it and move on.", visual: "Admins type a name instead of scanning 200 cards.", label: "Categories and search", media: { src: "/videos/data-compass/categories-search.mp4", poster: "/videos/data-compass/categories-search-poster.webp", alt: "The asset picker, filtered by typing a name and by switching categories in the sidebar" } },
+          { body: "Adding an asset used to mean one long form, and admins had to hold every field in their head at once.", bullets: ["I broke it into three steps, and each step asks only for the fields that belong together.", "The next thing every admin does after adding an asset is run a Discovery Scan.", "In the old product, that meant opening the asset, clicking \"Create Metadata Workflow\" and then running it.", "So the last step gives admins the option to start the Discovery Scan as soon as the asset is connected.", "The scan is already running when they land on the asset."], visual: "The form asks for the asset, then the connection, and the first scan starts from the last step.", label: "Three steps", media: { src: "/videos/data-compass/three-steps.mp4", poster: "/videos/data-compass/three-steps-poster.webp", alt: "Adding a PostgreSQL asset in three steps: configure the asset, connect to it with pre-flight checks, then start its scans" } },
+          { body: "Admins come back to the assets page to find one asset among hundreds, so I built the top of the page around that search.", bullets: ["A summary shows the total asset count, split into structured and unstructured, and each half filters the table.", "A count for each asset type filters the table below when you click it.", "A card lists the three most recent completed workflows.", "The table has search, filters and a filter for scans that are still running."], visual: "The summary cards double as the first filter.", label: "Assets page", media: { src: "/videos/data-compass/assets-page.mp4", poster: "/videos/data-compass/assets-page-poster.webp", alt: "The assets page, where the summary cards and asset-type chips filter the table below" } },
         ],
       },
       {
-        kicker: "Supporting Decisions",
-        title: "The Same Principle, Applied Across Every Layer",
-        body: "The same logic carried through every remaining module. The right inspector adapts to wherever the user is in the hierarchy.",
+        kicker: "Scan setup",
+        title: "Naming scans after the job they do",
+        body: "After onboarding, an admin opens the asset to set up its scans. This page used the developers' vocabulary, and admins were the ones who had to read it.",
+        bullets: ["The two scans were called \"Metadata Workflow\" and \"Profiler Workflow\".", "Those names made sense to the people who built them, but an IT admin couldn't tell which one did what.", "So I named each scan after its job.", "The Discovery Scan discovers the tables, columns and files in an asset.", "The Classification Scan finds and classifies the personal data inside them."],
         items: [
-          {
-            bullets: [
-              "A compliance leader at the Organization level sees coverage and risk.",
-              "An IT admin at the Table level sees metadata, lineage, and scan history.",
-            ],
-            visual: "Contextual inspector: level-aware details",
-            visualType: "inspector-explorer",
-          },
-          {
-            body: "The platform admin managing scan operations needed triage at a glance: which scan failed, who created it, and what to do next.",
-            bullets: [
-              "Catalogue and classification scans separated into tabs with failure indicators and job status counts.",
-              "Cron expressions show as plain-English descriptions on hover.",
-              "Workflow IDs copy with one click for log investigation.",
-            ],
-            visual: "Scan workflow operations: triage view",
-            visualType: "scan-workflow",
-          },
-          {
-            body: "Asset onboarding was the entry point before any of this.",
-            bullets: [
-              "Connector selection shortened to category browsing and search.",
-              "The first catalogue scan moved into the onboarding flow itself.",
-              "The admin connects a source and immediately sees data, without returning to a separate screen.",
-            ],
-            visual: "Asset onboarding: connector selection and first scan",
-            visualType: "onboarding-flow",
-          },
+          { visual: "Admins can tell the two scans apart by name alone.", label: "Scan names", mediaSlot: true },
+          { body: "Scheduling a scan meant typing a cron expression, something like 0 9 * * 1, which most IT admins would have to look up. I replaced it with a picker. You choose how often the scan runs, then pick a time from the options for that frequency, and the product writes the cron for you.", visual: "Nobody has to write cron to schedule a scan.", label: "Schedule picker", mediaSlot: true },
+          { body: "Setting up a Classification Scan had the same long-form problem as onboarding, so I split it into steps too. Exclusions were the noisiest part, and most admins don't need them. I put those fields in an accordion that stays closed. An admin who wants exclusions opens it on purpose, and everyone else never has to see them.", visual: "Exclusions stay out of the way until someone asks for them.", label: "Stepped setup", mediaSlot: true },
+          { body: "Once a scan was set up, there was no way to see how it had been configured. So I show the configuration as chips under the workflow header. Hover a chip and it explains that setting.", visual: "The setup stays visible after the form closes.", label: "Config chips", mediaSlot: true },
+          { body: "Scan results show up in Explore, and finding one asset there among thousands took a while. So I added a chip on the asset page that opens Explore at that asset.", visual: "Results are one click from the asset.", label: "Jump to Explore", mediaSlot: true },
+          { body: "Explore was next, and the PM and I disagreed about it more than anything else." },
+        ],
+      },
+      {
+        kicker: "Explore",
+        title: "The fight about clicks",
+        body: "Go back to being the Head of InfoSec. You open Explore to find your risk. You want to know which assets hold the most sensitive data and which kinds of personal data are in them, so you can go from \"something in retail banking looks risky\" to one table and one column.\n\nThe PM wanted Explore to be a flat list. Every column and every sampled file would sit in one long list with filters on top. His argument was that a tree view makes people click, and fewer clicks are better.",
+        visual: "Filters cut the rows but never showed where the risk was.",
+        label: "Flat list",
+        visualType: "flat-list-live",
+        items: [
+          { body: "Fewer clicks usually are better. People get annoyed when a simple task takes five clicks. But narrowing down risk isn't a simple task, and people will happily click when each click takes them closer to the answer. So we built both versions and tested them with our InfoSec team and a few developers." },
+          { body: "The flat list went first. Testers added a filter, then another, and still had pages of columns and files in front of them. They kept paging and lost track of which pages they had already checked, and nobody could say where the risk was." },
+          { body: "Then they tried the tree view.", bullets: ["They opened the organisation, then a domain, a subdomain and an asset.", "The structure matched how they already picture a database or a bucket.", "They could name the exact table and column they'd send to the asset owner to clean up.", "The tree view took more clicks, and nobody minded."], visual: "Each click narrows the search, from the organisation down to one column.", label: "Tree view", media: { src: "/videos/data-compass/tree-view.mp4", poster: "/videos/data-compass/tree-view-poster.webp", alt: "Explore narrowing from the organisation through a domain, subdomain, asset, database and schema down to one table's columns" } },
+        ],
+      },
+      {
+        kicker: "The info panel",
+        title: "I was wrong about the info panel",
+        body: "With the tree view settled, the PM pushed back on one more thing. He didn't want a panel on the right showing details about whatever you select. I agreed with him. The tree already showed each asset's location, its sensitivity and the PII types in it, and I thought that was enough.",
+        items: [
+          { body: "Testing proved us both wrong.", bullets: ["Testers could see where the risk was, but they had nothing to act on.", "Data Compass stores a lot about every level of the hierarchy, like who owns a node and how many rows and columns a Classification Scan covered.", "An InfoSec lead needs those details to troubleshoot a scan, add a missing owner or hand a data migration to the right person."] },
+          { body: "So clicking any row in Explore now opens an info panel for that node. A domain, a table and a file each carry different details, so I built the panel to handle every node type we had and any we add later.", visual: "Finding the risk and acting on it happen on the same screen.", label: "Info panel", media: { src: "/videos/data-compass/info-panel.mp4", poster: "/videos/data-compass/info-panel-poster.webp", alt: "Clicking a column in Explore opens the info panel, with tabs for its details, the PII found in it and its scan history" } },
+        ],
+      },
+      {
+        kicker: "Scale",
+        title: "Built for a thousand assets",
+        body: "A single subdomain can hold hundreds of assets, so every pattern in Explore had to work at that size.",
+        items: [
+          { body: "Each subdomain row lists the asset types inside it, and showing every one would make rows so tall the table stops working. So a row shows a few chips grouped by type with a count, and a \"+X\" chip opens a flyout with the rest. The PII column works the same way.", visual: "Rows stay one line tall, however many assets sit behind them.", label: "+X chips", mediaSlot: true },
+          { body: "Deep in the hierarchy, it's easy to lose track of whether you're looking at an org, a domain or a subdomain. So hovering the icon next to the page title tells you which level you're on, and the icons in the file tree do the same.", visual: "You always know which level you're on.", label: "Level tooltips", mediaSlot: true },
+          { body: "The file tree can get huge. I added search and filters to it, so you can find any asset, database, table or bucket by name. Focus mode hides everything outside the domain or subdomain you care about.", visual: "The tree shrinks to the part you're working in.", label: "Search and focus", mediaSlot: true },
+          { body: "I also wanted each node to show roll-up counts of everything underneath it. The query behind those counts would have been expensive to run, and the benefit was small, so we dropped it. I also stopped the file tree at the asset level. Showing every table and file inside each asset would have crowded the tree and made it harder to read.", visual: "The tree stops at the asset, so it stays readable.", label: "What we cut", mediaSlot: true },
         ],
       },
       {
         kicker: "Outcome",
-        title: "POC Succeeded. Bank Became a Client.",
-        body: "We shipped the core Data Compass modules in three weeks. The bank's compliance team could locate sensitive data across their estate without needing a guide. The POC succeeded. The bank became a client.",
+        title: "We won the bank",
+        body: "All of this shipped inside the two weeks. The bank ran the POC, and we won it. IDfy got a bank as a customer, ₹10Cr of ARR and a stronger position in the market. The bank's team was most impressed by Explore, because it let them find their risk down to a single column.",
         visualType: "outcome-impact",
+        metrics: [
+          { start: "0 weeks", end: "2 weeks", desc: "From the first design to the bank's POC" },
+          { start: "₹000Cr", end: "₹250Cr", desc: "The DPDP penalty ceiling for each breach" },
+          { start: "₹00Cr", end: "₹10Cr", desc: "ARR won for IDfy when the bank signed" },
+        ],
+      },
+      {
+        kicker: "Learnings",
+        title: "The lessons I kept",
+        body: "",
+        items: [
+          { bullets: ["In a SaaS product, how easily people can find, filter and search decides most of how the product feels. Most of my decisions here were about helping someone find one thing among thousands.", "Fewer clicks is a good rule until the user's goal changes. When people are narrowing down, a structure that matches the picture in their head matters more than the click count.", "Testing settled the disagreement with the PM faster than arguing would have, and it caught my own wrong call on the info panel too."] },
+          { body: "I like solving problems under a deadline, and I like settling a disagreement with evidence. Winning the bank at the end was the cherry on top." },
+        ],
       },
     ],
   },
