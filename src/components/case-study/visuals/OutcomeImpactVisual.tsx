@@ -65,10 +65,10 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
       segs.current[1].axis = "h";
       segs.current[1].coord = H - 0.5;
 
-      // When the metrics stack (mobile), the two dividers between them are
-      // horizontal — follow the actual row separators instead of running
-      // vertically through the stacked content.
-      const stacked = window.matchMedia("(max-width: 767px)").matches;
+      // When the metrics stack in a narrow frame, the two dividers between them are
+      // horizontal, so follow the row separators instead of cutting through the content.
+      const grid = wrap.querySelector(".oiv-metrics");
+      const stacked = grid ? getComputedStyle(grid).gridTemplateColumns.split(" ").length === 1 : false;
       if (stacked) {
         const wrapTop = wrap.getBoundingClientRect().top;
         const metricEls = wrap.querySelectorAll(".oiv-metric");

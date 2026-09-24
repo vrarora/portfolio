@@ -31,7 +31,7 @@ function Bullets({ items }: { items?: string[] }) {
 
 const figNumber = (n: number) => `Fig ${String(n).padStart(2, "0")}`;
 
-/** A mockup set on a bloom, with a numbered caption row beneath it. */
+/** A mockup set on a bloom, with a numbered caption centred beneath it. */
 function Figure({ figure, bloom, metrics }: { figure: OutlineFigure; bloom: BloomName; metrics?: Section["metrics"] }) {
   return (
     <figure id={figure.id} className="rd-fig" tabIndex={-1}>
@@ -42,13 +42,13 @@ function Figure({ figure, bloom, metrics }: { figure: OutlineFigure; bloom: Bloo
       </Bloom>
       <figcaption>
         <span className="rd-fig-n">{figNumber(figure.n)}</span>
-        <span>{figure.caption}</span>
+        {figure.caption}
       </figcaption>
     </figure>
   );
 }
 
-/** A case study laid out like a long technical document: a rail on the left, one calm column of reading. */
+/** A case study laid out like a long note: a floating contents rail beside one narrow column of reading. */
 export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) {
   const sections = outline(study);
   const bloom = study.workAccent;
@@ -67,48 +67,34 @@ export function Reader({ study, next }: { study: CaseStudy; next?: CaseStudy }) 
         title={study.homeBrand}
         items={rail}
         docId={DOC_ID}
-        next={next ? { href: `/work/${next.slug}/`, title: next.homeBrand } : undefined}
       />
 
       <article id={DOC_ID} className="rd-doc">
         <header id="overview" className="rd-head" tabIndex={-1}>
-          <p className="rd-chip">{study.eyebrow}</p>
           <h1>{study.title}</h1>
+          <p className="rd-sub">
+            {study.eyebrow} · {readingMinutes(study)} min read
+          </p>
           <p className="rd-summary">{study.summary}</p>
-          <dl className="rd-meta">
-            {study.metadata.map((m) => (
-              <div key={m.label}>
-                <dt>{m.label}</dt>
-                <dd>
-                  <span className="rd-br" aria-hidden="true">└</span>
-                  {m.value}
-                </dd>
-              </div>
-            ))}
-            <div>
-              <dt>Reading time</dt>
-              <dd>
-                <span className="rd-br" aria-hidden="true">└</span>
-                {readingMinutes(study)} min
-              </dd>
-            </div>
-          </dl>
         </header>
 
         {study.thumbnailImage ? (
           <figure className="rd-fig rd-fig--cover">
             <Bloom name={bloom} live className="rd-fig-stage">
-              <Image className="rd-cover" src={study.thumbnailImage} alt={`${study.homeBrand}, the product`} width={1440} height={900} sizes="(max-width: 960px) 100vw, 760px" priority />
+              <Image className="rd-cover" src={study.thumbnailImage} alt={`${study.homeBrand}, the product`} width={1440} height={900} sizes="(max-width: 960px) 100vw, 550px" priority />
             </Bloom>
           </figure>
         ) : null}
 
-        {sections.map(({ id, kicker, title, section, lead, itemFigures }, i) => (
+        {sections.map(({ id, title, section, lead, itemFigures }, i) => (
           <section key={id} id={id} className="rd-section" tabIndex={-1} aria-labelledby={`${id}-title`}>
-            <p className="rd-kicker">
-              {String(i + 1).padStart(2, "0")} · {kicker}
-            </p>
-            <h2 id={`${id}-title`}>{title}</h2>
+            <div className="rd-section-head">
+              <h2 id={`${id}-title`}>{title}</h2>
+              <span className="rd-section-rule" aria-hidden="true" />
+              <span className="rd-kicker" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
             <div className="rd-prose">
               {section.callout ? <p className="rd-note">{section.callout}</p> : null}
               <Paragraphs text={section.body} />

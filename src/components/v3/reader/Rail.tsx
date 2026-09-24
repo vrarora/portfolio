@@ -11,7 +11,6 @@ type Props = {
   items: RailItem[];
   /** The element whose scroll the progress bar measures. */
   docId: string;
-  next?: { href: string; title: string };
 };
 
 /** How far down the viewport a heading must rise before its section counts as current. */
@@ -21,7 +20,7 @@ const LINE = 0.3;
  * The reading rail: a tree of sections whose figures unfold under the one
  * being read, and a dithered bar that fills as the page is read.
  */
-export function Rail({ title, items, docId, next }: Props) {
+export function Rail({ title, items, docId }: Props) {
   const [active, setActive] = useState({ item: items[0]?.id ?? "", sub: "" });
   const fillRefs = useRef<HTMLSpanElement[]>([]);
   const pctRef = useRef<HTMLSpanElement>(null);
@@ -160,16 +159,6 @@ export function Rail({ title, items, docId, next }: Props) {
               00%
             </span>
           </div>
-
-          {next ? (
-            <Link className="rd-next" href={next.href}>
-              <span className="rd-th">Next</span>
-              <span>
-                <span className="rd-br" aria-hidden="true">└</span>
-                {next.title}
-              </span>
-            </Link>
-          ) : null}
         </div>
       </aside>
     </>
