@@ -98,7 +98,7 @@ Route group `app/(v3)`: a quiet shell with SkyProvider, AudioProvider and the cu
 | Frame | anirudh.info, jaksenc.com | A rounded white sheet (`.hm-sheet`, `--hm-paper: #fff`) on the fixed live-hour sky; the sky edges the sheet and opens up under it at the end |
 | Layout | jaksenc.com/about, set in Inter | 552px column, 14px body in #565555, 13px section labels |
 | Hero | jaksenc.com/about | Perforated stamp photo, name, then India, live IST time, email and resume, each with a dark hover card: a code-drawn Mumbai map with his pinned photo, a world clock with Mumbai lit, the email address with a Copy button, and Drive's first-page resume preview with a download link |
-| Who I am | jaksenc.com, selected designer portfolios | Short, slightly larger curiosity-led lead; Learn more expands Bikaner upbringing, current IDfy work, agentic coding experiments, and life away from screens |
+| Who I am | jaksenc.com | Past lead paragraph; Learn more opens present work with playground experiments, life away from screens, evenings. "product design" gets a marker highlight |
 | What I do | anirudh.info | Words fill left to right as read; a boiling SVG scribble before "complexity"; "desirable" turns serif in a selection box; "people" has a drawn underline and opens a blurred field of eight stop-motion doodle cards; an IDfy, Ketto, Wysa logo stack cycles on click |
 | What I've been up to | jaksenc.com | Data Compass with a DPDP Act tooltip and three award notes (two link to LinkedIn), AI coding and design engineering (GitHub), the story |
 | Projects | anirudh.info "Teams" | Table of year, project, role. Hover dims the other rows to 30% and nudges the row 2px. A thick tile glides beside the hovered row and flips like a coin to the next face: IDfy (full wordmark) or Ketto logo for case studies, a bloom with a Phosphor icon for Playground (shapes, role Experiment Lab) and My Story (book, role Autobiography). The tile shows only on fine pointers at 860px and up |
@@ -122,6 +122,6 @@ Files:
 | `src/components/v3/reader/*` | `Reader`, `Rail`, `ReaderVisual`, `outline.ts`, `fonts.ts`, `reader.css` |
 
 Notes:
-- The Who I am copy is approved. Remaining home copy is a draft built from his facts and needs his approval. Follow `docs/content-writing-guidelines.md` for future copy edits.
+- All home copy is a draft built from his facts and needs his approval. Follow `docs/content-writing-guidelines.md` for future copy edits.
 - Anything that touches `Path2D` or `window` stays inside effects or draw calls; a module-level `new Path2D()` crashed SSR once.
 - The home reuses v2's `SkyProvider`, `SkyLayer` and `cues.ts`; UI sounds default on.
