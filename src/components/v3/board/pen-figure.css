@@ -1,0 +1,62 @@
+.pen-figure {
+  --board-graphite: #2b2b2b;
+  --board-red: #e03131;
+  --board-green: #2f9e44;
+
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background-color: #fff;
+  background-image: radial-gradient(circle, #dcdcdc 1.1px, transparent 1.4px);
+  background-size: 18px 18px;
+}
+
+.pen-figure path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pen-figure [data-letters] {
+  fill: inherit;
+}
+
+.pen-figure-art rect {
+  fill: #fff;
+  stroke: #e4e4e4;
+  stroke-width: 2;
+}
+
+/* The pen draws each stroke in order once the figure is on screen */
+
+@media (prefers-reduced-motion: no-preference) {
+  .pen-figure [data-pen] {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .pen-figure-art {
+    opacity: 0;
+  }
+
+  .pen-figure[data-drawn="true"] [data-pen] {
+    animation: pen-figure-draw 0.5s cubic-bezier(0.45, 0, 0.25, 1) var(--pen-delay, 0s) forwards;
+  }
+
+  .pen-figure[data-drawn="true"] .pen-figure-art {
+    animation: pen-figure-fade 0.4s ease-out var(--pen-delay, 0s) forwards;
+  }
+}
+
+@keyframes pen-figure-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pen-figure-fade {
+  to {
+    opacity: 1;
+  }
+}

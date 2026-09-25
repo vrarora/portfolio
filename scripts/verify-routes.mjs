@@ -8,18 +8,19 @@ const routes = [
   "index.html",
   "404.html",
   "work/index.html",
+  "work/data-atlas/index.html",
   "work/data-compass/index.html",
+  "work/agentic-design/index.html",
   "work/design-repo/index.html",
   "work/equalall/index.html",
   "writing/index.html",
   "admin/notes/index.html",
-  "case-studies/data-compass/index.html",
-  "case-studies/design-repo/index.html",
+  "case-studies/data-atlas/index.html",
+  "case-studies/agentic-design/index.html",
   "case-studies/equalall/index.html",
   "playground/index.html",
   "mockups/data-compass/index.html",
   "mockups/equalall/index.html",
-  "covers/design-repo/index.html",
 ];
 
 let failed = false;

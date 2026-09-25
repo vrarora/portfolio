@@ -1,0 +1,17 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg"><defs>
+    <filter id="pr20-shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#131A25" flood-opacity="0.07"></feDropShadow>
+    </filter>
+    <filter id="pr20-shadow-glyph" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#131A25" flood-opacity="0.06"></feDropShadow>
+    </filter>
+  </defs><radialGradient id="pr20-gf" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF"></stop><stop offset="62%" stop-color="#FFF"></stop><stop offset="100%" stop-color="#000"></stop>
+    </radialGradient>
+    <mask id="pr20-gm"><rect x="26" y="26" width="248" height="248" fill="url(#pr20-gf)"></rect></mask>
+    <g mask="url(#pr20-gm)"><path d="M26 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 26H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M57 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 57H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M88 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 88H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M119 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 119H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M150 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 150H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M181 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 181H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M212 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 212H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M243 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 243H274" stroke="#E7E8E9" stroke-width="1"></path><path d="M274 26V274" stroke="#E7E8E9" stroke-width="1"></path><path d="M26 274H274" stroke="#E7E8E9" stroke-width="1"></path></g><g transform="rotate(6 164 135)" filter="url(#pr20-shadow)">
+    <rect x="98" y="53" width="132" height="164" rx="12" fill="#FAFAFB"></rect></g><g transform="rotate(-3 150 140)" filter="url(#pr20-shadow)">
+    <rect x="84" y="58" width="132" height="164" rx="12" fill="#FFFFFF"></rect><rect x="101.16" y="80.96000000000001" width="79.2" height="7" rx="3.5" fill="#ECEDED"></rect><rect x="101.16" y="100.64" width="95.03999999999999" height="7" rx="3.5" fill="#ECEDED"></rect><rect x="101.16" y="166.24" width="87.12" height="7" rx="3.5" fill="#ECEDED"></rect><rect x="101.16" y="185.92000000000002" width="58.08" height="7" rx="3.5" fill="#ECEDED"></rect></g><g fill="none" stroke="none" stroke-width="1px" stop-color="rgb(0, 0, 0)" stop-opacity="1" flood-color="rgb(0, 0, 0)" flood-opacity="1" opacity="1" fill-opacity="1" stroke-opacity="1"><g transform="rotate(-9 150 159.68)" filter="url(#pr20-shadow)">
+      <rect x="66" y="134.48000000000002" width="168" height="50.4" rx="12.096" fill="#FFFFFF" stroke="#A20C0F" stroke-width="2.52"></rect>
+      <text x="150" y="167.852972972973" text-anchor="middle" textLength="120.96" lengthAdjust="spacing" font-family="&quot;Plus Jakarta Sans&quot;, sans-serif" font-weight="800" font-size="23.3514px" fill="#A20C0F" letter-spacing="normal">REVOKED</text>
+    </g></g></svg>

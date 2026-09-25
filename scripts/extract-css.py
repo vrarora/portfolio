@@ -81,11 +81,9 @@ def collect(patterns):
     return out
 
 TARGETS = {
-    "src/components/case-study/visuals/design-repo.css": [r"\.dr-", r"\.drc-", r"\.drl-", r"\.drp-", r"\.drd-", r"\.drpb-"],
     "src/components/case-study/visuals/equalall-diagrams.css": [r"\.eaff-", r"\.eagap-"],
     "src/components/case-study/visuals/outcome-impact.css": [r"\.oiv-", r"\.outcome-impact"],
     "src/components/case-study/visuals/flat-list.css": [r"\.flat-list-scroll"],
-    "app/covers/design-repo/covers.css": [r"\.drcov-"],
 }
 
 HEADER = "/* Extracted from app/globals.css in the v2 migration. Prefixed rules only. */\n\n"

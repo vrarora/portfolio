@@ -19,9 +19,11 @@ function subscribe(onChange: () => void) {
   };
 }
 
+const boardFits = () => window.matchMedia(BOARD_QUERY).matches;
+
 function mode(): Mode {
   if (new URLSearchParams(window.location.search).has("read")) return "read";
-  return window.matchMedia(BOARD_QUERY).matches ? "board" : "read";
+  return boardFits() ? "board" : "read";
 }
 
 /**
@@ -30,11 +32,17 @@ function mode(): Mode {
  */
 export function StudyExperience({ board, reader }: { board: ReactNode; reader: ReactNode }) {
   const current = useSyncExternalStore(subscribe, mode, () => "pending" as Mode);
+  const canBoard = useSyncExternalStore(subscribe, boardFits, () => false);
 
   return (
     <div className="study-experience" data-mode={current}>
       {current !== "read" && <div className="study-board">{board}</div>}
       {current !== "board" && <div className="study-reader">{reader}</div>}
+      {current === "read" && canBoard && (
+        <a className="board-pill study-to-board" href="?">
+          Interactive Mode
+        </a>
+      )}
     </div>
   );
 }

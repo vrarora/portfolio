@@ -1,0 +1,28 @@
+<svg width="340" height="180" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="340" height="180" rx="10" fill="rgb(250, 250, 251)"></rect>
+          
+          <path d="M170 42l138 79-138 79L32 121z" fill="rgb(255, 255, 255)" stroke="rgb(231, 232, 233)"></path>
+          <g stroke="rgb(231, 232, 233)">
+            <path d="M101 82l138 79M136 62l138 79M66 102l138 79"></path>
+            <path d="M239 82L101 161M204 62L66 141M274 102L136 181"></path>
+          </g>
+          
+          <g>
+            <path d="M170 74l28 16-28 16-28-16z" fill="rgb(255, 255, 255)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M142 90v22l28 16v-22z" fill="rgb(243, 243, 244)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M198 90v22l-28 16v-22z" fill="rgb(219, 221, 222)" stroke="rgb(191, 194, 196)"></path>
+
+            <path d="M114 96l22 13-22 13-22-13z" fill="rgb(255, 255, 255)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M92 109v14l22 13v-14z" fill="rgb(243, 243, 244)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M136 109v14l-22 13v-14z" fill="rgb(219, 221, 222)" stroke="rgb(191, 194, 196)"></path>
+
+            <path d="M226 96l22 13-22 13-22-13z" fill="rgb(255, 255, 255)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M204 109v18l22 13v-18z" fill="rgb(243, 243, 244)" stroke="rgb(191, 194, 196)"></path>
+            <path d="M248 109v18l-22 13v-18z" fill="rgb(219, 221, 222)" stroke="rgb(191, 194, 196)"></path>
+
+            
+            <path d="M170 118l30 17-30 17-30-17z" fill="rgb(210, 227, 249)" stroke="rgb(23, 102, 214)"></path>
+            <path d="M140 135v14l30 17v-14z" fill="rgb(23, 102, 214)" stroke="rgb(16, 78, 184)"></path>
+            <path d="M200 135v14l-30 17v-14z" fill="rgb(16, 78, 184)" stroke="rgb(16, 78, 184)"></path>
+          </g>
+        </svg>

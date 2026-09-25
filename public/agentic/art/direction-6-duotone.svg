@@ -1,0 +1,19 @@
+<svg width="340" height="180" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="d6d" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="1.6" cy="1.6" r="1.6" fill="rgb(23, 102, 214)"></circle>
+            </pattern>
+            <pattern id="d6e" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="1.6" cy="1.6" r="0.9" fill="rgb(255, 255, 255)"></circle>
+            </pattern>
+          </defs>
+          <rect width="340" height="180" rx="10" fill="rgb(19, 26, 37)"></rect>
+          <circle cx="112" cy="90" r="66" fill="url(#d6d)"></circle>
+          <rect x="112" y="24" width="132" height="132" fill="rgb(23, 102, 214)"></rect>
+          <rect x="112" y="24" width="132" height="132" fill="url(#d6e)"></rect>
+          <path d="M244 24v132" stroke="rgb(255, 255, 255)" stroke-width="2"></path>
+          <rect x="262" y="56" width="52" height="10" fill="rgb(255, 255, 255)"></rect>
+          <rect x="262" y="76" width="34" height="10" fill="rgb(23, 102, 214)"></rect>
+          <rect x="262" y="96" width="44" height="10" fill="rgb(255, 255, 255)"></rect>
+          <path d="M26 156h288" stroke="rgb(23, 102, 214)" stroke-width="3"></path>
+        </svg>

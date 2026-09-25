@@ -1,0 +1,46 @@
+<svg width="340" height="180" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="340" height="180" rx="10" fill="rgb(255, 255, 255)"></rect>
+          
+          <g>
+            <rect x="28" y="34" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="52" y="34" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+            <rect x="76" y="34" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="100" y="34" width="20" height="20" rx="3" fill="rgb(210, 227, 249)"></rect>
+            <rect x="124" y="34" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="148" y="34" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+
+            <rect x="28" y="58" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+            <rect x="52" y="58" width="20" height="20" rx="3" fill="rgb(23, 102, 214)"></rect>
+            <rect x="76" y="58" width="20" height="20" rx="3" fill="rgb(210, 227, 249)"></rect>
+            <rect x="100" y="58" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="124" y="58" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+            <rect x="148" y="58" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+
+            <rect x="28" y="82" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="52" y="82" width="20" height="20" rx="3" fill="rgb(210, 227, 249)"></rect>
+            <rect x="76" y="82" width="20" height="20" rx="3" fill="rgb(16, 78, 184)"></rect>
+            <rect x="100" y="82" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+            <rect x="124" y="82" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="148" y="82" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+
+            <rect x="28" y="106" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="52" y="106" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="76" y="106" width="20" height="20" rx="3" fill="rgb(228, 233, 242)"></rect>
+            <rect x="100" y="106" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="124" y="106" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+            <rect x="148" y="106" width="20" height="20" rx="3" fill="rgb(243, 243, 244)"></rect>
+          </g>
+          
+          <g>
+            <rect x="196" y="46" width="34" height="8" rx="4" fill="rgb(226, 51, 24)"></rect>
+            <rect x="234" y="46" width="76" height="8" rx="4" fill="rgb(236, 237, 237)"></rect>
+            <rect x="196" y="64" width="58" height="8" rx="4" fill="rgb(241, 155, 0)"></rect>
+            <rect x="258" y="64" width="52" height="8" rx="4" fill="rgb(236, 237, 237)"></rect>
+            <rect x="196" y="82" width="22" height="8" rx="4" fill="rgb(248, 226, 144)"></rect>
+            <rect x="222" y="82" width="88" height="8" rx="4" fill="rgb(236, 237, 237)"></rect>
+          </g>
+          
+          <path d="M196 126a56 56 0 0 1 56-56" stroke="rgb(23, 102, 214)" stroke-width="3" stroke-linecap="round"></path>
+          <path d="M252 70a56 56 0 0 1 56 56" stroke="rgb(191, 194, 196)" stroke-width="3" stroke-linecap="round"></path>
+          <circle cx="252" cy="70" r="4.5" fill="rgb(255, 255, 255)" stroke="rgb(23, 102, 214)" stroke-width="2"></circle>
+        </svg>

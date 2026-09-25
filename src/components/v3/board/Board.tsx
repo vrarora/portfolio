@@ -1,20 +1,17 @@
 "use client";
 
-import { ArrowLeft } from "@phosphor-icons/react";
+import { ArrowDown, ArrowLeft } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { clamp01 } from "@/components/story/engine/math";
 import { routes } from "@/lib/routes";
 
-import { buildScript, CHROME, SNAP_H, SNAP_W, type Anchors } from "./script";
+import { CHROME, SNAP_H, SNAP_W, type Anchors } from "./kit";
+import { STORIES, type StoryId } from "./stories";
+import { INK, InkDrawing } from "./ink";
 import { cameraAt, compile, progressOf, snapOpacities, type Ink } from "./timeline";
 import "./board.css";
-
-/** Viewport heights of scroll per timeline unit. */
-const VH_PER_UNIT = 0.7;
-
-const INK: Record<Ink, string> = { graphite: "var(--board-graphite)", red: "var(--board-red)", green: "var(--board-green)" };
 
 const snapSrc = (snap: string) => (snap.startsWith("/") ? snap : `/atlas-snapshots/${snap}/`);
 
@@ -28,16 +25,22 @@ function restoreScroll(frame: HTMLIFrameElement) {
   }
 }
 
-type Props = { anchors: Anchors; readHref: string };
+/** Px of scroll over which the scroll hint fades out. */
+const HINT_FADE = 240;
 
-export function Board({ anchors, readHref }: Props) {
-  const compiled = useMemo(() => compile(buildScript(anchors)), [anchors]);
+type Props = { story: StoryId; anchors: Anchors; readHref: string };
+
+export function Board({ story, anchors, readHref }: Props) {
+  const { name, pace } = STORIES[story];
+  const compiled = useMemo(() => compile(STORIES[story].build(anchors)), [story, anchors]);
   const { script } = compiled;
 
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const nibRef = useRef<SVGSVGElement>(null);
+  const hintRef = useRef<HTMLDivElement>(null);
+  const uid = useId().replace(/[^\w-]/g, "");
 
   // Snapshots load after hydration, so phones that switch to the reader never fetch them
   const [live, setLive] = useState(false);
@@ -48,18 +51,20 @@ export function Board({ anchors, readHref }: Props) {
     const stage = stageRef.current;
     const world = worldRef.current;
     const nib = nibRef.current;
-    if (!track || !stage || !world || !nib) return;
+    const hint = hintRef.current;
+    if (!track || !stage || !world || !nib || !hint) return;
 
     // Cache each drawing's paths and lengths once, so a frame only writes styles
 
     const drawings = script.drawings.map((d) => {
       const group = world.querySelector<SVGGElement>(`[data-drawing="${d.id}"]`)!;
-      const paths = [...group.querySelectorAll("path")].map((el) => {
+      const letters = group.querySelector<SVGPathElement>("[data-letters]");
+      const paths = [...group.querySelectorAll<SVGPathElement>("[data-pen]")].map((el) => {
         const len = el.getTotalLength();
         el.style.strokeDasharray = `${len} ${len}`;
         return { el, len };
       });
-      return { d, group, paths, total: paths.reduce((s, p) => s + p.len, 0), span: compiled.draw.get(d.id) };
+      return { d, group, letters, paths, total: paths.reduce((s, p) => s + p.len, 0), span: compiled.draw.get(d.id) };
     });
 
     const frames = script.frames.map((f) => ({
@@ -80,6 +85,13 @@ export function Board({ anchors, readHref }: Props) {
     const render = (t: number) => {
       const vw = stage.clientWidth;
       const vh = stage.clientHeight;
+
+      // The scroll hint fades out over the first stretch of scroll and returns at the top
+
+      const hintAlpha = 1 - clamp01((t * Math.max(1, track.offsetHeight - window.innerHeight)) / HINT_FADE);
+      hint.style.opacity = hintAlpha.toFixed(3);
+      hint.style.visibility = hintAlpha > 0 ? "visible" : "hidden";
+
       const cam = cameraAt(compiled, t);
       const scale = Math.min(vw / cam.w, vh / cam.h);
       const tx = vw / 2 - (cam.x + cam.w / 2) * scale;
@@ -102,8 +114,15 @@ export function Board({ anchors, readHref }: Props) {
       }
 
       let tip: { x: number; y: number; ink: Ink } | null = null;
-      for (const { d, group, paths, total, span } of drawings) {
+      for (const { d, group, letters, paths, total, span } of drawings) {
         const p = span ? progressOf(t, span) : 1;
+
+        // Letters show through the pen's mask while it writes, then drop the mask once done
+
+        if (letters) {
+          letters.style.visibility = p > 0 ? "visible" : "hidden";
+          letters.style.mask = p >= 1 ? "none" : "";
+        }
         let remaining = p * total;
         for (const path of paths) {
           const drawn = Math.min(path.len, Math.max(0, remaining));
@@ -112,7 +131,8 @@ export function Board({ anchors, readHref }: Props) {
           path.el.style.strokeDashoffset = String(path.len - drawn);
           if (!tip && p > 0 && p < 1 && drawn > 0 && drawn < path.len) {
             const pt = path.el.getPointAtLength(drawn);
-            tip = { x: pt.x, y: pt.y, ink: d.ink };
+            const at = d.at ?? { x: 0, y: 0, scale: 1 };
+            tip = { x: at.x + pt.x * at.scale, y: at.y + pt.y * at.scale, ink: d.ink };
           }
         }
         group.style.opacity = d.layer ? (snapAlpha.get(d.layer.frame)?.[d.layer.snap] ?? 0).toFixed(3) : "1";
@@ -166,10 +186,15 @@ export function Board({ anchors, readHref }: Props) {
   }, [compiled, script, live]);
 
   return (
-    <div className="board" ref={trackRef} style={{ height: `${(compiled.units * VH_PER_UNIT * 100).toFixed(0)}vh` }}>
+    <div className="board" ref={trackRef} style={{ height: `${(compiled.units * pace * 100).toFixed(0)}vh` }}>
       <div className="board-stage" ref={stageRef}>
         <div className="board-world" ref={worldRef} style={{ width: script.world.w, height: script.world.h }}>
-          {script.frames.map((f) => (
+          {script.frames.map((f) =>
+            f.kind === "art" ? (
+              <div key={f.id} className="board-art" data-frame={f.id} style={{ left: f.x, top: f.y, width: f.w, height: f.h }}>
+                {live && f.snaps.map((src, i) => <img key={src} data-snap={i} src={src} alt="" />)}
+              </div>
+            ) : (
             <div key={f.id} className="board-frame" data-frame={f.id} style={{ left: f.x, top: f.y, width: SNAP_W, height: SNAP_H + CHROME }}>
               <div className="board-frame-bar" style={{ height: CHROME }}>
                 <i />
@@ -182,7 +207,7 @@ export function Board({ anchors, readHref }: Props) {
                     key={snap}
                     data-snap={i}
                     src={snapSrc(snap)}
-                    title={`Data Atlas screen ${i + 1}`}
+                    title={`${name} screen ${i + 1}`}
                     tabIndex={-1}
                     aria-hidden="true"
                     scrolling="no"
@@ -193,15 +218,12 @@ export function Board({ anchors, readHref }: Props) {
                 ))}
               </div>
             </div>
-          ))}
+            ),
+          )}
 
           <svg className="board-ink" width={script.world.w} height={script.world.h} aria-hidden="true">
-            {script.drawings.map((d) => (
-              <g key={d.id} data-drawing={d.id} stroke={INK[d.ink]} strokeWidth={d.width}>
-                {d.paths.map((p, i) => (
-                  <path key={i} d={p} />
-                ))}
-              </g>
+            {script.drawings.map((d, i) => (
+              <InkDrawing key={d.id} drawing={d} maskId={`${uid}-ink-${i}`} data-drawing={d.id} />
             ))}
           </svg>
 
@@ -215,6 +237,10 @@ export function Board({ anchors, readHref }: Props) {
           <ArrowLeft size={14} weight="bold" aria-hidden="true" />
           Home
         </Link>
+        <div className="board-pill board-hint" ref={hintRef}>
+          <ArrowDown className="board-hint-arrow" size={14} weight="bold" aria-hidden="true" />
+          Scroll to read
+        </div>
         <a className="board-pill board-read" href={readHref}>
           Read instead
         </a>

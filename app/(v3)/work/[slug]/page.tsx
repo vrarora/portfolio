@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Board } from "@/components/v3/board/Board";
-import type { Anchors } from "@/components/v3/board/script";
+import type { Anchors } from "@/components/v3/board/kit";
+import { isStory } from "@/components/v3/board/stories";
 import { StudyExperience } from "@/components/v3/board/StudyExperience";
 import { Reader } from "@/components/v3/reader/Reader";
 import { caseStudies } from "@/content/case-studies";
@@ -48,9 +49,9 @@ export default async function Page({ params }: PageProps) {
   const next = caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
   const study = caseStudies[index];
   const reader = <Reader study={study} next={next} />;
-  if (study.experience !== "board") return reader;
+  if (study.experience !== "board" || !isStory(study.slug)) return reader;
 
-  return <StudyExperience board={<Board anchors={loadAnchors()} readHref="?read=1" />} reader={reader} />;
+  return <StudyExperience board={<Board story={study.slug} anchors={loadAnchors()} readHref="?read=1" />} reader={reader} />;
 }
 
 /** Element positions recorded with each product snapshot, read at build time. */

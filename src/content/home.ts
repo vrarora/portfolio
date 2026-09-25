@@ -157,7 +157,7 @@ export type ProjectRow = {
 
 const COMPANY_LOGOS: Partial<Record<string, LogoId>> = {
   "data-atlas": "idfy",
-  "design-repo": "idfy",
+  "agentic-design": "idfy",
   equalall: "ketto",
 };
 

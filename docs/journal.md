@@ -259,3 +259,30 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Moved each snapshot to `public/atlas-snapshots/<id>/index.html`, linked `../atlas.css`, pointed `snapSrc` in `Board.tsx` at the folder URL, added a dev rewrite in `next.config.mjs`, and updated the capture and cover scripts.
 - Checked by serving `out/` statically: all nine snapshots load styled, and the connector picker renders on the board.
 - Committed as `465bb0e`, pushed, and fast-forwarded `main`. After the deploy, he confirmed the live board shows its product frames, and `/atlas-snapshots/assets/` and `atlas.css` both return 200.
+
+## 2026-09-26 · Agentic Design case study
+- Planned with him through question rounds. The Design Repo case study became Agentic Design: the repo as a short prologue, then product-design, privy-ui-standards and privy-illustration from `~/Privy/.claude/skills/`. He chose the takeaway ("I build systems others extend"), one failure per chapter, colleagues by role only, the name, the long title and crediting Vercel's post, which ui-standards is built on.
+- Research agents read each skill, its git history, the PDD folders, `docs/brand/ILLUSTRATION-DECISIONS.md` and `CONVERSATION-LOG.md`, and his transcripts. Numbers in the copy come from those files or from him (2 weeks before PDDs, rounds dropped after ui-standards, leadership liked the illustration skill most, everything shipped). Later he added the demo environment, the in-app feedback widget and Agentation, and a fourth agent sourced their facts (`demo-setup.md`, `docs/VERCEL_HYGIENE.md`, `docs/plans/in-app-feedback-widget.md`, `.mcp.json`).
+- He picked the pen-sketch style from three specimens of the ScanLine beat. An HTML specimen page rendered blank in the app's file viewer because scripts are blocked there, so specimens went out as PNGs.
+- Copy was rewritten twice: first against `SKILL (1).md` and `tropes (1).md`, then into plain technical English after he called the draft "ai-esque". Titles are plain labels now.
+- Built: shared board kit and story registry (Data Atlas moved to `stories/data-atlas.ts` unchanged), sketch primitives, art frames, icon drawings with `at`, per-story pace, `PenFigure` for the reading version, art export and cover render scripts, redirect from `/work/design-repo/`.
+- Bugs found while checking: marks placed with local diagram coordinates landed in the wrong cell (every call now maps through the beat's `X`/`Y`); a drawing reused the id `c2-line`; the first cover caught the Agentation dev toolbar, which mounts late (the render now waits, then hides fixed elements).
+- His feedback on `?read=1`: the cover was a confusing mid-story beat, so the board opens on a title card that is also the cover; the P1 loop starts with pulling a branch, not Figma; gradient bloom containers removed from all case studies; an "Interactive Mode" button, filled, with a sheen, bottom right like the board's "Read instead".
+- Checks: tsc clean, headless Playwright shots of every beat, reader figures all drawn with no console errors, phone width falls back to the reader with no button, legacy redirect returns 200.
+- He asked why I had placed the demo, feedback and Agentation beats without discussing them. I should have proposed a placement first; that is now a saved rule.
+- Font: EMS Readability read clearly but looked typeset, and EMS Casual Hand is not in Inkscape's font set. He chose Excalifont. Its contours come from fontTools, flattened and simplified with Ramer-Douglas-Peucker (a closed contour has to be split before simplifying, or it collapses to two points; 298 KB became 37 KB). Letters first filled solid because each contour was its own path; one path per glyph fixed the holes. Page stacks now draw only the edges that peek out, so they no longer cross the front page's text.
+
+## 2026-09-26: Excalifont pen follows the letters
+- He saw the pen trace letter outlines, not write them. Cause: Excalifont glyphs are outlines, so the pen ran around each letter's edge from wherever the font's contour began, and the fill faded in by opacity.
+- Fix: the build script rasterises each glyph, thins it (Zhang-Suen), traces the skeleton into strokes, joins them through junctions along the straightest path, drops whiskers and duplicate bits, and orders them as a hand writes (top or left first, loops anticlockwise from the top, dots last). One stroke weight for the whole font keeps dots from being dropped.
+- `InkDrawing` in `board/ink.tsx` renders every drawing for the board and the reading figures. Outline text keeps its pen paths inside a mask over the filled letters.
+- Scroll length did not change (169.7 units). Build and verify-routes pass.
+
+## 2026-09-26: Data Atlas writes in Excalifont
+- At his request. `stories/data-atlas.ts` passes `FONT = "excalifont"` to `createKit`, `fitSize` and `penText`.
+- Added a drawn ₹ to `build-excalifont.py`: three strokes sized to the figures, inked at the font's stroke weight, outline traced from the pixel edges.
+- Checked 12 beats headlessly: notes stay in their margins, titles fit, no errors. Scroll length went from 47.6 to 37.7 screens at the same pace; left as is for his call.
+
+## 2026-09-26: scroll hint, parked story item
+- Both boards show a "Scroll to read" pill bottom centre with a bobbing arrow. It fades out over the first 240px of scroll and returns at the top.
+- He parked the story's handling of the Agentation plugin, the feedback widget and the demo environment. It stays as built for now and is the next task.

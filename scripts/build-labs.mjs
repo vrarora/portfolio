@@ -115,7 +115,7 @@ const LABS = [
             "/images/playground/atmos.webp",
             "/images/playground/east-is-up.webp",
             "/images/equalall/equalall-cover.webp",
-            "/images/design-repo/design-repo-cover.webp",
+            "/images/agentic-design/thumbnail.webp",
           ];
           var ctx = atlasTex.image.getContext("2d");
           var loaded = 0;

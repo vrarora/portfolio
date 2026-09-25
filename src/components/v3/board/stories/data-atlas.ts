@@ -3,69 +3,15 @@
  * the camera visits them in order while the pen writes and annotates the
  * product snapshots placed inside them.
  */
-import { arrow, bracket, circle, scribble, strike, trace, underline, type Rect } from "./marks";
-import { penText, penWidth } from "./pen/text";
-import type { Drawing, Frame, Ink, Script, Step } from "./timeline";
+import { arrow, bracket, circle, scribble, strike, underline, type Rect } from "../marks";
+import { penText } from "../pen/text";
+import { CELL_H, CELL_W, CHROME, GAP, SNAP_H, SNAP_W, cell, createKit, fitSize, focus, pad, union, type Anchors } from "../kit";
+import type { Frame, Script } from "../timeline";
 
-export type SnapMeta = { width: number; height: number; anchors: Record<string, Rect> };
-export type Anchors = Record<string, SnapMeta>;
-
-/** Browser chrome above each snapshot, in world px. */
-export const CHROME = 44;
-export const SNAP_W = 1440;
-export const SNAP_H = 900;
-
-const CELL_W = 2000;
-const CELL_H = 1300;
-const GAP = 240;
-
-const cell = (col: number, row: number): Rect => ({
-  x: col * (CELL_W + GAP),
-  y: row * (CELL_H + GAP),
-  w: CELL_W,
-  h: CELL_H,
-});
-
-const pad = (r: Rect, p: number): Rect => ({ x: r.x - p, y: r.y - p, w: r.w + p * 2, h: r.h + p * 2 });
-
-const union = (...rs: Rect[]): Rect => {
-  const x = Math.min(...rs.map((r) => r.x));
-  const y = Math.min(...rs.map((r) => r.y));
-  return { x, y, w: Math.max(...rs.map((r) => r.x + r.w)) - x, h: Math.max(...rs.map((r) => r.y + r.h)) - y };
-};
-
-/** A camera rect of at least `minW` world px wide, centred on `r`. */
-function focus(r: Rect, minW = 1100): Rect {
-  const w = Math.max(r.w + 240, minW);
-  const h = Math.max(r.h + 240, w * 0.56);
-  return { x: r.x + r.w / 2 - w / 2, y: r.y + r.h / 2 - h / 2, w, h };
-}
-
-/** Fits the size so the longest line stays within `maxW`. */
-const fitSize = (text: string, maxW: number, max: number) => Math.min(max, (maxW / penWidth(text, 1000)) * 1000);
+const FONT = "excalifont";
 
 export function buildScript(anchors: Anchors): Script {
-  const frames: Frame[] = [];
-  const drawings: Drawing[] = [];
-  const steps: Step[] = [];
-  let seed = 1;
-
-  const ink = (id: string, color: Ink, paths: string[], width: number, layer?: Drawing["layer"]) => {
-    drawings.push({ id, ink: color, paths, width, layer });
-  };
-
-  /** Writes text with its box's top-left at (x, y). Returns the text box. */
-  const write = (id: string, text: string, x: number, y: number, size: number, color: Ink = "graphite", layer?: Drawing["layer"]) => {
-    const t = penText(text, size, x, y);
-    ink(id, color, t.paths, Math.max(2.2, size * 0.035), layer);
-    return { x, y, w: t.width, h: t.height };
-  };
-
-  const frame = (id: string, x: number, y: number, snaps: string[]) => {
-    const f = { id, x, y, snaps };
-    frames.push(f);
-    return f;
-  };
+  const { ink, write, frame, cam, draw, show, hold, nextSeed, finish } = createKit(FONT);
 
   /** World rect of a named element in a snapshot, placed in its frame. */
   const at = (f: Frame, snap: string, name: string, fallback: Rect): Rect => {
@@ -80,11 +26,6 @@ export function buildScript(anchors: Anchors): Script {
   /** Right-hand margin beside a frame, where notes go. */
   const margin = (f: Frame) => f.x + SNAP_W + 70;
 
-  const cam = (to: Rect, weight = 1.2, withPrev = false) => steps.push({ kind: "camera", to, weight, with: withPrev });
-  const draw = (id: string, weight?: number, withPrev = false) => steps.push({ kind: "draw", id, weight, with: withPrev });
-  const show = (f: Frame, snap: number, weight = 0.8) => steps.push({ kind: "show", frame: f.id, snap, weight });
-  const hold = (weight: number) => steps.push({ kind: "hold", weight });
-
   // 1. The reader's shoes
 
   const c1 = cell(0, 0);
@@ -94,7 +35,7 @@ export function buildScript(anchors: Anchors): Script {
     "Do you know where every Aadhaar and PAN is?",
     "Under the DPDP Act, one breach can cost up to ₹250 crore.",
   ];
-  const openSize = fitSize(openCopy.reduce((a, b) => (b.length > a.length ? b : a)), CELL_W - 200, 92);
+  const openSize = fitSize(openCopy.reduce((a, b) => (b.length > a.length ? b : a)), CELL_W - 200, 92, FONT);
   const openBoxes = openCopy.map((line, i) => write(`open-${i}`, line, c1.x + 100, c1.y + 220 + i * openSize * 1.9, openSize));
   const openArea: Rect = { x: c1.x, y: c1.y + 100, w: CELL_W, h: openBoxes[3].y + openBoxes[3].h - c1.y };
 
@@ -111,10 +52,10 @@ export function buildScript(anchors: Anchors): Script {
     "The backend worked, but the frontend ignored the people using it.",
     "Then a bank asked for a POC, starting in two weeks.",
   ];
-  const problemSize = fitSize(problemCopy[1], CELL_W - 200, 92);
+  const problemSize = fitSize(problemCopy[1], CELL_W - 200, 92, FONT);
   problemCopy.forEach((line, i) => write(`problem-${i}`, line, c2.x + 100, c2.y + 320 + i * problemSize * 1.9, problemSize));
-  const twoWeeks = penText(problemCopy[2], problemSize);
-  ink("problem-underline", "red", underline({ x: c2.x + 100 + twoWeeks.width * 0.72, y: c2.y + 320 + 2 * problemSize * 1.9, w: twoWeeks.width * 0.28, h: problemSize * 0.9 }, seed++), 4);
+  const twoWeeks = penText(problemCopy[2], problemSize, 0, 0, FONT);
+  ink("problem-underline", "red", underline({ x: c2.x + 100 + twoWeeks.width * 0.72, y: c2.y + 320 + 2 * problemSize * 1.9, w: twoWeeks.width * 0.28, h: problemSize * 0.9 }, nextSeed()), 4);
 
   cam(pad(c2, -60));
   problemCopy.forEach((_, i) => draw(`problem-${i}`));
@@ -130,10 +71,10 @@ export function buildScript(anchors: Anchors): Script {
 
   const available = at(fOnboard, "picker", "available", { x: 380, y: 150, w: 880, h: 400 });
   const premium = at(fOnboard, "picker", "premiumHeading", { x: 380, y: 620, w: 200, h: 24 });
-  ink("pick-bracket", "green", bracket(available, seed++), 4.5, { frame: "onboard", snap: 0 });
+  ink("pick-bracket", "green", bracket(available, nextSeed()), 4.5, { frame: "onboard", snap: 0 });
   const pickNote = write("pick-note", "what you can\nconnect comes first", noteX, available.y, 50, "green", { frame: "onboard", snap: 0 });
   const premNote = write("prem-note", "the other 200+\nwait here", noteX, premium.y + 60, 50, "red", { frame: "onboard", snap: 0 });
-  ink("prem-arrow", "red", arrow([noteX - 20, premium.y + 90], [premium.x + premium.w + 24, premium.y + premium.h / 2], [noteX - 200, premium.y + 140], seed++), 4, { frame: "onboard", snap: 0 });
+  ink("prem-arrow", "red", arrow([noteX - 20, premium.y + 90], [premium.x + premium.w + 24, premium.y + premium.h / 2], [noteX - 200, premium.y + 140], nextSeed()), 4, { frame: "onboard", snap: 0 });
 
   cam(focus(pad(union(onboardTitle, frameRect(fOnboard)), 40), 1600));
   draw("onboard-title");
@@ -146,7 +87,7 @@ export function buildScript(anchors: Anchors): Script {
   hold(0.4);
 
   const stepRects = [1, 2, 3].map((n) => at(fOnboard, "add-configure", `step${n}`, { x: 20 + (n - 1) * 360, y: 250, w: 160, h: 28 }));
-  stepRects.forEach((r, i) => ink(`steps-${i}`, "green", circle(r, seed++, 12), 4, { frame: "onboard", snap: 1 }));
+  stepRects.forEach((r, i) => ink(`steps-${i}`, "green", circle(r, nextSeed(), 12), 4, { frame: "onboard", snap: 1 }));
   const stepsNote = write("steps-note", "three short steps\ninstead of one long form", noteX, stepRects[0].y - 20, 50, "green", { frame: "onboard", snap: 1 });
 
   cam(focus(union(...stepRects, stepsNote), 1500), 0.8);
@@ -156,7 +97,7 @@ export function buildScript(anchors: Anchors): Script {
   hold(0.4);
 
   const toggle = at(fOnboard, "add-scans", "scanToggle", { x: 400, y: 400, w: 300, h: 40 });
-  ink("scan-circle", "green", circle(toggle, seed++, 16), 4.5, { frame: "onboard", snap: 2 });
+  ink("scan-circle", "green", circle(toggle, nextSeed(), 16), 4.5, { frame: "onboard", snap: 2 });
   const scanNote = write("scan-note", "the first scan\nstarts right here", noteX, toggle.y - 30, 50, "green", { frame: "onboard", snap: 2 });
 
   show(fOnboard, 2);
@@ -176,15 +117,15 @@ export function buildScript(anchors: Anchors): Script {
 
   // Replacements sit in the gap above each struck label; the cron note needs the margin
 
-  ink("scan-strike-1", "red", strike(discovery, seed++), 3.5, before);
+  ink("scan-strike-1", "red", strike(discovery, nextSeed()), 3.5, before);
   write("scan-new-1", "Discovery Scan", discovery.x - 50, discovery.y - 32, 28, "green", before);
-  ink("scan-strike-2", "red", strike(classification, seed++), 3.5, before);
+  ink("scan-strike-2", "red", strike(classification, nextSeed()), 3.5, before);
   write("scan-new-2", "Classification Scan", classification.x - 50, classification.y - 32, 28, "green", before);
-  ink("cron-strike", "red", strike(schedule, seed++), 3.5, before);
+  ink("cron-strike", "red", strike(schedule, nextSeed()), 3.5, before);
   const namesNote = write("scan-names-note", "named after the job\neach one does", margin(fScans), discovery.y - 60, 50, "green");
   const cronNote = write("cron-new", "pick a time instead", margin(fScans), classification.y + 40, 50, "green", before);
   const rowGap = discovery.y + discovery.h + 16;
-  ink("cron-arrow", "green", arrow([cronNote.x - 20, cronNote.y + 30], [schedule.x + schedule.w + 16, schedule.y + schedule.h / 2], [schedule.x + schedule.w + 360, rowGap + 30], seed++), 3.5, before);
+  ink("cron-arrow", "green", arrow([cronNote.x - 20, cronNote.y + 30], [schedule.x + schedule.w + 16, schedule.y + schedule.h / 2], [schedule.x + schedule.w + 360, rowGap + 30], nextSeed()), 3.5, before);
 
   cam(pad(c4, -40));
   show(fScans, 0);
@@ -204,10 +145,10 @@ export function buildScript(anchors: Anchors): Script {
   // 5. Explore: flat list
 
   const c5 = cell(2, 0);
-  const flatTitle = write("flat-title", "The PM wanted a flat list, because fewer clicks felt faster.", c5.x + 40, c5.y + 30, fitSize("The PM wanted a flat list, because fewer clicks felt faster.", CELL_W - 80, 64));
+  const flatTitle = write("flat-title", "The PM wanted a flat list, because fewer clicks felt faster.", c5.x + 40, c5.y + 30, fitSize("The PM wanted a flat list, because fewer clicks felt faster.", CELL_W - 80, 64, FONT));
   const fFlat = frame("flat", c5.x + 40, c5.y + 200, ["/mockups/data-compass/flat-list/"]);
   const listArea: Rect = { x: fFlat.x + 300, y: fFlat.y + CHROME + 200, w: 1060, h: 560 };
-  ink("flat-scribble", "red", scribble(listArea, seed++, 9), 4);
+  ink("flat-scribble", "red", scribble(listArea, nextSeed(), 9), 4);
   const flatNote = write("flat-note", "testers got lost\nin pages of columns", margin(fFlat), listArea.y + 120, 50, "red");
 
   cam(focus(pad(union(flatTitle, frameRect(fFlat), flatNote), 40), 1600));
@@ -223,7 +164,7 @@ export function buildScript(anchors: Anchors): Script {
   const c6 = cell(2, 1);
   const fTree = frame("tree", c6.x + 40, c6.y + 200, ["explore-root", "explore-tree", "info-panel"]);
   const plus = at(fTree, "explore-root", "plusChip", { x: 1340, y: 226, w: 28, h: 22 });
-  ink("plus-circle", "green", circle(plus, seed++, 12), 4, { frame: "tree", snap: 0 });
+  ink("plus-circle", "green", circle(plus, nextSeed(), 12), 4, { frame: "tree", snap: 0 });
   const plusNote = write("plus-note", "rows stay one line\ntall at any scale", margin(fTree), plus.y - 20, 50, "green", { frame: "tree", snap: 0 });
 
   const nodes: Rect[] = [];
@@ -239,14 +180,14 @@ export function buildScript(anchors: Anchors): Script {
   const tree = { frame: "tree", snap: 1 };
   nodes.forEach((r, i) => write(`tree-click-${i}`, String(i + 1), r.x + r.w - 34, r.y - 2, 30, "green", tree));
   const last = nodes[nodes.length - 1] ?? { x: fTree.x + 300, y: fTree.y + 400, w: 200, h: 30 };
-  ink("tree-trace", "green", arrow([last.x + last.w - 10, last.y + last.h / 2], [column.x - 12, column.y + column.h / 2], [column.x - 40, last.y - 60], seed++), 4, tree);
-  ink("tree-circle", "green", circle(column, seed++, 10), 4, { frame: "tree", snap: 1 });
+  ink("tree-trace", "green", arrow([last.x + last.w - 10, last.y + last.h / 2], [column.x - 12, column.y + column.h / 2], [column.x - 40, last.y - 60], nextSeed()), 4, tree);
+  ink("tree-circle", "green", circle(column, nextSeed(), 10), 4, { frame: "tree", snap: 1 });
   const treeNote = write("tree-note", "more clicks, and each one\ngot closer to the risk", margin(fTree), column.y - 30, 50, "green", { frame: "tree", snap: 1 });
 
-  const panelTitle = write("panel-title", "We both thought a side panel was unnecessary. I was wrong.", c6.x + 40, c6.y + 30, fitSize("We both thought a side panel was unnecessary. I was wrong.", CELL_W - 80, 64));
+  const panelTitle = write("panel-title", "We both thought a side panel was unnecessary. I was wrong.", c6.x + 40, c6.y + 30, fitSize("We both thought a side panel was unnecessary. I was wrong.", CELL_W - 80, 64, FONT));
   const panel = at(fTree, "info-panel", "panel", { x: 1040, y: 50, w: 400, h: 850 });
   const panelNote = write("panel-note", "owners, row counts and\nscan history sit\nwhere you act", margin(fTree), panel.y + 160, 50, "green", { frame: "tree", snap: 2 });
-  ink("panel-arrow", "green", arrow([margin(fTree) - 20, panel.y + 190], [panel.x + panel.w - 40, panel.y + 190], [margin(fTree) - 40, panel.y + 120], seed++), 4, { frame: "tree", snap: 2 });
+  ink("panel-arrow", "green", arrow([margin(fTree) - 20, panel.y + 190], [panel.x + panel.w - 40, panel.y + 190], [margin(fTree) - 40, panel.y + 120], nextSeed()), 4, { frame: "tree", snap: 2 });
 
   cam(focus(pad(frameRect(fTree), 60), 1600));
   show(fTree, 0);
@@ -271,10 +212,10 @@ export function buildScript(anchors: Anchors): Script {
 
   const c7: Rect = { x: 3 * (CELL_W + GAP), y: 0, w: CELL_W, h: CELL_H * 2 + GAP };
   const outCopy = ["It shipped in two weeks.", "We won the bank and ₹10Cr ARR.", "Testing settled the arguments, including mine."];
-  const outSize = fitSize(outCopy[2], CELL_W - 200, 96);
+  const outSize = fitSize(outCopy[2], CELL_W - 200, 96, FONT);
   const outTop = c7.y + c7.h / 2 - outSize * 3;
   const outBoxes = outCopy.map((line, i) => write(`out-${i}`, line, c7.x + 100, outTop + i * outSize * 2, outSize, i === 1 ? "green" : "graphite"));
-  ink("out-underline", "green", underline(outBoxes[1], seed++), 5);
+  ink("out-underline", "green", underline(outBoxes[1], nextSeed()), 5);
 
   cam(focus(pad({ x: c7.x, y: outTop - 100, w: CELL_W, h: outSize * 6 + 200 }, 0), CELL_W + 200), 1.4);
   draw("out-0");
@@ -287,5 +228,5 @@ export function buildScript(anchors: Anchors): Script {
   cam(pad({ x: 0, y: 0, ...world }, 120), 2);
   hold(0.8);
 
-  return { world, frames, drawings, steps };
+  return finish(world);
 }

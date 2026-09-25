@@ -18,6 +18,15 @@ export type Drawing = {
   width: number;
   /** Ties the drawing to one snapshot in a frame, so it fades with that snapshot. */
   layer?: { frame: string; snap: number };
+  /** Places paths drawn in their own units, such as a 24-unit icon, at (x, y) and scale. */
+  at?: { x: number; y: number; scale: number };
+  /** The reading-version figure this drawing belongs to. */
+  figure?: string;
+  /**
+   * Outline-font text. The paths are the pen's centre lines and stay unseen;
+   * drawn `reveal[i]` wide they uncover the filled letters in `d`.
+   */
+  outline?: { d: string; reveal: number[] };
 };
 
 export type Frame = {
@@ -26,6 +35,13 @@ export type Frame = {
   y: number;
   /** Snapshot sources, shown one at a time. */
   snaps: string[];
+  /** "window" shows product snapshots in a browser window. "art" shows images on a plain card. */
+  kind?: "window" | "art";
+  /** Size of an art frame in world px. Windows are always one snapshot in size. */
+  w?: number;
+  h?: number;
+  /** The reading-version figure this frame belongs to. */
+  figure?: string;
 };
 
 export type Step =
@@ -39,6 +55,8 @@ export type Script = {
   frames: Frame[];
   drawings: Drawing[];
   steps: Step[];
+  /** World rects that reading-version figures crop to, by figure id. */
+  figures?: Record<string, Rect>;
 };
 
 export type Span = { t0: number; t1: number };
@@ -55,16 +73,16 @@ export type Compiled = {
 /** World px of pen stroke that one timeline unit covers. */
 const INK_PER_UNIT = 2600;
 
-/** Rough ink length of a drawing, for weighting how long it takes to draw. */
-function inkLength(paths: string[]) {
+/** Rough ink length of a drawing in world px, for weighting how long it takes to draw. */
+function inkLength(drawing: Drawing) {
   let total = 0;
-  for (const d of paths) {
+  for (const d of drawing.paths) {
     const nums = d.match(/-?[\d.]+/g)?.map(Number) ?? [];
     for (let i = 2; i + 1 < nums.length; i += 2) {
       total += Math.hypot(nums[i] - nums[i - 2], nums[i + 1] - nums[i - 1]);
     }
   }
-  return total;
+  return total * (drawing.at?.scale ?? 1);
 }
 
 export function compile(script: Script): Compiled {
@@ -77,7 +95,7 @@ export function compile(script: Script): Compiled {
     let weight: number;
     if (step.kind === "draw") {
       const drawing = drawings.get(step.id);
-      weight = step.weight ?? Math.max(0.25, inkLength(drawing?.paths ?? []) / INK_PER_UNIT);
+      weight = step.weight ?? Math.max(0.25, (drawing ? inkLength(drawing) : 0) / INK_PER_UNIT);
     } else {
       weight = step.weight ?? 1;
     }

@@ -36,11 +36,6 @@ export const visualRegistry = {
   "equalall-tangible": equalAll("tangible"),
   "equalall-carousel": equalAll("carousel"),
   "equalall-recurring": equalAll("recurring"),
-  "designrepo-playbook": lazy(() => import("./visuals/DesignRepoPlaybookCards")),
-  "designrepo-contrast": lazy(() => import("./visuals/DesignRepoContrastVisual")),
-  "designrepo-loop": lazy(() => import("./visuals/DesignRepoLoopVisual")),
-  "designrepo-pipeline": lazy(() => import("./visuals/DesignRepoPipelineVisual")),
-  "designrepo-demo": lazy(() => import("./visuals/DesignRepoDemoVisual")),
 } as const;
 
 export type VisualType = keyof typeof visualRegistry;
