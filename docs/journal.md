@@ -228,3 +228,6 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Built both for the home: `ExperimentsRail` from `playgroundNodes`, reusing `ReaderMedia` (now takes a class name), and `FindMeCard` with its own shader and a chamfer distance field built from the Phosphor logo at first hover.
 - Gotcha: `.v3 a { color: inherit }` outranks a single class on a link, so the rail sets text colours on the children.
 - Linked the MeitY award note to the Privy result page. Production build passed; committed and pushed `portfolio_v3`. `main` left as is.
+
+## 2026-09-26 · Experiments rail order
+- At his request the rail leads with Tøp Løre and drops Pulse and Hover Reveal. The order lives in a `RAIL` id list in `ExperimentsRail.tsx`, so the playground page keeps all seven.

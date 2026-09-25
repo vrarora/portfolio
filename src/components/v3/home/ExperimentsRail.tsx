@@ -7,6 +7,10 @@ import { ReaderMedia } from "../reader/ReaderMedia";
 const CLIP_HEIGHT = 200;
 const MIN_WIDTH = 184;
 
+/** The experiments shown here, in order. The playground page still lists them all. */
+const RAIL = ["east-is-up", "koyomi", "memento-mori", "atmos", "rolling-paper"];
+const railNodes = RAIL.flatMap((id) => playgroundNodes.filter((node) => node.id === id));
+
 /**
  * The side projects behind "small experiments", after jaksenc.com/about: a row
  * of dark cards that scrolls sideways under the sentence that opened it. Each
@@ -16,7 +20,7 @@ export function ExperimentsRail({ id }: { id: string }) {
   return (
     <div id={id} className="hm-rail" role="region" aria-label="Small experiments" data-scroll-blur>
       <ul className="hm-rail-track">
-        {playgroundNodes.map((node) => (
+        {railNodes.map((node) => (
           <li key={node.id} style={{ width: Math.max(MIN_WIDTH, Math.round(CLIP_HEIGHT * node.aspectRatio)) }}>
             <a className="hm-rail-card" href={node.liveUrl}>
               <span className="hm-rail-clip">
