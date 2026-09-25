@@ -12,7 +12,7 @@ const isVideo = (src: string) => /\.(mp4|webm)$/i.test(src);
  * off-screen; a GIF cannot pause, so it loads lazily instead. Under reduced
  * motion both show the poster.
  */
-export function ReaderMedia({ media }: { media: CaseStudyMedia }) {
+export function ReaderMedia({ media, className = "rd-media" }: { media: CaseStudyMedia; className?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
   const video = isVideo(media.src);
@@ -34,14 +34,14 @@ export function ReaderMedia({ media }: { media: CaseStudyMedia }) {
   if (reduced || !video) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img className="rd-media" src={reduced ? media.poster : media.src} alt={media.alt} loading="lazy" decoding="async" />
+      <img className={className} src={reduced ? media.poster : media.src} alt={media.alt} loading="lazy" decoding="async" />
     );
   }
 
   return (
     <video
       ref={ref}
-      className="rd-media"
+      className={className}
       src={media.src}
       poster={media.poster}
       muted

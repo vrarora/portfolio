@@ -9,6 +9,8 @@ import { siteLinks } from "./site-links";
 export type RichToken =
   | string
   | { link: string; text: string; mark?: boolean }
+  /** A phrase that opens a panel in place, below its paragraph. */
+  | { reveal: "experiments"; text: string; mark?: boolean }
   /** A term with a short explanation shown on hover or focus. */
   | { term: string; tip: string }
   /** A phrase with a hand-drawn marker highlight. */
@@ -63,7 +65,7 @@ export const whoIAm: { lead: RichParagraph; more: readonly RichParagraph[] } = {
   more: [
     [
       "These days, I design products at IDfy, helping people make sense of privacy and data governance. Outside work, I’m exploring agentic coding through ",
-      { link: "/playground/", text: "small experiments", mark: true },
+      { reveal: "experiments", text: "small experiments", mark: true },
       ", following my curiosity one idea at a time.",
     ],
     ["Away from screens, you’ll find me reading, journaling, at the gym, playing video games, or philosophising with people. Give me good company and a big question, and I can philosophise well into the evening."],
@@ -86,7 +88,14 @@ export const upTo: readonly UpToItem[] = [
       ".",
     ],
     notes: [
-      ["Awarded for winning the MeitY challenge hackathon."],
+      [
+        "Awarded for ",
+        {
+          link: "https://www.privybyidfy.com/resources/meity-dpdp-innovation-challenge-result",
+          text: "winning the MeitY challenge hackathon",
+        },
+        ".",
+      ],
       [
         "Awarded for ",
         {

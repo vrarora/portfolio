@@ -1,6 +1,5 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
-
 import { findMe } from "@/content/home";
+import { FindMeCard } from "./FindMeCard";
 
 export function FindMe() {
   return (
@@ -11,11 +10,7 @@ export function FindMe() {
       <ul className="hm-cards">
         {findMe.map((card) => (
           <li key={card.id} data-scroll-blur>
-            <a className="hm-card" href={card.href} target="_blank" rel="noreferrer">
-              <span className="hm-card-label">{card.label}</span>
-              <span className="hm-card-line">{card.line}</span>
-              <ArrowUpRight className="hm-card-arrow" size={12} weight="bold" aria-hidden="true" />
-            </a>
+            <FindMeCard card={card} />
           </li>
         ))}
       </ul>

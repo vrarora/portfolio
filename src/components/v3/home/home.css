@@ -641,6 +641,116 @@
   }
 }
 
+/* Small experiments: a row of dark cards that scrolls sideways, after jaksenc.com/about. */
+.hm-reveal {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline dashed #b6b6b6;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition:
+    color 140ms ease,
+    text-decoration-color 140ms ease;
+}
+
+.hm-reveal:hover,
+.hm-reveal[aria-expanded="true"] {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+
+.hm-rail {
+  margin: -4px 0 20px;
+}
+
+.hm-rail-track {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0 0 12px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.hm-rail-track > li {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.hm-rail-card {
+  display: flex;
+  flex-direction: column;
+  height: 270px;
+  overflow: hidden;
+  border: 1px solid #2c2d2d;
+  border-radius: 10px;
+  background: #151616;
+  font-size: 11px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.hm-rail-card:focus-visible {
+  outline: 2px solid #3566c7;
+  outline-offset: 2px;
+}
+
+.hm-rail-clip {
+  flex: 1 1 0;
+  min-height: 0;
+  background: #111;
+}
+
+.hm-rail-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* `.v3 a` resets link colour, so the text colours sit on the children. */
+.hm-rail-caption {
+  padding: 7px 12px 9px;
+  border-top: 1px solid #303131;
+  color: #bfc2bd;
+}
+
+.hm-rail-name {
+  display: block;
+  margin-bottom: 2px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e0e2dd;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: color 140ms ease;
+}
+
+.hm-rail-card:hover .hm-rail-name {
+  color: #fff;
+}
+
+.hm-rail-more {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px;
+  font-size: 12px;
+}
+
+.hm-rail-more > * {
+  color: #e0e2dd;
+}
+
 /* Find me ------------------------------------------------------------------- */
 
 .hm-cards {
@@ -652,11 +762,14 @@
   list-style: none;
 }
 
+/* On hover a card turns to its brand's night colour (`--brand`) and the shader canvas fades in over it. */
 .hm-card {
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  overflow: hidden;
   padding: 14px 16px 16px;
   border-radius: 8px;
   background: #f0f1ef;
@@ -664,8 +777,28 @@
   transition: background-color 160ms ease;
 }
 
-.hm-card:hover {
-  background: #e7e8e5;
+.hm-card-shader {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+/* The logo is only a source for the shader's distance field. */
+.hm-card-logo {
+  display: none;
+}
+
+.hm-card:is(:hover, :focus-visible) {
+  background: var(--brand);
+}
+
+.hm-card:is(:hover, :focus-visible) .hm-card-shader {
+  opacity: 1;
 }
 
 .hm-card-label {
@@ -674,12 +807,18 @@
   line-height: 20px;
   letter-spacing: -0.006em;
   color: var(--ink);
+  transition: color 160ms ease;
 }
 
 .hm-card-line {
   font-size: 12px;
   line-height: 16px;
   color: var(--ink-3);
+  transition: color 160ms ease;
+}
+
+.hm-card:is(:hover, :focus-visible) :is(.hm-card-label, .hm-card-line, .hm-card-arrow) {
+  color: #fff;
 }
 
 .hm-card-arrow {
@@ -691,7 +830,6 @@
 }
 
 .hm-card:hover .hm-card-arrow {
-  color: var(--ink);
   transform: translate(1px, -1px);
 }
 

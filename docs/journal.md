@@ -222,3 +222,9 @@ Dated log of decisions and notable events. One line per item where possible. New
 - People doodles redrawn as silhouettes under glowing skies, the story page's style. Rectangles draw with straight lines (`linePath`) because duplicated corner points made small loops in the Catmull-Rom curve. He asked to replace the ID scene; it is now a grandmother and child watching rain from lit verandah steps.
 - Mobile stack renamed "My work" and hidden while the people field is open.
 - The portfolio dev server ran on 3000 this session; 3001 would not start beside it.
+
+## 2026-09-25 · Experiments rail and brand shader cards
+- Recorded jaksenc.com/about. "design skills further" is a button that mounts a horizontal rail of dark media cards under the sentence, with no animation. The Find me cards swap to a dark brand colour and fade in a WebGL canvas: the brand mark as a distance field under the pointer, rings, posterised light.
+- Built both for the home: `ExperimentsRail` from `playgroundNodes`, reusing `ReaderMedia` (now takes a class name), and `FindMeCard` with its own shader and a chamfer distance field built from the Phosphor logo at first hover.
+- Gotcha: `.v3 a { color: inherit }` outranks a single class on a link, so the rail sets text colours on the children.
+- Linked the MeitY award note to the Privy result page. Production build passed; committed and pushed `portfolio_v3`. `main` left as is.

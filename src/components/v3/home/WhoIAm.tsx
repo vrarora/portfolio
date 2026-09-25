@@ -1,10 +1,11 @@
 "use client";
 
-import { useId, useState } from "react";
+import { Fragment, useId, useState } from "react";
 
 import { cue } from "@/components/audio/cues";
 import { whoIAm } from "@/content/home";
-import { RichText } from "./RichText";
+import { ExperimentsRail } from "./ExperimentsRail";
+import { RichText, type Reveal } from "./RichText";
 
 /**
  * A short introduction. The longer one peeks out under a fade and opens in place
@@ -12,11 +13,23 @@ import { RichText } from "./RichText";
  */
 export function WhoIAm() {
   const [open, setOpen] = useState(false);
+  const [railOpen, setRailOpen] = useState(false);
   const moreId = useId();
+  const railId = useId();
 
   const toggle = () => {
     cue("toggle");
-    setOpen((value) => !value);
+    if (open) setRailOpen(false);
+    setOpen(!open);
+  };
+
+  const reveal: Reveal = {
+    open: railOpen,
+    controls: railId,
+    onToggle: () => {
+      cue("toggle");
+      setRailOpen((value) => !value);
+    },
   };
 
   return (
@@ -31,11 +44,17 @@ export function WhoIAm() {
       <div className="hm-read" data-open={open}>
         {/* Collapsed text stays in the DOM for search, and inert keeps it out of the tab order. */}
         <div id={moreId} className="hm-read-body" inert={!open}>
-          {whoIAm.more.map((paragraph, i) => (
-            <p key={i} data-scroll-blur>
-              <RichText paragraph={paragraph} />
-            </p>
-          ))}
+          {whoIAm.more.map((paragraph, i) => {
+            const opensRail = paragraph.some((token) => typeof token === "object" && "reveal" in token);
+            return (
+              <Fragment key={i}>
+                <p data-scroll-blur>
+                  <RichText paragraph={paragraph} reveal={opensRail ? reveal : undefined} />
+                </p>
+                {opensRail && railOpen ? <ExperimentsRail id={railId} /> : null}
+              </Fragment>
+            );
+          })}
         </div>
 
         <div className="hm-read-fade">
