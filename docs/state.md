@@ -1,6 +1,6 @@
 # Portfolio: state
 
-Updated 2026-09-26: `main` was fast-forwarded to `portfolio_v3` at `0290927` and pushed, and this docs commit followed it there, so the live site carries everything below. That's the Data Atlas scroll board, the tightened Data Atlas reading version with every figure filled, and the scroll blur, see more, people scenes, experiments rail, brand shader cards and MeitY link. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
+Updated 2026-09-26: `main` and `portfolio_v3` match and are live on vrarora.vercel.app. The last code change was the board snapshot fix (`465bb0e`), confirmed live, so the live site carries everything below. That's the Data Atlas scroll board, the tightened Data Atlas reading version with every figure filled, and the scroll blur, see more, people scenes, experiments rail, brand shader cards and MeitY link. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
 
 ## Start here (next chat)
 1. Read this file, then the "Data Atlas board" and "Data Atlas case study" sections below, and the last entries in `docs/journal.md`. The plan for the board is in `~/.claude/plans/so-i-want-you-parallel-eagle.md`.

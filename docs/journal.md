@@ -258,3 +258,4 @@ Dated log of decisions and notable events. One line per item where possible. New
 - After the merge to `main`, every product frame on the live board showed the site's "Nothing here" page. Vercel serves `.html` files at clean URLs, so `/atlas-snapshots/<id>.html` returned 404 while `/atlas-snapshots/<id>/` worked. `next dev` serves the `.html` path, so local checks passed.
 - Moved each snapshot to `public/atlas-snapshots/<id>/index.html`, linked `../atlas.css`, pointed `snapSrc` in `Board.tsx` at the folder URL, added a dev rewrite in `next.config.mjs`, and updated the capture and cover scripts.
 - Checked by serving `out/` statically: all nine snapshots load styled, and the connector picker renders on the board.
+- Committed as `465bb0e`, pushed, and fast-forwarded `main`. After the deploy, he confirmed the live board shows its product frames, and `/atlas-snapshots/assets/` and `atlas.css` both return 200.
