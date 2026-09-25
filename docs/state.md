@@ -1,11 +1,11 @@
 # Portfolio: state
 
-Updated 2026-09-26: `portfolio_v3` now carries the Data Atlas scroll board (merged from `data-atlas-board`) on top of the scroll blur, see more, people scenes, experiments rail, brand shader cards and the MeitY link. `main` has not taken these yet, so the live site is behind `portfolio_v3`; fast-forward `main` when he wants them live. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
+Updated 2026-09-26: `portfolio_v3` carries the tightened Data Atlas reading version with every figure filled, and the Data Atlas scroll board (merged from `data-atlas-board`) on top of the scroll blur, see more, people scenes, experiments rail, brand shader cards and the MeitY link. `main` has not taken these yet, so the live site is behind `portfolio_v3`; fast-forward `main` when he wants them live. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
 
 ## Start here (next chat)
 1. Read this file, then the "Data Atlas board" and "Data Atlas case study" sections below, and the last entries in `docs/journal.md`. The plan for the board is in `~/.claude/plans/so-i-want-you-parallel-eagle.md`.
-2. Branch `portfolio_v3`. Repo-local git config is `vrarora <vraroraa@protonmail.com>`; check `git config user.email` before committing, no co-author line. The portfolio dev server runs on port 3001 (3000 is his Privy app; never stop either). dc-design runs on 6174/6175; read it, never edit it. The browser pane is usually hidden, so rAF, video play and screenshots stall there; verify with headless Playwright (`chromium.launch()`, bundled Chromium, needs the sandbox off) and read screenshots back.
-3. First task: keep filling the reading-version figure slots as he sends Cap recordings (workflow below), and take his feedback on the board. Commit when he asks. `main` serves the live site, so only fast-forward it to `portfolio_v3` when he wants changes live.
+2. Branch `portfolio_v3`. Repo-local git config is `vrarora <vraroraa@protonmail.com>`; check `git config user.email` before committing, no co-author line. The portfolio dev server runs on port 3000 from this main checkout, and he starts it himself from his terminal. dc-design runs on 6174/6175; read it, never edit it. The browser pane is usually hidden, so rAF, video play and screenshots stall there; verify with headless Playwright (`chromium.launch()`, bundled Chromium, needs the sandbox off) and read screenshots back.
+3. First task: take his feedback on the reading version and the board. Every reading-version figure slot is filled. Commit when he asks. `main` serves the live site, so only fast-forward it to `portfolio_v3` when he wants changes live.
 4. Still open from before: his review of home copy drafts (`src/content/home.ts`, `footer/Contact.tsx`, story `AFTER_LINES`), music choice, a real-device mobile pass, delete unrouted v2 code, fix `/writing/`, decide on Ask Vaibhav for the v3 home.
 
 ## Branches (2026-09-25)
@@ -36,9 +36,10 @@ Updated 2026-09-26: `portfolio_v3` now carries the Data Atlas scroll board (merg
 - Captions must match the recording. Extract frames first (`ffmpeg -vf "fps=1/3,scale=380:-2,tile=3x3"`) and look. The ffmpeg on PATH is the wrong CPU type; use `node_modules/ffmpeg-static/ffmpeg`.
 - Figure map:
   - Onboarding: `available-first`, `categories-search`, `three-steps` and `assets-page` were re-recorded 2026-09-26 with the Data Atlas name. Posters are key frames, not frame one
-  - Scan setup: `scan-names.mp4` (Scan Names.mp4), then one merged "Setup and schedule" item with `setup-schedule.mp4` (Cron and Exclusions.mp4). Config chips and Jump to Explore are empty slots
-  - Explore: `flat-list-live` iframe, `tree-view.mp4` and `info-panel.mp4`. Both mp4s still show "Data Compass" and need re-recording
-  - Scale: +X chips, level tooltips, search and focus, and what we cut are empty slots. Outcome: `outcome-impact`
+  - Scan setup: `scan-names.mp4` (Scan Names.mp4), "Setup and schedule" with `setup-schedule.mp4` (Cron and Exclusions.mp4), then "Asset chips" with `asset-chips.mp4` (Scan Configuration.mp4, which shows the chips under the asset name and the Explore chip)
+  - Explore: `flat-list-live` iframe, `tree-view.mp4` (Explore Hierarchy.mp4) and `info-panel.mp4` (Side Rail.mp4), both re-recorded 2026-09-26 with the Data Atlas name
+  - Scale: "+X chips and level tooltips" with `level-info.mp4` (LevelInfo.mp4), "Search and focus" with `file-tree.mp4` (File Tree.mp4). The "What we cut" item was removed
+  - Outcome: `outcome-impact` with two metrics, ₹10Cr ARR and 2 weeks. He rejected the ₹250Cr penalty (a stake, not a result) and "1 column". `OutcomeImpactVisual` sizes its columns to the metric count and animates horizontal lines only
 - Recording workflow: he drops files in `~/Downloads/Recordings/Asset Onboarding/` and names a slot. Re-encode with `-movflags +faststart -pix_fmt yuv420p -vf "scale='min(1536,iw)':-2" -c:v libx264 -preset slow -crf 24 -an`, poster with `-frames:v 1 -c:v libwebp -quality 85`, both in `public/videos/data-compass/`. Set `media: { src, poster, alt }` on the item.
 - Agentation: `app/agentation-devtools.tsx` is gitignored, so new worktrees lack it and get the stub. Copy it from the main checkout and restart the dev server, because `next.config.mjs` checks for it at startup.
 

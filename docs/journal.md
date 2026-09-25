@@ -241,3 +241,9 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Bugs found while checking: all snapshots in a frame showed at once because the layers were read before the iframes mounted (the effect now reruns when they mount); several notes sat outside the camera's framing (cameras now frame the union of the mark and its note).
 - Replaced four onboarding recordings, added Scan Names, and merged the schedule picker and stepped setup into one item with the Cron and Exclusions recording, cut to a lead-in plus bullets.
 - Checks: tsc clean, headless Playwright beat screenshots, reversal, phone and reduced-motion fallbacks, `?read=1`, legacy redirect, Home button, Agentation present.
+
+## 2026-09-26 · Data Atlas reading version pass
+- Worked through his Agentation notes on `?read=1`. Merged the config chips and Jump to Explore items, removed the "Explore was next" line, and cut the Explore, info panel and Scale copy to the rules in `SKILL (1).md` and `tropes (1).md`. Merged +X chips and level tooltips into one item and removed "What we cut".
+- Filled the remaining slots from his recordings (asset chips, level info, file tree) and replaced the tree view and info panel videos. Captions and bullets were changed to match what each recording shows.
+- The outcome now has two metrics, ₹10Cr ARR and 2 weeks. The visual takes any metric count, and only the horizontal lines move.
+- Gotcha: the 3001 server had been running from the `data-atlas-board` worktree, so the edits landed there first. They were copied into `portfolio_v3` in the main checkout. Next 16 allows one `next dev` per project, and the dev server now runs on 3000 from the main checkout, started by him.

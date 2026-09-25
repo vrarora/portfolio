@@ -118,28 +118,26 @@ export const caseStudies: CaseStudy[] = [
         items: [
           { visual: "Admins can tell the two scans apart by name alone.", label: "Scan names", media: { src: "/videos/data-compass/scan-names.mp4", poster: "/videos/data-compass/scan-names-poster.webp", alt: "Opening an asset's New scan menu, which offers a Discovery scan that builds the data catalogue and a Classification scan that finds personal data" } },
           { body: "Scan setup had the same long-form problem as onboarding.", bullets: ["Scheduling meant typing a cron expression like 0 9 * * 1, so I replaced it with a picker that writes the cron for you.", "I split the Classification Scan setup into steps.", "Exclusions sit in an accordion that stays closed, because most admins never need them."], visual: "Exclusions wait in a closed accordion, and the schedule is picked instead of typed.", label: "Setup and schedule", media: { src: "/videos/data-compass/setup-schedule.mp4", poster: "/videos/data-compass/setup-schedule-poster.webp", alt: "Setting up a Classification Scan in three steps, opening the exclusions accordion, then picking a frequency and time while the product writes the cron" } },
-          { body: "Once a scan was set up, there was no way to see how it had been configured. So I show the configuration as chips under the workflow header. Hover a chip and it explains that setting.", visual: "The setup stays visible after the form closes.", label: "Config chips", mediaSlot: true },
-          { body: "Scan results show up in Explore, and finding one asset there among thousands took a while. So I added a chip on the asset page that opens Explore at that asset.", visual: "Results are one click from the asset.", label: "Jump to Explore", mediaSlot: true },
-          { body: "Explore was next, and the PM and I disagreed about it more than anything else." },
+          { body: "Two gaps were left once a scan was running.", bullets: ["Admins couldn't see where an asset sat or how it was set up, so chips under the asset name show its domain, subdomain, data plane, type and onboarding date, and hovering one explains it.", "Finding an asset's results in Explore took a while, so an Explore chip opens the tree at that asset."], visual: "Each chip names one detail of the asset, and Explore opens at the asset.", label: "Asset chips", media: { src: "/videos/data-compass/asset-chips.mp4", poster: "/videos/data-compass/asset-chips-poster.webp", alt: "Hovering the chips under an asset's name, which show its domain, subdomain, data plane, type and onboarding date, then clicking Explore to open the tree at that asset" } },
         ],
       },
       {
         kicker: "Explore",
         title: "The fight about clicks",
-        body: "Go back to being the Head of InfoSec. You open Explore to find your risk. You want to know which assets hold the most sensitive data and which kinds of personal data are in them, so you can go from \"something in retail banking looks risky\" to one table and one column.\n\nThe PM wanted Explore to be a flat list. Every column and every sampled file would sit in one long list with filters on top. His argument was that a tree view makes people click, and fewer clicks are better.",
+        body: "Go back to being the Head of InfoSec. You open Explore to go from \"something in retail banking looks risky\" to one table and one column.\n\nThe PM wanted Explore to be a flat list, with every column and sampled file in one list and filters on top. A tree view makes people click, he said, and fewer clicks are better.",
         visual: "Filters cut the rows but never showed where the risk was.",
         label: "Flat list",
         visualType: "flat-list-live",
         items: [
-          { body: "Fewer clicks usually are better. People get annoyed when a simple task takes five clicks. But narrowing down risk isn't a simple task, and people will happily click when each click takes them closer to the answer. So we built both versions and tested them with our InfoSec team and a few developers." },
-          { body: "The flat list went first. Testers added a filter, then another, and still had pages of columns and files in front of them. They kept paging and lost track of which pages they had already checked, and nobody could say where the risk was." },
+          { body: "Fewer clicks help with simple tasks, but narrowing down risk isn't one. People will click when each click gets them closer to the answer. So we built both versions and tested them with our InfoSec team and a few developers." },
+          { body: "In the flat list, testers stacked filters and still had pages of columns and files to go through. They lost track of what they had checked, and nobody could say where the risk was." },
           { body: "Then they tried the tree view.", bullets: ["They opened the organisation, then a domain, a subdomain and an asset.", "The structure matched how they already picture a database or a bucket.", "They could name the exact table and column they'd send to the asset owner to clean up.", "The tree view took more clicks, and nobody minded."], visual: "Each click narrows the search, from the organisation down to one column.", label: "Tree view", media: { src: "/videos/data-compass/tree-view.mp4", poster: "/videos/data-compass/tree-view-poster.webp", alt: "Explore narrowing from the organisation through a domain, subdomain, asset, database and schema down to one table's columns" } },
         ],
       },
       {
         kicker: "The info panel",
         title: "I was wrong about the info panel",
-        body: "With the tree view settled, the PM pushed back on one more thing. He didn't want a panel on the right showing details about whatever you select. I agreed with him. The tree already showed each asset's location, its sensitivity and the PII types in it, and I thought that was enough.",
+        body: "The PM also didn't want a details panel on the right, and I agreed. The tree already showed each asset's location, sensitivity and PII types, and I thought that was enough.",
         items: [
           { body: "Testing proved us both wrong.", bullets: ["Testers could see where the risk was, but they had nothing to act on.", "Data Atlas stores a lot about every level of the hierarchy, like who owns a node and how many rows and columns a Classification Scan covered.", "An InfoSec lead needs those details to troubleshoot a scan, add a missing owner or hand a data migration to the right person."] },
           { body: "So clicking any row in Explore now opens an info panel for that node. A domain, a table and a file each carry different details, so I built the panel to handle every node type we had and any we add later.", visual: "Finding the risk and acting on it happen on the same screen.", label: "Info panel", media: { src: "/videos/data-compass/info-panel.mp4", poster: "/videos/data-compass/info-panel-poster.webp", alt: "Clicking a column in Explore opens the info panel, with tabs for its details, the PII found in it and its scan history" } },
@@ -150,10 +148,8 @@ export const caseStudies: CaseStudy[] = [
         title: "Built for a thousand assets",
         body: "A single subdomain can hold hundreds of assets, so every pattern in Explore had to work at that size.",
         items: [
-          { body: "Each subdomain row lists the asset types inside it, and showing every one would make rows so tall the table stops working. So a row shows a few chips grouped by type with a count, and a \"+X\" chip opens a flyout with the rest. The PII column works the same way.", visual: "Rows stay one line tall, however many assets sit behind them.", label: "+X chips", mediaSlot: true },
-          { body: "Deep in the hierarchy, it's easy to lose track of whether you're looking at an org, a domain or a subdomain. So hovering the icon next to the page title tells you which level you're on, and the icons in the file tree do the same.", visual: "You always know which level you're on.", label: "Level tooltips", mediaSlot: true },
-          { body: "The file tree can get huge. I added search and filters to it, so you can find any asset, database, table or bucket by name. Focus mode hides everything outside the domain or subdomain you care about.", visual: "The tree shrinks to the part you're working in.", label: "Search and focus", mediaSlot: true },
-          { body: "I also wanted each node to show roll-up counts of everything underneath it. The query behind those counts would have been expensive to run, and the benefit was small, so we dropped it. I also stopped the file tree at the asset level. Showing every table and file inside each asset would have crowded the tree and made it harder to read.", visual: "The tree stops at the asset, so it stays readable.", label: "What we cut", mediaSlot: true },
+          { body: "Big hierarchies make rows tall and make it easy to lose your place.", bullets: ["Each row shows a few asset-type chips with counts, and a \"+X\" chip opens the rest in a flyout. The PII column works the same way.", "Hovering the icon next to the page title names the level you're on, such as a domain, an asset or a schema. The icons in the file tree do the same."], visual: "Rows stay one line tall, and every icon names its level.", label: "+X chips and level tooltips", media: { src: "/videos/data-compass/level-info.mp4", poster: "/videos/data-compass/level-info-poster.webp", alt: "Hovering +X chips on the domains table to open flyouts of every asset type, then clicking down through a domain, subdomain, asset, database and schema while hovering each page icon to show its level" } },
+          { body: "The file tree can get huge. I added search and filters to it, so you can find any asset, database, table or bucket by name. Focus mode hides everything outside the domain or subdomain you care about.", visual: "The tree shrinks to the part you're working in.", label: "Search and focus", media: { src: "/videos/data-compass/file-tree.mp4", poster: "/videos/data-compass/file-tree-poster.webp", alt: "Searching the file tree for Payments, filtering the results to assets and opening one, then turning on focus mode so the tree shows only the CASA domain" } },
         ],
       },
       {
@@ -162,9 +158,8 @@ export const caseStudies: CaseStudy[] = [
         body: "All of this shipped inside the two weeks. The bank ran the POC, and we won it. IDfy got a bank as a customer, ₹10Cr of ARR and a stronger position in the market. The bank's team was most impressed by Explore, because it let them find their risk down to a single column.",
         visualType: "outcome-impact",
         metrics: [
+          { start: "₹00Cr", end: "₹10Cr", desc: "ARR IDfy won when the bank signed" },
           { start: "0 weeks", end: "2 weeks", desc: "From the first design to the bank's POC" },
-          { start: "₹000Cr", end: "₹250Cr", desc: "The DPDP penalty ceiling for each breach" },
-          { start: "₹00Cr", end: "₹10Cr", desc: "ARR won for IDfy when the bank signed" },
         ],
       },
       {

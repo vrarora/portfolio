@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { SlotText } from "slot-text/react";
 
 import "./outcome-impact.css";
@@ -14,12 +14,13 @@ const DEFAULT_METRICS: OutcomeMetric[] = [
 ];
 
 const SEG_HALF = 60; // half-length of each gradient segment (120px total)
+const SEG_STARTS = [20, 180, 60, 140];
+const SEG_SPEEDS = [1.1, 1.45, 1.25, 0.95];
 
 type Seg = {
-  pos:    number;
-  speed:  number;
-  axis:   "h" | "v";
-  coord:  number; // lineY for horizontal, lineX for vertical — set in init
+  pos:   number;
+  speed: number;
+  y:     number; // set in init
 };
 
 export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { metrics?: OutcomeMetric[] }) {
@@ -27,13 +28,10 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef    = useRef<number>(0);
 
-  // 4 independent segments: top, bottom, left divider, right divider
-  const segs = useRef<Seg[]>([
-    { pos:  20, speed: 1.1,  axis: "h", coord: 0 },
-    { pos: 180, speed: 1.45, axis: "h", coord: 0 },
-    { pos:  60, speed: 1.25, axis: "v", coord: 0 },
-    { pos: 140, speed: 0.95, axis: "v", coord: 0 },
-  ]);
+  // Segments run along horizontal lines only: the top and bottom borders,
+  // plus the row separators when the metrics stack.
+  const count = metrics.length;
+  const segs = useRef<Seg[]>([]);
 
   const [fired, setFired] = useState(false);
 
@@ -53,39 +51,31 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
     const wrap   = wrapRef.current;
     if (!canvas || !wrap) return;
 
+    const makeSeg = (i: number, y: number): Seg => ({
+      pos:   SEG_STARTS[i % SEG_STARTS.length],
+      speed: SEG_SPEEDS[i % SEG_SPEEDS.length],
+      y,
+    });
+
     const init = () => {
       canvas.width  = wrap.offsetWidth;
       canvas.height = wrap.offsetHeight;
-      const W = canvas.width;
       const H = canvas.height;
 
-      // Top & bottom border lines are always horizontal.
-      segs.current[0].axis = "h";
-      segs.current[0].coord = 0.5;
-      segs.current[1].axis = "h";
-      segs.current[1].coord = H - 0.5;
+      const lines = [0.5, H - 0.5];
 
-      // When the metrics stack in a narrow frame, the two dividers between them are
-      // horizontal, so follow the row separators instead of cutting through the content.
       const grid = wrap.querySelector(".oiv-metrics");
       const stacked = grid ? getComputedStyle(grid).gridTemplateColumns.split(" ").length === 1 : false;
       if (stacked) {
         const wrapTop = wrap.getBoundingClientRect().top;
         const metricEls = wrap.querySelectorAll(".oiv-metric");
-        const dividerY = (i: number, fallback: number) =>
-          metricEls[i]
-            ? metricEls[i].getBoundingClientRect().bottom - wrapTop
-            : fallback;
-        segs.current[2].axis = "h";
-        segs.current[2].coord = dividerY(0, H / 3);
-        segs.current[3].axis = "h";
-        segs.current[3].coord = dividerY(1, (2 * H) / 3);
-      } else {
-        segs.current[2].axis = "v";
-        segs.current[2].coord = W / 3;
-        segs.current[3].axis = "v";
-        segs.current[3].coord = (2 * W) / 3;
+        for (let d = 0; d < count - 1; d++) {
+          const el = metricEls[d];
+          lines.push(el ? el.getBoundingClientRect().bottom - wrapTop : ((d + 1) * H) / count);
+        }
       }
+
+      segs.current = lines.map((y, i) => segs.current[i] ? { ...segs.current[i], y } : makeSeg(i, y));
     };
 
     init();
@@ -94,7 +84,7 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
 
     const ctx = canvas.getContext("2d")!;
 
-    const drawHSeg = (cx: number, lineY: number, W: number, _isTop: boolean) => {
+    const drawSeg = (cx: number, lineY: number, W: number) => {
       const x0 = Math.max(cx - SEG_HALF, 0);
       const x1 = Math.min(cx + SEG_HALF, W);
       if (x1 <= x0) return;
@@ -114,38 +104,14 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
       ctx.restore();
     };
 
-    const drawVSeg = (cy: number, lineX: number, H: number) => {
-      const y0 = cy - SEG_HALF;
-      const y1 = cy + SEG_HALF;
-      const g = ctx.createLinearGradient(0, y0, 0, y1);
-      g.addColorStop(0,    "rgba(0,0,0,0)");
-      g.addColorStop(0.25, "rgba(110,110,120,0.35)");
-      g.addColorStop(0.5,  "rgba(195,195,205,0.92)");
-      g.addColorStop(0.75, "rgba(110,110,120,0.35)");
-      g.addColorStop(1,    "rgba(0,0,0,0)");
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(lineX, Math.max(y0, 0));
-      ctx.lineTo(lineX, Math.min(y1, H));
-      ctx.strokeStyle = g;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.restore();
-    };
-
     const tick = () => {
       const W = canvas.width;
-      const H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
+      ctx.clearRect(0, 0, W, canvas.height);
 
-      // Advance and draw each segment independently
-      for (let i = 0; i < segs.current.length; i++) {
-        const s = segs.current[i];
+      for (const s of segs.current) {
         s.pos += s.speed;
-        const max = s.axis === "h" ? W : H;
-        if (s.pos > max + SEG_HALF) s.pos = -SEG_HALF;
-        if (s.axis === "h") drawHSeg(s.pos, s.coord, W, i === 0); // top line is index 0
-        else                drawVSeg(s.pos, s.coord, H);
+        if (s.pos > W + SEG_HALF) s.pos = -SEG_HALF;
+        drawSeg(s.pos, s.y, W);
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -156,10 +122,14 @@ export default function OutcomeImpactVisual({ metrics = DEFAULT_METRICS }: { met
       cancelAnimationFrame(rafRef.current);
       ro.disconnect();
     };
-  }, []);
+  }, [count]);
 
   return (
-    <div className="outcome-impact-visual" ref={wrapRef}>
+    <div
+      className="outcome-impact-visual"
+      ref={wrapRef}
+      style={{ "--oiv-count": count } as CSSProperties}
+    >
       <canvas ref={canvasRef} className="oiv-canvas" aria-hidden="true" />
       <div className="oiv-metrics">
         {metrics.map((m, i) => (

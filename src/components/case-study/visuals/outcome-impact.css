@@ -20,7 +20,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--oiv-count, 3), minmax(0, 1fr));
 }
 
 .oiv-metric {
