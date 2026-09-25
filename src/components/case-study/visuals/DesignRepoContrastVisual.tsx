@@ -12,7 +12,7 @@ import "./design-repo.css";
  * same design running, the cursor testing the flow itself, zero comment
  * threads.
  *
- * The screen is a public-safe recreation in the Data Compass product language
+ * The screen is a public-safe recreation in the Data Atlas product language
  * (this portfolio's anonymized stand-in for Privy), not IDfy footage.
  */
 
@@ -71,7 +71,7 @@ function MiniScreen({ mode, state }: { mode: "static" | "live"; state: LiveState
       <div className="drc-screen-head">
         <div>
           <p className="drc-screen-title">Scan queue</p>
-          <p className="drc-screen-sub">Privy Suite / Data Compass</p>
+          <p className="drc-screen-sub">Privy Suite / Data Atlas</p>
         </div>
         <span className="drc-newscan">New scan</span>
       </div>

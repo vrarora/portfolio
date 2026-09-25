@@ -79,7 +79,7 @@ export const upTo: readonly UpToItem[] = [
   {
     line: [
       "Designing ",
-      { link: "/work/data-compass/", text: "Data Compass" },
+      { link: "/work/data-atlas/", text: "Data Atlas" },
       ", Privy's data discovery suite that helps organisations become compliant with the ",
       {
         term: "DPDP Act",
@@ -156,7 +156,7 @@ export type ProjectRow = {
 };
 
 const COMPANY_LOGOS: Partial<Record<string, LogoId>> = {
-  "data-compass": "idfy",
+  "data-atlas": "idfy",
   "design-repo": "idfy",
   equalall: "ketto",
 };

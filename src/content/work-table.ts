@@ -9,7 +9,7 @@ export type WorkTableItem = {
 };
 
 const STUDY_IMAGES: Record<string, WorkTableItem["image"]> = {
-  "data-compass": { src: "/images/work-table/data-compass.webp", width: 720, height: 416 },
+  "data-atlas": { src: "/images/work-table/data-compass.webp", width: 720, height: 416 },
   "design-repo": { src: "/images/work-table/design-repo.webp", width: 720, height: 550 },
   equalall: { src: "/images/work-table/equalall.webp", width: 720, height: 560 },
 };

@@ -1,0 +1,161 @@
+.board {
+  --board-paper: #ffffff;
+  --board-dot: #d9d9d9;
+  --board-graphite: #2b2b2b;
+  --board-red: #e03131;
+  --board-green: #2f9e44;
+
+  position: relative;
+  background: var(--board-paper);
+}
+
+.board-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--board-paper);
+}
+
+.board-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  background-image: radial-gradient(circle, var(--board-dot) 2.4px, transparent 2.9px);
+  background-size: 48px 48px;
+}
+
+/* Product snapshots sit in a plain browser window */
+
+.board-frame {
+  position: absolute;
+  overflow: hidden;
+  background: #fff;
+  border: 2px solid #d4d4d4;
+  border-radius: 20px;
+  box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.3);
+}
+
+.board-frame-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-left: 22px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.board-frame-bar i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #d0d0d0;
+}
+
+.board-frame-body {
+  position: relative;
+}
+
+.board-frame-body iframe {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  pointer-events: none;
+  background: #fff;
+}
+
+/* Pen ink and the nib that follows it */
+
+.board-ink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.board-ink path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.board-nib {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.board-nib-body {
+  fill: #f4c542;
+  stroke: var(--board-graphite);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.board-nib-tip {
+  fill: var(--nib-ink, var(--board-graphite));
+}
+
+/* Page controls pinned over the board */
+
+.board-pill {
+  position: absolute;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--board-graphite);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.board-pill:hover {
+  background: #fff;
+}
+
+.board-pill:focus-visible {
+  outline: 2px solid var(--board-graphite);
+  outline-offset: 2px;
+}
+
+.board-back {
+  top: 20px;
+  left: 20px;
+}
+
+.board-read {
+  right: 20px;
+  bottom: 20px;
+}
+
+/* Phones and reduced motion read the case study instead */
+
+.study-board {
+  display: none;
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .study-board {
+    display: block;
+  }
+
+  .study-reader {
+    display: none;
+  }
+}
+
+.study-experience[data-mode="read"] .study-board {
+  display: none;
+}
+
+.study-experience[data-mode="read"] .study-reader {
+  display: block;
+}

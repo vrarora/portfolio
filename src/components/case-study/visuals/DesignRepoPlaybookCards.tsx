@@ -10,7 +10,7 @@ import "./design-repo.css";
  * Vaibhav, July 2026), one excerpt at a time. Tabs are clickable; the window
  * auto-cycles until the reader takes over. Anonymization per the Locked
  * Context: internal GitLab host redacted, unreleased module names omitted;
- * "Privy" and "Data Compass" are already public on this portfolio.
+ * "Privy" and "Data Atlas" are already public on this portfolio.
  */
 
 type TabId = "model" | "ref" | "start";
@@ -132,7 +132,7 @@ export default function DesignRepoPlaybookCards() {
                   <span className="drpb-cmd">{row.command}</span>
                 </p>
               ))}
-              <p className="drpb-c"># e.g. vaibhav/data-compass-heatmap-redesign</p>
+              <p className="drpb-c"># e.g. vaibhav/data-atlas-heatmap-redesign</p>
             </div>
           )}
 

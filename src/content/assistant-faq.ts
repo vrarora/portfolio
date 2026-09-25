@@ -19,15 +19,15 @@ export const assistantFaq: Faq[] = [
     chip: true,
     question: "What are you working on at IDfy?",
     answer:
-      "I'm a Product Designer 2 on Privy, IDfy's privacy and data governance suite. Most of my time goes to Data Compass, which helps large companies find and classify personal data before India's DPDP rules bite, and to the Design Repo, where twenty designers, PMs and developers build designs as running code. Right now that means new modules shipping through the repo in days rather than weeks.",
-    followUps: ["How did Data Compass win the bank POC?", "What is the Design Repo?", "Can I read the case studies?"],
+      "I'm a Product Designer 2 on Privy, IDfy's privacy and data governance suite. Most of my time goes to Data Atlas, which helps large companies find and classify personal data before India's DPDP rules bite, and to the Design Repo, where twenty designers, PMs and developers build designs as running code. Right now that means new modules shipping through the repo in days rather than weeks.",
+    followUps: ["How did Data Atlas win the bank POC?", "What is the Design Repo?", "Can I read the case studies?"],
     keywords: ["idfy", "privy", "working on", "current", "now", "today", "job", "role"],
   },
   {
-    id: "data-compass",
-    question: "Tell me about Data Compass.",
+    id: "data-atlas",
+    question: "Tell me about Data Atlas.",
     answer:
-      "A major Indian bank gave us two weeks to prove Data Compass could show where personal data lived across their estate. The central call was a hierarchy over a flat list. The PM disagreed, so we tested both; people in the flat list did not know where to start. We shipped the Explore flow before the POC, the bank became a client, and the deal is worth about ₹10Cr in ARR.",
+      "A major Indian bank gave us two weeks to prove Data Atlas could show where personal data lived across their estate. The central call was a hierarchy over a flat list. The PM disagreed, so we tested both; people in the flat list did not know where to start. We shipped the Explore flow before the POC, the bank became a client, and the deal is worth about ₹10Cr in ARR.",
     followUps: ["What did the hierarchy look like?", "How did you handle the PM disagreement?", "What else shipped in those two weeks?"],
     keywords: ["data compass", "compass", "bank", "poc", "hierarchy", "flat list", "dpdp", "privacy", "arr"],
   },
@@ -60,7 +60,7 @@ export const assistantFaq: Faq[] = [
     id: "disagreement",
     question: "How do you handle disagreeing with a PM?",
     answer:
-      "I test it. On Data Compass the PM wanted a flat list and I wanted a hierarchy, so we put both in front of users instead of arguing. Evidence settles debates faster than conviction, and it leaves the relationship intact because nobody had to lose. If I cannot test it, I state the trade-off plainly and let the person who owns the outcome decide.",
+      "I test it. On Data Atlas the PM wanted a flat list and I wanted a hierarchy, so we put both in front of users instead of arguing. Evidence settles debates faster than conviction, and it leaves the relationship intact because nobody had to lose. If I cannot test it, I state the trade-off plainly and let the person who owns the outcome decide.",
     followUps: ["What did the test show?", "What are your other principles?", "When have you been wrong?"],
     keywords: ["disagree", "disagreement", "conflict", "pm", "product manager", "argue", "pushback", "stakeholder"],
   },

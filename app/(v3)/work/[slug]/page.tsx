@@ -1,6 +1,12 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { Board } from "@/components/v3/board/Board";
+import type { Anchors } from "@/components/v3/board/script";
+import { StudyExperience } from "@/components/v3/board/StudyExperience";
 import { Reader } from "@/components/v3/reader/Reader";
 import { caseStudies } from "@/content/case-studies";
 
@@ -40,5 +46,20 @@ export default async function Page({ params }: PageProps) {
   const index = caseStudies.findIndex((s) => s.slug === slug);
   if (index < 0) notFound();
   const next = caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
-  return <Reader study={caseStudies[index]} next={next} />;
+  const study = caseStudies[index];
+  const reader = <Reader study={study} next={next} />;
+  if (study.experience !== "board") return reader;
+
+  return <StudyExperience board={<Board anchors={loadAnchors()} readHref="?read=1" />} reader={reader} />;
+}
+
+/** Element positions recorded with each product snapshot, read at build time. */
+function loadAnchors(): Anchors {
+  const dir = path.join(process.cwd(), "public", "atlas-snapshots");
+  try {
+    const ids: string[] = JSON.parse(readFileSync(path.join(dir, "index.json"), "utf8"));
+    return Object.fromEntries(ids.map((id) => [id, JSON.parse(readFileSync(path.join(dir, `${id}.json`), "utf8"))]));
+  } catch {
+    return {};
+  }
 }

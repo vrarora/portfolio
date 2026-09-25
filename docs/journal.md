@@ -231,3 +231,13 @@ Dated log of decisions and notable events. One line per item where possible. New
 
 ## 2026-09-26 · Experiments rail order
 - At his request the rail leads with Tøp Løre and drops Pulse and Hover Reveal. The order lives in a `RAIL` id list in `ExperimentsRail.tsx`, so the playground page keeps all seven.
+
+
+## 2026-09-26 · Data Atlas scroll board
+- Studied two references with Playwright: arj's annotated case-study video (dark UI, red hand-drawn strikes, stepped player) and about.senbuzy.com (one sticky scene scrubbed by scroll, with a moving camera). Drawesome was ruled out because it draws for the viewer and cannot replay strokes.
+- Locked with him through questions: scroll scrubs and reverses, white dotted board, true pen strokes, red and green ink, real product UI, scroll only, 60 to 90 seconds, reading version kept as the fallback. A grey-box sketch settled the camera: it pans across one board.
+- Shipping the real app would publish IDfy's front-end code whatever the repo visibility, so the board shows frozen DOM snapshots instead. He chose the rename to Data Atlas.
+- Built the pen font, marks, timeline, board, fallback switch, redirect and rename. A capture agent built the snapshot script; all states match the live app.
+- Bugs found while checking: all snapshots in a frame showed at once because the layers were read before the iframes mounted (the effect now reruns when they mount); several notes sat outside the camera's framing (cameras now frame the union of the mark and its note).
+- Replaced four onboarding recordings, added Scan Names, and merged the schedule picker and stepped setup into one item with the Cron and Exclusions recording, cut to a lead-in plus bullets.
+- Checks: tsc clean, headless Playwright beat screenshots, reversal, phone and reduced-motion fallbacks, `?read=1`, legacy redirect, Home button, Agentation present.
