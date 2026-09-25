@@ -248,3 +248,8 @@ Dated log of decisions and notable events. One line per item where possible. New
 - The outcome now has two metrics, ₹10Cr ARR and 2 weeks. The visual takes any metric count, and only the horizontal lines move.
 - Gotcha: the 3001 server had been running from the `data-atlas-board` worktree, so the edits landed there first. They were copied into `portfolio_v3` in the main checkout. Next 16 allows one `next dev` per project, and the dev server now runs on 3000 from the main checkout, started by him.
 - Committed and pushed to `portfolio_v3` as `438b960`. `main` not updated. The `data-atlas-board` worktree still holds an uncommitted copy of the same changes and can be deleted.
+
+## 2026-09-26 · Worktree cleanup and merge to main
+- Force-removed the `data-atlas-board` worktree at his request, after checking that every changed file in it matched `portfolio_v3`, and deleted the merged branch. Another Claude session had been running inside that worktree.
+- Added `scripts/export-story.ts`, which writes a Markdown snapshot of a case study using the reader's `outline()`, and re-exported the Data Atlas story.
+- Production build passed, then `main` was fast-forwarded to `portfolio_v3` and pushed.
