@@ -17,7 +17,7 @@ export function WhoIAm() {
       <h2 id="hm-who-title" className="hm-label">
         Who I am
       </h2>
-      <p>
+      <p className="hm-who-lead">
         <RichText paragraph={whoIAm.lead} />
       </p>
 
