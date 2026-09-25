@@ -132,6 +132,7 @@ export function Projects() {
           {projects.map((project, index) => (
             <li
               key={project.id}
+              data-scroll-blur
               ref={(node) => {
                 rowRefs.current[index] = node;
               }}

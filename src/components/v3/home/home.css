@@ -528,52 +528,117 @@
   transition-delay: 0s;
 }
 
-/* Learn more: the row track grows from 0fr to 1fr, so the text opens to its own height. */
-.hm-more {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 420ms var(--v3-ease),
-    opacity 280ms ease;
+/* See more: the text peeks out under a fade, opens to its own height, and folds back. */
+.hm-read {
+  --hm-peek: 96px;
+
+  position: relative;
 }
 
-.hm-more[data-open="true"] {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.hm-more-inner {
-  min-height: 0;
+.hm-read-body {
+  height: var(--hm-peek);
   overflow: hidden;
+  interpolate-size: allow-keywords;
+  transition: height 480ms var(--v3-ease);
 }
 
-.hm-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 2px;
-  padding: 4px 0;
-  border: 0;
+.hm-read[data-open="true"] .hm-read-body {
+  height: auto;
+}
+
+.hm-read-fade {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  height: var(--hm-peek);
+  background: linear-gradient(to bottom, transparent, var(--hm-paper) 65%);
+}
+
+/* Open, the fade drops away and the arrow sits under the text, pointing up. */
+.hm-read[data-open="true"] .hm-read-fade {
+  position: static;
+  height: auto;
   background: none;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--hm-body);
-  cursor: pointer;
-  transition: color 140ms ease;
 }
 
-.hm-toggle:hover {
+/* A 36px target around a 20px ring; the negative margin lines the ring up with the text. */
+.hm-read-more {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-left: -8px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
   color: var(--ink);
+  cursor: pointer;
 }
 
-.hm-toggle svg {
-  transition: transform 280ms var(--v3-ease);
+.hm-read-more::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(20, 20, 20, 0.05);
+  opacity: 0;
+  scale: 0.8;
+  transition:
+    opacity 200ms ease,
+    scale 200ms var(--v3-ease);
 }
 
-.hm-toggle[aria-expanded="true"] svg {
-  transform: rotate(180deg);
+.hm-read-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.2px currentColor;
+  transition: rotate 320ms var(--v3-ease);
+}
+
+.hm-read[data-open="true"] .hm-read-icon {
+  rotate: 180deg;
+}
+
+.hm-read-icon svg {
+  position: absolute;
+  inset: 0;
+}
+
+.hm-read-more:focus-visible::before {
+  opacity: 1;
+  scale: 1;
+}
+
+/* On hover the arrow drops out of the ring and falls back in from the top. */
+@media (hover: hover) {
+  .hm-read-more:hover::before {
+    opacity: 1;
+    scale: 1;
+  }
+
+  .hm-read-more:hover .hm-read-icon svg {
+    animation: hm-read-drop 420ms var(--v3-ease);
+  }
+}
+
+@keyframes hm-read-drop {
+  45% {
+    translate: 0 100%;
+  }
+
+  45.01% {
+    translate: 0 -100%;
+  }
+
+  100% {
+    translate: 0 0;
+  }
 }
 
 /* Find me ------------------------------------------------------------------- */
@@ -838,10 +903,15 @@
   }
 
   .hm-row,
-  .hm-more,
-  .hm-toggle svg,
+  .hm-read-body,
+  .hm-read-icon,
+  .hm-read-more::before,
   .hm-tip {
     transition: none;
+  }
+
+  .hm-read-more:hover .hm-read-icon svg {
+    animation: none;
   }
 }
 

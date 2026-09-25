@@ -64,3 +64,10 @@ export function reach(origin: Point, length: number, angle: number): Point {
   const r = (angle * Math.PI) / 180;
   return [origin[0] + Math.cos(r) * length, origin[1] + Math.sin(r) * length];
 }
+
+/** Straight lines through the points, for shapes that keep their corners. */
+export function linePath(points: readonly Point[], closed = false): string {
+  if (points.length < 2) return "";
+  const d = points.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`).join(" ");
+  return closed ? `${d} Z` : d;
+}

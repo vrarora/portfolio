@@ -8,7 +8,7 @@ import { DOODLES } from "./doodles";
 
 /** Where each card lands, in viewport units, kept clear of the word in the middle. */
 const SPOTS = [
-  { x: 10, y: 20, r: -7, s: 0.94 },
+  { x: 10, y: 37, r: -7, s: 0.94 },
   { x: 25, y: 11, r: 5, s: 0.84 },
   { x: 76, y: 14, r: 4, s: 0.9 },
   { x: 89, y: 30, r: -5, s: 0.84 },

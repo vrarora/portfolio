@@ -10,7 +10,7 @@ export function FindMe() {
       </h2>
       <ul className="hm-cards">
         {findMe.map((card) => (
-          <li key={card.id}>
+          <li key={card.id} data-scroll-blur>
             <a className="hm-card" href={card.href} target="_blank" rel="noreferrer">
               <span className="hm-card-label">{card.label}</span>
               <span className="hm-card-line">{card.line}</span>

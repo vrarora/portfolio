@@ -1,6 +1,6 @@
 import { caseStudies } from "./case-studies";
 
-/** One object on the mobile "All work" table. */
+/** One object on the mobile "My work" table. */
 export type WorkTableItem = {
   id: string;
   label: string;

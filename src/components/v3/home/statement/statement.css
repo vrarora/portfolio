@@ -297,6 +297,15 @@ html.is-people-open {
   scrollbar-gutter: stable;
 }
 
+/* The mobile "My work" stack steps aside while the people are out. */
+html.is-people-open .wt-collection {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.26s ease,
+    visibility 0s linear 0.26s;
+}
+
 html.is-people-open .hm-sheet,
 html.is-people-open .hm-contact,
 html.is-people-open .v3-controls {

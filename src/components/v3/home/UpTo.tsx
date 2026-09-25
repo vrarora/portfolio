@@ -9,13 +9,13 @@ export function UpTo() {
       </h2>
       {upTo.map((item, i) => (
         <div key={i} className="hm-upto">
-          <p>
+          <p data-scroll-blur>
             <RichText paragraph={item.line} />
           </p>
           {item.notes ? (
             <ul className="hm-notes">
               {item.notes.map((note, j) => (
-                <li key={j}>
+                <li key={j} data-scroll-blur>
                   <RichText paragraph={note} />
                 </li>
               ))}

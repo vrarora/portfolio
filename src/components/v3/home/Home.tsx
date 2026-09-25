@@ -6,6 +6,7 @@ import { CardFooter } from "./footer/CardFooter";
 import { Contact } from "./footer/Contact";
 import { Hero } from "./Hero";
 import { Projects } from "./Projects";
+import { ScrollBlurColumn } from "./ScrollBlurColumn";
 import { Statement } from "./statement/Statement";
 import { UpTo } from "./UpTo";
 import { WhoIAm } from "./WhoIAm";
@@ -18,14 +19,14 @@ export function Home() {
       {/* The live sky sits behind everything: it edges the card, then opens up below it. */}
       <SkyLayer />
       <div className="hm-sheet">
-        <div className="hm-col">
+        <ScrollBlurColumn>
           <Hero />
           <WhoIAm />
           <Statement />
           <UpTo />
           <Projects />
           <FindMe />
-        </div>
+        </ScrollBlurColumn>
         <DeskScene />
         <CardFooter />
       </div>

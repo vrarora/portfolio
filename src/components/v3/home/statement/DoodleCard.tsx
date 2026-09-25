@@ -1,35 +1,66 @@
 "use client";
 
-import { useRef } from "react";
+import { useId, useRef } from "react";
 
-import { jitter, seeded, smoothPath } from "../../sketch";
+import { jitter, linePath, seeded, smoothPath } from "../../sketch";
 import { useBoil } from "../../useBoil";
-import type { Doodle } from "./doodles";
+import { VIEW_H, VIEW_W, type Doodle } from "./doodles";
 
-const FPS = 8;
+const FPS = 6;
+const WOBBLE = 0.3;
 
-/** One doodle, redrawn a few times a second with fresh wobble so the line feels hand-made. */
+/**
+ * One scene: a glowing sky with silhouettes, redrawn a few times a second with
+ * fresh wobble so the line feels hand-made.
+ */
 export function DoodleCard({ doodle }: { doodle: Doodle }) {
   const ref = useRef<SVGSVGElement>(null);
+  const uid = useId().replace(/:/g, "");
   const tick = useBoil(ref, FPS);
   const rand = seeded(tick * 97 + doodle.id.length);
-  const strokes = doodle.draw(tick / FPS);
+  const t = tick / FPS;
+  const marks = doodle.draw(t);
+  const skyId = `${uid}-sky`;
 
   return (
-    <svg ref={ref} viewBox="14 10 100 75" role="img" aria-label={doodle.label}>
-      {strokes.map((stroke, i) => (
-        <path
-          key={i}
-          d={smoothPath(jitter(stroke.points, 0.45, rand), stroke.closed)}
-          fill={stroke.fill ?? "none"}
-          stroke={stroke.color ?? "#1c1b1a"}
-          strokeWidth={stroke.width ?? 1.8}
-          strokeOpacity={stroke.opacity}
-          fillOpacity={stroke.opacity}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      ))}
+    <svg ref={ref} viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} role="img" aria-label={doodle.label}>
+      <defs>
+        <linearGradient id={skyId} x1="0" y1="0" x2="0" y2="1">
+          {doodle.sky.map((color, i) => (
+            <stop key={i} offset={i / (doodle.sky.length - 1)} stopColor={color} />
+          ))}
+        </linearGradient>
+        {marks.map((mark, i) =>
+          "glow" in mark ? (
+            <radialGradient key={i} id={`${uid}-g${i}`}>
+              <stop offset="0" stopColor={mark.glow.color} stopOpacity={mark.glow.opacity ?? 0.8} />
+              <stop offset="1" stopColor={mark.glow.color} stopOpacity={0} />
+            </radialGradient>
+          ) : null,
+        )}
+      </defs>
+
+      <rect width={VIEW_W} height={VIEW_H} fill={`url(#${skyId})`} />
+
+      {marks.map((mark, i) => {
+        if ("glow" in mark) {
+          const { x, y, r } = mark.glow;
+          return <circle key={i} cx={x} cy={y} r={r} fill={`url(#${uid}-g${i})`} />;
+        }
+        const color = mark.color ?? doodle.ink;
+        return (
+          <path
+            key={i}
+            d={(mark.sharp ? linePath : smoothPath)(jitter(mark.points, mark.steady ? 0 : WOBBLE, rand), mark.closed)}
+            fill={mark.fill === "ink" ? color : (mark.fill ?? "none")}
+            stroke={mark.width === 0 ? "none" : color}
+            strokeWidth={mark.width ?? 1.2}
+            opacity={mark.opacity}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      })}
     </svg>
   );
 }

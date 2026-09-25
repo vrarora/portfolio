@@ -215,3 +215,10 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Set repo-local git config to vrarora. Global config stays his work account.
 - Deleted the stale `claude/data-compass-case-study-layout-421623` branch and worktree after checking it had no changes and matched `b8ef8ae`.
 - At his request, removed `docs/` from `.gitignore` and committed it to `portfolio_v3` and `main`. The repo is public, so the work email and the local dev admin token were stripped from the docs first.
+
+## 2026-09-25 · Scroll blur, see more, people scenes
+- Recorded paulfaivret.com/about with Playwright and read it with ffmpeg and computed styles. His blocks blur (up to 8px), fade and shift 4rem right as they near the bottom of the viewport, scroll-linked through Webflow interactions. His reading list clips at 28rem under a gradient overlay with a round arrow.
+- Home: `useScrollBlur` applies the same curve (smoothstep, centre from 73% to 115% of the viewport) to every `[data-scroll-blur]` block; sharp blocks carry no inline styles. Who I am now peeks under a fade with a round arrow that opens and, at his request, folds back ("Show less").
+- People doodles redrawn as silhouettes under glowing skies, the story page's style. Rectangles draw with straight lines (`linePath`) because duplicated corner points made small loops in the Catmull-Rom curve. He asked to replace the ID scene; it is now a grandmother and child watching rain from lit verandah steps.
+- Mobile stack renamed "My work" and hidden while the people field is open.
+- The portfolio dev server ran on 3000 this session; 3001 would not start beside it.

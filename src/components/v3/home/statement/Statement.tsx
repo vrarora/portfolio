@@ -93,7 +93,7 @@ export function Statement() {
         What I do
       </h2>
       {statement.map((paragraph, i) => (
-        <p key={i}>
+        <p key={i} data-scroll-blur>
           {paragraph.map((token, j) => (
             <Fragment key={j}>
               {/* Words and pieces are spaced like words, except before closing punctuation. */}

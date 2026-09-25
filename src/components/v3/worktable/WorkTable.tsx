@@ -162,14 +162,14 @@ export function WorkTable() {
             />
           ))}
         </span>
-        <span>All work</span>
+        <span>My work</span>
       </button>
 
       {table ? (
-        <div className="wt-table" role="dialog" aria-modal="true" aria-label="All work" data-phase={phase}>
+        <div className="wt-table" role="dialog" aria-modal="true" aria-label="My work" data-phase={phase}>
           <div className="wt-canvas">
             <p className="wt-identity">Vaibhav Arora</p>
-            <nav className="wt-objects" aria-label="All work">
+            <nav className="wt-objects" aria-label="My work">
               {workTable.map((item, index) => {
                 const spot = SPOTS[index];
                 if (!spot) return null;
