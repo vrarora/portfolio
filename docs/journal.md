@@ -247,3 +247,4 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Filled the remaining slots from his recordings (asset chips, level info, file tree) and replaced the tree view and info panel videos. Captions and bullets were changed to match what each recording shows.
 - The outcome now has two metrics, ₹10Cr ARR and 2 weeks. The visual takes any metric count, and only the horizontal lines move.
 - Gotcha: the 3001 server had been running from the `data-atlas-board` worktree, so the edits landed there first. They were copied into `portfolio_v3` in the main checkout. Next 16 allows one `next dev` per project, and the dev server now runs on 3000 from the main checkout, started by him.
+- Committed and pushed to `portfolio_v3` as `438b960`. `main` not updated. The `data-atlas-board` worktree still holds an uncommitted copy of the same changes and can be deleted.

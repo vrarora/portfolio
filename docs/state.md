@@ -1,6 +1,6 @@
 # Portfolio: state
 
-Updated 2026-09-26: `portfolio_v3` carries the tightened Data Atlas reading version with every figure filled, and the Data Atlas scroll board (merged from `data-atlas-board`) on top of the scroll blur, see more, people scenes, experiments rail, brand shader cards and the MeitY link. `main` has not taken these yet, so the live site is behind `portfolio_v3`; fast-forward `main` when he wants them live. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
+Updated 2026-09-26: `portfolio_v3` carries the tightened Data Atlas reading version with every figure filled (`438b960`, pushed), and the Data Atlas scroll board (merged from `data-atlas-board`) on top of the scroll blur, see more, people scenes, experiments rail, brand shader cards and the MeitY link. `main` has not taken these yet, so the live site is behind `portfolio_v3`; fast-forward `main` when he wants them live. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
 
 ## Start here (next chat)
 1. Read this file, then the "Data Atlas board" and "Data Atlas case study" sections below, and the last entries in `docs/journal.md`. The plan for the board is in `~/.claude/plans/so-i-want-you-parallel-eagle.md`.
