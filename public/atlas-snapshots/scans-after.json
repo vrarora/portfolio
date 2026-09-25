@@ -1,0 +1,24 @@
+{
+  "width": 1440,
+  "height": 900,
+  "anchors": {
+    "discoveryLabel": {
+      "x": 352,
+      "y": 271,
+      "w": 65,
+      "h": 17
+    },
+    "classificationLabel": {
+      "x": 352,
+      "y": 377,
+      "w": 88,
+      "h": 17
+    },
+    "schedule": {
+      "x": 492,
+      "y": 267,
+      "w": 147,
+      "h": 24
+    }
+  }
+}

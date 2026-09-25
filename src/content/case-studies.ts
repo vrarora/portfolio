@@ -21,6 +21,8 @@ export type CaseStudy = {
   coverImage?: { src: string; width: number; height: number };
   /** 1200x630 link preview. Falls back to thumbnailImage. */
   ogImage?: string;
+  /** "board" tells the story as a scroll-drawn board, with this reading version as the fallback. */
+  experience?: "board";
   status: "Placeholder case study";
   visibility: "public";
   metadata: Array<{
@@ -56,16 +58,17 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "data-compass",
+    slug: "data-atlas",
+    experience: "board",
     year: "2025",
     title: "₹10Cr ARR in two weeks",
     eyebrow: "Case study 01",
     summary:
       "Built to help a major Indian bank stay ahead of up to ₹250 crore in DPDP penalties.",
-    homeBrand: "Data Compass",
-    homeHeadline: "Data Compass turned a 2-week bank POC into ₹10Cr ARR.",
+    homeBrand: "Data Atlas",
+    homeHeadline: "Data Atlas turned a 2-week bank POC into ₹10Cr ARR.",
     homeDescription:
-      "Drove the product direction for Data Compass, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
+      "Drove the product direction for Data Atlas, translating data privacy compliance requirements into an investigation workflow that gave IDfy its first enterprise data client.",
     homeDescriptionShort:
       "Turned bank data-privacy compliance into an investigation workflow that won IDfy its first enterprise data client.",
     homeTags: ["Enterprise", "B2B", "Compliance", "Data Discovery", "Product UX"],
@@ -78,7 +81,7 @@ export const caseStudies: CaseStudy[] = [
     visibility: "public",
     metadata: [
       { label: "Company", value: "IDfy (Privy suite)" },
-      { label: "Product", value: "Data Compass" },
+      { label: "Product", value: "Data Atlas" },
       { label: "Role", value: "Sole Product Designer" },
       { label: "Timeline", value: "2 weeks" },
       { label: "Team", value: "Senior PM, Tech Architect, 4 senior engineers, CTO" },
@@ -94,14 +97,14 @@ export const caseStudies: CaseStudy[] = [
       {
         kicker: "The problem",
         title: "But the answer was broken",
-        body: "Data Compass is the tool that answers that question. It connects to your databases and buckets and finds the personal data inside them, so you can see where it sits and how sensitive it is. On paper the flow is simple. You add an asset and run two scans on it. A Discovery Scan reads the asset's structure, and a Classification Scan finds the personal data in it. Then you open Explore and look at what they found.\n\nWhen I joined IDfy, the developers had already built the backend, and it worked. The frontend had the basic flows, but nobody had thought about the people who would use them.\n\nThen a major private-sector Indian bank asked for a proof of concept. They wanted to deploy Data Compass inside their own environment and use it on their own data. The product would not have survived a week of real use, and the POC started in two weeks.\n\nWinning meant a bank logo and ₹10Cr of ARR. Compliance tools get bought for years at a time, so losing meant losing that bank for years too.\n\nI was the only designer, working with a senior PM, a tech architect, four engineers and our CTO. With two weeks on the clock, every idea had to be something the team could build before the bank logged in.",
+        body: "Data Atlas is the tool that answers that question. It connects to your databases and buckets and finds the personal data inside them, so you can see where it sits and how sensitive it is. On paper the flow is simple. You add an asset and run two scans on it. A Discovery Scan reads the asset's structure, and a Classification Scan finds the personal data in it. Then you open Explore and look at what they found.\n\nWhen I joined IDfy, the developers had already built the backend, and it worked. The frontend had the basic flows, but nobody had thought about the people who would use them.\n\nThen a major private-sector Indian bank asked for a proof of concept. They wanted to deploy Data Atlas inside their own environment and use it on their own data. The product would not have survived a week of real use, and the POC started in two weeks.\n\nWinning meant a bank logo and ₹10Cr of ARR. Compliance tools get bought for years at a time, so losing meant losing that bank for years too.\n\nI was the only designer, working with a senior PM, a tech architect, four engineers and our CTO. With two weeks on the clock, every idea had to be something the team could build before the bank logged in.",
       },
       {
         kicker: "Onboarding",
         title: "Adding an asset and scanning it right away",
-        body: "Everything starts with an asset. An IT admin connects a database or a bucket so Data Compass can scan it, and in the old product that took one long form and a few detours.",
+        body: "Everything starts with an asset. An IT admin connects a database or a bucket so Data Atlas can scan it, and in the old product that took one long form and a few detours.",
         items: [
-          { body: "Data Compass supports more than 200 asset types.", bullets: ["The business wanted admins to see how big that list was.", "It also wanted to sell the assets a customer hadn't paid for.", "So I put the assets a customer can connect first, and grouped the rest below them under Premium.", "Admins reach what they can use straight away, and the premium assets are still there to tempt them."], visual: "You can connect what comes first. Everything else waits under Premium.", label: "Available first", media: { src: "/videos/data-compass/available-first.mp4", poster: "/videos/data-compass/available-first-poster.webp", alt: "The asset picker, with available assets listed first and premium assets tagged below them" } },
+          { body: "Data Atlas supports more than 200 asset types.", bullets: ["The business wanted admins to see how big that list was.", "It also wanted to sell the assets a customer hadn't paid for.", "So I put the assets a customer can connect first, and grouped the rest below them under Premium.", "Admins reach what they can use straight away, and the premium assets are still there to tempt them."], visual: "You can connect what comes first. Everything else waits under Premium.", label: "Available first", media: { src: "/videos/data-compass/available-first.mp4", poster: "/videos/data-compass/available-first-poster.webp", alt: "The asset picker, with available assets listed first and premium assets tagged below them" } },
           { body: "Even sorted, 200 cards is a lot to look through. I grouped the assets by category, such as databases, warehouses and object storage, and added a search box. An admin who wants Postgres can type it and move on.", visual: "Admins type a name instead of scanning 200 cards.", label: "Categories and search", media: { src: "/videos/data-compass/categories-search.mp4", poster: "/videos/data-compass/categories-search-poster.webp", alt: "The asset picker, filtered by typing a name and by switching categories in the sidebar" } },
           { body: "Adding an asset used to mean one long form, and admins had to hold every field in their head at once.", bullets: ["I broke it into three steps, and each step asks only for the fields that belong together.", "The next thing every admin does after adding an asset is run a Discovery Scan.", "In the old product, that meant opening the asset, clicking \"Create Metadata Workflow\" and then running it.", "So the last step gives admins the option to start the Discovery Scan as soon as the asset is connected.", "The scan is already running when they land on the asset."], visual: "The form asks for the asset, then the connection, and the first scan starts from the last step.", label: "Three steps", media: { src: "/videos/data-compass/three-steps.mp4", poster: "/videos/data-compass/three-steps-poster.webp", alt: "Adding a PostgreSQL asset in three steps: configure the asset, connect to it with pre-flight checks, then start its scans" } },
           { body: "Admins come back to the assets page to find one asset among hundreds, so I built the top of the page around that search.", bullets: ["A summary shows the total asset count, split into structured and unstructured, and each half filters the table.", "A count for each asset type filters the table below when you click it.", "A card lists the three most recent completed workflows.", "The table has search, filters and a filter for scans that are still running."], visual: "The summary cards double as the first filter.", label: "Assets page", media: { src: "/videos/data-compass/assets-page.mp4", poster: "/videos/data-compass/assets-page-poster.webp", alt: "The assets page, where the summary cards and asset-type chips filter the table below" } },
@@ -113,9 +116,8 @@ export const caseStudies: CaseStudy[] = [
         body: "After onboarding, an admin opens the asset to set up its scans. This page used the developers' vocabulary, and admins were the ones who had to read it.",
         bullets: ["The two scans were called \"Metadata Workflow\" and \"Profiler Workflow\".", "Those names made sense to the people who built them, but an IT admin couldn't tell which one did what.", "So I named each scan after its job.", "The Discovery Scan discovers the tables, columns and files in an asset.", "The Classification Scan finds and classifies the personal data inside them."],
         items: [
-          { visual: "Admins can tell the two scans apart by name alone.", label: "Scan names", mediaSlot: true },
-          { body: "Scheduling a scan meant typing a cron expression, something like 0 9 * * 1, which most IT admins would have to look up. I replaced it with a picker. You choose how often the scan runs, then pick a time from the options for that frequency, and the product writes the cron for you.", visual: "Nobody has to write cron to schedule a scan.", label: "Schedule picker", mediaSlot: true },
-          { body: "Setting up a Classification Scan had the same long-form problem as onboarding, so I split it into steps too. Exclusions were the noisiest part, and most admins don't need them. I put those fields in an accordion that stays closed. An admin who wants exclusions opens it on purpose, and everyone else never has to see them.", visual: "Exclusions stay out of the way until someone asks for them.", label: "Stepped setup", mediaSlot: true },
+          { visual: "Admins can tell the two scans apart by name alone.", label: "Scan names", media: { src: "/videos/data-compass/scan-names.mp4", poster: "/videos/data-compass/scan-names-poster.webp", alt: "Opening an asset's New scan menu, which offers a Discovery scan that builds the data catalogue and a Classification scan that finds personal data" } },
+          { body: "Scan setup had the same long-form problem as onboarding.", bullets: ["Scheduling meant typing a cron expression like 0 9 * * 1, so I replaced it with a picker that writes the cron for you.", "I split the Classification Scan setup into steps.", "Exclusions sit in an accordion that stays closed, because most admins never need them."], visual: "Exclusions wait in a closed accordion, and the schedule is picked instead of typed.", label: "Setup and schedule", media: { src: "/videos/data-compass/setup-schedule.mp4", poster: "/videos/data-compass/setup-schedule-poster.webp", alt: "Setting up a Classification Scan in three steps, opening the exclusions accordion, then picking a frequency and time while the product writes the cron" } },
           { body: "Once a scan was set up, there was no way to see how it had been configured. So I show the configuration as chips under the workflow header. Hover a chip and it explains that setting.", visual: "The setup stays visible after the form closes.", label: "Config chips", mediaSlot: true },
           { body: "Scan results show up in Explore, and finding one asset there among thousands took a while. So I added a chip on the asset page that opens Explore at that asset.", visual: "Results are one click from the asset.", label: "Jump to Explore", mediaSlot: true },
           { body: "Explore was next, and the PM and I disagreed about it more than anything else." },
@@ -139,7 +141,7 @@ export const caseStudies: CaseStudy[] = [
         title: "I was wrong about the info panel",
         body: "With the tree view settled, the PM pushed back on one more thing. He didn't want a panel on the right showing details about whatever you select. I agreed with him. The tree already showed each asset's location, its sensitivity and the PII types in it, and I thought that was enough.",
         items: [
-          { body: "Testing proved us both wrong.", bullets: ["Testers could see where the risk was, but they had nothing to act on.", "Data Compass stores a lot about every level of the hierarchy, like who owns a node and how many rows and columns a Classification Scan covered.", "An InfoSec lead needs those details to troubleshoot a scan, add a missing owner or hand a data migration to the right person."] },
+          { body: "Testing proved us both wrong.", bullets: ["Testers could see where the risk was, but they had nothing to act on.", "Data Atlas stores a lot about every level of the hierarchy, like who owns a node and how many rows and columns a Classification Scan covered.", "An InfoSec lead needs those details to troubleshoot a scan, add a missing owner or hand a data migration to the right person."] },
           { body: "So clicking any row in Explore now opens an info panel for that node. A domain, a table and a file each carry different details, so I built the panel to handle every node type we had and any we add later.", visual: "Finding the risk and acting on it happen on the same screen.", label: "Info panel", media: { src: "/videos/data-compass/info-panel.mp4", poster: "/videos/data-compass/info-panel-poster.webp", alt: "Clicking a column in Explore opens the info panel, with tabs for its details, the PII found in it and its scan history" } },
         ],
       },
@@ -206,7 +208,7 @@ export const caseStudies: CaseStudy[] = [
       {
         kicker: "Context",
         title: "The Fastest Workflow at IDfy Died the Day It Worked",
-        body: "At IDfy I stopped drawing screens and started shipping them. Designing in code and delivering the frontend myself with AI agents meant backend developers stayed on backend problems. It worked: my pull request was accepted and a Data Compass module shipped to production.\n\nThen we retired the workflow, and the reason matters.",
+        body: "At IDfy I stopped drawing screens and started shipping them. Designing in code and delivering the frontend myself with AI agents meant backend developers stayed on backend problems. It worked: my pull request was accepted and a Data Atlas module shipped to production.\n\nThen we retired the workflow, and the reason matters.",
         items: [
           {
             bullets: [

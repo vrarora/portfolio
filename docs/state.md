@@ -1,11 +1,11 @@
 # Portfolio: state
 
-Updated 2026-09-25 (end of day): v3 is committed and merged into `main`, and `main` and `portfolio_v3` point at the same commit. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
+Updated 2026-09-26: the Data Atlas scroll board is built in worktree branch `claude/new-session-2f2539` and not committed yet. Before that, v3 was committed and merged into `main`, and `main` and `portfolio_v3` point at the same commit. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
 
 ## Start here (next chat)
-1. Read this file, then the "Data Compass case study" section below, `Case Study Context/Data Compass Story v3.md` (live copy snapshot with the figure map) and the last entries in `docs/journal.md`.
+1. Read this file, then the "Data Atlas board" and "Data Atlas case study" sections below, and the last entries in `docs/journal.md`. The plan for the board is in `~/.claude/plans/so-i-want-you-parallel-eagle.md`.
 2. Branch `portfolio_v3`. Repo-local git config is `vrarora <vraroraa@protonmail.com>`; check `git config user.email` before committing, no co-author line. The portfolio dev server runs on port 3001 (3000 is his Privy app; never stop either). dc-design runs on 6174/6175; read it, never edit it. The browser pane is usually hidden, so rAF, video play and screenshots stall there; verify with headless Playwright (`chromium.launch()`, bundled Chromium, needs the sandbox off) and read screenshots back.
-3. First task: keep filling the Data Compass figure slots as he sends Cap recordings (workflow below). Commit when he asks. `main` serves v3 now, so pushing to `main` updates the live site.
+3. First task: nothing on the board is committed yet. Commit when he asks (worktree `.claude/worktrees/new-session-2f2539`), then keep filling the reading-version figure slots as he sends Cap recordings (workflow below). `main` serves v3 now, so pushing to `main` updates the live site.
 4. Still open from before: his review of home copy drafts (`src/content/home.ts`, `footer/Contact.tsx`, story `AFTER_LINES`), music choice, a real-device mobile pass, delete unrouted v2 code, fix `/writing/`, decide on Ask Vaibhav for the v3 home.
 
 ## Branches (2026-09-25)
@@ -15,34 +15,44 @@ Updated 2026-09-25 (end of day): v3 is committed and merged into `main`, and `ma
 - The `claude/data-compass-case-study-layout-421623` branch and its worktree are deleted.
 - `docs/` is no longer gitignored. Everything in it is public, so keep secrets, tokens and the work email out.
 
-## Data Compass case study (2026-09-25)
-- Copy lives in the `data-compass` entry of `src/content/case-studies.ts`. `Case Study Context/Data Compass Story v3.md` is an exported snapshot with every figure, caption and slot; re-export after edits (a small `npx tsx` script that walks `sections` and prints body, bullets and figures).
-- Narrative: Storyworthy arc (reader in the Head of InfoSec's seat, elephant = broken product two weeks before a bank POC, PM fight over tree vs flat list as the spine, "I was wrong about the info panel", cuts named). Locked facts: two weeks, ₹10Cr ARR, bank anonymised as "a major private-sector Indian bank", scans are Discovery Scan and Classification Scan, "up to ₹250 crore" per breach, only the decisions from his 2026-09-24 brief.
-- Writing rules for this copy: his CLAUDE.md style rules plus `~/Downloads/SKILL (1).md` and `~/Downloads/tropes (1).md` (no em dashes, colon-hinged sentences, fragments, negative parallelism, Wh- headings, title case, synonym cycling). One noun per thing: info panel, tree view, flat list, asset.
-- He prefers a one-line lead-in plus bullets over long paragraphs; he converts paragraphs to bullets one by one through page feedback.
-- Captions must match what the recording actually shows. Before captioning a clip, extract frames (`ffmpeg -vf "fps=1/3,scale=380:-2,tile=3x3"`) and look.
-- Header: title "₹10Cr ARR in two weeks"; cover `public/images/data-compass-cover.webp` (Assets page from dc-design at 1440x900 @2x, light, bottom strip cropped to drop the dev toolbar); link preview `public/images/data-compass-og.jpg` 1200x630 via `ogImage`. The home has no thumbnails; `thumbnailImage` is only a fallback now.
-- Figure map (page numbering):
-  - 01 fragmented-landscape visual · 02 Available first `available-first.mp4` (new Sort.mp4, premium scroll) · 03 Categories and search `categories-search.mp4` (first Sort.mp4) · 04 Three steps `three-steps.mp4` (Add Asset.mp4; the scan-on-add item was merged into it) · 05 Assets page `assets-page.mp4` (Asset Master.mp4)
-  - 06 Scan names · 07 Schedule picker · 08 Stepped setup · 09 Config chips · 10 Jump to Explore: empty slots
-  - 11 Flat list: `flat-list-live` (scaled iframe of the mockup, auto-scrolls) · 12 Tree view `tree-view.mp4` (Explore Hierarchy.mp4) · 13 Info panel `info-panel.mp4` (Right Panel.mp4; shows one column only, the text claims per-node-type details)
-  - 14 +X chips · 15 Level tooltips · 16 Search and focus · 17 What we cut: empty slots · 18 outcome-impact (2 weeks, ₹250Cr, ₹10Cr ARR)
-- Recording workflow: he drops files in `~/Downloads/Recordings/Asset Onboarding/` and names a slot. Always re-encode, even GIFs: `ffmpeg -i IN -movflags +faststart -pix_fmt yuv420p -vf "scale='min(1536,iw)':-2:flags=lanczos" -c:v libx264 -preset slow -crf 24 -an OUT.mp4`, poster with `-frames:v 1 -c:v libwebp -quality 85 OUT-poster.webp`, both in `public/videos/data-compass/`. Then set `media: { src, poster, alt }` on the item, replacing `mediaSlot: true` or `visualType`. If he names a file that has not changed, check the folder for a newer recording and say which one was used. Replacing a file under the same name needs a hard refresh.
-- Reader support: `media` (mp4/webm as muted looping video paused off-screen, gif as lazy img, poster under reduced motion) in `src/components/v3/reader/ReaderMedia.tsx`; `mediaSlot: true` renders an empty 16:10 bloom stage; `label` sets the rail entry without a colon in the caption; `coverImage` and `ogImage` on the study. Footer shows only a right-aligned "Next" plus the next study's name.
-- Flat-list mockup: `app/mockups/data-compass/flat-list/` (stacked cards, Aperture light values copied from dc-design, Penguin Bank style data, 48,212 results, filters and paging). Inside an iframe it auto-scrolls and pages forward on a loop (3 pages); standalone it stays still for Cap. `app/agentation-devtools.tsx` skips the dev toolbar inside iframes.
-- Open: recordings for the nine empty slots; a clip that switches node types in the info panel if he wants the claim shown; the old visual components (`FlatListMockup`, `HierarchyExplorer`, `InspectorExplorer`, `OnboardingFlowVisual`, `ScanWorkflowVisual`) are now unused by the v3 reader.
+## Data Atlas board (2026-09-26)
+- The case study is renamed Data Atlas everywhere (copy, home, work table, assistant FAQ, `convex/knowledge.ts`, Design Repo case study, cover/OG/thumbnail images). Slug is `data-atlas`; `app/(v3)/work/data-compass/` redirects. Asset file paths still say `data-compass` on purpose.
+- `/work/data-atlas/` is a scroll-scrubbed board on desktop. White `#ffffff` dotted board, one big canvas, and the camera pans and zooms between cells. Story text is written by a pen in graphite; annotations use red `#E03131` for critiques and cuts and green `#2F9E44` for decisions kept. Scrolling up reverses exactly. There are Home (top left) and "Read instead" (bottom right) pills.
+- The reading version stays for phones under 768px, reduced motion and `?read=1` (`StudyExperience.tsx` picks; both render before hydration and CSS decides).
+- Code lives in `src/components/v3/board/`:
+  - `script.ts`: the story (approved beat copy, cells, frames, marks, camera steps)
+  - `timeline.ts`: steps become one 0..1 timeline
+  - `Board.tsx`: the pinned stage, camera, ink and nib. `VH_PER_UNIT` sets pace, about 48 screens now. A dev hook `window.__board.seek(t)` and `.spans` help scripted checks
+  - `marks.ts`, `pen/text.ts`, `pen/allure.ts`
+- Pen font: EMS Allure single-line glyphs (OFL) plus a drawn ₹, generated by `node scripts/build-pen-font.mjs` from `scripts/fonts/EMSAllure.svg`.
+- Product UI is shown as frozen DOM snapshots of the real dc-design app (no app code ships, because IDfy owns it). `node scripts/capture-atlas-snapshots.mjs [ids]` needs dc-design on 6174 and writes `public/atlas-snapshots/` (HTML, shared `atlas.css`, fonts, anchor JSON). It renames Data Compass and swaps the logo. States: assets, picker, add-configure, add-scans, scans-before, scans-after, explore-root, explore-tree, info-panel. `scans-before` fakes the old names (Metadata Workflow, Profiler Workflow, `0 9 * * 1`) for the strike-through beat. The flat-list frame is the live portfolio mockup.
+- `node scripts/render-atlas-covers.mjs` re-renders the cover, thumbnail, OG and work-table images from the assets snapshot.
+- Open: his review of the cron arrow (the busiest mark), scroll pace, and a real-device pass.
+
+## Data Atlas case study, reading version (2026-09-26)
+- Copy lives in the `data-atlas` entry of `src/content/case-studies.ts` (`experience: "board"`). `Case Study Context/Data Compass Story v3.md` is stale after the rename; re-export it (a small `npx tsx` script that walks `sections`).
+- Narrative: Storyworthy arc (reader in the Head of InfoSec's seat, broken product two weeks before a bank POC, PM fight over tree vs flat list, "I was wrong about the info panel", cuts named). Locked facts: two weeks, ₹10Cr ARR, bank anonymised as "a major private-sector Indian bank", Discovery Scan and Classification Scan, "up to ₹250 crore" per breach.
+- Writing rules: his CLAUDE.md style rules plus `~/Downloads/SKILL (1).md` and `~/Downloads/tropes (1).md`. One noun per thing (info panel, tree view, flat list, asset). He prefers a one-line lead-in plus bullets.
+- Captions must match the recording. Extract frames first (`ffmpeg -vf "fps=1/3,scale=380:-2,tile=3x3"`) and look. The ffmpeg on PATH is the wrong CPU type; use `node_modules/ffmpeg-static/ffmpeg`.
+- Figure map:
+  - Onboarding: `available-first`, `categories-search`, `three-steps` and `assets-page` were re-recorded 2026-09-26 with the Data Atlas name. Posters are key frames, not frame one
+  - Scan setup: `scan-names.mp4` (Scan Names.mp4), then one merged "Setup and schedule" item with `setup-schedule.mp4` (Cron and Exclusions.mp4). Config chips and Jump to Explore are empty slots
+  - Explore: `flat-list-live` iframe, `tree-view.mp4` and `info-panel.mp4`. Both mp4s still show "Data Compass" and need re-recording
+  - Scale: +X chips, level tooltips, search and focus, and what we cut are empty slots. Outcome: `outcome-impact`
+- Recording workflow: he drops files in `~/Downloads/Recordings/Asset Onboarding/` and names a slot. Re-encode with `-movflags +faststart -pix_fmt yuv420p -vf "scale='min(1536,iw)':-2" -c:v libx264 -preset slow -crf 24 -an`, poster with `-frames:v 1 -c:v libwebp -quality 85`, both in `public/videos/data-compass/`. Set `media: { src, poster, alt }` on the item.
+- Agentation: `app/agentation-devtools.tsx` is gitignored, so new worktrees lack it and get the stub. Copy it from the main checkout and restart the dev server, because `next.config.mjs` checks for it at startup.
 
 ## Mobile "All work" table (2026-09-25)
 - After jaksenc.com/about on phones: a fixed fanned stack of five thumbnails with "All work" at the bottom; tapping opens a full-screen table and each thumbnail flies from the stack to its tilted spot (WAAPI FLIP, 440ms, cubic-bezier(0.22, 0.61, 0.36, 1), 18ms stagger); Close or Escape flies them back. Timing came from recording his site with Playwright.
 - Files: `src/components/v3/worktable/WorkTable.tsx` and `work-table.css`, items in `src/content/work-table.ts`, thumbnails in `public/images/work-table/`. Mounted in `app/(v3)/layout.tsx`; renders only on `/` and `/work/*`, and only at `(max-width: 699px), (max-width: 1100px) and (hover: none) and (pointer: coarse)`.
-- Items: Data Compass, Design Repo, EqualAll, My Story, Playground, About me (home). The current page is underlined and left out of the stack. Close label is "Close" (Jaksen uses "Return to work"); positions follow his layout. Both wait on his call.
+- Items: Data Atlas, Design Repo, EqualAll, My Story, Playground, About me (home). The current page is underlined and left out of the stack. Close label is "Close" (Jaksen uses "Return to work"); positions follow his layout. Both wait on his call.
 
 ## v3 (current work)
 - `/story`: both acts built. The header name links home; the Work link is gone. Spec and copy: `docs/PORTFOLIO_V3_STORY.md`.
-- `/` home, in Inter: a white sheet floating on the live hour sky. Hero (stamp, name, hover cards for location map, world clock, email with a Copy button, resume), Who I am (Learn more, "product design" highlighted), What I do (reading fill, scribble, desirable tag, people field, logo stack), What I've been up to (Data Compass with DPDP tooltip and award notes), Projects table (hover dims other rows; a thick company mark glides beside the row and flips between projects; IDfy shows its full wordmark), Find me cards, riso desk print, signature footer, then the contact sky with an hour slider. Click sounds (cuelume) on by default with a toggle top right; every press draws a click spark and plays a tap (`ClickFeedback`, `audio/tap.ts`; elements with their own cue set `data-click-sound="off"`); custom cursor on fine pointers.
+- `/` home, in Inter: a white sheet floating on the live hour sky. Hero (stamp, name, hover cards for location map, world clock, email with a Copy button, resume), Who I am (Learn more, "product design" highlighted), What I do (reading fill, scribble, desirable tag, people field, logo stack), What I've been up to (Data Atlas with DPDP tooltip and award notes), Projects table (hover dims other rows; a thick company mark glides beside the row and flips between projects; IDfy shows its full wordmark), Find me cards, riso desk print, signature footer, then the contact sky with an hour slider. Click sounds (cuelume) on by default with a toggle top right; every press draws a click spark and plays a tap (`ClickFeedback`, `audio/tap.ts`; elements with their own cue set `data-click-sound="off"`); custom cursor on fine pointers.
 - `/work/[slug]/` is the v3 reader: a 240px contents rail, an 84px gap and an 832px document shared by text and figures, white page, title-only header, no grey frames inside the figures. The rail sits left of centre; a 160px spacer on the right keeps the document in place. Home and reader live in the `app/(v3)` route group, which wraps SkyProvider and AudioProvider.
 - Open for v3:
-  - All home copy and the second act are drafts; each line needs his approval. Award wording under Data Compass needs official names; the MeitY award has no link yet.
+  - All home copy and the second act are drafts; each line needs his approval. Award wording under Data Atlas needs official names; the MeitY award has no link yet.
   - Portfolio copy should follow `docs/content-writing-guidelines.md`.
   - Resume preview loads from Drive's thumbnail endpoint; host a local copy if Drive ever blocks it.
   - The people doodles are simple line figures; they can be redrawn in `statement/doodles.ts`.

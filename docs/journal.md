@@ -215,3 +215,13 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Set repo-local git config to vrarora. Global config stays his work account.
 - Deleted the stale `claude/data-compass-case-study-layout-421623` branch and worktree after checking it had no changes and matched `b8ef8ae`.
 - At his request, removed `docs/` from `.gitignore` and committed it to `portfolio_v3` and `main`. The repo is public, so the work email and the local dev admin token were stripped from the docs first.
+
+
+## 2026-09-26 · Data Atlas scroll board
+- Studied two references with Playwright: arj's annotated case-study video (dark UI, red hand-drawn strikes, stepped player) and about.senbuzy.com (one sticky scene scrubbed by scroll, with a moving camera). Drawesome was ruled out because it draws for the viewer and cannot replay strokes.
+- Locked with him through questions: scroll scrubs and reverses, white dotted board, true pen strokes, red and green ink, real product UI, scroll only, 60 to 90 seconds, reading version kept as the fallback. A grey-box sketch settled the camera: it pans across one board.
+- Shipping the real app would publish IDfy's front-end code whatever the repo visibility, so the board shows frozen DOM snapshots instead. He chose the rename to Data Atlas.
+- Built the pen font, marks, timeline, board, fallback switch, redirect and rename. A capture agent built the snapshot script; all states match the live app.
+- Bugs found while checking: all snapshots in a frame showed at once because the layers were read before the iframes mounted (the effect now reruns when they mount); several notes sat outside the camera's framing (cameras now frame the union of the mark and its note).
+- Replaced four onboarding recordings, added Scan Names, and merged the schedule picker and stepped setup into one item with the Cron and Exclusions recording, cut to a lead-in plus bullets.
+- Checks: tsc clean, headless Playwright beat screenshots, reversal, phone and reduced-motion fallbacks, `?read=1`, legacy redirect, Home button, Agentation present.
