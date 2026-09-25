@@ -16,7 +16,7 @@ import ffmpeg from "ffmpeg-static";
 import { chromium } from "playwright";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const SNAPSHOT = pathToFileURL(join(ROOT, "public", "atlas-snapshots", "assets.html")).href;
+const SNAPSHOT = pathToFileURL(join(ROOT, "public", "atlas-snapshots", "assets", "index.html")).href;
 
 /** Each image is a crop from the top of the 1440px-wide page, scaled to its output size. */
 const OUTPUTS = [

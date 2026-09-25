@@ -253,3 +253,8 @@ Dated log of decisions and notable events. One line per item where possible. New
 - Force-removed the `data-atlas-board` worktree at his request, after checking that every changed file in it matched `portfolio_v3`, and deleted the merged branch. Another Claude session had been running inside that worktree.
 - Added `scripts/export-story.ts`, which writes a Markdown snapshot of a case study using the reader's `outline()`, and re-exported the Data Atlas story.
 - Production build passed, then `main` was fast-forwarded to `portfolio_v3` at `0290927` and pushed. A final docs commit recorded this and went to both branches the same way.
+
+## 2026-09-26 · Board snapshots 404 on the live site
+- After the merge to `main`, every product frame on the live board showed the site's "Nothing here" page. Vercel serves `.html` files at clean URLs, so `/atlas-snapshots/<id>.html` returned 404 while `/atlas-snapshots/<id>/` worked. `next dev` serves the `.html` path, so local checks passed.
+- Moved each snapshot to `public/atlas-snapshots/<id>/index.html`, linked `../atlas.css`, pointed `snapSrc` in `Board.tsx` at the folder URL, added a dev rewrite in `next.config.mjs`, and updated the capture and cover scripts.
+- Checked by serving `out/` statically: all nine snapshots load styled, and the connector picker renders on the board.

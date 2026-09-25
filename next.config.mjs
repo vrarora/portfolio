@@ -25,6 +25,10 @@ const nextConfig = {
         source: "/labs/:slug/",
         destination: "/labs/:slug/index.html",
       },
+      {
+        source: "/atlas-snapshots/:id/",
+        destination: "/atlas-snapshots/:id/index.html",
+      },
     ];
   },
   reactStrictMode: true,

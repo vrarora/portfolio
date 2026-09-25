@@ -16,7 +16,7 @@ const VH_PER_UNIT = 0.7;
 
 const INK: Record<Ink, string> = { graphite: "var(--board-graphite)", red: "var(--board-red)", green: "var(--board-green)" };
 
-const snapSrc = (snap: string) => (snap.startsWith("/") ? snap : `/atlas-snapshots/${snap}.html`);
+const snapSrc = (snap: string) => (snap.startsWith("/") ? snap : `/atlas-snapshots/${snap}/`);
 
 /** Restores the scroll positions a snapshot recorded when it was captured. */
 function restoreScroll(frame: HTMLIFrameElement) {

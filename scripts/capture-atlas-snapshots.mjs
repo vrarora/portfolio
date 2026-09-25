@@ -7,7 +7,7 @@
  * The product is renamed "Data Atlas" in every snapshot.
  *
  * Output (public/atlas-snapshots/):
- *   <id>.html    static snapshot, links atlas.css
+ *   <id>/index.html  static snapshot, links ../atlas.css (served at /atlas-snapshots/<id>/)
  *   <id>.json    { width, height, anchors: { name: { x, y, w, h } } }
  *   atlas.css    union of every state's CSS, asset urls rewritten
  *   assets/      fonts and images the snapshots reference
@@ -507,7 +507,7 @@ function documentFor(snap) {
     "<head>",
     '<meta charset="utf-8">',
     `<title>${escapeHtml(snap.title)}</title>`,
-    '<link rel="stylesheet" href="atlas.css">',
+    '<link rel="stylesheet" href="../atlas.css">',
     `<link rel="stylesheet" href="${GEIST_MONO_HREF.replace(/&/g, "&amp;")}">`,
     "</head>",
     `<body${snap.bodyAttrs}>${snap.bodyHTML}</body>`,
@@ -555,7 +555,8 @@ async function main() {
     const foreignImports = snap.imports.filter((href) => href !== GEIST_MONO_HREF);
     if (foreignImports.length) console.warn(`\n  unhandled @import: ${foreignImports.join(", ")}`);
 
-    await writeFile(join(OUT_DIR, `${state.id}.html`), documentFor(snap));
+    await mkdir(join(OUT_DIR, state.id), { recursive: true });
+    await writeFile(join(OUT_DIR, state.id, "index.html"), documentFor(snap));
     await writeFile(join(OUT_DIR, `${state.id}.json`), JSON.stringify({ ...VIEWPORT, anchors }, null, 2) + "\n");
 
     const missing = Object.entries(anchors).filter(([, r]) => !r || !r.w || !r.h).map(([k]) => k);
@@ -596,7 +597,7 @@ async function main() {
   const staticContext = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1, javaScriptEnabled: false });
   const staticPage = await staticContext.newPage();
   for (const { id } of results) {
-    await staticPage.goto(`${base}/${id}.html`, { waitUntil: "networkidle" });
+    await staticPage.goto(`${base}/${id}/index.html`, { waitUntil: "networkidle" });
     await staticPage.evaluate(async () => {
       await document.fonts.ready;
       for (const el of document.querySelectorAll("[data-snap-scroll-top], [data-snap-scroll-left]")) {
