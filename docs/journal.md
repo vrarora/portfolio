@@ -252,4 +252,4 @@ Dated log of decisions and notable events. One line per item where possible. New
 ## 2026-09-26 · Worktree cleanup and merge to main
 - Force-removed the `data-atlas-board` worktree at his request, after checking that every changed file in it matched `portfolio_v3`, and deleted the merged branch. Another Claude session had been running inside that worktree.
 - Added `scripts/export-story.ts`, which writes a Markdown snapshot of a case study using the reader's `outline()`, and re-exported the Data Atlas story.
-- Production build passed, then `main` was fast-forwarded to `portfolio_v3` and pushed.
+- Production build passed, then `main` was fast-forwarded to `portfolio_v3` at `0290927` and pushed. A final docs commit recorded this and went to both branches the same way.
