@@ -1,6 +1,6 @@
 # Portfolio: state
 
-Updated 2026-09-26: the Design Repo case study is rebuilt as Agentic Design (`/work/agentic-design/`), a scroll board plus a reading version, on `portfolio_v3` in the main checkout. The work is uncommitted and not yet on `main`. `main` still serves the Data Atlas board, which is live on vrarora.vercel.app. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
+Updated 2026-09-26: the Design Repo case study is rebuilt as Agentic Design (`/work/agentic-design/`), a scroll board plus a reading version. Both boards write in Excalifont and show a "Scroll to read" hint. All of it is committed (`c04c25d`) and fast-forwarded to `main`, which serves vrarora.vercel.app. The old live site is kept on `v1-backup` (`b8d92a6`). `docs/` is tracked in git and public on GitHub. Keep this lean: what is true now, what is next, what is blocked.
 
 ## Start here (next chat)
 1. Read this file, then the "Agentic Design" section below, and the last entries in `docs/journal.md`. The beat outline and a copy export live in `Case Study Context/Agentic Design Outline.md` and `Agentic Design Story v1.md` (gitignored).
@@ -9,7 +9,7 @@ Updated 2026-09-26: the Design Repo case study is rebuilt as Agentic Design (`/w
 4. Still open from before: his review of home copy drafts (`src/content/home.ts`, `footer/Contact.tsx`, story `AFTER_LINES`), music choice, a real-device mobile pass, delete unrouted v2 code, fix `/writing/`, decide on Ask Vaibhav for the v3 home.
 
 ## Branches (2026-09-26)
-- `main` and `portfolio_v3` share one history and point at the same commit. Every merge to `main` so far has been a fast-forward with no PR, each after a passing production build.
+- `main` and `portfolio_v3` share one history and point at the same commit (Agentic Design merged 2026-09-26 as `c04c25d`, plus this docs commit). Every merge to `main` so far has been a fast-forward with no PR, each after a passing production build.
 - There are no worktrees. The `data-atlas-board` branch and its worktree were deleted on 2026-09-26 after merging; it never existed on GitHub.
 - `v1-backup` (`b8d92a6`) is the pre-v3 live site. `portfolio_v2` (`3238924`) is the paused v2 work, already inside v3's history.
 - All 19 commits after `b8d92a6` were rewritten to author vrarora and force-pushed to `main`, `portfolio_v3` and `portfolio_v2`. Older commit IDs such as `25fbb04` no longer exist.

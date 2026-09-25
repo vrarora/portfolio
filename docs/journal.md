@@ -286,3 +286,6 @@ Dated log of decisions and notable events. One line per item where possible. New
 ## 2026-09-26: scroll hint, parked story item
 - Both boards show a "Scroll to read" pill bottom centre with a bobbing arrow. It fades out over the first 240px of scroll and returns at the top.
 - He parked the story's handling of the Agentation plugin, the feedback widget and the demo environment. It stays as built for now and is the next task.
+
+## 2026-09-26: Agentic Design merged to main
+- Committed `c04c25d` on `portfolio_v3` and fast-forwarded `main` to it, no PR. Before the merge: `npm run build` and verify-routes (16) passed, and both boards served statically from `out/` loaded with no errors (only Vercel's analytics script 404s locally).
