@@ -11,7 +11,7 @@ export function RichText({ paragraph }: { paragraph: RichParagraph }) {
 
     if ("term" in token) return <Term key={i} term={token.term} tip={token.tip} />;
 
-    if ("mark" in token) {
+    if ("mark" in token && typeof token.mark === "string") {
       return (
         <InkMark key={i} kind="highlight" seed={i + 11}>
           {token.mark}
@@ -19,17 +19,24 @@ export function RichText({ paragraph }: { paragraph: RichParagraph }) {
       );
     }
 
-    if (token.link.startsWith("http")) {
+    const href = token.link;
+    const content = token.mark ? (
+      <InkMark kind="highlight" seed={i + 11}>
+        {token.text}
+      </InkMark>
+    ) : token.text;
+
+    if (href.startsWith("http")) {
       return (
-        <a key={i} className="hm-link" href={token.link} target="_blank" rel="noreferrer">
-          {token.text}
+        <a key={i} className="hm-link" href={href} target="_blank" rel="noreferrer">
+          {content}
         </a>
       );
     }
 
     return (
-      <Link key={i} className="hm-link" href={token.link}>
-        {token.text}
+      <Link key={i} className="hm-link" href={href}>
+        {content}
       </Link>
     );
   });

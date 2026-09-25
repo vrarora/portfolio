@@ -8,7 +8,7 @@ import { siteLinks } from "./site-links";
 
 export type RichToken =
   | string
-  | { link: string; text: string }
+  | { link: string; text: string; mark?: boolean }
   /** A term with a short explanation shown on hover or focus. */
   | { term: string; tip: string }
   /** A phrase with a hand-drawn marker highlight. */
@@ -58,24 +58,15 @@ export const statement: readonly (readonly StatementToken[])[] = [
 /** "Who I am": where he comes from shows; now, side projects and life away from screens open under Learn more. */
 export const whoIAm: { lead: RichParagraph; more: readonly RichParagraph[] } = {
   lead: [
-    "I grew up in Bikaner, Rajasthan, in a house on the main street of a busy market. I spent my childhood watching the whole world walk past my door and wondering what people were thinking. That curiosity carried me through engineering, until a seminar in my third year showed me it had a name: ",
-    { mark: "product design" },
-    ".",
+    "I grew up on the streets of Bikaner, Rajasthan, always curious, wanting to learn and grow, and to connect with people on a deeper level.",
   ],
   more: [
     [
-      "These days, I'm a Product Designer at IDfy, working on Privy, our suite of privacy and data governance tools for banks and large companies. I ",
-      { link: "/work/design-repo/", text: "design in code" },
-      ", so most of my work runs. Outside work, I'm usually building ",
-      { link: "/playground/", text: "small experiments" },
-      ", like a weather instrument or an almanac of Japan's 72 microseasons, just to see what happens.",
+      "These days, I design products at IDfy, helping people make sense of privacy and data governance. Outside work, I’m exploring agentic coding through ",
+      { link: "/playground/", text: "small experiments", mark: true },
+      ", following my curiosity one idea at a time.",
     ],
-    [
-      "Away from screens, I walk whenever my head gets loud, read before sleep, and still keep a journal. I lift, I meditate, and I never pass a dog without stopping.",
-    ],
-    [
-      "Evenings are dim warm lights, soft songs, and a film or a console game. When I'm out, I'm hunting for good food, and sweets. Always sweets.",
-    ],
+    ["Away from screens, you’ll find me reading, journaling, at the gym, playing video games, or philosophising with people. Give me good company and a big question, and I can philosophise well into the evening."],
   ],
 };
 

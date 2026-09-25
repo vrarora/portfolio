@@ -23,3 +23,10 @@ Use these rules for future portfolio copy and other content edits.
 - Use straight quotes and ordinary punctuation. Use headings in sentence case.
 
 These are editing checks, not a ban on every listed construction. Keep a pattern when accuracy, the author's voice, or clear meaning calls for it.
+
+## Home page personal introduction
+
+- Keep the visible introduction brief: where Vaibhav grew up and his curiosity about learning and connecting with people.
+- Put current work, agentic coding experiments, and life away from screens in the expandable details.
+- Keep the copy in first person and in Vaibhav's established voice. Preserve the Bikaner, Rajasthan detail and the specific activities he chose to share.
+- Link "small experiments" to `/playground/` and retain its hand-drawn highlight. In home page rich text, a link token may set `mark: true` to highlight its linked text; a `{ mark: "..." }` token remains a standalone highlight.
